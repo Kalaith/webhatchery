@@ -42,8 +42,7 @@ $data = json_decode($projectsJson, true);
             <?php endforeach; ?>
           </div>
         </div>
-      <?php endforeach; ?>
-    </div>
+      <?php endforeach; ?>    </div>
     
     <footer>&copy; <?php echo date('Y'); ?> WebHatchery.au · All rights reserved</footer>
   </div>

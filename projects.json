@@ -38,11 +38,20 @@
           "title": "Project Management",
           "path": "project_management/",
           "description": "Comprehensive project management dashboard with stakeholder tracking and report generation features."
-        },
-        {
+        },        {
           "title": "LitRPG Studio",
           "path": "litrpg_studio/dist/",
           "description": "A specialized writing tool designed for LitRPG authors to create and manage game mechanics in their stories."
+        }
+      ]
+    },
+    "tools": {
+      "name": "AI & Development Tools",
+      "projects": [
+        {
+          "title": "ComfyUI Integration",
+          "path": "comfyui/",
+          "description": "AI image generation tool with web interface and downloadable PowerShell scripts for batch processing."
         }
       ]
     }

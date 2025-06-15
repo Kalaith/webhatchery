@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ComfyUI Access - WebHatchery</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+        }
+
+        .container {
+            text-align: center;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 3rem;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            max-width: 500px;
+            width: 90%;
+        }
+
+        .logo {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-weight: bold;
+        }
+
+        h1 {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .description {
+            font-size: 1.1rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+            line-height: 1.6;
+        }
+
+        .access-button {
+            display: inline-block;
+            background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
+            color: white;
+            text-decoration: none;
+            padding: 1rem 2rem;
+            border-radius: 50px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+            margin: 0.5rem;
+        }
+
+        .access-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+        }
+
+        .info-box {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 1.5rem;
+            margin-top: 2rem;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .info-box h3 {
+            margin-bottom: 1rem;
+            color: #4ecdc4;
+        }
+
+        .info-box p {
+            opacity: 0.8;
+            line-height: 1.5;
+            margin-bottom: 0.5rem;
+        }
+
+        .status {
+            display: inline-block;
+            padding: 0.3rem 1rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            margin-top: 1rem;
+        }
+
+        .status.online {
+            background: rgba(76, 175, 80, 0.3);
+            border: 1px solid #4caf50;
+            color: #4caf50;
+        }
+
+        .footer {
+            margin-top: 2rem;
+            opacity: 0.6;
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 600px) {
+            .container {
+                padding: 2rem;
+            }
+            
+            .logo {
+                font-size: 2rem;
+            }
+            
+            h1 {
+                font-size: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="logo">🎨</div>
+        <h1>ComfyUI Access Portal</h1>
+        <p class="description">
+            Access the powerful ComfyUI interface for AI image generation and workflow creation.
+        </p>
+          <a href="https://b883-163-47-120-77.ngrok-free.app/" class="access-button" target="_blank">
+            🚀 Launch ComfyUI
+        </a>
+        
+        <a href="comfyui-generate.ps1" class="access-button" download>
+            📥 Download PowerShell Script
+        </a>
+        
+        <div class="info-box">
+            <h3>🛠️ Development Tools</h3>
+            <p>• <a href="comfyui-generate.ps1" download style="color: #4ecdc4;">ComfyUI PowerShell Generator</a> - Generate images from command line</p>
+            <p>• <a href="comfyui-gen.bat" download style="color: #4ecdc4;">Batch Wrapper</a> - Easy-to-use batch file</p>
+            <p>• <strong>Usage:</strong> <code style="background: rgba(0,0,0,0.3); padding: 0.2rem 0.5rem; border-radius: 4px;">.\comfyui-generate.ps1 -Prompt "your text here"</code></p>
+            <p>• <strong>Models Available:</strong> juggernautXL, plantMilk, ponyDiffusion</p>
+        </div>
+        
+        <div class="info-box">
+            <h3>ℹ️ About ComfyUI</h3>
+            <p>• Node-based interface for Stable Diffusion</p>
+            <p>• Create complex AI workflows visually</p>
+            <p>• Real-time image generation and editing</p>
+            <p>• Advanced model management and customization</p>
+        </div>
+        
+        <div class="status online">🟢 Service Online</div>
+        
+        <div class="footer">
+            <p>Powered by WebHatchery | ComfyUI via ngrok</p>
+        </div>
+    </div>
+
+    <script>
+        // Optional: Add automatic redirect after delay
+        function autoRedirect() {
+            if (confirm('Would you like to be redirected to ComfyUI automatically?')) {
+                window.open('https://b883-163-47-120-77.ngrok-free.app/', '_blank');
+            }
+        }
+
+        // Uncomment the line below if you want auto-redirect after 3 seconds
+        // setTimeout(autoRedirect, 3000);
+
+        // Check if the service is accessible (optional)
+        async function checkServiceStatus() {
+            try {
+                const response = await fetch('https://b883-163-47-120-77.ngrok-free.app/', {
+                    method: 'HEAD',
+                    mode: 'no-cors'
+                });
+                // Since it's no-cors, we can't check the actual response
+                // But if no error is thrown, the service is likely accessible
+                console.log('ComfyUI service appears to be accessible');
+            } catch (error) {
+                console.log('Service check completed');
+                // Update status if needed
+            }
+        }
+
+        // Check service status on page load
+        checkServiceStatus();
+    </script>
+</body>
+</html>

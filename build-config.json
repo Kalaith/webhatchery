@@ -158,19 +158,34 @@
         "buildCommand": "composer install --no-dev --optimize-autoloader",
         "databaseMigrations": true,
         "envFile": ".env"
-      },
-      "production": {
+      },      "production": {
         "apiUrl": "https://webhatchery.au/ses/api",
         "corsOrigins": ["https://webhatchery.au"]
       }
-    }  },
+    },
+    "comfyui": {
+      "type": "Static",
+      "name": "ComfyUI Integration",
+      "description": "AI image generation integration with PowerShell scripts and web interface",
+      "files": [
+        "index.html",
+        "comfiui.php",
+        "comfyui-generate.ps1",
+        "comfyui-gen.bat"
+      ],
+      "production": {
+        "environmentUpdates": {
+          "COMFYUI_API_URL": "http://127.0.0.1:7860",
+          "NGROK_URL": "https://your-ngrok-url.ngrok.io"
+        }
+      }
+    }
+  },
   "rootFiles": {
     "name": "Root Level Files",
     "description": "Individual files to deploy to the root directory",
     "type": "Static",
     "files": [
-      "comyui.php",
-      "index.html",
       "index.php",
       "index.css"
     ],
