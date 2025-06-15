@@ -139,17 +139,44 @@
           <a href="https://b883-163-47-120-77.ngrok-free.app/" class="access-button" target="_blank">
             🚀 Launch ComfyUI
         </a>
-        
-        <a href="comfyui-generate.ps1" class="access-button" download>
+          <a href="comfyui-generate.ps1" class="access-button" download>
             📥 Download PowerShell Script
         </a>
         
+        <a href="random-wallpaper.ps1" class="access-button" download>
+            🎲 Download Random Wallpaper Generator
+        </a>
+
         <div class="info-box">
             <h3>🛠️ Development Tools</h3>
             <p>• <a href="comfyui-generate.ps1" download style="color: #4ecdc4;">ComfyUI PowerShell Generator</a> - Generate images from command line</p>
             <p>• <a href="comfyui-gen.bat" download style="color: #4ecdc4;">Batch Wrapper</a> - Easy-to-use batch file</p>
-            <p>• <strong>Usage:</strong> <code style="background: rgba(0,0,0,0.3); padding: 0.2rem 0.5rem; border-radius: 4px;">.\comfyui-generate.ps1 -Prompt "your text here"</code></p>
+            <p>• <a href="random-wallpaper.ps1" download style="color: #4ecdc4;">Random Wallpaper Generator</a> - Auto-generate varied wallpapers</p>
+            <p>• <a href="random-wallpaper.bat" download style="color: #4ecdc4;">Random Wallpaper Batch</a> - Easy wallpaper generation</p>            <p>• <strong>Basic Usage:</strong> <code style="background: rgba(0,0,0,0.3); padding: 0.2rem 0.5rem; border-radius: 4px;">.\comfyui-generate.ps1 -Prompt "your text here"</code></p>
+            <p>• <strong>Screen Resolution:</strong> <code style="background: rgba(0,0,0,0.3); padding: 0.2rem 0.5rem; border-radius: 4px;">-UseScreenResolution</code> - Auto-detect screen size</p>
+            <p>• <strong>Set Wallpaper:</strong> <code style="background: rgba(0,0,0,0.3); padding: 0.2rem 0.5rem; border-radius: 4px;">-SetAsWallpaper</code> - Set generated image as desktop wallpaper</p>
+            <p>• <strong>Open Image:</strong> <code style="background: rgba(0,0,0,0.3); padding: 0.2rem 0.5rem; border-radius: 4px;">-OpenImage</code> - Open image after generation (optional)</p>
             <p>• <strong>Models Available:</strong> juggernautXL, plantMilk, ponyDiffusion</p>
+            <p>• <strong>Note:</strong> Images are saved with distinct filenames (random_wallpaper_*) and no longer auto-open</p>
+        </div>
+        
+        <div class="info-box">
+            <h3>🎲 Random Wallpaper Generator</h3>
+            <p>• <strong>Quick Random:</strong> <code style="background: rgba(0,0,0,0.3); padding: 0.2rem 0.5rem; border-radius: 4px;">random-wallpaper.bat quick</code></p>
+            <p>• <strong>Category Specific:</strong> <code style="background: rgba(0,0,0,0.3); padding: 0.2rem 0.5rem; border-radius: 4px;">random-wallpaper.bat landscape</code></p>
+            <p>• <strong>Multiple Images:</strong> <code style="background: rgba(0,0,0,0.3); padding: 0.2rem 0.5rem; border-radius: 4px;">random-wallpaper.bat nature 3</code></p>
+            <p>• <strong>Preview Prompts:</strong> <code style="background: rgba(0,0,0,0.3); padding: 0.2rem 0.5rem; border-radius: 4px;">random-wallpaper.bat preview fantasy</code></p>            <p>• <strong>Categories:</strong> landscape, animal, fantasy, space, nature, abstract, cityscape, seasonal</p>
+            <p>• Automatically uses screen resolution and sets as wallpaper</p>
+            <p>• Images saved with random_wallpaper_* filenames and don't auto-open</p>
+        </div>
+          <div class="info-box">
+            <h3>🖼️ Wallpaper & Screen Examples</h3>
+            <p>• <strong>Desktop Wallpaper:</strong> <code style="background: rgba(0,0,0,0.3); padding: 0.2rem 0.5rem; border-radius: 4px;">comfyui-gen.bat "beautiful landscape" screen screen "" wallpaper</code></p>
+            <p>• <strong>Screen Resolution:</strong> <code style="background: rgba(0,0,0,0.3); padding: 0.2rem 0.5rem; border-radius: 4px;">comfyui-gen.bat "anime character" screen screen</code></p>
+            <p>• <strong>Open Image:</strong> <code style="background: rgba(0,0,0,0.3); padding: 0.2rem 0.5rem; border-radius: 4px;">comfyui-gen.bat "test image" 512 512 "" open</code></p>
+            <p>• <strong>PowerShell Direct:</strong> <code style="background: rgba(0,0,0,0.3); padding: 0.2rem 0.5rem; border-radius: 4px;">.\comfyui-generate.ps1 -Prompt "nature scene" -UseScreenResolution -SetAsWallpaper</code></p>
+            <p>• Automatically detects your screen resolution and sets the generated image as your desktop wallpaper</p>
+            <p>• Images no longer auto-open unless explicitly requested with -OpenImage</p>
         </div>
         
         <div class="info-box">

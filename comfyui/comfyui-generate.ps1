@@ -38,14 +38,89 @@ param(
     
     [Parameter(Mandatory=$false)]
     [string]$Sampler = "euler",
+      [Parameter(Mandatory=$false)]
+    [string]$Scheduler = "normal",
+      [Parameter(Mandatory=$false)]
+    [switch]$UseScreenResolution = $false,
     
     [Parameter(Mandatory=$false)]
-    [string]$Scheduler = "normal"
+    [switch]$SetAsWallpaper = $false,
+    
+    [Parameter(Mandatory=$false)]
+    [switch]$OpenImage = $false
 )
 
 # Generate random seed if not provided
 if ($Seed -eq -1) {
     $Seed = Get-Random -Minimum 1 -Maximum 2147483647
+}
+
+# Function to get screen resolution
+function Get-ScreenResolution {
+    try {
+        # Use WMI to get screen resolution
+        $monitor = Get-WmiObject -Class Win32_VideoController | Where-Object { $_.CurrentHorizontalResolution -ne $null } | Select-Object -First 1
+        if ($monitor) {
+            return @{
+                Width = $monitor.CurrentHorizontalResolution
+                Height = $monitor.CurrentVerticalResolution
+            }
+        }
+        
+        # Fallback to .NET method
+        Add-Type -AssemblyName System.Windows.Forms
+        $screen = [System.Windows.Forms.Screen]::PrimaryScreen
+        return @{
+            Width = $screen.Bounds.Width
+            Height = $screen.Bounds.Height
+        }
+    }
+    catch {
+        Write-Warning "Could not detect screen resolution, using defaults"
+        return @{ Width = 1920; Height = 1080 }
+    }
+}
+
+# Function to set wallpaper
+function Set-Wallpaper {
+    param([string]$ImagePath)
+    
+    try {
+        # Convert to absolute path
+        $absolutePath = (Resolve-Path $ImagePath).Path
+        
+        # Use Windows API to set wallpaper
+        Add-Type -TypeDefinition @"
+            using System;
+            using System.Runtime.InteropServices;
+            
+            public class Wallpaper {
+                [DllImport("user32.dll", CharSet = CharSet.Auto)]
+                public static extern int SystemParametersInfo(int uAction, int uParam, string lpvParam, int fuWinIni);
+                
+                public static void SetWallpaper(string path) {
+                    SystemParametersInfo(20, 0, path, 3);
+                }
+            }
+"@
+        
+        [Wallpaper]::SetWallpaper($absolutePath)
+        Write-Host "Wallpaper set successfully!" -ForegroundColor Green
+        return $true
+    }
+    catch {
+        Write-Warning "Failed to set wallpaper: $($_.Exception.Message)"
+        return $false
+    }
+}
+
+# Apply screen resolution if requested
+if ($UseScreenResolution) {
+    Write-Host "Detecting screen resolution..." -ForegroundColor Blue
+    $screenRes = Get-ScreenResolution
+    $Width = $screenRes.Width
+    $Height = $screenRes.Height
+    Write-Host "Using screen resolution: ${Width}x${Height}" -ForegroundColor Green
 }
 
 # Generate unique client ID
@@ -56,6 +131,12 @@ Write-Host "Prompt: $Prompt" -ForegroundColor Yellow
 Write-Host "Size: ${Width}x${Height}" -ForegroundColor Green
 Write-Host "Seed: $Seed" -ForegroundColor Magenta
 Write-Host "Server: $ComfyUIServer" -ForegroundColor Blue
+if ($UseScreenResolution) {
+    Write-Host "Screen Resolution Mode: Enabled" -ForegroundColor Cyan
+}
+if ($SetAsWallpaper) {
+    Write-Host "Set as Wallpaper: Enabled" -ForegroundColor Cyan
+}
 
 # ComfyUI workflow JSON template
 $WorkflowTemplate = @{
@@ -268,13 +349,19 @@ try {
     }
     
     # Download the generated image
-    $success = Download-GeneratedImage -HistoryData $historyData -OutputFile $OutputPath
-    
-    if ($success) {        Write-Host "Image generation completed successfully!" -ForegroundColor Green
+    $success = Download-GeneratedImage -HistoryData $historyData -OutputFile $OutputPath    
+    if ($success) {
+        
+        Write-Host "Image generation completed successfully!" -ForegroundColor Green
         Write-Host "Output: $OutputPath" -ForegroundColor Cyan
         
-        # Open the image if on Windows
-        if ($env:OS -eq "Windows_NT") {
+        # Set as wallpaper if requested
+        if ($SetAsWallpaper) {
+            Write-Host "Setting as wallpaper..." -ForegroundColor Blue
+            Set-Wallpaper -ImagePath $OutputPath
+        }
+          # Only open the image if explicitly requested
+        if ($env:OS -eq "Windows_NT" -and $OpenImage) {
             Write-Host "Opening image..." -ForegroundColor Blue
             Start-Process $OutputPath
         }

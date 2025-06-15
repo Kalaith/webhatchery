@@ -37,7 +37,7 @@ $PROJECT_CONFIGS = @{
     "anime" = @{ Type = "Static"; Recursive = $true }    
     "rootFiles" = @{ 
         Type = "Static"
-        Files = @("comyui.php", "comfyui-redirect.html", "index.html", "index.php", "index.css", "comfyui-generate.ps1", "comfyui-gen.bat")
+        Files = @("index.php", "index.css")
         Exclude = @("build-deploy.ps1", "build.bat", "validate-projects.ps1", "build-config.json", "BUILD-README.md", "README.md", "projects.json", "*.log")
     }
 }
