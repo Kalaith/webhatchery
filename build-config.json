@@ -163,7 +163,27 @@
         "apiUrl": "https://webhatchery.au/ses/api",
         "corsOrigins": ["https://webhatchery.au"]
       }
-    }
+    }  },
+  "rootFiles": {
+    "name": "Root Level Files",
+    "description": "Individual files to deploy to the root directory",
+    "type": "Static",
+    "files": [
+      "comyui.php",
+      "index.html",
+      "index.php",
+      "index.css"
+    ],
+    "exclude": [
+      "build-deploy.ps1",
+      "build.bat",
+      "validate-projects.ps1",
+      "build-config.json",
+      "BUILD-README.md",
+      "README.md",
+      "projects.json",
+      "*.log"
+    ]
   },
   "global": {
     "excludePatterns": [

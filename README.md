@@ -41,7 +41,6 @@ WebHatchery/
 
 ### Prerequisites
 
-- **Node.js** (v16+) and **npm**
 - **PHP** (v8.0+) and **Composer**
 - **PowerShell** (for build scripts)
 - **Apache/Nginx** (for deployment)

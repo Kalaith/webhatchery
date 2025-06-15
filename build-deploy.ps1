@@ -35,6 +35,11 @@ $PROJECT_CONFIGS = @{
     "stories" = @{ Type = "Static"; Recursive = $true }
     "storiesx" = @{ Type = "Static"; Recursive = $true }
     "anime" = @{ Type = "Static"; Recursive = $true }
+    "rootFiles" = @{ 
+        Type = "Static"
+        Files = @("comyui.php", "index.html", "index.php", "index.css")
+        Exclude = @("build-deploy.ps1", "build.bat", "validate-projects.ps1", "build-config.json", "BUILD-README.md", "README.md", "projects.json", "*.log")
+    }
 }
 
 # Utility functions
@@ -154,6 +159,32 @@ function Invoke-Command($Command, $Description) {
 }
 
 function Copy-ProjectFiles($ProjectPath, $ProjectType, $Config) {
+    # Handle rootFiles specially - copy to root of deployment directory
+    if ($ProjectPath -eq "rootFiles") {
+        $sourcePath = $SOURCE_PATH
+        $destPath = $DEPLOY_PATH
+        
+        Write-Log "Deploying root files to $destPath"
+        
+        if (-not $DryRun -and -not (Test-Path $destPath)) {
+            New-Item -ItemType Directory -Path $destPath -Force | Out-Null
+        }
+        
+        # Copy specific files listed in config
+        if ($Config.Files) {
+            $Config.Files | ForEach-Object {
+                $sourceFile = Join-Path $sourcePath $_
+                $destFile = Join-Path $destPath $_
+                if (Test-Path $sourceFile) {
+                    Copy-Files $sourceFile $destFile $false
+                } else {
+                    Write-Log "Root file not found: $sourceFile" "WARN"
+                }
+            }
+        }
+        return
+    }
+    
     $sourcePath = Join-Path $SOURCE_PATH $ProjectPath
     $destPath = Join-Path $DEPLOY_PATH $ProjectPath
     
@@ -328,12 +359,20 @@ function Main {
     if (-not $DryRun -and -not (Test-Path $DEPLOY_PATH)) {
         New-Item -ItemType Directory -Path $DEPLOY_PATH -Force | Out-Null
     }
-    
-    # Get projects to process
+      # Get projects to process
     $projects = Get-ChildItem -Path $SOURCE_PATH -Directory | Where-Object { 
         $_.Name -like $ProjectFilter -and 
         $_.Name -notmatch "^\." -and
         $_.Name -notin @("utils", "cgi-bin")
+    }
+    
+    # Add rootFiles as a special project if it matches the filter
+    if ("rootFiles" -like $ProjectFilter -and $PROJECT_CONFIGS["rootFiles"]) {
+        $rootFileProject = New-Object PSObject -Property @{
+            Name = "rootFiles"
+            FullName = $SOURCE_PATH
+        }
+        $projects = @($rootFileProject) + $projects
     }
     
     if (-not $projects) {
