@@ -1,0 +1,774 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Grea - Manaria Friends Character Analysis</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #2c3e50;
+            background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 50%, #fecfef 100%);
+            min-height: 100vh;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 20% 30%, rgba(255, 182, 193, 0.3) 0%, transparent 50%),
+                radial-gradient(circle at 80% 70%, rgba(221, 160, 221, 0.2) 0%, transparent 50%),
+                radial-gradient(circle at 40% 80%, rgba(255, 218, 185, 0.2) 0%, transparent 50%);
+            z-index: -1;
+            animation: float 8s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-15px); }
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(15px);
+            border-radius: 25px;
+            box-shadow: 
+                0 25px 50px rgba(0, 0, 0, 0.15),
+                inset 0 1px 0 rgba(255, 255, 255, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            overflow: hidden;
+            margin-top: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%);
+            padding: 3rem 2rem;
+            text-align: center;
+            border-bottom: 3px solid #ff6b95;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: 
+                radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, transparent 70%);
+            animation: rotate 12s linear infinite;
+        }
+
+        @keyframes rotate {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        h1 {
+            font-size: 3.2rem;
+            color: #ffffff;
+            margin-bottom: 0.5rem;
+            text-shadow: 
+                2px 2px 4px rgba(0, 0, 0, 0.3),
+                0 0 20px rgba(255, 255, 255, 0.3);
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            position: relative;
+            z-index: 1;
+        }
+
+        .subtitle {
+            font-size: 1.4rem;
+            color: #f8e1ff;
+            font-style: italic;
+            margin-bottom: 1rem;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+            position: relative;
+            z-index: 1;
+        }
+
+        .dragon-emoji {
+            font-size: 4rem;
+            margin: 1rem 0;
+            display: block;
+            animation: bounce 3s ease-in-out infinite;
+            position: relative;
+            z-index: 1;
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+            40% { transform: translateY(-10px); }
+            60% { transform: translateY(-5px); }
+        }
+
+        .content {
+            padding: 2rem;
+        }
+
+        .section {
+            margin-bottom: 4rem;
+            padding: 2.5rem;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 20px;
+            border: 2px solid rgba(255, 154, 158, 0.2);
+            backdrop-filter: blur(10px);
+            position: relative;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+
+        .section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(90deg, transparent, #ff9a9e, #fecfef, #ff9a9e, transparent);
+            border-radius: 20px 20px 0 0;
+        }
+
+        .section h2 {
+            font-size: 2.4rem;
+            color: #ff6b95;
+            margin-bottom: 1.5rem;
+            text-align: center;
+            border-bottom: 2px solid rgba(255, 154, 158, 0.3);
+            padding-bottom: 0.5rem;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1);
+        }
+
+        .section h3 {
+            font-size: 1.8rem;
+            color: #d63384;
+            margin: 2rem 0 1rem 0;
+            border-left: 4px solid #ff9a9e;
+            padding-left: 1rem;
+        }
+
+        p {
+            margin-bottom: 1.5rem;
+            text-align: justify;
+            font-size: 1.1rem;
+            color: #34495e;
+            line-height: 1.7;
+        }
+
+        .character-info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+
+        .info-card {
+            background: linear-gradient(135deg, rgba(255, 154, 158, 0.1), rgba(254, 207, 239, 0.1));
+            padding: 2rem;
+            border-radius: 15px;
+            border: 2px solid rgba(255, 154, 158, 0.3);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .info-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(90deg, transparent, #ff9a9e, transparent);
+            transition: left 0.5s ease;
+        }
+
+        .info-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+            border-color: #ff6b95;
+        }
+
+        .info-card:hover::before {
+            left: 100%;
+        }
+
+        .info-card h4 {
+            color: #ff6b95;
+            margin-bottom: 1rem;
+            font-size: 1.3rem;
+            text-align: center;
+        }
+
+        .trait-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .trait-list li {
+            margin: 0.8rem 0;
+            padding: 0.8rem;
+            background: rgba(255, 255, 255, 0.7);
+            border-radius: 8px;
+            border-left: 4px solid #ff9a9e;
+            transition: all 0.2s ease;
+        }
+
+        .trait-list li:hover {
+            background: rgba(255, 154, 158, 0.2);
+            transform: translateX(5px);
+        }
+
+        .trait-list strong {
+            color: #d63384;
+            font-weight: 600;
+        }
+
+        .chart-container {
+            background: rgba(255, 255, 255, 0.9);
+            padding: 2rem;
+            border-radius: 15px;
+            margin: 2rem 0;
+            text-align: center;
+            border: 2px solid rgba(255, 154, 158, 0.3);
+        }
+
+        .chart-image {
+            width: 100%;
+            max-width: 800px;
+            height: auto;
+            border-radius: 10px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+
+        .episode-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .episode-card {
+            background: rgba(255, 255, 255, 0.8);
+            padding: 1.5rem;
+            border-radius: 12px;
+            border: 2px solid rgba(255, 154, 158, 0.2);
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .episode-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+            border-color: #ff9a9e;
+        }
+
+        .episode-number {
+            background: #ff6b95;
+            color: white;
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            margin-bottom: 1rem;
+            box-shadow: 0 4px 8px rgba(255, 107, 149, 0.3);
+        }
+
+        .episode-title {
+            color: #d63384;
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 0.8rem;
+        }
+
+        .episode-theme {
+            color: #6c757d;
+            font-style: italic;
+            margin-bottom: 0.5rem;
+        }
+
+        .episode-growth {
+            background: rgba(255, 154, 158, 0.15);
+            padding: 0.8rem;
+            border-radius: 8px;
+            border-left: 4px solid #ff9a9e;
+            margin-top: 1rem;
+        }
+
+        .relationship-info {
+            background: linear-gradient(135deg, rgba(254, 207, 239, 0.2), rgba(255, 154, 158, 0.1));
+            padding: 2rem;
+            border-radius: 15px;
+            margin: 2rem 0;
+            border: 2px solid rgba(254, 207, 239, 0.5);
+        }
+
+        .relationship-info h4 {
+            color: #ff6b95;
+            margin-bottom: 1rem;
+            font-size: 1.4rem;
+            text-align: center;
+        }
+
+        .abilities-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .ability-card {
+            background: rgba(255, 255, 255, 0.8);
+            padding: 1.5rem;
+            border-radius: 12px;
+            border: 2px solid rgba(255, 154, 158, 0.3);
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .ability-card:hover {
+            background: rgba(255, 154, 158, 0.1);
+            transform: scale(1.02);
+        }
+
+        .ability-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            display: block;
+        }
+
+        .ability-name {
+            color: #d63384;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            font-size: 1.1rem;
+        }
+
+        .stats-summary {
+            background: radial-gradient(circle at center, rgba(255, 154, 158, 0.2), rgba(254, 207, 239, 0.1));
+            padding: 2rem;
+            border-radius: 20px;
+            margin: 2rem 0;
+            border: 2px solid rgba(255, 154, 158, 0.3);
+            text-align: center;
+        }
+
+        .stats-summary h4 {
+            color: #ff6b95;
+            font-size: 1.4rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+        }
+
+        .stat-item {
+            background: rgba(255, 255, 255, 0.7);
+            padding: 1rem;
+            border-radius: 10px;
+            border: 1px solid rgba(255, 154, 158, 0.3);
+        }
+
+        .stat-value {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #d63384;
+            display: block;
+        }
+
+        .stat-label {
+            color: #6c757d;
+            font-size: 0.9rem;
+        }
+
+        .end-text {
+            text-align: center;
+            font-size: 1.4rem;
+            font-weight: bold;
+            color: #ff6b95;
+            margin-top: 3rem;
+            padding: 3rem;
+            background: linear-gradient(135deg, rgba(255, 154, 158, 0.15), rgba(254, 207, 239, 0.15));
+            border-radius: 20px;
+            border: 2px solid rgba(255, 154, 158, 0.3);
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1);
+            position: relative;
+        }
+
+        .end-text::before {
+            content: '🐉💕';
+            position: absolute;
+            top: 15px;
+            right: 25px;
+            font-size: 2rem;
+            animation: float 4s ease-in-out infinite;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                margin: 1rem;
+                border-radius: 20px;
+            }
+            
+            h1 {
+                font-size: 2.4rem;
+            }
+            
+            .content {
+                padding: 1.5rem;
+            }
+
+            .character-info-grid,
+            .episode-grid,
+            .abilities-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        /* Scrollbar styling */
+        ::-webkit-scrollbar {
+            width: 12px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: rgba(255, 154, 158, 0.1);
+            border-radius: 6px;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(135deg, #ff9a9e, #fecfef);
+            border-radius: 6px;
+            transition: background 0.3s ease;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: linear-gradient(135deg, #ff6b95, #ff9a9e);
+        }
+
+        /* Table styling for character info */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1rem 0;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        th, td {
+            padding: 1rem;
+            text-align: left;
+            border-bottom: 1px solid rgba(255, 154, 158, 0.2);
+        }
+
+        th {
+            background: rgba(255, 154, 158, 0.2);
+            color: #d63384;
+            font-weight: 600;
+        }
+
+        tr:hover {
+            background: rgba(255, 154, 158, 0.1);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="dragon-emoji">🐉</div>
+            <h1>Grea</h1>
+            <div class="subtitle">Half-Dragon Student of Mysteria Academy</div>
+        </div>
+        
+        <div class="content">
+            <!-- Section 1: Character Profile -->
+            <div class="section">
+                <h2>🌸 Character Profile 🎭</h2>
+                
+                <p>In the magical halls of Mysteria Academy, <strong>Grea</strong> stands as a unique figure—a shy, reserved half-dragon girl struggling to find her place among her human classmates. With her distinctive red-purple hair, amber eyes, and small curved horns, she embodies the delicate balance between her human and dragon heritage while navigating the complexities of friendship and self-acceptance.</p>
+
+                <div class="character-info-grid">
+                    <div class="info-card">
+                        <h4>📋 Basic Information</h4>
+                        <table>
+                            <tr><th>Full Name</th><td>Grea (グレア)</td></tr>
+                            <tr><th>Age</th><td>17 years old</td></tr>
+                            <tr><th>Species</th><td>Half-human, Half-dragon</td></tr>
+                            <tr><th>Height</th><td>167 cm</td></tr>
+                            <tr><th>Occupation</th><td>Student at Mysteria Academy</td></tr>
+                            <tr><th>Voice Actor</th><td>Ayaka Fukuhara (JP)<br>Avery Smithhart (EN)</td></tr>
+                        </table>
+                    </div>
+                    
+                    <div class="info-card">
+                        <h4>👁️ Physical Characteristics</h4>
+                        <table>
+                            <tr><th>Hair</th><td>Long, flowing red-purple</td></tr>
+                            <tr><th>Eyes</th><td>Amber/golden colored</td></tr>
+                            <tr><th>Horns</th><td>Small curved dragon horns</td></tr>
+                            <tr><th>Tail</th><td>Long dragon tail with red scales</td></tr>
+                            <tr><th>Wings</th><td>Dragon wings (transformation)</td></tr>
+                            <tr><th>Uniform</th><td>Blue vest, white shirt, red plaid skirt</td></tr>
+                        </table>
+                    </div>
+                </div>
+
+                <h3>💖 Personality Traits</h3>
+                <div class="character-info-grid">
+                    <div class="info-card">
+                        <ul class="trait-list">
+                            <li><strong>Reserved and Introverted:</strong> Initially self-conscious about her dragon heritage</li>
+                            <li><strong>Caring and Loyal:</strong> Deeply devoted to her friendship with Anne</li>
+                            <li><strong>Timid in Social Situations:</strong> Struggles with crowds and new people</li>
+                            <li><strong>Strong-willed:</strong> Demonstrates courage when protecting others</li>
+                            <li><strong>Musically Inclined:</strong> Enjoys playing piano as a hobby</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <h3>🔥 Dragon Abilities</h3>
+                <div class="abilities-grid">
+                    <div class="ability-card">
+                        <div class="ability-icon">🔥</div>
+                        <div class="ability-name">Fire Magic</div>
+                        <p>Can generate and control flames with precision and power</p>
+                    </div>
+                    <div class="ability-card">
+                        <div class="ability-icon">💪</div>
+                        <div class="ability-name">Enhanced Strength</div>
+                        <p>Dragon heritage provides superior physical capabilities</p>
+                    </div>
+                    <div class="ability-card">
+                        <div class="ability-icon">🦋</div>
+                        <div class="ability-name">Transformation</div>
+                        <p>Can manifest more dragon-like features when needed</p>
+                    </div>
+                    <div class="ability-card">
+                        <div class="ability-icon">🛡️</div>
+                        <div class="ability-name">Magical Resistance</div>
+                        <p>Natural protection against certain types of magic</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Section 2: Character Development Analysis -->
+            <div class="section">
+                <h2>📈 Character Development Analysis 🌱</h2>
+                
+                <p>Through her deep bond with the outgoing princess Anne, Grea's journey unfolds across ten episodes of heartfelt character development. From initial self-consciousness about her dragon nature to finding the courage to embrace her unique identity, her story explores themes of belonging, vulnerability, and the transformative power of genuine friendship.</p>
+
+                <div class="chart-container">
+                    <h4>Character Growth Throughout the Series</h4>
+                    <img src="grea_development_chart.png" alt="Grea Character Development Chart" class="chart-image">
+                </div>
+
+                <div class="stats-summary">
+                    <h4>📊 Development Statistics</h4>
+                    <div class="stats-grid">
+                        <div class="stat-item">
+                            <span class="stat-value">7.8/10</span>
+                            <span class="stat-label">Average Relationship Depth</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-value">5.9/10</span>
+                            <span class="stat-label">Average Confidence Level</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-value">9/10</span>
+                            <span class="stat-label">Grea-focused Episodes</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-value">100%</span>
+                            <span class="stat-label">Growth Achievement</span>
+                        </div>
+                    </div>
+                </div>
+
+                <h3>📺 Episode-by-Episode Development</h3>
+                <div class="episode-grid">
+                    <div class="episode-card">
+                        <div class="episode-number">1</div>
+                        <div class="episode-title">Anne and Grea</div>
+                        <div class="episode-theme">Introduction & Friendship</div>
+                        <div class="episode-growth">
+                            <strong>Growth Focus:</strong> Initial Self-Consciousness<br>
+                            <strong>Relationship:</strong> 7/10 | <strong>Confidence:</strong> 4/10
+                        </div>
+                    </div>
+
+                    <div class="episode-card">
+                        <div class="episode-number">2</div>
+                        <div class="episode-title">Agony of Grea</div>
+                        <div class="episode-theme">Dragon Nature & Vulnerability</div>
+                        <div class="episode-growth">
+                            <strong>Growth Focus:</strong> Accepting Dragon Heritage<br>
+                            <strong>Relationship:</strong> 8/10 | <strong>Confidence:</strong> 3/10
+                        </div>
+                    </div>
+
+                    <div class="episode-card">
+                        <div class="episode-number">3</div>
+                        <div class="episode-title">Princess's Holiday</div>
+                        <div class="episode-theme">Social Integration</div>
+                        <div class="episode-growth">
+                            <strong>Growth Focus:</strong> Social Confidence<br>
+                            <strong>Relationship:</strong> 7/10 | <strong>Confidence:</strong> 6/10
+                        </div>
+                    </div>
+
+                    <div class="episode-card">
+                        <div class="episode-number">4</div>
+                        <div class="episode-title">Test Time</div>
+                        <div class="episode-theme">Academic Struggles</div>
+                        <div class="episode-growth">
+                            <strong>Growth Focus:</strong> Supporting Anne<br>
+                            <strong>Relationship:</strong> 6/10 | <strong>Confidence:</strong> 5/10
+                        </div>
+                    </div>
+
+                    <div class="episode-card">
+                        <div class="episode-number">5</div>
+                        <div class="episode-title">Academy Down</div>
+                        <div class="episode-theme">Protective Instincts</div>
+                        <div class="episode-growth">
+                            <strong>Growth Focus:</strong> Inner Strength Revealed<br>
+                            <strong>Relationship:</strong> 9/10 | <strong>Confidence:</strong> 8/10
+                        </div>
+                    </div>
+
+                    <div class="episode-card">
+                        <div class="episode-number">6</div>
+                        <div class="episode-title">Floating at Sea</div>
+                        <div class="episode-theme">Overcoming Fears</div>
+                        <div class="episode-growth">
+                            <strong>Growth Focus:</strong> Water Phobia to Enjoyment<br>
+                            <strong>Relationship:</strong> 8/10 | <strong>Confidence:</strong> 7/10
+                        </div>
+                    </div>
+
+                    <div class="episode-card">
+                        <div class="episode-number">7</div>
+                        <div class="episode-title">Hide-and-Seek</div>
+                        <div class="episode-theme">Playful Bond</div>
+                        <div class="episode-growth">
+                            <strong>Growth Focus:</strong> Carefree Interaction<br>
+                            <strong>Relationship:</strong> 8/10 | <strong>Confidence:</strong> 7/10
+                        </div>
+                    </div>
+
+                    <div class="episode-card">
+                        <div class="episode-number">8</div>
+                        <div class="episode-title">Backstage Confidential</div>
+                        <div class="episode-theme">Performance Anxiety</div>
+                        <div class="episode-growth">
+                            <strong>Growth Focus:</strong> Stage Fright to Success<br>
+                            <strong>Relationship:</strong> 7/10 | <strong>Confidence:</strong> 5/10
+                        </div>
+                    </div>
+
+                    <div class="episode-card">
+                        <div class="episode-number">9</div>
+                        <div class="episode-title">A Slice of Life</div>
+                        <div class="episode-theme">Relationship Conflict</div>
+                        <div class="episode-growth">
+                            <strong>Growth Focus:</strong> Communication Skills<br>
+                            <strong>Relationship:</strong> 9/10 | <strong>Confidence:</strong> 6/10
+                        </div>
+                    </div>
+
+                    <div class="episode-card">
+                        <div class="episode-number">10</div>
+                        <div class="episode-title">The Pair's Promise</div>
+                        <div class="episode-theme">Future Together</div>
+                        <div class="episode-growth">
+                            <strong>Growth Focus:</strong> Commitment to Friendship<br>
+                            <strong>Relationship:</strong> 10/10 | <strong>Confidence:</strong> 8/10
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Section 3: Relationships & Cultural Impact -->
+            <div class="section">
+                <h2>💕 Relationships & Legacy 🌟</h2>
+                
+                <div class="relationship-info">
+                    <h4>Anne - Primary Relationship</h4>
+                    <p><strong>Type:</strong> Best friend with romantic undertones</p>
+                    <p><strong>Dynamic:</strong> Anne's outgoing nature complements Grea's reserved personality</p>
+                    <p><strong>Development:</strong> Their bond deepens throughout the series from friendship to something deeper</p>
+                </div>
+
+                <h3>🎭 Supporting Characters</h3>
+                <div class="character-info-grid">
+                    <div class="info-card">
+                        <h4>Hanna</h4>
+                        <p>Class president who admires both girls and often facilitates their interactions</p>
+                    </div>
+                    <div class="info-card">
+                        <h4>Owen</h4>
+                        <p>Anne's loyal bodyguard who protects both friends during their adventures</p>
+                    </div>
+                    <div class="info-card">
+                        <h4>Miranda & Heinlein</h4>
+                        <p>Academy teachers who guide their magical education and personal growth</p>
+                    </div>
+                </div>
+
+                <h3>🌍 Cultural Impact</h3>
+                <div class="character-info-grid">
+                    <div class="info-card">
+                        <h4>🏳️‍🌈 Yuri Representation</h4>
+                        <p>Grea and Anne's relationship is celebrated in yuri anime communities for its genuine emotional depth</p>
+                    </div>
+                    <div class="info-card">
+                        <h4>🐉 Dragon Girl Archetype</h4>
+                        <p>Contributes to the popular half-dragon character trope in anime and manga</p>
+                    </div>
+                    <div class="info-card">
+                        <h4>🎨 Character Design</h4>
+                        <p>Her visual design perfectly balances human and dragon elements</p>
+                    </div>
+                    <div class="info-card">
+                        <h4>💖 Fan Following</h4>
+                        <p>Developed a dedicated fanbase across multiple media franchises</p>
+                    </div>
+                </div>
+
+                <p>Grea's character arc in Manaria Friends centers on self-acceptance and opening her heart to others. Beginning as a self-conscious girl ashamed of her dragon heritage, she gradually learns to embrace her unique nature through Anne's unwavering friendship and support. Her journey showcases themes of identity, belonging, and the transformative power of genuine human connection.</p>
+            </div>
+
+            <div class="end-text">
+                Grea's story in Manaria Friends represents a beautiful exploration of self-discovery, acceptance, and the bonds that transcend differences. Through her relationship with Anne and her growth from a timid dragon girl to a confident young woman, she embodies the universal struggle to find one's place in the world while staying true to one's authentic self.
+            </div>
+        </div>
+    </div>
+</body>
+</html>

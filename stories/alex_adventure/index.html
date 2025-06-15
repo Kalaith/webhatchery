@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alex's Adventure to School</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <div class="adventure-container">
+            <!-- Header -->
+            <header class="adventure-header">
+                <h1 class="adventure-title">Alex's Adventure to School</h1>
+                <p class="adventure-subtitle">Every choice shapes your journey!</p>
+            </header>
+
+            <!-- Story Content Area -->
+            <main class="story-content">
+                <!-- Welcome Screen -->
+                <div id="welcome-screen" class="story-screen active">
+                    <div class="story-card">
+                        <div class="story-text">
+                            <h2>Meet Alex!</h2>
+                            <p>It's Tuesday morning, and Alex just woke up to his alarm. Oh no! He's running late for school again. Alex quickly gets dressed, grabs his backpack, and heads toward the door.</p>
+                            <p>As he steps outside, Alex realizes he needs to make some important decisions about how to get to school today. Each choice he makes will shape his adventure!</p>
+                            <p class="story-highlight">Remember: Every choice matters and will affect what happens next.</p>
+                        </div>
+                        <div class="choice-buttons">
+                            <button class="btn btn--primary btn--lg" onclick="startAdventure()">Begin Alex's Adventure</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Story Progress Screen -->
+                <div id="story-screen" class="story-screen">
+                    <div class="story-card">
+                        <div class="story-progress">
+                            <div class="progress-dots">
+                                <span class="dot active" id="dot-1"></span>
+                                <span class="dot" id="dot-2"></span>
+                                <span class="dot" id="dot-3"></span>
+                                <span class="dot" id="dot-4"></span>
+                            </div>
+                        </div>
+                        <div class="story-text" id="story-text">
+                            <!-- Story content will be inserted here -->
+                        </div>
+                        <div class="choice-buttons" id="choice-buttons">
+                            <!-- Choice buttons will be inserted here -->
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Outcome Screen -->
+                <div id="outcome-screen" class="story-screen">
+                    <div class="story-card">
+                        <div class="outcome-header">
+                            <h2 id="outcome-title">Your Adventure Ends...</h2>
+                            <div class="outcome-badge" id="outcome-badge">
+                                <span id="outcome-type"></span>
+                            </div>
+                        </div>
+                        <div class="story-text" id="outcome-text">
+                            <!-- Outcome description will be inserted here -->
+                        </div>
+                        <div class="path-summary">
+                            <h3>Your Journey:</h3>
+                            <div class="path-steps" id="path-steps">
+                                <!-- Path summary will be inserted here -->
+                            </div>
+                        </div>
+                        <div class="choice-buttons">
+                            <button class="btn btn--primary btn--lg" onclick="restartAdventure()">Try a Different Path</button>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>

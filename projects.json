@@ -1,0 +1,50 @@
+{
+  "groups": {
+    "fiction": {
+      "name": "Fiction Projects",
+      "projects": [
+        {
+          "title": "Stories",
+          "path": "stories/",
+          "description": "Collection of interactive stories and creative writing projects with immersive web presentations."
+        },
+        {
+          "title": "Stories Explict",
+          "path": "storiesx/",
+          "description": "Story collection with that may contain explict language."
+        },
+        {
+          "title": "Anime Hub",
+          "path": "anime/",
+          "description": "Character analysis and development charts for popular anime series including Dragon Ball and Granblue Fantasy."
+        }
+        
+      ]
+    },
+    "projects": {
+      "name": "Development Projects",
+      "projects": [
+        {
+          "title": "Is It Done Yet?",
+          "path": "isitdoneyet/",
+          "description": "A full-stack web application for project tracking and status monitoring with real-time updates."
+        },
+        {
+          "title": "Meme Generator",
+          "path": "meme_generator/",
+          "description": "Interactive tool for creating custom memes with various templates and text customization options."
+        },
+        {
+          "title": "Project Management",
+          "path": "project_management/",
+          "description": "Comprehensive project management dashboard with stakeholder tracking and report generation features."
+        },
+        {
+          "title": "LitRPG Studio",
+          "path": "litrpg_studio/dist/",
+          "description": "A specialized writing tool designed for LitRPG authors to create and manage game mechanics in their stories."
+        }
+      ]
+    }
+  }
+}

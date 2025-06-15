@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Isekai Adventure</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <header class="game-header">
+            <h1>Isekai Adventure</h1>
+            <button id="restart-btn" class="btn btn--outline btn--sm">Start New Adventure</button>
+        </header>
+
+        <!-- Character Stats Panel -->
+        <div id="stats-panel" class="card stats-panel hidden">
+            <div class="card__body">
+                <h3>Character Stats</h3>
+                <div class="stats-grid">
+                    <div class="stat-item">
+                        <span class="stat-label">Name:</span>
+                        <span id="char-name">Hero</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-label">Level:</span>
+                        <span id="char-level">1</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-label">HP:</span>
+                        <span id="char-hp">100/100</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-label">MP:</span>
+                        <span id="char-mp">50/50</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-label">Strength:</span>
+                        <span id="char-strength">10</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-label">Intelligence:</span>
+                        <span id="char-intelligence">10</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-label">Agility:</span>
+                        <span id="char-agility">10</span>
+                    </div>
+                </div>
+                <div class="xp-section">
+                    <div class="xp-bar-container">
+                        <div class="xp-bar">
+                            <div id="xp-fill" class="xp-fill"></div>
+                        </div>
+                        <span id="xp-text">0 / 100 XP</span>
+                    </div>
+                </div>
+                <div id="skills-section" class="skills-section">
+                    <h4>Skills:</h4>
+                    <div id="skills-list" class="skills-list"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main Game Area -->
+        <div class="game-area">
+            <!-- Story Section -->
+            <div id="story-section" class="card story-section">
+                <div class="card__body">
+                    <div id="story-text">
+                        <h2>Welcome to Another World</h2>
+                        <p>You're walking home from work when suddenly a bright light engulfs you. When your vision clears, you find yourself standing in a vast meadow under an unfamiliar sky with two moons.</p>
+                        <p>A voice echoes in your mind: "Welcome, Hero! You have been summoned to defeat the Demon King and save our world from eternal darkness."</p>
+                        <p>What is your name, brave hero?</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Name Input Section -->
+            <div id="name-input-section" class="card">
+                <div class="card__body">
+                    <div class="form-group">
+                        <label for="hero-name" class="form-label">Enter your name:</label>
+                        <input type="text" id="hero-name" class="form-control" placeholder="Your hero name..." maxlength="20">
+                    </div>
+                    <button id="start-adventure" class="btn btn--primary">Begin Adventure</button>
+                </div>
+            </div>
+
+            <!-- Combat Section -->
+            <div id="combat-section" class="card combat-section hidden">
+                <div class="card__body">
+                    <div id="combat-info">
+                        <div class="enemy-info">
+                            <h3 id="enemy-name">Enemy</h3>
+                            <div class="enemy-hp">
+                                <span>HP: </span>
+                                <span id="enemy-hp">100/100</span>
+                            </div>
+                            <p id="enemy-description">Enemy description</p>
+                        </div>
+                        <div id="combat-log" class="combat-log"></div>
+                        <div id="combat-actions" class="combat-actions">
+                            <button id="attack-btn" class="btn btn--primary">Attack</button>
+                            <button id="skills-btn" class="btn btn--secondary">Use Skill</button>
+                            <button id="items-btn" class="btn btn--outline">Use Item</button>
+                        </div>
+                        <div id="skills-menu" class="skills-menu hidden">
+                            <h4>Choose a Skill:</h4>
+                            <div id="combat-skills-list"></div>
+                            <button id="back-to-combat" class="btn btn--outline btn--sm">Back</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Choice Section -->
+            <div id="choice-section" class="card choice-section hidden">
+                <div class="card__body">
+                    <div id="choices-container"></div>
+                </div>
+            </div>
+
+            <!-- Level Up Notification -->
+            <div id="level-up-notification" class="level-up-notification hidden">
+                <div class="level-up-content">
+                    <h2>LEVEL UP!</h2>
+                    <p id="level-up-text">You reached level 2!</p>
+                    <button id="level-up-continue" class="btn btn--primary">Continue</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>

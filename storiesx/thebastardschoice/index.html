@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Game of Thrones: The Bastard's Choice</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="app">
+        <!-- Title Screen -->
+        <div id="title-screen" class="screen active">
+            <div class="title-content">
+                <h1 class="game-title">The Bastard's Choice</h1>
+                <p class="subtitle">A Game of Thrones Adventure</p>
+                <div class="title-description">
+                    <p>You are Seren Rivers, bastard of House Tully, living in dangerous times when war threatens to tear Westeros apart. Your choices will determine your fate and the fate of those around you.</p>
+                    <p>Choose your allies carefully - in the game of thrones, you win or you die.</p>
+                </div>
+                <button class="btn btn--primary btn--lg" onclick="startGame()">Begin Adventure</button>
+            </div>
+        </div>
+
+        <!-- Game Screen -->
+        <div id="game-screen" class="screen">
+            <div class="game-layout">
+                <!-- Stats Panel -->
+                <div class="stats-panel">
+                    <h3>Seren Rivers</h3>
+                    <div class="stat-group">
+                        <div class="stat">
+                            <span class="stat-label">Honor</span>
+                            <div class="stat-bar">
+                                <div class="stat-fill" id="honor-fill"></div>
+                            </div>
+                            <span class="stat-value" id="honor-value">50</span>
+                        </div>
+                        <div class="stat">
+                            <span class="stat-label">Cunning</span>
+                            <div class="stat-bar">
+                                <div class="stat-fill" id="cunning-fill"></div>
+                            </div>
+                            <span class="stat-value" id="cunning-value">50</span>
+                        </div>
+                        <div class="stat">
+                            <span class="stat-label">Gold</span>
+                            <span class="stat-value" id="gold-value">100</span>
+                        </div>
+                    </div>
+                    
+                    <div class="house-reputation">
+                        <h4>House Standing</h4>
+                        <div class="reputation-list" id="reputation-list">
+                            <!-- Reputation items will be added dynamically -->
+                        </div>
+                    </div>
+                    
+                    <div class="current-location">
+                        <h4>Current Location</h4>
+                        <p id="location-name">Riverrun</p>
+                    </div>
+                </div>
+
+                <!-- Story Content -->
+                <div class="story-content">
+                    <div class="story-header">
+                        <h2 id="story-title">Chapter 1</h2>
+                        <div class="story-meta">
+                            <span id="story-location">Riverrun</span>
+                        </div>
+                    </div>
+                    
+                    <div class="story-text" id="story-text">
+                        <!-- Story content will be populated by JavaScript -->
+                    </div>
+                    
+                    <div class="choices-container" id="choices-container">
+                        <!-- Choices will be populated by JavaScript -->
+                    </div>
+                    
+                    <div class="story-controls">
+                        <button class="btn btn--secondary" onclick="restartGame()">Restart</button>
+                        <button class="btn btn--outline" onclick="showInventory()">Notes</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Ending Screen -->
+        <div id="ending-screen" class="screen">
+            <div class="ending-content">
+                <h2 id="ending-title">Your Story Ends</h2>
+                <div id="ending-text" class="ending-description">
+                    <!-- Ending content will be populated by JavaScript -->
+                </div>
+                <div class="ending-stats">
+                    <h3>Final Stats</h3>
+                    <div id="final-stats">
+                        <!-- Final stats will be populated by JavaScript -->
+                    </div>
+                </div>
+                <div class="ending-controls">
+                    <button class="btn btn--primary" onclick="restartGame()">Play Again</button>
+                    <button class="btn btn--secondary" onclick="showTitleScreen()">Return to Title</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Inventory/Notes Modal -->
+        <div id="inventory-modal" class="modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3>Your Notes</h3>
+                    <button class="modal-close" onclick="hideInventory()">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <div id="inventory-content">
+                        <p>Important information you've gathered:</p>
+                        <ul id="notes-list">
+                            <!-- Notes will be added dynamically -->
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>

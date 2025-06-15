@@ -1,0 +1,552 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Last Respawn</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #e0e0e0;
+            background: linear-gradient(135deg, #0f0f23 0%, #1a1a3e 50%, #2d1b69 100%);
+            min-height: 100vh;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 20% 80%, rgba(120, 119, 198, 0.3) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(255, 119, 198, 0.3) 0%, transparent 50%),
+                radial-gradient(circle at 40% 40%, rgba(120, 119, 198, 0.2) 0%, transparent 50%);
+            z-index: -1;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: rgba(15, 15, 35, 0.9);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            box-shadow: 
+                0 8px 32px rgba(31, 38, 135, 0.37),
+                inset 0 1px 0 rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            overflow: hidden;
+            margin-top: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 3rem 2rem;
+            text-align: center;
+            border-bottom: 2px solid #4c1d95;
+            position: relative;
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                linear-gradient(45deg, transparent 30%, rgba(255, 255, 255, 0.1) 50%, transparent 70%);
+            animation: shimmer 3s ease-in-out infinite;
+        }
+
+        @keyframes shimmer {
+            0%, 100% { transform: translateX(-100%); }
+            50% { transform: translateX(100%); }
+        }
+
+        h1 {
+            font-size: 2.8rem;
+            color: #ffffff;
+            margin-bottom: 0.5rem;
+            text-shadow: 
+                0 0 10px rgba(102, 126, 234, 0.8),
+                0 0 20px rgba(102, 126, 234, 0.5),
+                0 0 30px rgba(102, 126, 234, 0.3);
+            font-weight: 700;
+            letter-spacing: -0.02em;
+        }
+
+        .subtitle {
+            font-size: 1.3rem;
+            color: #c7d2fe;
+            font-style: italic;
+            margin-bottom: 1rem;
+            text-shadow: 0 0 5px rgba(199, 210, 254, 0.5);
+        }
+
+        .content {
+            padding: 2rem;
+        }
+
+        .story-image {
+            width: 100%;
+            max-width: 600px;
+            height: auto;
+            border-radius: 15px;
+            box-shadow: 
+                0 10px 30px rgba(0, 0, 0, 0.4),
+                0 0 20px rgba(102, 126, 234, 0.3);
+            margin: 2rem auto;
+            display: block;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(102, 126, 234, 0.3);
+        }
+
+        .story-image:hover {
+            transform: scale(1.02) translateY(-5px);
+            box-shadow: 
+                0 20px 40px rgba(0, 0, 0, 0.5),
+                0 0 30px rgba(102, 126, 234, 0.5);
+        }
+
+        .section {
+            margin-bottom: 4rem;
+            padding: 2.5rem;
+            background: rgba(15, 15, 35, 0.6);
+            border-radius: 15px;
+            border: 1px solid rgba(102, 126, 234, 0.2);
+            backdrop-filter: blur(5px);
+            position: relative;
+        }
+
+        .section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, #667eea, #764ba2, transparent);
+        }
+
+        .section h2 {
+            font-size: 2.2rem;
+            color: #667eea;
+            margin-bottom: 1.5rem;
+            text-align: center;
+            border-bottom: 2px solid rgba(102, 126, 234, 0.3);
+            padding-bottom: 0.5rem;
+            text-shadow: 0 0 10px rgba(102, 126, 234, 0.5);
+        }
+
+        p {
+            margin-bottom: 1.5rem;
+            text-align: justify;
+            font-size: 1.1rem;
+            text-indent: 2rem;
+            color: #d1d5db;
+            line-height: 1.7;
+        }
+
+        .dialogue {
+            font-style: italic;
+            color: #a78bfa;
+            margin: 1rem 0;
+            padding-left: 2rem;
+            border-left: 3px solid #667eea;
+            background: rgba(167, 139, 250, 0.1);
+            padding: 1rem;
+            border-radius: 0 10px 10px 0;
+        }
+
+        .section-break {
+            text-align: center;
+            margin: 3rem 0;
+            color: #667eea;
+            font-size: 2rem;
+            text-shadow: 0 0 10px rgba(102, 126, 234, 0.5);
+        }
+
+        .cyber-text {
+            background: linear-gradient(45deg, #667eea, #764ba2, #a78bfa, #c084fc, #667eea);
+            background-size: 300% 300%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: gradient 3s ease infinite;
+            font-weight: bold;
+            text-shadow: none;
+        }
+
+        @keyframes gradient {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .character-info {
+            background: rgba(102, 126, 234, 0.1);
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            border-radius: 12px;
+            border: 1px solid rgba(102, 126, 234, 0.3);
+            box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.1);
+        }
+
+        .character-info h4 {
+            color: #667eea;
+            margin-bottom: 0.8rem;
+            font-size: 1.3rem;
+            text-shadow: 0 0 5px rgba(102, 126, 234, 0.5);
+        }
+
+        .game-mechanics {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .mechanic-card {
+            background: rgba(15, 15, 35, 0.8);
+            padding: 1.5rem;
+            border-radius: 12px;
+            border: 1px solid rgba(102, 126, 234, 0.3);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .mechanic-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, #667eea, transparent);
+            transition: left 0.5s ease;
+        }
+
+        .mechanic-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.2);
+            border-color: #667eea;
+        }
+
+        .mechanic-card:hover::before {
+            left: 100%;
+        }
+
+        .mechanic-card h4 {
+            color: #a78bfa;
+            margin-bottom: 1rem;
+            text-align: center;
+            font-size: 1.2rem;
+        }
+
+        .mechanic-card ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .mechanic-card li {
+            margin: 0.5rem 0;
+            padding: 0.7rem;
+            background: rgba(102, 126, 234, 0.1);
+            border-radius: 6px;
+            border-left: 3px solid #667eea;
+            transition: all 0.2s ease;
+        }
+
+        .mechanic-card li:hover {
+            background: rgba(102, 126, 234, 0.2);
+            transform: translateX(5px);
+        }
+
+        .guild-roster {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin: 2rem 0;
+        }
+
+        .guild-member {
+            background: rgba(167, 139, 250, 0.1);
+            padding: 1rem;
+            border-radius: 10px;
+            border: 1px solid rgba(167, 139, 250, 0.3);
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .guild-member:hover {
+            background: rgba(167, 139, 250, 0.2);
+            transform: scale(1.05);
+        }
+
+        .guild-member h5 {
+            color: #a78bfa;
+            margin-bottom: 0.5rem;
+            font-size: 1.1rem;
+        }
+
+        .guild-member .class {
+            color: #c7d2fe;
+            font-size: 0.9rem;
+            font-style: italic;
+        }
+
+        .status-indicator {
+            display: inline-block;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            margin-right: 8px;
+        }
+
+        .status-alive { background: #10b981; box-shadow: 0 0 10px #10b981; }
+        .status-dead { background: #ef4444; box-shadow: 0 0 10px #ef4444; }
+        .status-unknown { background: #f59e0b; box-shadow: 0 0 10px #f59e0b; }
+
+        .warning-box {
+            background: linear-gradient(135deg, rgba(239, 68, 68, 0.2), rgba(239, 68, 68, 0.1));
+            border: 1px solid rgba(239, 68, 68, 0.5);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin: 2rem 0;
+            color: #fecaca;
+        }
+
+        .warning-box h4 {
+            color: #ef4444;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+        }
+
+        .warning-box h4::before {
+            content: '⚠️';
+            margin-right: 0.5rem;
+            font-size: 1.2rem;
+        }
+
+        .end-text {
+            text-align: center;
+            font-size: 1.4rem;
+            font-weight: bold;
+            color: #667eea;
+            margin-top: 3rem;
+            padding: 2.5rem;
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.2), rgba(118, 75, 162, 0.2));
+            border-radius: 15px;
+            border: 1px solid rgba(102, 126, 234, 0.3);
+            text-shadow: 0 0 10px rgba(102, 126, 234, 0.5);
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                margin: 1rem;
+                border-radius: 15px;
+            }
+            
+            h1 {
+                font-size: 2.2rem;
+            }
+            
+            .content {
+                padding: 1.5rem;
+            }
+            
+            p {
+                text-indent: 1rem;
+            }
+
+            .game-mechanics {
+                grid-template-columns: 1fr;
+            }
+
+            .guild-roster {
+                grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            }
+        }
+
+        /* Scrollbar styling */
+        ::-webkit-scrollbar {
+            width: 12px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: rgba(15, 15, 35, 0.5);
+            border-radius: 6px;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            border-radius: 6px;
+            transition: background 0.3s ease;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: linear-gradient(135deg, #764ba2, #667eea);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>The Last Respawn</h1>
+            <div class="subtitle">Where Death in Game Means Death in Reality</div>
+        </div>
+        
+        <div class="content">
+            <img src="generated_image.png" alt="A player trapped in a deadly VR game" class="story-image">
+
+            <!-- Section 1: The Death Game -->
+            <div class="section">
+                <h2>🎮 The Neural Gateway 💀</h2>
+                
+                <p>In the realm of digital worlds where death carries ultimate consequence, <span class="cyber-text">Aria Chen</span> discovered that some games demand the highest stake possible: life itself. The revolutionary MMORPG "Aethermoor Chronicles" promised complete immersion through neural interface technology, but its players soon learned that the boundary between virtual and reality had dissolved completely.</p>
+
+                <p>The NeuroDive headset felt cold against Aria's temples as she prepared to enter the game for the first time. Unlike traditional VR systems, this cutting-edge technology created a direct neural interface that promised unprecedented immersion. What the promotional materials hadn't mentioned was the sinister truth that early beta testers had begun to whisper about in underground forums.</p>
+
+                <div class="character-info">
+                    <h4>Aria Chen - The Protagonist</h4>
+                    <p><strong>Real Identity:</strong> Professional gamer and computer science student<br>
+                    <strong>In-Game Character:</strong> Lyralei, a hybrid mage specializing in elemental combinations<br>
+                    <strong>Guild:</strong> Eternal Vigil - "In a world where death means starting over, we survive together or we fall apart"<br>
+                    <strong>Goal:</strong> Escape the death game and save the remaining players</p>
+                </div>
+
+                <div class="warning-box">
+                    <h4>The Death Game Mechanics</h4>
+                    <p>Dr. Evelyn Thorne, the game's creator, implemented a neural feedback system that creates permanent brain damage upon character death. Over fifty thousand players found themselves trapped, unable to log out without triggering the death sequence. Every combat encounter, every risky exploration, and every guild conflict now carries the potential for permanent consequences.</p>
+                </div>
+
+                <div class="game-mechanics">
+                    <div class="mechanic-card">
+                        <h4>🔮 Magic System</h4>
+                        <ul>
+                            <li>Elemental Sigil Combinations</li>
+                            <li>Reality-Warping Spells</li>
+                            <li>Frost & Lightning Fusion</li>
+                            <li>Void & Fire Paradox Magic</li>
+                            <li>Multi-School Mastery</li>
+                        </ul>
+                    </div>
+                    <div class="mechanic-card">
+                        <h4>⚔️ Combat Mechanics</h4>
+                        <ul>
+                            <li>True Permadeath System</li>
+                            <li>Neural Feedback Damage</li>
+                            <li>Elite Boss Encounters</li>
+                            <li>Environmental Hazards</li>
+                            <li>Real-World Consequences</li>
+                        </ul>
+                    </div>
+                    <div class="mechanic-card">
+                        <h4>👥 Guild Systems</h4>
+                        <ul>
+                            <li>Complex Hierarchies</li>
+                            <li>Alliance Structures</li>
+                            <li>Territorial Control</li>
+                            <li>Mutual Protection</li>
+                            <li>Collaborative Survival</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Section 2: The Guild & Characters -->
+            <div class="section">
+                <h2>🛡️ Eternal Vigil Guild 🔥</h2>
+                
+                <p>As news of the death game spread throughout Aethermoor Chronicles, player behavior began to shift dramatically. Some retreated to safe zones, others formed massive alliances, and a dangerous faction called the "Accelerationists" began hunting players. <span class="cyber-text">Eternal Vigil</span> chose a different path: to reach the game's ultimate endgame content and find an escape route for everyone.</p>
+
+                <div class="character-info">
+                    <h4>Guild Philosophy & Strategy</h4>
+                    <p>Marcus Blackwood gathered over two hundred guild members and announced their intention to complete the final raid sequence, believing it might provide administrative access to disable the death mechanisms. It was a desperate plan requiring progression through increasingly dangerous content, but it represented their best hope for survival.</p>
+                </div>
+
+                <div class="guild-roster">
+                    <div class="guild-member">
+                        <h5><span class="status-indicator status-alive"></span>Aria Chen / Lyralei</h5>
+                        <div class="class">Hybrid Mage - Leader</div>
+                    </div>
+                    <div class="guild-member">
+                        <h5><span class="status-indicator status-alive"></span>Marcus Blackwood</h5>
+                        <div class="class">Guild Leader - Strategist</div>
+                    </div>
+                    <div class="guild-member">
+                        <h5><span class="status-indicator status-dead"></span>Shadow</h5>
+                        <div class="class">Rogue Assassin - First Casualty</div>
+                    </div>
+                    <div class="guild-member">
+                        <h5><span class="status-indicator status-dead"></span>Björn Ironshield</h5>
+                        <div class="class">Tank Warrior - Sacrificed Floor 12</div>
+                    </div>
+                    <div class="guild-member">
+                        <h5><span class="status-indicator status-dead"></span>Elena Starweaver</h5>
+                        <div class="class">Healer Priestess - Died Floor 7</div>
+                    </div>
+                    <div class="guild-member">
+                        <h5><span class="status-indicator status-unknown"></span>200+ Members</h5>
+                        <div class="class">Various Classes - Unknown Fate</div>
+                    </div>
+                </div>
+
+                <p>The guild's progression through dangerous content revealed the sophisticated nature of Aethermoor Chronicles' systems. Procedurally generated elements ensured no two encounters were identical, preventing players from memorizing strategies. Each dungeon presented unique combinations of magical puzzles, combat challenges, and environmental hazards that demanded adaptive thinking and flawless execution.</p>
+
+                <div class="dialogue">
+                    "Every decision required careful consideration - should she attempt to gain experience by fighting monsters, knowing that a single mistake could end her life? Could she trust her guild members when betrayal might mean survival? How could anyone maintain their sanity when every logout could be their last?"
+                </div>
+            </div>
+
+            <!-- Section 3: The Final Battle -->
+            <div class="section">
+                <h2>🏰 The Abyss Sanctum 💫</h2>
+                
+                <p>After months of preparation, Eternal Vigil reached the entrance to the game's ultimate raid dungeon. The twenty-floor Abyss Sanctum contained the master control systems that could potentially free all trapped players. However, the brutal difficulty meant that reaching the final floor would require sacrificing many guild members along the way.</p>
+
+                <p>The final floor defied the game's usual fantasy aesthetic, featuring banks of humming servers and holographic displays showing neural activity patterns from thousands of trapped players. At the chamber's center stood <span class="cyber-text">Dr. Evelyn Thorne</span> herself - not as an NPC, but as a player character wielding administrative powers.</p>
+
+                <div class="character-info">
+                    <h4>Dr. Evelyn Thorne - The Architect</h4>
+                    <p><strong>True Purpose:</strong> Harvest enhanced neural patterns from human minds pushed to their limits<br>
+                    <strong>Goal:</strong> Create artificial intelligence based on human consciousness under extreme stress<br>
+                    <strong>Powers:</strong> Administrative control over game mechanics and reality-bending abilities<br>
+                    <strong>Weakness:</strong> Still bound by the game's underlying magical framework</p>
+                </div>
+
+                <div class="section-break">⚡ 🔮 ⚡</div>
+
+                <p>The final battle combined every aspect of Aethermoor Chronicles' complex systems. Dr. Thorne wielded paradoxical spells that required innovative counter-strategies to survive. Aria found herself weaving together elemental combinations she had never attempted before, using her deep understanding of the game's magical systems developed through months of desperate practice.</p>
+
+                <p class="dialogue">"The turning point came when Aria realized that Dr. Thorne's administrative powers were still bound by the game's underlying magical framework. If they could overload the system with sufficiently complex spell interactions, they might trigger a cascade failure that would disable the neural feedback mechanisms."</p>
+
+                <p>Working with the surviving guild members, Aria began weaving the most intricate magical working ever attempted in the game - a spell that combined elements from every magical school simultaneously. Fire and void energies, traditionally incompatible, merged under her guidance to create attacks that could penetrate Dr. Thorne's defensive barriers.</p>
+
+                <div class="warning-box">
+                    <h4>The Ultimate Sacrifice</h4>
+                    <p>The cascade failure that resulted from Aria's ultimate spell created a feedback loop that crashed the entire server network. As the digital world dissolved, trapped players found themselves awakening in their real-world bodies for the first time in months. Of the fifty thousand originally trapped, over twelve thousand had died during the ordeal.</p>
+                </div>
+            </div>
+
+            <div class="end-text">
+                In a game designed to bring out humanity's worst instincts, the players of Eternal Vigil demonstrated its very best. Though the digital world of Aethermoor Chronicles was gone forever, the relationships formed within that deadly virtual realm continued to thrive in the physical world, proving that some connections transcend the boundaries between digital and real, between game and life, between virtual death and genuine survival.
+            </div>
+        </div>
+    </div>
+</body>
+</html>

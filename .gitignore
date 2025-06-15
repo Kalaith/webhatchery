@@ -1,0 +1,215 @@
+# WebHatchery Root .gitignore
+# This file excludes projects that have their own git repositories
+# and common build/deployment artifacts
+
+# ==================================================
+# PROJECTS WITH THEIR OWN GIT REPOSITORIES
+# ==================================================
+
+# Exclude specific projects that should have their own repositories
+/isitdoneyet/
+/litrpg_studio/
+/project_management/
+/meme_generator/
+
+# ==================================================
+# BUILD AND DEPLOYMENT ARTIFACTS
+# ==================================================
+
+# Build logs and deployment logs
+*.log
+build-deploy.log
+deployment.log
+error.log
+
+# Temporary files
+*.tmp
+*.temp
+.temp/
+temp/
+
+# Build outputs and dist folders
+dist/
+build/
+out/
+.well-known/
+cgi-bin/
+
+
+# Node.js dependencies and cache
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.npm/
+.yarn/
+package-lock.json
+
+# PHP dependencies
+vendor/
+composer.lock
+
+# ==================================================
+# DEVELOPMENT AND EDITOR FILES
+# ==================================================
+
+# IDE and editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+Thumbs.db
+
+# Visual Studio Code settings (but allow workspace settings)
+.vscode/settings.json
+.vscode/launch.json
+.vscode/extensions.json
+
+# ==================================================
+# ENVIRONMENT AND CONFIGURATION
+# ==================================================
+
+# Environment files
+.env
+.env.local
+.env.development
+.env.test
+.env.production
+.env.staging
+
+# Configuration overrides
+config.local.json
+build-config.local.json
+
+# ==================================================
+# BACKUP AND ARCHIVE FILES
+# ==================================================
+
+# Backup files
+*.bak
+*.backup
+*_backup
+backup/
+backups/
+
+# Archive files
+*.zip
+*.rar
+*.7z
+*.tar
+*.tar.gz
+
+# ==================================================
+# SYSTEM AND CACHE FILES
+# ==================================================
+
+# Windows system files
+desktop.ini
+$RECYCLE.BIN/
+*.lnk
+
+# Cache directories
+.cache/
+cache/
+.tmp/
+
+# ==================================================
+# WEB SERVER AND DEPLOYMENT
+# ==================================================
+
+# Apache/server logs
+access.log
+error_log
+*.access.log
+*.error.log
+
+# SSL certificates and keys
+*.pem
+*.key
+*.crt
+*.cert
+
+# ==================================================
+# MEDIA AND GENERATED CONTENT
+# ==================================================
+
+# Generated images (but keep examples)
+generated_image*.png
+generated_image*.jpg
+!example_*.png
+!example_*.jpg
+
+# Large media files that shouldn't be in git
+*.mp4
+*.avi
+*.mov
+*.wmv
+*.flv
+
+# ==================================================
+# TESTING AND COVERAGE
+# ==================================================
+
+# Test coverage
+coverage/
+.coverage
+*.cover
+.nyc_output/
+
+# Test results
+test-results/
+junit.xml
+
+# ==================================================
+# SECURITY AND SENSITIVE DATA
+# ==================================================
+
+# Database files
+*.db
+*.sqlite
+*.sqlite3
+
+# API keys and secrets
+secrets.json
+api-keys.txt
+credentials.json
+
+# ==================================================
+# ALLOW IMPORTANT ROOT FILES
+# ==================================================
+
+# Explicitly include important root-level files
+!build-deploy.ps1
+!build-deploy_working.ps1
+!build.bat
+!validate-projects.ps1
+!BUILD-README.md
+!projects.json
+!build-config.json
+!index.html
+!index.php
+!index.css
+!README.md
+
+# ==================================================
+# STATIC CONTENT PROJECTS (KEEP THESE)
+# ==================================================
+
+# These are static content projects without their own git
+# Comment out any lines below if a project gets its own repository
+
+# /anime/        # Keep - static content collection
+# /stories/      # Keep - static story content  
+# /storiesx/     # Keep - static story content
+# /utils/        # Keep - shared utilities
+# /cgi-bin/      # Keep - server scripts
+
+# ==================================================
+# DEPLOYMENT TARGET EXCLUSION
+# ==================================================
+
+# Never include the deployment target in source control
+/F:/
+F:/WebHatchery/

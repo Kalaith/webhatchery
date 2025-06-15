@@ -1,0 +1,357 @@
+/* Rei Ayanami Color Scheme CSS */
+:root {
+  /* Rei's signature colors */
+  --rei-blue: #ADD8E6; /* Pale blue like her hair */
+  --rei-red: #DC143C; /* Red like her eyes */
+  --rei-white: #F8F8FF; /* Pure white like her plugsuit */
+  --rei-pale: #F5F5F5; /* Her pale skin tone */
+  --rei-dark: #2F2F2F; /* Dark contrast */
+  --rei-accent: #4169E1; /* Deeper blue accent */
+  --rei-shadow: rgba(173, 216, 230, 0.3); /* Soft blue shadow */
+  
+  /* Typography */
+  --font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  --font-mono: 'Courier New', monospace;
+  
+  /* Spacing */
+  --space-xs: 0.5rem;
+  --space-sm: 1rem;
+  --space-md: 1.5rem;
+  --space-lg: 2rem;
+  --space-xl: 3rem;
+  
+  /* Border radius */
+  --radius-sm: 0.25rem;
+  --radius-md: 0.5rem;
+  --radius-lg: 1rem;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: var(--font-family);
+  line-height: 1.6;
+  color: var(--rei-dark);
+  background: linear-gradient(135deg, var(--rei-white) 0%, var(--rei-pale) 100%);
+  min-height: 100vh;
+}
+
+/* Header Styles */
+.header {
+  background: linear-gradient(135deg, var(--rei-blue) 0%, var(--rei-accent) 100%);
+  color: var(--rei-white);
+  padding: var(--space-lg) 0;
+  text-align: center;
+  box-shadow: 0 4px 20px var(--rei-shadow);
+}
+
+.header h1 {
+  font-size: 2.5rem;
+  font-weight: 300;
+  margin-bottom: var(--space-sm);
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.header .subtitle {
+  font-size: 1.2rem;
+  opacity: 0.9;
+  font-weight: 300;
+}
+
+/* Navigation */
+.nav {
+  background: var(--rei-white);
+  padding: var(--space-sm) 0;
+  border-bottom: 2px solid var(--rei-blue);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.nav-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: center;
+  gap: var(--space-lg);
+  padding: 0 var(--space-md);
+}
+
+.nav-link {
+  color: var(--rei-dark);
+  text-decoration: none;
+  padding: var(--space-xs) var(--space-md);
+  border-radius: var(--radius-md);
+  transition: all 0.3s ease;
+  border: 2px solid transparent;
+}
+
+.nav-link:hover {
+  background: var(--rei-blue);
+  color: var(--rei-white);
+  border-color: var(--rei-accent);
+}
+
+.nav-link.active {
+  background: var(--rei-red);
+  color: var(--rei-white);
+}
+
+/* Container */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: var(--space-lg) var(--space-md);
+}
+
+/* Content Sections */
+.section {
+  background: var(--rei-white);
+  margin-bottom: var(--space-lg);
+  padding: var(--space-lg);
+  border-radius: var(--radius-lg);
+  box-shadow: 0 8px 32px rgba(173, 216, 230, 0.2);
+  border: 1px solid var(--rei-blue);
+}
+
+.section h2 {
+  color: var(--rei-accent);
+  margin-bottom: var(--space-md);
+  font-size: 1.8rem;
+  font-weight: 400;
+  border-bottom: 2px solid var(--rei-blue);
+  padding-bottom: var(--space-xs);
+}
+
+.section h3 {
+  color: var(--rei-red);
+  margin: var(--space-md) 0 var(--space-sm) 0;
+  font-size: 1.3rem;
+}
+
+.section p {
+  margin-bottom: var(--space-sm);
+  line-height: 1.7;
+}
+
+/* Character Profile Grid */
+.profile-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: var(--space-lg);
+  margin: var(--space-lg) 0;
+}
+
+.profile-card {
+  background: linear-gradient(135deg, var(--rei-pale) 0%, var(--rei-white) 100%);
+  padding: var(--space-lg);
+  border-radius: var(--radius-lg);
+  border: 2px solid var(--rei-blue);
+  transition: transform 0.3s ease;
+}
+
+.profile-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 12px 40px var(--rei-shadow);
+}
+
+.profile-card h3 {
+  color: var(--rei-accent);
+  margin-bottom: var(--space-sm);
+}
+
+/* Data Table */
+.data-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: var(--space-md) 0;
+  background: var(--rei-white);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  box-shadow: 0 4px 20px rgba(173, 216, 230, 0.1);
+}
+
+.data-table th {
+  background: var(--rei-accent);
+  color: var(--rei-white);
+  padding: var(--space-sm);
+  text-align: left;
+  font-weight: 500;
+}
+
+.data-table td {
+  padding: var(--space-sm);
+  border-bottom: 1px solid var(--rei-blue);
+}
+
+.data-table tr:hover {
+  background: var(--rei-pale);
+}
+
+.data-table tr:nth-child(even) {
+  background: rgba(173, 216, 230, 0.1);
+}
+
+/* Chart Container */
+.chart-container {
+  text-align: center;
+  margin: var(--space-lg) 0;
+  padding: var(--space-lg);
+  background: var(--rei-white);
+  border-radius: var(--radius-lg);
+  border: 2px solid var(--rei-blue);
+}
+
+.chart-container img {
+  max-width: 100%;
+  height: auto;
+  border-radius: var(--radius-md);
+}
+
+/* Quote Box */
+.quote-box {
+  background: linear-gradient(135deg, var(--rei-blue) 0%, var(--rei-accent) 100%);
+  color: var(--rei-white);
+  padding: var(--space-lg);
+  border-radius: var(--radius-lg);
+  margin: var(--space-lg) 0;
+  border-left: 4px solid var(--rei-red);
+  font-style: italic;
+  position: relative;
+}
+
+.quote-box::before {
+  content: '"';
+  font-size: 4rem;
+  position: absolute;
+  top: -10px;
+  left: 15px;
+  color: var(--rei-red);
+  opacity: 0.7;
+}
+
+/* Code Blocks */
+.code-block {
+  background: var(--rei-dark);
+  color: var(--rei-white);
+  padding: var(--space-md);
+  border-radius: var(--radius-md);
+  font-family: var(--font-mono);
+  font-size: 0.9rem;
+  overflow-x: auto;
+  margin: var(--space-md) 0;
+  border: 2px solid var(--rei-blue);
+}
+
+/* Links */
+a {
+  color: var(--rei-accent);
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+a:hover {
+  color: var(--rei-red);
+  text-decoration: underline;
+}
+
+/* Lists */
+ul, ol {
+  margin-left: var(--space-lg);
+  margin-bottom: var(--space-sm);
+}
+
+li {
+  margin-bottom: var(--space-xs);
+}
+
+/* Buttons */
+.btn {
+  display: inline-block;
+  padding: var(--space-sm) var(--space-lg);
+  background: var(--rei-accent);
+  color: var(--rei-white);
+  border: none;
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-decoration: none;
+  font-size: 1rem;
+}
+
+.btn:hover {
+  background: var(--rei-red);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px var(--rei-shadow);
+}
+
+.btn-secondary {
+  background: var(--rei-blue);
+  border: 2px solid var(--rei-accent);
+}
+
+.btn-secondary:hover {
+  background: var(--rei-accent);
+}
+
+/* Footer */
+.footer {
+  background: var(--rei-dark);
+  color: var(--rei-white);
+  text-align: center;
+  padding: var(--space-lg) 0;
+  margin-top: var(--space-xl);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .header h1 {
+    font-size: 2rem;
+  }
+  
+  .nav-container {
+    flex-direction: column;
+    gap: var(--space-sm);
+  }
+  
+  .profile-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .container {
+    padding: var(--space-md) var(--space-sm);
+  }
+}
+
+/* Smooth Scrolling */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Selection Color */
+::selection {
+  background: var(--rei-blue);
+  color: var(--rei-white);
+}
+
+/* Scrollbar Styling */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--rei-pale);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--rei-blue);
+  border-radius: var(--radius-sm);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--rei-accent);
+}

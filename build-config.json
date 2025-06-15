@@ -1,0 +1,192 @@
+{
+  "version": "1.0.0",
+  "description": "WebHatchery Build Configuration",
+  "projects": {
+    "isitdoneyet": {
+      "type": "FullStack",
+      "name": "Is It Done Yet?",
+      "description": "Recursive project management application",
+      "frontend": {
+        "type": "Static",
+        "files": [
+          "index.html",
+          "app.js", 
+          "api-service.js",
+          "style.css",
+          "server.js"
+        ],
+        "excludeFromProduction": [
+          "deployment-test.html",
+          "initialize-database.php",
+          "mcp-server.js",
+          "MCP-README.md"
+        ]
+      },
+      "backend": {
+        "type": "PHP",
+        "path": "backend",
+        "requiresBuild": true,
+        "buildCommand": "composer install --no-dev --optimize-autoloader",
+        "databaseInit": true,
+        "envFile": ".env"
+      },
+      "production": {
+        "apiUrl": "https://webhatchery.au/isitdoneyet/api",
+        "corsOrigins": ["https://webhatchery.au"],
+        "environmentUpdates": {
+          "DEBUG": "false",
+          "APP_ENV": "production"
+        }
+      },
+      "apache": {
+        "requiresRewrite": true,
+        "documentRoot": "/",
+        "apiBasePath": "/api"
+      }
+    },    "litrpg_studio": {
+      "type": "React",
+      "name": "LitRPG Studio", 
+      "description": "LitRPG Writer's Studio",
+      "path": "",
+      "requiresBuild": true,
+      "buildCommand": "npm run build",
+      "outputDir": "dist",
+      "packageManager": "npm",
+      "deployFromPath": "dist",
+      "dependencies": {
+        "react": "^19.1.0",
+        "vite": "^5.0.0",
+        "@vitejs/plugin-react": "^4.4.1"
+      }
+    },
+    "meme_generator": {
+      "type": "Static",
+      "name": "Meme Generator",
+      "description": "Interactive meme generation tool",
+      "requiresBuild": false,
+      "files": [
+        "index.html",
+        "app.js",
+        "style.css",
+        "css/",
+        "js/",
+        "*.png"
+      ],
+      "excludeFiles": [
+        "chart_script.py"
+      ]
+    },
+    "project_management": {
+      "type": "Static", 
+      "name": "Project Management",
+      "description": "Project management dashboard",
+      "requiresBuild": false,
+      "files": [
+        "index.html",
+        "app.js", 
+        "style.css",
+        "*.js",
+        "data.json",
+        "*.png"
+      ],
+      "excludeFiles": [
+        "test.html",
+        "php-integration-guide.md"
+      ]
+    },    "stories": {
+      "type": "Static",
+      "name": "Stories Collection",
+      "description": "Interactive story collection",
+      "requiresBuild": false,
+      "recursive": true,
+      "preserveStructure": true,
+      "files": [
+        "index.php",
+        "**/*.html",
+        "**/*.php", 
+        "**/*.css",
+        "**/*.js",
+        "**/*.md"
+      ]
+    },    "storiesx": {
+      "type": "Static",
+      "name": "StoriesX Collection",
+      "description": "Extended interactive story collection",
+      "requiresBuild": false,
+      "recursive": true,
+      "preserveStructure": true,
+      "files": [
+        "index.php",
+        "**/*.html",
+        "**/*.php", 
+        "**/*.css",
+        "**/*.js",
+        "**/*.md"
+      ]
+    },
+    "anime": {
+      "type": "Static",
+      "name": "Anime Collection",
+      "description": "Anime story and media collection",
+      "requiresBuild": false,
+      "recursive": true,
+      "preserveStructure": true,
+      "files": [
+        "index.php",
+        "**/*.html",
+        "**/*.php", 
+        "**/*.css",
+        "**/*.js",
+        "**/*.md",
+        "**/*.jpg",
+        "**/*.png",
+        "**/*.gif",
+        "**/*.webp"
+      ]
+    },
+    "ses": {
+      "type": "FullStack",
+      "name": "South Eastern Speedskaters",
+      "description": "Student engagement and attendance system",
+      "frontend": {
+        "type": "Vite",
+        "outputDir": "dist"
+      },
+      "backend": {
+        "type": "PHP",
+        "requiresBuild": true,
+        "buildCommand": "composer install --no-dev --optimize-autoloader",
+        "databaseMigrations": true,
+        "envFile": ".env"
+      },
+      "production": {
+        "apiUrl": "https://webhatchery.au/ses/api",
+        "corsOrigins": ["https://webhatchery.au"]
+      }
+    }
+  },
+  "global": {
+    "excludePatterns": [
+      ".git",
+      ".gitignore", 
+      "node_modules",
+      ".env.example",
+      "*.log",
+      "*.tmp",
+      ".DS_Store",
+      "Thumbs.db",
+      "*.bak"
+    ],
+    "buildTools": {
+      "node": ">=18.0.0",
+      "npm": ">=8.0.0", 
+      "php": ">=8.1.0",
+      "composer": ">=2.0.0"
+    },
+    "deployment": {
+      "backupBeforeDeploy": true,
+      "verifyAfterDeploy": true,
+      "rollbackOnFailure": true
+    }
+  }
+}
