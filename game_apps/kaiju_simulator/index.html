@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Kaiju Breeding Simulator - Interactive Game Design</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body class="antialiased">    <div class="container mx-auto p-4 md:p-8">
+        <!-- Header will be injected here -->
+        <div id="header-placeholder"></div>        <!-- Navigation will be injected here -->
+        <div id="nav-placeholder"></div><main>
+            <!-- Overview Section -->
+            <section class="section active">
+                <div class="bg-white p-6 rounded-xl shadow-lg animate-fade-in">
+                    <h2 class="text-3xl font-bold text-gray-800 mb-4">Game Overview</h2>
+                    <p class="text-gray-700 mb-6">
+                        Kaiju Breeding Simulator is a strategic management game where players collect, breed, train, and battle giant monsters called kaiju. Players will manage a state-of-the-art kaiju research and breeding facility, working to create the ultimate kaiju through careful genetic manipulation, strategic training, and thrilling combat competitions. The game emphasizes deep, meaningful genetic choices that directly influence the appearance and capabilities of each unique kaiju.
+                    </p>
+
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div>
+                            <h3 class="text-2xl font-bold text-gray-800 mb-3">Core Gameplay Loop</h3>
+                            <div class="space-y-4">
+                                <div class="flex items-center p-4 bg-gray-100 rounded-lg">
+                                    <span class="text-2xl mr-4">🧬</span>
+                                    <div>
+                                        <h4 class="font-semibold">1. Collect & Breed</h4>
+                                        <p class="text-sm text-gray-600">Acquire kaiju and combine their genetics to create unique offspring.</p>
+                                    </div>
+                                </div>
+                                <div class="flex justify-center"><span class="text-2xl">⬇️</span></div>
+                                <div class="flex items-center p-4 bg-gray-100 rounded-lg">
+                                    <span class="text-2xl mr-4">🏋️</span>
+                                    <div>
+                                        <h4 class="font-semibold">2. Train</h4>
+                                        <p class="text-sm text-gray-600">Develop kaiju stats and unlock abilities through targeted activities.</p>
+                                    </div>
+                                </div>
+                                <div class="flex justify-center"><span class="text-2xl">⬇️</span></div>
+                                <div class="flex items-center p-4 bg-gray-100 rounded-lg">
+                                    <span class="text-2xl mr-4">⚔️</span>
+                                    <div>
+                                        <h4 class="font-semibold">3. Battle</h4>
+                                        <p class="text-sm text-gray-600">Compete against AI or other players in strategic combat arenas.</p>
+                                    </div>
+                                </div>
+                                 <div class="flex justify-center"><span class="text-2xl">⬇️</span></div>
+                                <div class="flex items-center p-4 bg-gray-100 rounded-lg">
+                                    <span class="text-2xl mr-4">📈</span>
+                                    <div>
+                                        <h4 class="font-semibold">4. Progress</h4>
+                                        <p class="text-sm text-gray-600">Unlock new facilities, research, and advanced features.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div>
+                            <h3 class="text-2xl font-bold text-gray-800 mb-3">Unique Selling Points</h3>
+                            <ul class="list-disc list-inside space-y-3 text-gray-700">
+                                <li><strong>Deep Breeding Genetics System:</strong> Go beyond simple inheritance with dominant, recessive, and polygenic traits, plus impactful mutations.</li>
+                                <li><strong>Dynamic Kaiju Visuals:</strong> A kaiju's appearance is directly generated from its genetic code, making every creation visually unique.</li>
+                                <li><strong>Strategic Combat:</strong> Elemental type effectiveness and genetically-derived abilities create deep, tactical battles.</li>
+                                <li><strong>Facility Management:</strong> Build and upgrade your research facility to unlock new possibilities.</li>
+                            </ul>
+                            
+                            <div class="mt-6 p-4 bg-blue-50 rounded-lg">
+                                <h4 class="font-semibold text-blue-900 mb-2">🎯 Quick Navigation</h4>
+                                <div class="grid grid-cols-2 gap-2 text-sm">
+                                    <a href="kaiju-pedia.html" class="text-blue-700 hover:text-blue-900 transition-colors">📖 Explore Kaiju Types</a>
+                                    <a href="breeding-lab.html" class="text-blue-700 hover:text-blue-900 transition-colors">🧬 Try Breeding Lab</a>
+                                    <a href="combat-sim.html" class="text-blue-700 hover:text-blue-900 transition-colors">⚔️ Combat System</a>
+                                    <a href="progression.html" class="text-blue-700 hover:text-blue-900 transition-colors">📈 Progression Path</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>    <!-- Load components and initialize page -->
+    <script type="module">
+        import { ComponentLoader } from './js/component-loader.js';
+        
+        // Initialize components when page loads
+        document.addEventListener('DOMContentLoaded', async () => {
+            await ComponentLoader.initializeComponents('index.html');
+        });
+    </script>
+</body>
+</html>

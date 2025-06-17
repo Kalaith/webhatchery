@@ -1,0 +1,109 @@
+@import "tailwindcss";
+
+/* Dragon's Den Custom Styles */
+@layer base {
+  :root {
+    --color-gold: #FFD700;
+    --color-dragon: #8B0000;
+    --color-treasure: #DDA0DD;
+    --color-minion: #8B4513;
+  }
+
+  body {
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    background: linear-gradient(135deg, #FEF3C7 0%, #F59E0B 100%);
+    min-height: 100vh;
+  }
+}
+
+@layer components {
+  .treasure-common {
+    @apply border-gray-400 bg-gray-100;
+  }
+  
+  .treasure-rare {
+    @apply border-blue-400 bg-blue-100;
+  }
+  
+  .treasure-epic {
+    @apply border-purple-400 bg-purple-100;
+  }
+  
+  .treasure-legendary {
+    @apply border-yellow-400 bg-yellow-100;
+  }
+
+  .floating-number {
+    @apply fixed pointer-events-none font-bold text-green-600 z-50;
+    animation: float 2s ease-out forwards;
+  }
+
+  .pulse-animation {
+    animation: pulse 0.5s ease-in-out;
+  }
+
+  .cooldown-overlay {
+    @apply absolute inset-0 bg-black/30 flex items-center justify-center text-white font-bold rounded;
+  }
+}
+
+@layer utilities {
+  .game-container {
+    @apply min-h-screen flex flex-col;
+  }
+
+  .resource-counter {
+    @apply flex gap-4 p-4 bg-white/90 rounded-lg border shadow-md;
+  }
+
+  .action-button {
+    @apply relative h-16 text-lg font-semibold rounded-lg transition-all duration-200 hover:scale-105 active:scale-95;
+  }
+
+  .treasure-card {
+    @apply p-4 rounded-lg border-2 shadow-md transition-all duration-200 hover:shadow-lg;
+  }
+
+  .upgrade-card {
+    @apply p-4 bg-white rounded-lg border shadow-md hover:shadow-lg transition-shadow;
+  }
+}
+
+@keyframes float {
+  0% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-50px);
+  }
+}
+
+@keyframes pulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.1); }
+  100% { transform: scale(1); }
+}
+
+/* Game specific animations */
+.treasure-discover {
+  animation: treasure-sparkle 1s ease-in-out;
+}
+
+@keyframes treasure-sparkle {
+  0%, 100% { transform: scale(1) rotate(0deg); }
+  25% { transform: scale(1.1) rotate(5deg); }
+  50% { transform: scale(1.2) rotate(-5deg); }
+  75% { transform: scale(1.1) rotate(5deg); }
+}
+
+.gold-collect {
+  animation: gold-shine 0.3s ease-out;
+}
+
+@keyframes gold-shine {
+  0% { box-shadow: 0 0 0 rgba(255, 215, 0, 0); }
+  50% { box-shadow: 0 0 20px rgba(255, 215, 0, 0.8); }
+  100% { box-shadow: 0 0 0 rgba(255, 215, 0, 0); }
+}

@@ -1,0 +1,149 @@
+/* Kaiju Breeding Simulator - Main Styles */
+
+/* Inter Font and Base Styles */
+body {
+    font-family: 'Inter', sans-serif;
+    background-color: #F7F8FC;
+    color: #1a202c;
+}
+
+/* Chart Container Responsive */
+.chart-container {
+    position: relative;
+    width: 100%;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+    height: 300px;
+    max-height: 400px;
+}
+
+@media (min-width: 768px) {
+    .chart-container {
+        height: 350px;
+    }
+}
+
+/* Navigation Styles */
+.nav-link {
+    padding: 8px 16px;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+    font-weight: 500;
+    cursor: pointer;
+    border: 2px solid transparent;
+}
+
+.nav-link.active {
+    background-color: #4A5568;
+    color: #FFFFFF;
+}
+
+.nav-link:not(.active):hover {
+    background-color: #E2E8F0;
+}
+
+/* Section Management */
+.section {
+    display: none;
+}
+
+.section.active {
+    display: block;
+}
+
+/* Kaiju Card Interactions */
+.kaiju-card {
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.kaiju-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+}
+
+.kaiju-card.selected {
+    border-color: #4A5568;
+    transform: translateY(-2px);
+    box-shadow: 0 0 0 3px rgba(74, 85, 104, 0.5);
+}
+
+/* Combat Phase Interactions */
+.combat-phase {
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.combat-phase.active {
+    background-color: #4A5568;
+    color: white;
+    transform: scale(1.05);
+}
+
+.combat-phase:not(.active):hover {
+     background-color: #E2E8F0;
+}
+
+/* Progression Steps */
+.step {
+    cursor: pointer;
+}
+
+.step.active .step-circle {
+    background-color: #4A5568;
+    border-color: #4A5568;
+    color: white;
+}
+
+.step.active .step-line {
+    background-color: #4A5568;
+}
+
+/* Breeding Lab Specific Styles */
+.breeding-tab-btn {
+    flex: 1;
+    padding: 12px;
+    border-radius: 8px;
+    transition: background-color 0.3s ease;
+    font-weight: 500;
+    cursor: pointer;
+    border: 2px solid transparent;
+}
+
+.breeding-tab-btn.active {
+    background-color: #4A5568;
+    color: #FFFFFF;
+}
+
+.breeding-tab-btn:not(.active):hover {
+    background-color: #E2E8F0;
+}
+
+.breeding-tab-content {
+    display: none;
+}
+
+.breeding-tab-content.active {
+    display: block;
+}
+
+/* Combat Tab Specific Styles */
+.combat-tab-btn {
+    flex: 1;
+    padding: 12px;
+    border-radius: 8px;
+    transition: background-color 0.3s ease;
+    font-weight: 500;
+    cursor: pointer;
+    border: 2px solid transparent;
+    min-width: fit-content;
+}
+
+.combat-tab-btn.active {
+    background-color: #4A5568;
+    color: #FFFFFF;
+}
+
+.combat-tab-btn:not(.active):hover {
+    background-color: #E2E8F0;
+}

@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Breeding Lab - Kaiju Breeding Simulator</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body class="antialiased">    <div class="container mx-auto p-4 md:p-8">
+        <!-- Header will be injected here -->
+        <div id="header-placeholder"></div>
+
+        <!-- Navigation will be injected here -->
+        <div id="nav-placeholder"></div>
+
+        <main>
+            <!-- Breeding Lab Section -->
+            <section class="section active">
+                 <div class="bg-white p-6 rounded-xl shadow-lg">
+                    <h2 class="text-3xl font-bold text-gray-800 mb-4">Breeding Lab Sandbox</h2>
+                    <p class="text-gray-700 mb-6">This simulator demonstrates how a Kaiju's genetic traits are translated into a descriptive prompt for image generation. Choose different visual traits from the dropdowns to see how the final prompt changes. This showcases the core feature of creating visually unique Kaiju based on their DNA.</p>
+                     
+                     <!-- Breeding Mechanics Tab -->
+                     <div class="mb-6">
+                        <div class="flex space-x-4 mb-4">
+                            <button class="breeding-tab-btn active bg-gray-800 text-white px-4 py-2 rounded" data-tab="visual">Visual Generator</button>
+                            <button class="breeding-tab-btn bg-gray-200 text-gray-700 px-4 py-2 rounded" data-tab="genetics">Genetics System</button>
+                            <button class="breeding-tab-btn bg-gray-200 text-gray-700 px-4 py-2 rounded" data-tab="costs">Breeding Economics</button>
+                        </div>
+                     </div>                     <!-- Visual Generator Tab -->
+                     <div id="visual-tab" class="breeding-tab-content">
+                        <div class="grid lg:grid-cols-4 md:grid-cols-2 gap-6">
+                            <div>
+                                <h3 class="text-2xl font-bold text-gray-800 mb-4">Basic Traits</h3>
+                                <div class="space-y-4">
+                                    <div>
+                                        <label for="kaiju-name" class="block text-sm font-medium text-gray-700">Kaiju Name</label>
+                                        <input type="text" id="kaiju-name" value="Titanclaw" class="mt-1 block w-full pl-3 pr-3 py-2 text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md">
+                                    </div>                                    <div>
+                                        <label for="title" class="block text-sm font-medium text-gray-700">Title/Epithet</label>
+                                        <select id="title" class="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md">
+                                            <!-- Options populated by JavaScript -->
+                                        </select>
+                                    </div>                                    <div>
+                                        <label for="body-shape" class="block text-sm font-medium text-gray-700">Body Shape & Stance</label>
+                                        <select id="body-shape" class="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md">
+                                            <!-- Options populated by JavaScript -->
+                                        </select>
+                                    </div>                                    <div>
+                                        <label for="size-scale" class="block text-sm font-medium text-gray-700">Size Scale</label>
+                                        <select id="size-scale" class="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md">
+                                            <!-- Options populated by JavaScript -->
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div>
+                                <h3 class="text-2xl font-bold text-gray-800 mb-4">Physical Features</h3>
+                                <div class="space-y-4">                                    <div>
+                                        <label for="skin-texture" class="block text-sm font-medium text-gray-700">Skin & Surface</label>
+                                        <select id="skin-texture" class="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md">
+                                            <!-- Options populated by JavaScript -->
+                                        </select>
+                                    </div>                                    <div>
+                                        <label for="appendages" class="block text-sm font-medium text-gray-700">Distinctive Appendages</label>
+                                        <select id="appendages" class="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md">
+                                            <!-- Options populated by JavaScript -->
+                                        </select>
+                                    </div>                                    <div>
+                                        <label for="head-type" class="block text-sm font-medium text-gray-700">Head & Face</label>
+                                        <select id="head-type" class="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md">
+                                            <!-- Options populated by JavaScript -->
+                                        </select>
+                                    </div>                                    <div>
+                                        <label for="tail-type" class="block text-sm font-medium text-gray-700">Tail Design</label>
+                                        <select id="tail-type" class="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md">
+                                            <!-- Options populated by JavaScript -->
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>                            <div>
+                                <h3 class="text-2xl font-bold text-gray-800 mb-4">Special Features & Atmosphere</h3>
+                                <div class="space-y-4">                                    <div>
+                                        <label for="special-feature" class="block text-sm font-medium text-gray-700">Unique Features</label>
+                                        <select id="special-feature" class="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md">
+                                            <!-- Options populated by JavaScript -->
+                                        </select>
+                                    </div>                                    <div>
+                                        <label for="battle-damage" class="block text-sm font-medium text-gray-700">Battle Scars & Damage</label>
+                                        <select id="battle-damage" class="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md">
+                                            <!-- Options populated by JavaScript -->
+                                        </select>
+                                    </div>                                    <div>
+                                        <label for="color-palette" class="block text-sm font-medium text-gray-700">Color Scheme</label>
+                                        <select id="color-palette" class="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md">
+                                            <!-- Options populated by JavaScript -->
+                                        </select>
+                                    </div>                                    <div>
+                                        <label for="dynamic-pose" class="block text-sm font-medium text-gray-700">Dynamic Pose</label>
+                                        <select id="dynamic-pose" class="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md">
+                                            <!-- Options populated by JavaScript -->
+                                        </select>
+                                    </div>                                    <div>
+                                        <label for="environment" class="block text-sm font-medium text-gray-700">Environment Setting</label>
+                                        <select id="environment" class="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md">
+                                            <!-- Options populated by JavaScript -->
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div>
+                                <h3 class="text-2xl font-bold text-gray-800 mb-4">Art Direction & Composition</h3>
+                                <div class="space-y-4">
+                                    <div>
+                                        <label for="camera-angle" class="block text-sm font-medium text-gray-700">Camera Angle</label>
+                                        <select id="camera-angle" class="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md">
+                                            <!-- Options populated by JavaScript -->
+                                        </select>
+                                    </div>
+                                    <div>
+                                        <label for="frame-composition" class="block text-sm font-medium text-gray-700">Frame Composition</label>
+                                        <select id="frame-composition" class="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md">
+                                            <!-- Options populated by JavaScript -->
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mt-8">
+                            <div class="bg-gray-50 p-6 rounded-lg">
+                                <h3 class="text-2xl font-bold text-gray-800 mb-4">Generated Kaiju Prompt</h3>
+                                <div id="prompt-output" class="w-full h-96 p-4 bg-gray-900 text-green-400 font-mono text-sm rounded-md overflow-y-auto whitespace-pre-wrap">
+                                    <!-- Detailed prompt will be generated here -->
+                                </div>                                <div class="flex gap-4 mt-4">
+                                    <button id="randomize-button" class="flex-1 bg-purple-600 text-white font-bold py-2 px-4 rounded-lg hover:bg-purple-700 transition-colors">
+                                        🎲 Randomize Traits
+                                    </button>
+                                    <button id="generate-button" class="flex-1 bg-gray-800 text-white font-bold py-2 px-4 rounded-lg hover:bg-gray-700 transition-colors">
+                                        Generate Kaiju Image Prompt
+                                    </button>
+                                </div>
+                                 <div id="image-result" class="mt-4 hidden text-center">
+                                    <div id="loading-spinner" class="flex justify-center items-center">
+                                        <div class="animate-spin rounded-full h-16 w-16 border-t-2 border-b-2 border-gray-900"></div>
+                                    </div>
+                                    <div id="generated-image-container" class="hidden">
+                                         <img id="generated-image" src="https://placehold.co/600x400/1a202c/ffffff?text=Kaiju+Generated" class="rounded-lg mx-auto shadow-md" alt="Generated Kaiju">
+                                         <p class="text-xs text-gray-500 mt-2">This is a placeholder image. In-game, a unique image would be generated based on the prompt.</p>
+                                    </div>
+                                </div>
+                            </div>
+                         </div>
+                     </div><!-- Genetics System Tab -->
+                     <div id="genetics-tab" class="breeding-tab-content">
+                        <div class="grid md:grid-cols-2 gap-8">
+                            <div>
+                                <h3 class="text-2xl font-bold text-gray-800 mb-4">Inheritance System</h3>
+                                <div class="space-y-4">
+                                    <div class="bg-blue-50 p-4 rounded-lg">
+                                        <h4 class="font-semibold text-blue-900 mb-2">🧬 Dominant Traits (75% inheritance)</h4>
+                                        <ul class="text-sm text-blue-800 space-y-1">
+                                            <li>• Primary Element Type</li>
+                                            <li>• Basic Physical Features</li>
+                                            <li>• Core Abilities</li>
+                                        </ul>
+                                    </div>
+                                    <div class="bg-green-50 p-4 rounded-lg">
+                                        <h4 class="font-semibold text-green-900 mb-2">🔬 Recessive Traits (25% inheritance)</h4>
+                                        <ul class="text-sm text-green-800 space-y-1">
+                                            <li>• Secondary Element Affinity</li>
+                                            <li>• Rare Physical Variations</li>
+                                            <li>• Hidden Abilities</li>
+                                        </ul>
+                                    </div>
+                                    <div class="bg-purple-50 p-4 rounded-lg">
+                                        <h4 class="font-semibold text-purple-900 mb-2">⚡ Mutations (2-5% chance)</h4>
+                                        <ul class="text-sm text-purple-800 space-y-1">
+                                            <li>• Unique Color Variations</li>
+                                            <li>• Legendary Abilities</li>
+                                            <li>• Hybrid Element Types</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <div>
+                                <h3 class="text-2xl font-bold text-gray-800 mb-4">Breeding Simulator</h3>
+                                <div class="space-y-4">
+                                    <div class="grid grid-cols-2 gap-4">
+                                        <div class="bg-gray-100 p-4 rounded-lg text-center">
+                                            <h5 class="font-semibold mb-2">Parent A</h5>
+                                            <select id="parent-a" class="w-full p-2 border rounded">
+                                                <option value="fire">🔥 Fire Kaiju</option>
+                                                <option value="water">💧 Water Kaiju</option>
+                                                <option value="earth">🌍 Earth Kaiju</option>
+                                                <option value="electric">⚡ Electric Kaiju</option>
+                                            </select>
+                                        </div>
+                                        <div class="bg-gray-100 p-4 rounded-lg text-center">
+                                            <h5 class="font-semibold mb-2">Parent B</h5>
+                                            <select id="parent-b" class="w-full p-2 border rounded">
+                                                <option value="fire">🔥 Fire Kaiju</option>
+                                                <option value="water" selected>💧 Water Kaiju</option>
+                                                <option value="earth">🌍 Earth Kaiju</option>
+                                                <option value="electric">⚡ Electric Kaiju</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <button id="simulate-breeding" class="w-full bg-purple-600 text-white font-bold py-2 px-4 rounded-lg hover:bg-purple-700 transition-colors">
+                                        Simulate Breeding
+                                    </button>
+                                    <div id="breeding-results" class="bg-gray-50 p-4 rounded-lg">
+                                        <h5 class="font-semibold mb-2">Possible Offspring:</h5>
+                                        <div id="offspring-list" class="space-y-2">
+                                            <!-- Breeding results will appear here -->
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                     </div>                     <!-- Breeding Economics Tab -->
+                     <div id="costs-tab" class="breeding-tab-content">
+                        <div class="grid md:grid-cols-2 gap-8">
+                            <div>
+                                <h3 class="text-2xl font-bold text-gray-800 mb-4">Breeding Costs & Resources</h3>
+                                <div class="space-y-4">
+                                    <div class="bg-yellow-50 border-l-4 border-yellow-400 p-4">
+                                        <h4 class="font-semibold text-yellow-900 mb-2">💰 Base Breeding Cost</h4>
+                                        <ul class="text-sm text-yellow-800 space-y-1">
+                                            <li>• Common × Common: 1,000 Credits</li>
+                                            <li>• Common × Rare: 5,000 Credits</li>
+                                            <li>• Rare × Rare: 15,000 Credits</li>
+                                            <li>• Legendary × Any: 50,000 Credits</li>
+                                        </ul>
+                                    </div>
+                                    <div class="bg-red-50 border-l-4 border-red-400 p-4">
+                                        <h4 class="font-semibold text-red-900 mb-2">⏱️ Time Requirements</h4>
+                                        <ul class="text-sm text-red-800 space-y-1">
+                                            <li>• Gestation Period: 6-48 hours</li>
+                                            <li>• Maturation Time: 24-120 hours</li>
+                                            <li>• Cooldown Between Breeds: 12 hours</li>
+                                        </ul>
+                                    </div>
+                                    <div class="bg-green-50 border-l-4 border-green-400 p-4">
+                                        <h4 class="font-semibold text-green-900 mb-2">🧪 Special Materials</h4>
+                                        <ul class="text-sm text-green-800 space-y-1">
+                                            <li>• Elemental Essence (for type affinity)</li>
+                                            <li>• Mutation Catalyst (5% mutation boost)</li>
+                                            <li>• Genetic Stabilizer (prevents negative traits)</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <div>
+                                <h3 class="text-2xl font-bold text-gray-800 mb-4">Breeding Success Rates</h3>
+                                <div class="chart-container" style="height: 300px;">
+                                    <canvas id="breedingSuccessChart"></canvas>
+                                </div>
+                                <div class="mt-4 text-sm text-gray-600">
+                                    <p>Success rates affected by:</p>
+                                    <ul class="list-disc list-inside mt-2 space-y-1">
+                                        <li>Parent compatibility (element types)</li>
+                                        <li>Facility level and equipment</li>
+                                        <li>Use of special materials</li>
+                                        <li>Breeder experience level</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                     </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- Load components and page script -->
+    <script type="module">
+        import { ComponentLoader } from './js/component-loader.js';
+        import { initBreedingLab } from './js/breeding-lab.js';
+        
+        document.addEventListener('DOMContentLoaded', async () => {
+            await ComponentLoader.initializeComponents('breeding-lab.html');
+            initBreedingLab();
+        });
+    </script>
+</body>
+</html>

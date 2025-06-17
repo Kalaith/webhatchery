@@ -1,0 +1,5 @@
+
+/* Tailwind CSS v4 Setup - REQUIRED for this project */
+/* This is the correct import for Tailwind CSS v4 */
+/* Do NOT change to v3 syntax (@import "tailwindcss/base" etc.) */
+@import "tailwindcss";
