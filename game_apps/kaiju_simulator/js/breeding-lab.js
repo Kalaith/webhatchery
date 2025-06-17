@@ -23,10 +23,12 @@ export function initBreedingLab() {
     if (generateButton) {
         generateButton.addEventListener('click', generateImage);
     }
-    
-    const randomizeButton = document.getElementById('randomize-button');
+      const randomizeButton = document.getElementById('randomize-button');
     if (randomizeButton) {
+        console.log('Randomize button found, adding event listener'); // Debug log
         randomizeButton.addEventListener('click', randomizeTraits);
+    } else {
+        console.error('Randomize button not found!'); // Debug log
     }
       // Setup breeding tab functionality
     setupBreedingTabs();
@@ -115,9 +117,13 @@ function createBreedingSuccessChart() {
 }
 
 function updatePrompt() {
+    console.log('updatePrompt called'); // Debug log
+    
     const getValue = (id) => {
         const element = document.getElementById(id);
-        return element ? element.value : '';
+        const value = element ? element.value : '';
+        console.log(`${id}: ${value}`); // Debug log
+        return value;
     };
     
     const kaijuName = getValue('kaiju-name') || 'Titanclaw';
@@ -133,64 +139,90 @@ function updatePrompt() {
     const colorPalette = getValue('color-palette') || 'Charcoal black, volcanic orange, deep reds';
     const dynamicPose = getValue('dynamic-pose') || 'Mid-roar, ground fracturing under weight';
     const environment = getValue('environment') || 'Destroyed cityscape with smoke and fire';
+    const cameraAngle = getValue('camera-angle') || 'Wide angle full body shot, dramatic perspective';
+    const frameComposition = getValue('frame-composition') || 'Full body centered, entire creature visible';
 
-    // Generate detailed prompt
-    const prompt = `"${kaijuName}, ${title}"
-
-Core Concept:
-${generateCoreConcept(kaijuName, title, bodyShape, specialFeature, sizeScale)}
-
-Physical Description:
-
-Body Shape & Size: ${bodyShape.toLowerCase()} - ${sizeScale.toLowerCase()}
-
-Skin & Surface: ${skinTexture}, ${getTextureDetails(skinTexture)}
-
-Distinctive Features: ${appendages}, ${getAppendageDetails(appendages)}
-
-Head Design: ${headType}, ${getHeadDetails(headType)}
-
-Tail Configuration: ${tailType}, ${getTailDetails(tailType)}
-
-Key Features for Distinction:
-${generateKeyFeatures(specialFeature, battleDamage)}
-
-Mood & Atmosphere:
-
-Color Palette: ${colorPalette} - ${getColorMood(colorPalette)}
-
-Dynamic Pose: ${dynamicPose}, ${getPoseDetails(dynamicPose)}
-
-Environment: ${environment}, ${getEnvironmentDetails(environment)}
-
-Lighting & Effects: ${getLightingDescription(specialFeature, colorPalette)}
-
-Art Direction Notes:
-• High detail, cinematic quality
-• Emphasis on scale and power
-• Dramatic lighting and shadows
-• Photorealistic with fantastical elements
-• 4K resolution, professional concept art style`;
+    // Generate ComfyUI-optimized prompt (concise and visual)
+    const prompt = `${kaijuName} ${title}, ${convertToImagePrompt(bodyShape, sizeScale)}, ${skinTexture}, ${appendages}, ${headType}, ${tailType}, ${specialFeature}, ${battleDamage}, ${colorPalette}, ${dynamicPose}, ${environment}, ${cameraAngle}, ${frameComposition}, kaiju monster, creature design, highly detailed, concept art, dramatic lighting, photorealistic, no weapons, no armor, natural creature`;
+    
+    console.log('Generated prompt:', prompt); // Debug log
 
     const outputElement = document.getElementById('prompt-output');
     if (outputElement) {
         outputElement.textContent = prompt;
+        console.log('Prompt updated in UI'); // Debug log
+    } else {
+        console.error('prompt-output element not found!'); // Debug log
     }
 }
 
-function generateImage() {
+async function generateImage() {
     const imageResult = document.getElementById('image-result');
     const loadingSpinner = document.getElementById('loading-spinner');
     const imageContainer = document.getElementById('generated-image-container');
+    const generatedImage = document.getElementById('generated-image');
     
+    // Get the current prompt
+    const promptOutput = document.getElementById('prompt-output');
+    const prompt = promptOutput.textContent;
+    
+    if (!prompt || prompt.trim() === '') {
+        alert('Please generate a prompt first by selecting traits.');
+        return;
+    }
+    
+    // Show loading state
     imageResult.classList.remove('hidden');
     loadingSpinner.classList.remove('hidden');
     imageContainer.classList.add('hidden');
-
-    setTimeout(() => {
+    
+    try {
+        // Test ComfyUI connection first
+        await testComfyUIConnection();
+        
+        // Generate image using ComfyUI
+        const imageUrl = await generateImageWithComfyUI(prompt);
+          if (imageUrl) {
+            // Display the generated image
+            generatedImage.src = imageUrl;
+            
+            // Update the link to open full-size image
+            const imageLink = document.getElementById('generated-image-link');
+            if (imageLink) {
+                imageLink.href = imageUrl;
+            }
+            
+            loadingSpinner.classList.add('hidden');
+            imageContainer.classList.remove('hidden');
+            
+            // Update the description
+            const description = imageContainer.querySelector('p');
+            if (description) {
+                description.textContent = 'Kaiju generated successfully using ComfyUI! Click to view full size.';
+                description.className = 'text-xs text-green-600 mt-2 font-medium';
+            }
+        } else {
+            throw new Error('Failed to generate image');
+        }
+    } catch (error) {
+        console.error('Image generation failed:', error);
+        
+        // Show error state
         loadingSpinner.classList.add('hidden');
         imageContainer.classList.remove('hidden');
-    }, 1500);
+        
+        // Show placeholder with error message
+        generatedImage.src = "https://placehold.co/600x400/dc2626/ffffff?text=Generation+Failed";
+        
+        const description = imageContainer.querySelector('p');
+        if (description) {
+            description.textContent = `Generation failed: ${error.message}. Using placeholder image.`;
+            description.className = 'text-xs text-red-600 mt-2 font-medium';
+        }
+        
+        // Show user-friendly error
+        alert(`Image generation failed: ${error.message}\n\nPlease check that ComfyUI is running at http://localhost:8188/`);
+    }
 }
 
 function updateBreedingSimulator() {
@@ -326,7 +358,7 @@ function getAppendageDetails(appendages) {
         'Feathered wings spanning city blocks': 'each feather the size of a tree, creating hurricane-force winds with each beat',
         'Multiple writhing tentacles': 'dozens of muscular appendages that move with alien intelligence',
         'Sharp crystalline protrusions': 'faceted growths that slice through air and matter with surgical precision',
-        'Mechanical joints and pistons': 'hydraulic systems that enhance strength beyond biological limits',
+        'Mechanical joints and pistons': 'natural bio-mechanical adaptations with organic chitinous joints that provide enhanced strength through evolved biology',
         'Vine-like grasping limbs': 'organic tendrils that can extend and constrict with surprising speed',
         'Energy tendrils crackling with power': 'pure force given semi-physical form, constantly sparking with potential'
     };
@@ -449,8 +481,10 @@ function populateVisualTraits() {
         'battle-damage': visualTraits.battleDamage,
         'color-palette': visualTraits.colorPalettes,
         'dynamic-pose': visualTraits.dynamicPoses,
-        'environment': visualTraits.environments
-    };    // Populate each dropdown
+        'environment': visualTraits.environments,
+        'camera-angle': visualTraits.cameraAngles,
+        'frame-composition': visualTraits.frameComposition
+    };// Populate each dropdown
     Object.entries(dropdownMappings).forEach(([selectId, options]) => {
         const selectElement = document.getElementById(selectId);
         if (selectElement && options) {
@@ -481,6 +515,8 @@ function populateVisualTraits() {
 }
 
 function randomizeTraits() {
+    console.log('randomizeTraits called'); // Debug log
+    
     // Get all dropdown elements (excluding name input)
     const dropdownMappings = {
         'title': visualTraits.titles,
@@ -494,7 +530,9 @@ function randomizeTraits() {
         'battle-damage': visualTraits.battleDamage,
         'color-palette': visualTraits.colorPalettes,
         'dynamic-pose': visualTraits.dynamicPoses,
-        'environment': visualTraits.environments
+        'environment': visualTraits.environments,
+        'camera-angle': visualTraits.cameraAngles,
+        'frame-composition': visualTraits.frameComposition
     };
     
     // Randomize each dropdown selection
@@ -504,9 +542,254 @@ function randomizeTraits() {
             // Select a random option
             const randomIndex = Math.floor(Math.random() * options.length);
             selectElement.value = options[randomIndex];
-        }
-    });
+        }    });
     
     // Trigger prompt update after randomizing
     updatePrompt();
+}
+
+// Convert descriptive traits into concise visual keywords for AI image generation
+function convertToImagePrompt(bodyShape, sizeScale) {
+    // Convert body shapes to visual keywords
+    const bodyShapeKeywords = {
+        'Slender and agile, serpentine': 'serpentine elongated snake-like body',
+        'Bulky, quadrupedal with tank-like stance': 'massive quadruped muscular thick limbs',
+        'Aerodynamic, built for flight': 'winged aerodynamic streamlined flying creature',
+        'Segmented, insectoid exoskeleton': 'segmented insect exoskeleton chitin plates',
+        'Humanoid, upright and imposing': 'bipedal humanoid upright standing creature',
+        'Amorphous, constantly shifting form': 'amorphous shifting liquid blob form',
+        'Arachnid with multiple limbs': 'spider-like multiple legs arachnid limbs',
+        'Centauroid with hybrid features': 'centaur hybrid four legs torso combination',
+        'Ethereal, partially incorporeal': 'translucent ethereal ghostly multiple swarm creatures',
+        'Mechanical, robotic construction': 'bio-mechanical organic metal hybrid creature'
+    };
+    
+    // Convert size scales to visual keywords
+    const sizeKeywords = {
+        'Colossal (100+ meters) - City destroyer': 'colossal gigantic city-sized massive scale',
+        'Massive (50-100 meters) - Building crusher': 'massive building-sized enormous scale',
+        'Large (25-50 meters) - Tank-sized threat': 'large house-sized big creature',
+        'Medium (10-25 meters) - House-sized menace': 'medium vehicle-sized creature',
+        'Compact (5-10 meters) - Vehicle-sized hunter': 'compact small agile creature',
+        'Swarm (1-5 meters) - Multiple smaller units': 'swarm multiple small creatures group pack'
+    };
+    
+    const bodyKeyword = bodyShapeKeywords[bodyShape] || bodyShape.toLowerCase();
+    const sizeKeyword = sizeKeywords[sizeScale] || sizeScale.toLowerCase();
+    
+    return `${bodyKeyword}, ${sizeKeyword}`;
+}
+
+// ComfyUI Integration Functions
+const COMFYUI_SERVER = 'http://localhost:8188';
+
+async function testComfyUIConnection() {
+    try {
+        const response = await fetch(`${COMFYUI_SERVER}/`, {
+            method: 'GET',
+            timeout: 5000
+        });
+        
+        if (!response.ok) {
+            throw new Error(`ComfyUI server returned ${response.status}`);
+        }
+        
+        return true;
+    } catch (error) {
+        throw new Error(`Cannot connect to ComfyUI at ${COMFYUI_SERVER}. Make sure ComfyUI is running.`);
+    }
+}
+
+async function generateImageWithComfyUI(prompt) {
+    try {
+        // Generate unique client ID
+        const clientId = generateClientId();
+        
+        // Create ComfyUI workflow
+        const workflow = createComfyUIWorkflow(prompt);
+        
+        // Queue the prompt
+        const promptId = await queuePrompt(workflow, clientId);
+        
+        if (!promptId) {
+            throw new Error('Failed to queue prompt with ComfyUI');
+        }
+        
+        // Wait for completion and get result
+        const imageUrl = await waitForCompletion(promptId);
+        
+        return imageUrl;
+    } catch (error) {
+        console.error('ComfyUI generation error:', error);
+        throw error;
+    }
+}
+
+function generateClientId() {
+    return 'kaiju-simulator-' + Math.random().toString(36).substr(2, 9);
+}
+
+function createComfyUIWorkflow(prompt) {
+    // Clean and optimize the prompt for better AI image generation
+    const cleanPrompt = prompt.replace(/[""]/g, '').trim();
+    
+    // Enhanced prompt with better structure for ComfyUI
+    const enhancedPrompt = `(${cleanPrompt}), masterpiece, best quality, highly detailed, 4k resolution, cinematic lighting, dramatic atmosphere, professional concept art, creature design, kaiju monster, natural organic creature, biological anatomy, no weapons, no human equipment`;
+    
+    // Comprehensive negative prompt to avoid unwanted elements
+    const negativePrompt = "bad hands, blurry, low quality, poorly drawn, distorted, ugly, text, watermark, signature, cropped, out of frame, worst quality, low resolution, jpeg artifacts, sword, shield, weapon, armor, helmet, human equipment, gun, blade, spear, bow, arrow, lance, mace, axe, staff, wand, human clothing, medieval armor, knight armor, samurai armor, metal armor, plate armor, chain mail, human accessories, belt, strap, harness, saddle, bridle, human technology, machinery on creature, cybernetic implants, robotic parts, artificial limbs, human tools, mechanical weapons";
+    
+    return {
+        "3": {
+            "class_type": "KSampler",
+            "inputs": {
+                "cfg": 8.0,
+                "denoise": 1,
+                "latent_image": ["5", 0],
+                "model": ["4", 0],
+                "negative": ["7", 0],
+                "positive": ["6", 0],
+                "sampler_name": "euler",
+                "scheduler": "normal",
+                "seed": Math.floor(Math.random() * 2147483647),
+                "steps": 25
+            }
+        },        "4": {
+            "class_type": "CheckpointLoaderSimple",
+            "inputs": {
+                "ckpt_name": "plantMilkModelSuite_walnut.safetensors"
+            }
+        },
+        "5": {
+            "class_type": "EmptyLatentImage",
+            "inputs": {
+                "batch_size": 1,
+                "height": 768,
+                "width": 1024
+            }
+        },
+        "6": {
+            "class_type": "CLIPTextEncode",
+            "inputs": {
+                "clip": ["4", 1],
+                "text": enhancedPrompt
+            }
+        },
+        "7": {
+            "class_type": "CLIPTextEncode",
+            "inputs": {
+                "clip": ["4", 1],
+                "text": negativePrompt
+            }
+        },
+        "8": {
+            "class_type": "VAEDecode",
+            "inputs": {
+                "samples": ["3", 0],
+                "vae": ["4", 2]
+            }
+        },
+        "9": {
+            "class_type": "SaveImage",
+            "inputs": {
+                "filename_prefix": "kaiju_simulator",
+                "images": ["8", 0]
+            }
+        }
+    };
+}
+
+async function queuePrompt(workflow, clientId) {
+    try {
+        const promptData = {
+            "prompt": workflow,
+            "client_id": clientId
+        };
+        
+        const response = await fetch(`${COMFYUI_SERVER}/prompt`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(promptData)
+        });
+        
+        if (!response.ok) {
+            throw new Error(`Failed to queue prompt: ${response.status} ${response.statusText}`);
+        }
+        
+        const result = await response.json();
+        return result.prompt_id;
+    } catch (error) {
+        console.error('Error queueing prompt:', error);
+        throw error;
+    }
+}
+
+async function waitForCompletion(promptId, maxAttempts = 60) {
+    for (let attempt = 0; attempt < maxAttempts; attempt++) {
+        try {
+            const response = await fetch(`${COMFYUI_SERVER}/history/${promptId}`);
+            
+            if (!response.ok) {
+                throw new Error(`History request failed: ${response.status}`);
+            }
+            
+            const history = await response.json();
+            
+            if (history[promptId]) {
+                // Found completed generation
+                const imageUrl = await extractImageUrl(history[promptId]);
+                return imageUrl;
+            }
+            
+            // Wait before next check
+            await new Promise(resolve => setTimeout(resolve, 2000));
+        } catch (error) {
+            console.warn(`Attempt ${attempt + 1} failed:`, error);
+            await new Promise(resolve => setTimeout(resolve, 2000));
+        }
+    }
+    
+    throw new Error('Timeout waiting for image generation to complete');
+}
+
+async function extractImageUrl(historyData) {
+    try {
+        // Find the SaveImage node output
+        let imageInfo = null;
+        
+        for (const nodeId in historyData.outputs) {
+            const nodeOutput = historyData.outputs[nodeId];
+            if (nodeOutput.images && nodeOutput.images.length > 0) {
+                imageInfo = nodeOutput.images[0];
+                break;
+            }
+        }
+        
+        if (!imageInfo) {
+            throw new Error('No image found in generation output');
+        }
+        
+        // Construct the image URL
+        const filename = encodeURIComponent(imageInfo.filename);
+        const subfolder = imageInfo.subfolder ? encodeURIComponent(imageInfo.subfolder) : '';
+        const type = encodeURIComponent(imageInfo.type || 'output');
+        
+        let imageUrl = `${COMFYUI_SERVER}/view?filename=${filename}&type=${type}`;
+        if (subfolder) {
+            imageUrl += `&subfolder=${subfolder}`;
+        }
+        
+        // Verify the image is accessible
+        const testResponse = await fetch(imageUrl, { method: 'HEAD' });
+        if (!testResponse.ok) {
+            throw new Error('Generated image is not accessible');
+        }
+        
+        return imageUrl;
+    } catch (error) {
+        console.error('Error extracting image URL:', error);
+        throw error;
+    }
 }
