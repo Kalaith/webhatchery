@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Magical Girl Simulator</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Header -->
+        <header class="app-header">
+            <h1 class="app-title">✨ Magical Girl Simulator ✨</h1>
+            <div class="resources-display">
+                <div class="resource">
+                    <span class="resource-icon">💰</span>
+                    <span id="gold-amount">1000</span>
+                </div>
+                <div class="resource">
+                    <span class="resource-icon">💎</span>
+                    <span id="crystals-amount">500</span>
+                </div>
+                <div class="resource">
+                    <span class="resource-icon">💖</span>
+                    <span id="friendship-amount">1000</span>
+                </div>
+            </div>
+        </header>
+
+        <!-- Navigation -->
+        <nav class="app-nav">
+            <button class="nav-btn active" data-screen="dashboard">🏠 Dashboard</button>
+            <button class="nav-btn" data-screen="roster">👥 Roster</button>
+            <button class="nav-btn" data-screen="training">💪 Training</button>
+            <button class="nav-btn" data-screen="missions">⚔️ Missions</button>
+            <button class="nav-btn" data-screen="recruitment">✨ Recruit</button>
+        </nav>
+
+        <!-- Main Content -->
+        <main class="app-main">
+            <!-- Dashboard Screen -->
+            <div id="dashboard-screen" class="screen active">
+                <div class="dashboard-content">
+                    <h2>Welcome to your Magical Girl Academy!</h2>
+                    <div class="dashboard-stats">
+                        <div class="stat-card">
+                            <h3>Active Magical Girls</h3>
+                            <span class="stat-number" id="total-girls">3</span>
+                        </div>
+                        <div class="stat-card">
+                            <h3>Missions Completed</h3>
+                            <span class="stat-number" id="missions-completed">0</span>
+                        </div>
+                        <div class="stat-card">
+                            <h3>Training Sessions</h3>
+                            <span class="stat-number" id="training-completed">0</span>
+                        </div>
+                    </div>
+                    <div class="quick-actions">
+                        <button class="btn btn--primary" onclick="switchScreen('roster')">View Roster</button>
+                        <button class="btn btn--secondary" onclick="switchScreen('training')">Start Training</button>
+                        <button class="btn btn--outline" onclick="switchScreen('missions')">Begin Mission</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Roster Screen -->
+            <div id="roster-screen" class="screen">
+                <h2>Magical Girl Roster</h2>
+                <div class="roster-filters">
+                    <select id="rarity-filter" class="form-control">
+                        <option value="all">All Rarities</option>
+                        <option value="1">★ Common</option>
+                        <option value="2">★★ Rare</option>
+                        <option value="3">★★★ Epic</option>
+                        <option value="4">★★★★ Legendary</option>
+                    </select>
+                </div>
+                <div id="roster-grid" class="roster-grid">
+                    <!-- Magical girls will be populated here -->
+                </div>
+            </div>
+
+            <!-- Training Screen -->
+            <div id="training-screen" class="screen">
+                <h2>Training Academy</h2>
+                <div class="training-content">
+                    <div class="girl-selector">
+                        <label for="training-girl-select" class="form-label">Select Magical Girl:</label>
+                        <select id="training-girl-select" class="form-control">
+                            <!-- Options populated by JS -->
+                        </select>
+                    </div>
+                    <div id="training-panel" class="training-panel">
+                        <div class="girl-info">
+                            <h3 id="training-girl-name">Select a magical girl</h3>
+                            <div class="stats-display">
+                                <div class="stat-item">
+                                    <span class="stat-label">HP:</span>
+                                    <span class="stat-value" id="training-hp">0</span>
+                                    <button class="train-btn" data-stat="hp">+</button>
+                                </div>
+                                <div class="stat-item">
+                                    <span class="stat-label">Magic Power:</span>
+                                    <span class="stat-value" id="training-magicPower">0</span>
+                                    <button class="train-btn" data-stat="magicPower">+</button>
+                                </div>
+                                <div class="stat-item">
+                                    <span class="stat-label">Defense:</span>
+                                    <span class="stat-value" id="training-defense">0</span>
+                                    <button class="train-btn" data-stat="defense">+</button>
+                                </div>
+                                <div class="stat-item">
+                                    <span class="stat-label">Agility:</span>
+                                    <span class="stat-value" id="training-agility">0</span>
+                                    <button class="train-btn" data-stat="agility">+</button>
+                                </div>
+                                <div class="stat-item">
+                                    <span class="stat-label">Luck:</span>
+                                    <span class="stat-value" id="training-luck">0</span>
+                                    <button class="train-btn" data-stat="luck">+</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Missions Screen -->
+            <div id="missions-screen" class="screen">
+                <h2>Mission Command</h2>
+                <div class="missions-content">
+                    <div class="girl-selector">
+                        <label for="mission-girl-select" class="form-label">Select Magical Girl:</label>
+                        <select id="mission-girl-select" class="form-control">
+                            <!-- Options populated by JS -->
+                        </select>
+                    </div>
+                    <div id="missions-list" class="missions-list">
+                        <!-- Missions populated by JS -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- Recruitment Screen -->
+            <div id="recruitment-screen" class="screen">
+                <h2>Magical Girl Recruitment</h2>
+                <div class="recruitment-content">
+                    <div class="summon-options">
+                        <div class="summon-card">
+                            <h3>Friendship Summon</h3>
+                            <p>Use Friendship Points to recruit magical girls</p>
+                            <div class="cost">💖 100 Friendship Points</div>
+                            <button class="btn btn--primary" onclick="performSummon('friendship')">Summon</button>
+                        </div>
+                        <div class="summon-card">
+                            <h3>Crystal Summon</h3>
+                            <p>Use Magical Crystals for rare magical girls</p>
+                            <div class="cost">💎 50 Magical Crystals</div>
+                            <button class="btn btn--primary" onclick="performSummon('crystal')">Summon</button>
+                        </div>
+                    </div>
+                    <div id="summon-result" class="summon-result hidden">
+                        <!-- Summon results shown here -->
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <!-- Modal for character details -->
+        <div id="character-modal" class="modal hidden">
+            <div class="modal-content">
+                <span class="modal-close" onclick="closeModal()">&times;</span>
+                <div id="modal-body">
+                    <!-- Character details populated here -->
+                </div>
+            </div>
+        </div>
+
+        <!-- Mission Result Modal -->
+        <div id="mission-result-modal" class="modal hidden">
+            <div class="modal-content">
+                <span class="modal-close" onclick="closeMissionResult()">&times;</span>
+                <div id="mission-result-body">
+                    <!-- Mission results populated here -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>

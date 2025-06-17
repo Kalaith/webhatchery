@@ -21,8 +21,7 @@ param(
     
     [Parameter(Mandatory=$false)]
     [string]$OutputPath = "generated_image.png",
-    
-    [Parameter(Mandatory=$false)]
+      [Parameter(Mandatory=$false)]
     [string]$ComfyUIServer = "127.0.0.1:8188",
     
     [Parameter(Mandatory=$false)]

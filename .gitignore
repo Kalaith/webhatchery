@@ -213,3 +213,4 @@ credentials.json
 # Never include the deployment target in source control
 /F:/
 F:/WebHatchery/
+comfyui/ftp-config.json

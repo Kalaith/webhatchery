@@ -1,6 +1,6 @@
 <?php
 // ComfyUI Redirect to ngrok hosted service
-$comfyuiUrl = 'https://b883-163-47-120-77.ngrok-free.app/';
+$comfyuiUrl = 'https://awaited-grouper-talented.ngrok-free.app';
 
 // Get the request path
 $path = $_SERVER['REQUEST_URI'];

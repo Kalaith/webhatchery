@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Colony - Space Survival Game</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Intro Screen -->
+    <div id="intro-screen" class="screen">
+        <div class="intro-content">
+            <h1>AI Colony</h1>
+            <p>Your spacecraft has crash-landed on an alien planet. As the ship's AI, you are the only functioning system left.</p>
+            <p>The life support module survived, keeping your human colonists alive. You must manage their needs and send them to explore the planet to gather resources and make discoveries.</p>
+            <p>Expand your colony, research new technologies, and ensure survival on this hostile world.</p>
+            <button id="start-game" class="btn btn--primary">Begin Colony Management</button>
+        </div>
+    </div>
+
+    <!-- Main Game Screen -->
+    <div id="game-screen" class="screen hidden">
+        <!-- Top Status Bar -->
+        <div class="status-bar">
+            <div class="resource-item">
+                <span class="resource-icon">⚡</span>
+                <span class="resource-label">Power:</span>
+                <span id="power-value">100</span>
+            </div>
+            <div class="resource-item">
+                <span class="resource-icon">🧪</span>
+                <span class="resource-label">Oxygen:</span>
+                <span id="oxygen-value">80</span>
+            </div>
+            <div class="resource-item">
+                <span class="resource-icon">🍎</span>
+                <span class="resource-label">Food:</span>
+                <span id="food-value">10</span>
+            </div>
+            <div class="resource-item">
+                <span class="resource-icon">💧</span>
+                <span class="resource-label">Water:</span>
+                <span id="water-value">10</span>
+            </div>
+            <div class="resource-item">
+                <span class="resource-icon">🧱</span>
+                <span class="resource-label">Materials:</span>
+                <span id="materials-value">5</span>
+            </div>
+            <div class="resource-item">
+                <span class="resource-icon">💎</span>
+                <span class="resource-label">Rare Elements:</span>
+                <span id="rare-elements-value">0</span>
+            </div>
+            <div id="time-controls">
+                <button id="pause-btn" class="btn btn--sm btn--secondary">⏸️</button>
+                <button id="play-btn" class="btn btn--sm btn--secondary">▶️</button>
+                <button id="fast-forward-btn" class="btn btn--sm btn--secondary">⏩</button>
+                <span id="game-day">Day 1</span>
+            </div>
+        </div>
+
+        <!-- Game Layout -->
+        <div class="game-layout">
+            <!-- Left Panel: Colony Status -->
+            <div class="panel left-panel">
+                <h3>Life Support Module</h3>
+                <div class="module-status">
+                    <div class="status-item">
+                        <span class="status-label">Power Efficiency:</span>
+                        <div class="progress-bar">
+                            <div id="power-efficiency-bar" class="progress-fill" style="width: 100%;"></div>
+                        </div>
+                    </div>
+                    <div class="status-item">
+                        <span class="status-label">Oxygen Generation:</span>
+                        <div class="progress-bar">
+                            <div id="oxygen-generation-bar" class="progress-fill" style="width: 80%;"></div>
+                        </div>
+                    </div>
+                </div>
+                
+                <h3>Colony Status</h3>
+                <div id="event-log" class="event-log">
+                    <div class="log-entry">System initialized. Life support online.</div>
+                    <div class="log-entry">3 colonists in cryostasis revived.</div>
+                    <div class="log-entry">Immediate surroundings scanned. Ready for exploration.</div>
+                </div>
+            </div>
+
+            <!-- Center Panel: Planet Surface -->
+            <div class="panel center-panel">
+                <div class="planet-surface">
+                    <div class="life-support-module">
+                        <div class="module-icon">🛰️</div>
+                        <div class="module-label">Life Support</div>
+                    </div>
+                    <div id="colonists-container" class="colonists-container">
+                        <!-- Colonists will be dynamically added here -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right Panel: Management -->
+            <div class="panel right-panel">
+                <div class="tab-container">
+                    <div class="tabs">
+                        <button class="tab-btn active" data-tab="colonists">Colonists</button>
+                        <button class="tab-btn" data-tab="tech">Tech Tree</button>
+                        <button class="tab-btn" data-tab="explore">Exploration</button>
+                    </div>
+                    
+                    <!-- Colonists Tab -->
+                    <div id="colonists-tab" class="tab-content active">
+                        <h3>Colonist Management</h3>
+                        <div id="colonist-list" class="colonist-list">
+                            <!-- Colonists will be dynamically added here -->
+                        </div>
+                    </div>
+                    
+                    <!-- Tech Tree Tab -->
+                    <div id="tech-tab" class="tab-content">
+                        <h3>Research & Development</h3>
+                        <div class="tech-categories">
+                            <button class="tech-category active" data-category="survival">Survival</button>
+                            <button class="tech-category" data-category="energy">Energy</button>
+                            <button class="tech-category" data-category="construction">Construction</button>
+                        </div>
+                        <div id="tech-tree" class="tech-tree">
+                            <!-- Tech tree will be dynamically added here -->
+                        </div>
+                    </div>
+                    
+                    <!-- Exploration Tab -->
+                    <div id="explore-tab" class="tab-content">
+                        <h3>Planet Exploration</h3>
+                        <div id="exploration-areas" class="exploration-areas">
+                            <!-- Exploration areas will be dynamically added here -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Colonist Detail Modal -->
+    <div id="colonist-modal" class="modal hidden">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <h3 id="colonist-modal-name">Colonist Name</h3>
+            <p id="colonist-modal-type">Type: Scientist</p>
+            
+            <div class="colonist-stats">
+                <div class="stat-item">
+                    <span class="stat-label">Health:</span>
+                    <div class="progress-bar">
+                        <div id="modal-health-bar" class="progress-fill health-bar" style="width: 100%;"></div>
+                    </div>
+                    <span id="modal-health-value">100</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-label">Hunger:</span>
+                    <div class="progress-bar">
+                        <div id="modal-hunger-bar" class="progress-fill hunger-bar" style="width: 85%;"></div>
+                    </div>
+                    <span id="modal-hunger-value">85</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-label">Rest:</span>
+                    <div class="progress-bar">
+                        <div id="modal-rest-bar" class="progress-fill rest-bar" style="width: 90%;"></div>
+                    </div>
+                    <span id="modal-rest-value">90</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-label">Morale:</span>
+                    <div class="progress-bar">
+                        <div id="modal-morale-bar" class="progress-fill morale-bar" style="width: 75%;"></div>
+                    </div>
+                    <span id="modal-morale-value">75</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-label">Exploration Skill:</span>
+                    <span id="modal-skill-value">7</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-label">Status:</span>
+                    <span id="modal-status-value">Idle</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-label">Discoveries:</span>
+                    <span id="modal-discoveries-value">0</span>
+                </div>
+            </div>
+            
+            <div class="colonist-actions">
+                <button id="feed-colonist" class="btn btn--secondary">Feed (-1 Food)</button>
+                <button id="rest-colonist" class="btn btn--secondary">Rest</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Exploration Results Modal -->
+    <div id="exploration-modal" class="modal hidden">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <h3>Exploration Results</h3>
+            <div id="exploration-results">
+                <!-- Results will be dynamically added here -->
+            </div>
+            <button id="claim-discovery" class="btn btn--primary">Add to Inventory</button>
+        </div>
+    </div>
+
+    <!-- Tech Unlock Modal -->
+    <div id="tech-modal" class="modal hidden">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <h3 id="tech-modal-name">Technology Name</h3>
+            <p id="tech-modal-description">Technology description goes here.</p>
+            <div id="tech-modal-cost" class="tech-cost">
+                <!-- Cost will be displayed here -->
+            </div>
+            <button id="research-tech" class="btn btn--primary">Research</button>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>

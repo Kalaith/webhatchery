@@ -1,0 +1,86 @@
+[
+  {
+    "Challenge_Rating": "0",
+    "XP_Value": 0,
+    "Party_Level_Numeric": 0.0,
+    "Monster_Category": "Civilians/Critters"
+  },
+  {
+    "Challenge_Rating": "1/8",
+    "XP_Value": 25,
+    "Party_Level_Numeric": 1.0,
+    "Monster_Category": "Weak Humanoids"
+  },
+  {
+    "Challenge_Rating": "1/4",
+    "XP_Value": 50,
+    "Party_Level_Numeric": 1.0,
+    "Monster_Category": "Basic Undead/Beasts"
+  },
+  {
+    "Challenge_Rating": "1/2",
+    "XP_Value": 100,
+    "Party_Level_Numeric": 1.5,
+    "Monster_Category": "Trained Warriors"
+  },
+  {
+    "Challenge_Rating": "1",
+    "XP_Value": 200,
+    "Party_Level_Numeric": 2.5,
+    "Monster_Category": "Dangerous Beasts"
+  },
+  {
+    "Challenge_Rating": "2",
+    "XP_Value": 450,
+    "Party_Level_Numeric": 3.5,
+    "Monster_Category": "Large Monsters"
+  },
+  {
+    "Challenge_Rating": "3",
+    "XP_Value": 700,
+    "Party_Level_Numeric": 4.5,
+    "Monster_Category": "Elite Warriors"
+  },
+  {
+    "Challenge_Rating": "4",
+    "XP_Value": 1100,
+    "Party_Level_Numeric": 5.5,
+    "Monster_Category": "Supernatural Threats"
+  },
+  {
+    "Challenge_Rating": "5",
+    "XP_Value": 1800,
+    "Party_Level_Numeric": 6.5,
+    "Monster_Category": "Legendary Creatures"
+  },
+  {
+    "Challenge_Rating": "6-8",
+    "XP_Value": 3900,
+    "Party_Level_Numeric": 8.5,
+    "Monster_Category": "Powerful Spellcasters"
+  },
+  {
+    "Challenge_Rating": "9-12",
+    "XP_Value": 8400,
+    "Party_Level_Numeric": 11.5,
+    "Monster_Category": "Giant/Dragon Threats"
+  },
+  {
+    "Challenge_Rating": "13-16",
+    "XP_Value": 15000,
+    "Party_Level_Numeric": 14.5,
+    "Monster_Category": "Legendary Monsters"
+  },
+  {
+    "Challenge_Rating": "17-20",
+    "XP_Value": 25000,
+    "Party_Level_Numeric": 18.0,
+    "Monster_Category": "Planar Threats"
+  },
+  {
+    "Challenge_Rating": "21+",
+    "XP_Value": 155000,
+    "Party_Level_Numeric": 20.0,
+    "Monster_Category": "World-Ending Threats"
+  }
+]

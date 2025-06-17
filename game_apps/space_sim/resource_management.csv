@@ -1,0 +1,7 @@
+Resource,Starting Amount,Consumption Rate,Production Methods,Critical Threshold
+Power,100,-1/hour,"Solar panels, Geothermal",20
+Oxygen,80,-0.5/hour,Life support (automatic),30
+Food,10,-0.3/colonist/hour,Food production facility,2
+Water,10,-0.2/colonist/hour,Water purification facility,2
+Materials,5,Used for construction,"Exploration, Manufacturing",N/A
+Rare Elements,0,Used for advanced tech,Exploration of dangerous areas,N/A

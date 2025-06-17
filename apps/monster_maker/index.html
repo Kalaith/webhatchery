@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>D&D Monster Builder</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="app">
+        <header class="app-header">
+            <h1>D&D Monster Builder</h1>
+            <div class="header-actions">
+                <button class="btn btn--secondary btn--sm" id="templateBtn">Load Template</button>
+                <button class="btn btn--secondary btn--sm" id="saveBtn">Save Monster</button>
+                <button class="btn btn--secondary btn--sm" id="loadBtn">Load Monster</button>
+                <button class="btn btn--primary btn--sm" id="exportBtn">Export</button>
+            </div>
+        </header>
+
+        <main class="app-main">
+            <div class="builder-form">
+                <form id="monsterForm">
+                    <!-- Basic Information -->
+                    <section class="form-section" data-section="basic">
+                        <h3 class="section-header">
+                            <button type="button" class="collapse-btn" aria-expanded="true">
+                                <span class="collapse-icon">−</span>
+                                Basic Information
+                            </button>
+                        </h3>
+                        <div class="section-content">
+                            <div class="form-group">
+                                <label class="form-label" for="name">Name</label>
+                                <input type="text" id="name" class="form-control" placeholder="Monster Name">
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label class="form-label" for="size">Size</label>
+                                    <select id="size" class="form-control">
+                                        <option value="">Select Size</option>
+                                        <option value="Tiny">Tiny</option>
+                                        <option value="Small">Small</option>
+                                        <option value="Medium">Medium</option>
+                                        <option value="Large">Large</option>
+                                        <option value="Huge">Huge</option>
+                                        <option value="Gargantuan">Gargantuan</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label" for="type">Type</label>
+                                    <select id="type" class="form-control">
+                                        <option value="">Select Type</option>
+                                        <option value="Aberration">Aberration</option>
+                                        <option value="Beast">Beast</option>
+                                        <option value="Celestial">Celestial</option>
+                                        <option value="Construct">Construct</option>
+                                        <option value="Dragon">Dragon</option>
+                                        <option value="Elemental">Elemental</option>
+                                        <option value="Fey">Fey</option>
+                                        <option value="Fiend">Fiend</option>
+                                        <option value="Giant">Giant</option>
+                                        <option value="Humanoid">Humanoid</option>
+                                        <option value="Monstrosity">Monstrosity</option>
+                                        <option value="Ooze">Ooze</option>
+                                        <option value="Plant">Plant</option>
+                                        <option value="Undead">Undead</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label" for="alignment">Alignment</label>
+                                <select id="alignment" class="form-control">
+                                    <option value="">Select Alignment</option>
+                                    <option value="Lawful Good">Lawful Good</option>
+                                    <option value="Neutral Good">Neutral Good</option>
+                                    <option value="Chaotic Good">Chaotic Good</option>
+                                    <option value="Lawful Neutral">Lawful Neutral</option>
+                                    <option value="True Neutral">True Neutral</option>
+                                    <option value="Chaotic Neutral">Chaotic Neutral</option>
+                                    <option value="Lawful Evil">Lawful Evil</option>
+                                    <option value="Neutral Evil">Neutral Evil</option>
+                                    <option value="Chaotic Evil">Chaotic Evil</option>
+                                    <option value="Unaligned">Unaligned</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label" for="description">Description</label>
+                                <textarea id="description" class="form-control" rows="3" placeholder="Describe your monster..."></textarea>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- Core Stats -->
+                    <section class="form-section" data-section="stats">
+                        <h3 class="section-header">
+                            <button type="button" class="collapse-btn" aria-expanded="true">
+                                <span class="collapse-icon">−</span>
+                                Core Stats
+                            </button>
+                        </h3>
+                        <div class="section-content">
+                            <div class="ability-scores">
+                                <div class="ability-score">
+                                    <label class="form-label" for="str">STR</label>
+                                    <input type="number" id="str" class="form-control ability-input" min="1" max="30" value="10">
+                                    <span class="ability-modifier" id="str-mod">+0</span>
+                                </div>
+                                <div class="ability-score">
+                                    <label class="form-label" for="dex">DEX</label>
+                                    <input type="number" id="dex" class="form-control ability-input" min="1" max="30" value="10">
+                                    <span class="ability-modifier" id="dex-mod">+0</span>
+                                </div>
+                                <div class="ability-score">
+                                    <label class="form-label" for="con">CON</label>
+                                    <input type="number" id="con" class="form-control ability-input" min="1" max="30" value="10">
+                                    <span class="ability-modifier" id="con-mod">+0</span>
+                                </div>
+                                <div class="ability-score">
+                                    <label class="form-label" for="int">INT</label>
+                                    <input type="number" id="int" class="form-control ability-input" min="1" max="30" value="10">
+                                    <span class="ability-modifier" id="int-mod">+0</span>
+                                </div>
+                                <div class="ability-score">
+                                    <label class="form-label" for="wis">WIS</label>
+                                    <input type="number" id="wis" class="form-control ability-input" min="1" max="30" value="10">
+                                    <span class="ability-modifier" id="wis-mod">+0</span>
+                                </div>
+                                <div class="ability-score">
+                                    <label class="form-label" for="cha">CHA</label>
+                                    <input type="number" id="cha" class="form-control ability-input" min="1" max="30" value="10">
+                                    <span class="ability-modifier" id="cha-mod">+0</span>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label" for="profBonus">Proficiency Bonus</label>
+                                <input type="number" id="profBonus" class="form-control" min="2" max="9" value="2">
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- Defensive Stats -->
+                    <section class="form-section" data-section="defense">
+                        <h3 class="section-header">
+                            <button type="button" class="collapse-btn" aria-expanded="true">
+                                <span class="collapse-icon">−</span>
+                                Defensive Stats
+                            </button>
+                        </h3>
+                        <div class="section-content">
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label class="form-label" for="ac">Armor Class</label>
+                                    <input type="number" id="ac" class="form-control" min="1" max="30" value="10">
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label" for="armorType">Armor Type</label>
+                                    <select id="armorType" class="form-control">
+                                        <option value="Natural Armor">Natural Armor</option>
+                                        <option value="Unarmored">Unarmored</option>
+                                        <option value="Leather Armor">Leather Armor</option>
+                                        <option value="Studded Leather">Studded Leather</option>
+                                        <option value="Hide Armor">Hide Armor</option>
+                                        <option value="Chain Shirt">Chain Shirt</option>
+                                        <option value="Scale Mail">Scale Mail</option>
+                                        <option value="Breastplate">Breastplate</option>
+                                        <option value="Half Plate">Half Plate</option>
+                                        <option value="Ring Mail">Ring Mail</option>
+                                        <option value="Chain Mail">Chain Mail</option>
+                                        <option value="Splint Armor">Splint Armor</option>
+                                        <option value="Plate Armor">Plate Armor</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label class="form-label" for="hp">Hit Points</label>
+                                    <input type="number" id="hp" class="form-control" min="1" value="1">
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label" for="hitDice">Hit Dice</label>
+                                    <input type="text" id="hitDice" class="form-control" placeholder="1d8">
+                                </div>
+                            </div>
+                            <div class="speed-section">
+                                <label class="form-label">Speed</label>
+                                <div class="speed-inputs">
+                                    <div class="speed-input">
+                                        <label for="walkSpeed">Walk</label>
+                                        <input type="number" id="walkSpeed" min="0" value="30"> ft.
+                                    </div>
+                                    <div class="speed-input">
+                                        <label for="flySpeed">Fly</label>
+                                        <input type="number" id="flySpeed" min="0" value="0"> ft.
+                                    </div>
+                                    <div class="speed-input">
+                                        <label for="swimSpeed">Swim</label>
+                                        <input type="number" id="swimSpeed" min="0" value="0"> ft.
+                                    </div>
+                                    <div class="speed-input">
+                                        <label for="climbSpeed">Climb</label>
+                                        <input type="number" id="climbSpeed" min="0" value="0"> ft.
+                                    </div>
+                                    <div class="speed-input">
+                                        <label for="burrowSpeed">Burrow</label>
+                                        <input type="number" id="burrowSpeed" min="0" value="0"> ft.
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- Challenge Rating -->
+                    <section class="form-section" data-section="challenge">
+                        <h3 class="section-header">
+                            <button type="button" class="collapse-btn" aria-expanded="true">
+                                <span class="collapse-icon">−</span>
+                                Challenge Rating
+                            </button>
+                        </h3>
+                        <div class="section-content">
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label class="form-label" for="cr">Challenge Rating</label>
+                                    <select id="cr" class="form-control">
+                                        <option value="0">0</option>
+                                        <option value="1/8">1/8</option>
+                                        <option value="1/4">1/4</option>
+                                        <option value="1/2">1/2</option>
+                                        <option value="1">1</option>
+                                        <option value="2">2</option>
+                                        <option value="3">3</option>
+                                        <option value="4">4</option>
+                                        <option value="5">5</option>
+                                        <option value="6">6</option>
+                                        <option value="7">7</option>
+                                        <option value="8">8</option>
+                                        <option value="9">9</option>
+                                        <option value="10">10</option>
+                                        <option value="11">11</option>
+                                        <option value="12">12</option>
+                                        <option value="13">13</option>
+                                        <option value="14">14</option>
+                                        <option value="15">15</option>
+                                        <option value="16">16</option>
+                                        <option value="17">17</option>
+                                        <option value="18">18</option>
+                                        <option value="19">19</option>
+                                        <option value="20">20</option>
+                                        <option value="21">21</option>
+                                        <option value="22">22</option>
+                                        <option value="23">23</option>
+                                        <option value="24">24</option>
+                                        <option value="25">25</option>
+                                        <option value="26">26</option>
+                                        <option value="27">27</option>
+                                        <option value="28">28</option>
+                                        <option value="29">29</option>
+                                        <option value="30">30</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label">XP Value</label>
+                                    <div class="form-control readonly" id="xpValue">0 XP</div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- Actions -->
+                    <section class="form-section" data-section="actions">
+                        <h3 class="section-header">
+                            <button type="button" class="collapse-btn" aria-expanded="false">
+                                <span class="collapse-icon">+</span>
+                                Actions & Abilities
+                            </button>
+                        </h3>
+                        <div class="section-content" style="display: none;">
+                            <div class="actions-section">
+                                <h4>Special Traits</h4>
+                                <div id="traits" class="dynamic-list">
+                                    <button type="button" class="btn btn--secondary btn--sm add-item" data-target="traits">Add Trait</button>
+                                </div>
+                            </div>
+                            <div class="actions-section">
+                                <h4>Actions</h4>
+                                <div id="actions" class="dynamic-list">
+                                    <button type="button" class="btn btn--secondary btn--sm add-item" data-target="actions">Add Action</button>
+                                </div>
+                            </div>
+                            <div class="actions-section">
+                                <h4>Bonus Actions</h4>
+                                <div id="bonusActions" class="dynamic-list">
+                                    <button type="button" class="btn btn--secondary btn--sm add-item" data-target="bonusActions">Add Bonus Action</button>
+                                </div>
+                            </div>
+                            <div class="actions-section">
+                                <h4>Reactions</h4>
+                                <div id="reactions" class="dynamic-list">
+                                    <button type="button" class="btn btn--secondary btn--sm add-item" data-target="reactions">Add Reaction</button>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                </form>
+            </div>
+
+            <div class="stat-block-preview">
+                <div class="stat-block" id="statBlock">
+                    <div class="stat-block-header">
+                        <h2 class="monster-name" id="previewName">Monster Name</h2>
+                        <p class="monster-meta" id="previewMeta"><em>Medium humanoid, neutral</em></p>
+                    </div>
+                    
+                    <div class="stat-block-divider"></div>
+                    
+                    <div class="stat-block-stats">
+                        <p><strong>Armor Class</strong> <span id="previewAC">10</span></p>
+                        <p><strong>Hit Points</strong> <span id="previewHP">1 (1d8)</span></p>
+                        <p><strong>Speed</strong> <span id="previewSpeed">30 ft.</span></p>
+                    </div>
+                    
+                    <div class="stat-block-divider"></div>
+                    
+                    <div class="ability-scores-preview">
+                        <div class="ability-score-preview">
+                            <div class="ability-name">STR</div>
+                            <div class="ability-value" id="previewStr">10 (+0)</div>
+                        </div>
+                        <div class="ability-score-preview">
+                            <div class="ability-name">DEX</div>
+                            <div class="ability-value" id="previewDex">10 (+0)</div>
+                        </div>
+                        <div class="ability-score-preview">
+                            <div class="ability-name">CON</div>
+                            <div class="ability-value" id="previewCon">10 (+0)</div>
+                        </div>
+                        <div class="ability-score-preview">
+                            <div class="ability-name">INT</div>
+                            <div class="ability-value" id="previewInt">10 (+0)</div>
+                        </div>
+                        <div class="ability-score-preview">
+                            <div class="ability-name">WIS</div>
+                            <div class="ability-value" id="previewWis">10 (+0)</div>
+                        </div>
+                        <div class="ability-score-preview">
+                            <div class="ability-name">CHA</div>
+                            <div class="ability-value" id="previewCha">10 (+0)</div>
+                        </div>
+                    </div>
+                    
+                    <div class="stat-block-divider"></div>
+                    
+                    <div class="stat-block-info">
+                        <p><strong>Challenge</strong> <span id="previewCR">0 (0 XP)</span></p>
+                        <p><strong>Proficiency Bonus</strong> <span id="previewProf">+2</span></p>
+                    </div>
+                    
+                    <div class="stat-block-divider" id="traitsDiv" style="display: none;"></div>
+                    <div class="stat-block-traits" id="previewTraits"></div>
+                    
+                    <div class="stat-block-divider" id="actionsDiv" style="display: none;"></div>
+                    <div class="stat-block-actions">
+                        <div id="previewActions"></div>
+                        <div id="previewBonusActions"></div>
+                        <div id="previewReactions"></div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Modal for templates -->
+    <div id="templateModal" class="modal" style="display: none;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Select Template</h3>
+                <button class="modal-close" id="closeTemplateModal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="template-list" id="templateList">
+                    <!-- Templates will be populated here -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal for save/load -->
+    <div id="saveLoadModal" class="modal" style="display: none;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="saveLoadTitle">Save Monster</h3>
+                <button class="modal-close" id="closeSaveLoadModal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div id="saveSection">
+                    <div class="form-group">
+                        <label class="form-label" for="saveName">Monster Name</label>
+                        <input type="text" id="saveName" class="form-control" placeholder="Enter monster name">
+                    </div>
+                    <button class="btn btn--primary" id="confirmSave">Save</button>
+                </div>
+                <div id="loadSection" style="display: none;">
+                    <div class="saved-monsters" id="savedMonstersList">
+                        <!-- Saved monsters will be populated here -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>

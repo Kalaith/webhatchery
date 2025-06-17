@@ -1,0 +1,10 @@
+Tech Branch,Technology,Required Discovery,Material Cost,Rare Elements Cost,Benefits
+Survival,Food Production,Organic Samples,5,0,Produces 5 food/hour
+Survival,Water Purification,Water Source,3,0,Produces 3 water/hour
+Survival,Shelter Construction,Building Materials,8,0,Reduces morale decay
+Energy,Solar Panels,Solar Crystals,10,0,Generates 10 power/hour
+Energy,Geothermal,Geothermal Vents,15,2,Generates 20 power/hour
+Energy,Power Storage,Energy Crystals,7,0,Stores 50 power units
+Construction,Robotics,Metal Alloys + Circuits,20,5,Automated resource gathering
+Construction,Manufacturing,Manufacturing Site,25,0,Produces materials from raw resources
+Construction,Advanced Materials,Rare Minerals,0,10,Unlocks advanced structures
