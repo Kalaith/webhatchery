@@ -16,34 +16,115 @@ $SOURCE_PATH = "E:\WebHatchery"
 $DEPLOY_PATH = "F:\WebHatchery"
 $LOG_FILE = "$SOURCE_PATH\build-deploy.log"
 
-# Project configurations - simplified structure
-$PROJECT_CONFIGS = @{
-    "isitdoneyet" = @{
-        Type = "FullStack"
-        BackendPath = "backend"
-        BackendType = "PHP"
-        FrontendFiles = @("index.html", "app.js", "api-service.js", "style.css", "server.js")
-        ProductionApiUrl = "https://webhatchery.au/isitdoneyet/api"
-        Exclude = @("deployment-test.html", "initialize-database.php", ".htaccess")
-    }    
-    "litrpg_studio" = @{
-        Type = "React"
-        OutputDir = "dist"
+# Load project configurations from projects.json
+function Get-ProjectConfigs {
+    $projectsJsonPath = Join-Path $SOURCE_PATH "projects.json"
+    if (-not (Test-Path $projectsJsonPath)) {
+        Write-Log "projects.json not found at $projectsJsonPath" "ERROR"
+        return @{}
     }
-    "meme_generator" = @{ Type = "Static" }
-    "project_management" = @{ Type = "Static" }
-    "stories" = @{ Type = "Static"; Recursive = $true }
-    "storiesx" = @{ Type = "Static"; Recursive = $true }
-    "anime" = @{ Type = "Static"; Recursive = $true }    
-    "rootFiles" = @{ 
-        Type = "Static"
-        Files = @("index.php", "index.css")
-        Exclude = @("build-deploy.ps1", "build.bat", "validate-projects.ps1", "build-config.json", "BUILD-README.md", "README.md", "projects.json", "*.log")
+    
+    try {
+        $projectsData = Get-Content $projectsJsonPath | ConvertFrom-Json
+        $configs = @{}
+        
+        # Process each group and extract deployment configs
+        foreach ($groupName in $projectsData.groups.PSObject.Properties.Name) {
+            $group = $projectsData.groups.$groupName
+            
+            if ($group.projects) {                foreach ($project in $group.projects) {
+                    if ($project.deployment) {
+                        # Use deployAs if specified, otherwise extract from path
+                        if ($project.deployment.deployAs) {
+                            $projectName = $project.deployment.deployAs
+                        } else {
+                            # Extract project name from path, handling nested structures
+                            $pathParts = ($project.path -replace '/$', '') -split '/'
+                            if ($pathParts.Length -ge 2) {
+                                # For paths like "game_apps/magical_girl/frontend/", use "magical_girl"
+                                $projectName = $pathParts[-2]
+                            } else {
+                                # For simple paths like "stories/", use "stories"
+                                $projectName = $pathParts[-1]
+                            }                        }
+                        $config = Convert-DeploymentConfig $project.deployment
+                        $config.ProjectPath = $project.path  # Store the original path from config
+                        $configs[$projectName] = $config
+                    }
+                }
+            }
+        }
+        
+        # Add rootFiles config if it exists
+        if ($projectsData.groups.rootFiles -and $projectsData.groups.rootFiles.deployment) {
+            $configs["rootFiles"] = Convert-DeploymentConfig $projectsData.groups.rootFiles.deployment
+        }
+        
+        return $configs
+    } catch {
+        Write-Log "Error loading projects.json: $_" "ERROR"
+        return @{}
     }
 }
 
+function Convert-DeploymentConfig {
+    param($deployConfig)
+    $config = @{
+        Type = $deployConfig.type
+    }
+    
+    # Map JSON properties to PowerShell script properties
+    if ($deployConfig.buildPath) { $config.BuildPath = $deployConfig.buildPath }
+    if ($deployConfig.outputDir) { $config.OutputDir = $deployConfig.outputDir }
+    if ($deployConfig.deployAs) { $config.DeployAs = $deployConfig.deployAs }
+    if ($deployConfig.recursive) { $config.Recursive = $deployConfig.recursive }
+    if ($deployConfig.preserveStructure) { $config.PreserveStructure = $deployConfig.preserveStructure }
+    if ($deployConfig.files) { $config.Files = $deployConfig.files }
+    if ($deployConfig.exclude) { $config.Exclude = $deployConfig.exclude }
+    if ($deployConfig.requiresBuild) { $config.RequiresBuild = $deployConfig.requiresBuild }
+    if ($deployConfig.buildCommand) { $config.BuildCommand = $deployConfig.buildCommand }
+    if ($deployConfig.packageManager) { $config.PackageManager = $deployConfig.packageManager }
+    if ($deployConfig.dependencies) { $config.Dependencies = $deployConfig.dependencies }
+    
+    # Handle FullStack structure
+    if ($deployConfig.frontend) {
+        $config.FrontendFiles = $deployConfig.frontend.files
+        if ($deployConfig.frontend.type) { $config.FrontendType = $deployConfig.frontend.type }
+    }
+    
+    if ($deployConfig.backend) {
+        $config.BackendPath = $deployConfig.backend.path
+        $config.BackendType = $deployConfig.backend.type
+        if ($deployConfig.backend.requiresBuild) { $config.BackendRequiresBuild = $deployConfig.backend.requiresBuild }
+        if ($deployConfig.backend.buildCommand) { $config.BackendBuildCommand = $deployConfig.backend.buildCommand }
+        if ($deployConfig.backend.databaseInit) { $config.DatabaseInit = $deployConfig.backend.databaseInit }
+        if ($deployConfig.backend.envFile) { $config.EnvFile = $deployConfig.backend.envFile }
+    }
+    
+    # Handle production settings
+    if ($deployConfig.production) {
+        if ($deployConfig.production.apiUrl) { $config.ProductionApiUrl = $deployConfig.production.apiUrl }
+        if ($deployConfig.production.corsOrigins) { $config.CorsOrigins = $deployConfig.production.corsOrigins }
+        if ($deployConfig.production.environmentUpdates) { $config.EnvironmentUpdates = $deployConfig.production.environmentUpdates }
+    }
+    
+    # Handle Apache settings
+    if ($deployConfig.apache) {
+        $config.Apache = $deployConfig.apache
+    }
+    
+    return $config
+}
+
+# Load configurations from projects.json
+$PROJECT_CONFIGS = Get-ProjectConfigs
+
 # Utility functions
-function Write-Log($Message, $Level = "INFO") {
+function Write-Log {
+    param(
+        $Message,
+        $Level = "INFO"
+    )
     $timestamp = Get-Date -Format "yyyy-MM-dd HH:mm:ss"
     $logMessage = "[$timestamp] [$Level] $Message"
     
@@ -73,33 +154,115 @@ function Test-Prerequisites {
     return $true
 }
 
-function Get-ProjectType($ProjectPath) {
-    $config = $PROJECT_CONFIGS[$ProjectPath]
-    if ($config) { return $config.Type }
+function Get-ProjectType {
+    param($ProjectPath)
+    Write-Log "Get-ProjectType called for: $ProjectPath"
     
-    # Auto-detect
-    $fullPath = Join-Path $SOURCE_PATH $ProjectPath
-    if (Test-Path "$fullPath\package.json") {
-        $pkg = Get-Content "$fullPath\package.json" | ConvertFrom-Json
-        if ($pkg.dependencies.react) { return "React" }
-        if ($pkg.dependencies.express) { return "Node" }
+    $config = $PROJECT_CONFIGS[$ProjectPath]
+    if ($config) { 
+        Write-Log "Found config for $ProjectPath with type: $($config.Type)"
+        return $config.Type 
     }
-    if (Test-Path "$fullPath\composer.json") { return "PHP" }
+    
+    Write-Log "No config found for $ProjectPath, attempting auto-detection"
+      # Auto-detect using the same path resolution logic
+    $fullPath = $null
+    $possiblePaths = @(
+        (Join-Path (Join-Path $SOURCE_PATH "apps") $ProjectPath),
+        (Join-Path (Join-Path $SOURCE_PATH "game_apps") $ProjectPath), 
+        (Join-Path (Join-Path $SOURCE_PATH "gdd") $ProjectPath),
+        (Join-Path $SOURCE_PATH $ProjectPath)
+    )
+    
+    Write-Log "Checking possible paths for $ProjectPath`: $($possiblePaths -join ', ')"
+    
+    foreach ($path in $possiblePaths) {
+        Write-Log "Checking path: $path"
+        if (Test-Path $path) {
+            $fullPath = $path
+            Write-Log "Found project at: $fullPath"
+            break
+        }
+    }
+    
+    if (-not $fullPath) {
+        Write-Log "No path found for $ProjectPath, defaulting to Static" "WARN"
+        return "Static"
+    }
+    
+    Write-Log "Auto-detecting project type in: $fullPath"
+    
+    if (Test-Path "$fullPath\package.json") {
+        Write-Log "Found package.json in $fullPath"
+        try {
+            $pkg = Get-Content "$fullPath\package.json" | ConvertFrom-Json
+            if ($pkg.dependencies.react) { 
+                Write-Log "Detected React project"
+                return "React" 
+            }
+            if ($pkg.dependencies.express) { 
+                Write-Log "Detected Node project"
+                return "Node" 
+            }
+        } catch {
+            Write-Log "Error reading package.json: $_" "WARN"
+        }
+    }
+    if (Test-Path "$fullPath\composer.json") { 
+        Write-Log "Detected PHP project"
+        return "PHP" 
+    }
+    
+    Write-Log "Defaulting to Static project type"
     return "Static"
 }
 
-function Invoke-Build($ProjectPath, $ProjectType, $Config) {
+function Invoke-Build {
+    param(
+        $ProjectPath,
+        $ProjectType,
+        $Config
+    )
+    
     if ($SkipBuild) {
         Write-Log "Skipping build for $ProjectPath"
         return $true
+    }    # Determine source path from config if available, otherwise use discovery logic
+    $fullPath = $null
+    
+    if ($Config.ProjectPath) {
+        # Use path from projects.json config
+        $configPath = $Config.ProjectPath -replace '/$', ''  # Remove trailing slash
+        $fullPath = Join-Path $SOURCE_PATH $configPath
+        Write-Log "Using config path: $fullPath"
+    } else {
+        # Fall back to discovery logic for legacy projects
+        $possiblePaths = @(
+            (Join-Path (Join-Path $SOURCE_PATH "apps") $ProjectPath),
+            (Join-Path (Join-Path $SOURCE_PATH "game_apps") $ProjectPath), 
+            (Join-Path (Join-Path $SOURCE_PATH "gdd") $ProjectPath),
+            (Join-Path $SOURCE_PATH $ProjectPath)
+        )
+        
+        foreach ($path in $possiblePaths) {
+            if (Test-Path $path) {
+                $fullPath = $path
+                Write-Log "Found project at: $fullPath"
+                break
+            }
+        }
     }
     
-    $fullPath = Join-Path $SOURCE_PATH $ProjectPath
+    if (-not $fullPath) {
+        Write-Log "Source path not found for project: $ProjectPath" "ERROR"
+        return $false
+    }
+    
     $originalLocation = Get-Location
     
     try {
         Set-Location $fullPath
-        Write-Log "Building $ProjectType project: $ProjectPath"
+        Write-Log "Building $ProjectType project: $ProjectPath at $fullPath"
         
         # Navigate to build path if specified
         if ($Config.BuildPath) {
@@ -116,8 +279,7 @@ function Invoke-Build($ProjectPath, $ProjectType, $Config) {
             "PHP" {
                 $composerArgs = if ($Production) { "install --no-dev --optimize-autoloader --no-interaction" } else { "install --no-interaction" }
                 Invoke-Command "composer $composerArgs" "Installing Composer dependencies"
-            }
-            "Node" {
+            }            "Node" {
                 $npmArgs = if ($Production) { "install --production" } else { "install" }
                 Invoke-Command "npm $npmArgs" "Installing Node.js dependencies"
             }
@@ -126,10 +288,20 @@ function Invoke-Build($ProjectPath, $ProjectType, $Config) {
                 if ($Config.BackendPath) {
                     $backendPath = Join-Path $fullPath $Config.BackendPath
                     Set-Location $backendPath
+                    
                     $composerArgs = if ($Production) { "install --no-dev --optimize-autoloader --no-interaction" } else { "install --no-interaction" }
-                    Invoke-Command "composer $composerArgs" "Building backend"
+                    if ($Config.BackendBuildCommand) {
+                        Invoke-Command $Config.BackendBuildCommand "Building backend with custom command"
+                    } else {
+                        Invoke-Command "composer $composerArgs" "Building backend"
+                    }
                 }
-                # No frontend build needed for this project type in current config
+                # Handle frontend build if it's a React/Vite frontend
+                if ($Config.FrontendType -eq "Vite") {
+                    Set-Location $fullPath
+                    Invoke-Command "npm install" "Installing frontend dependencies"
+                    Invoke-Command "npm run build" "Building frontend"
+                }
             }
             "Static" {
                 Write-Log "Static project - no build required"
@@ -146,7 +318,11 @@ function Invoke-Build($ProjectPath, $ProjectType, $Config) {
     }
 }
 
-function Invoke-Command($Command, $Description) {
+function Invoke-Command {
+    param(
+        $Command,
+        $Description
+    )
     Write-Log $Description
     if ($DryRun) {
         Write-Log "[DRY RUN] Would run: $Command"
@@ -158,7 +334,12 @@ function Invoke-Command($Command, $Description) {
     }
 }
 
-function Copy-ProjectFiles($ProjectPath, $ProjectType, $Config) {
+function Copy-ProjectFiles {
+    param(
+        $ProjectPath,
+        $ProjectType,
+        $Config
+    )
     # Handle rootFiles specially - copy to root of deployment directory
     if ($ProjectPath -eq "rootFiles") {
         $sourcePath = $SOURCE_PATH
@@ -184,11 +365,42 @@ function Copy-ProjectFiles($ProjectPath, $ProjectType, $Config) {
         }
         return
     }
+      # Determine source path based on project location
+    $sourcePath = $null
+    $actualProjectName = if ($Config.DeployAs) { $Config.DeployAs } else { $ProjectPath }
+    Write-Log $ProjectPath
     
-    $sourcePath = Join-Path $SOURCE_PATH $ProjectPath
-    $destPath = Join-Path $DEPLOY_PATH $ProjectPath
+    # Use path from config if available, otherwise use discovery logic
+    if ($Config.ProjectPath) {
+        # Use path from projects.json config
+        $configPath = $Config.ProjectPath -replace '/$', ''  # Remove trailing slash
+        $sourcePath = Join-Path $SOURCE_PATH $configPath
+        Write-Log "Copy-ProjectFiles using config path: $sourcePath"
+    } else {
+        # Fall back to discovery logic for legacy projects
+        $possiblePaths = @(
+            (Join-Path (Join-Path $SOURCE_PATH "apps") $ProjectPath),
+            (Join-Path (Join-Path $SOURCE_PATH "game_apps") $ProjectPath), 
+            (Join-Path (Join-Path $SOURCE_PATH "gdd") $ProjectPath),
+            (Join-Path $SOURCE_PATH $ProjectPath)
+        )
+        
+        foreach ($path in $possiblePaths) {
+            if (Test-Path $path) {
+                $sourcePath = $path
+                break
+            }
+        }
+    }
     
-    Write-Log "Deploying $ProjectPath to $destPath"
+    if (-not $sourcePath) {
+        Write-Log "Source path not found for project: $ProjectPath" "ERROR"
+        return
+    }
+    
+    $destPath = Join-Path $DEPLOY_PATH $actualProjectName
+    
+    Write-Log "Deploying $ProjectPath from $sourcePath to $destPath"
     
     if (-not $DryRun -and -not (Test-Path $destPath)) {
         New-Item -ItemType Directory -Path $destPath -Force | Out-Null
@@ -211,13 +423,17 @@ function Copy-ProjectFiles($ProjectPath, $ProjectType, $Config) {
             } else {
                 # Fallback to standard locations
                 @("dist", "build") | ForEach-Object {
-                    $fallback = Join-Path $sourcePath $_
+                    $fallback = if ($Config.BuildPath) {
+                        Join-Path $sourcePath $Config.BuildPath $_
+                    } else {
+                        Join-Path $sourcePath $_
+                    }
                     if (Test-Path $fallback) {
                         Copy-Files "$fallback\*" $destPath $true
                         return
                     }
                 }
-                Write-Log "No React build output found" "WARN"
+                Write-Log "No React build output found for $ProjectPath" "WARN"
             }
         }
         "FullStack" {
@@ -358,12 +574,74 @@ function Main {
     
     if (-not $DryRun -and -not (Test-Path $DEPLOY_PATH)) {
         New-Item -ItemType Directory -Path $DEPLOY_PATH -Force | Out-Null
+    }    # Get projects to process
+    $projects = @()
+    
+    # Collect projects from apps folder
+    if (Test-Path (Join-Path $SOURCE_PATH "apps")) {
+        $appProjects = Get-ChildItem -Path (Join-Path $SOURCE_PATH "apps") -Directory | Where-Object { 
+            $_.Name -like $ProjectFilter -and $_.Name -notmatch "^\."
+        }
+        $appProjects | ForEach-Object {
+            $projects += New-Object PSObject -Property @{
+                Name = $_.Name
+                FullName = $_.FullName
+                SourceFolder = "apps"
+            }
+        }
     }
-      # Get projects to process
-    $projects = Get-ChildItem -Path $SOURCE_PATH -Directory | Where-Object { 
+    
+    # Collect projects from game_apps folder
+    if (Test-Path (Join-Path $SOURCE_PATH "game_apps")) {
+        $gameProjects = Get-ChildItem -Path (Join-Path $SOURCE_PATH "game_apps") -Directory | Where-Object { 
+            $_.Name -like $ProjectFilter -and $_.Name -notmatch "^\."
+        }
+        $gameProjects | ForEach-Object {
+            $projects += New-Object PSObject -Property @{
+                Name = $_.Name
+                FullName = $_.FullName
+                SourceFolder = "game_apps"
+            }
+        }
+    }
+    
+    # Collect projects from gdd folder
+    if (Test-Path (Join-Path $SOURCE_PATH "gdd")) {
+        $gddProjects = Get-ChildItem -Path (Join-Path $SOURCE_PATH "gdd") -Directory | Where-Object { 
+            $_.Name -like $ProjectFilter -and $_.Name -notmatch "^\."
+        }
+        $gddProjects | ForEach-Object {
+            $projects += New-Object PSObject -Property @{
+                Name = $_.Name
+                FullName = $_.FullName
+                SourceFolder = "gdd"
+            }
+        }
+    }
+    
+    # Collect top-level projects (legacy support)
+    $topLevelProjects = Get-ChildItem -Path $SOURCE_PATH -Directory | Where-Object { 
         $_.Name -like $ProjectFilter -and 
         $_.Name -notmatch "^\." -and
-        $_.Name -notin @("utils", "cgi-bin")
+        $_.Name -notin @("utils", "cgi-bin", "apps", "game_apps", "gdd", "stories", "storiesx", "anime")
+    }
+    $topLevelProjects | ForEach-Object {
+        $projects += New-Object PSObject -Property @{
+            Name = $_.Name
+            FullName = $_.FullName
+            SourceFolder = "root"
+        }
+    }
+    
+    # Add special folders if they match the filter
+    @("stories", "storiesx", "anime") | ForEach-Object {
+        if ($_ -like $ProjectFilter -and (Test-Path (Join-Path $SOURCE_PATH $_))) {
+            $projects += New-Object PSObject -Property @{
+                Name = $_
+                FullName = (Join-Path $SOURCE_PATH $_)
+                SourceFolder = "root"
+            }
+        }
     }
     
     # Add rootFiles as a special project if it matches the filter
@@ -371,6 +649,7 @@ function Main {
         $rootFileProject = New-Object PSObject -Property @{
             Name = "rootFiles"
             FullName = $SOURCE_PATH
+            SourceFolder = "root"
         }
         $projects = @($rootFileProject) + $projects
     }
@@ -381,40 +660,63 @@ function Main {
     }
     
     Write-Log "Processing $($projects.Count) projects"
-    $results = @()
-    
-    # Process each project
+    $results = @()    # Process each project
     foreach ($project in $projects) {
         $projectName = $project.Name
         Write-Host "Processing: $projectName" -ForegroundColor Yellow
+        Write-Log "Starting processing for project: $projectName"
         
         try {
+            Write-Log "Step 1: Getting project type for $projectName"
             $projectType = Get-ProjectType $projectName
+            Write-Log "Project type for $projectName`: $projectType"
+            
+            Write-Log "Step 2: Getting project config for $projectName"
             $config = $PROJECT_CONFIGS[$projectName]
+            if ($config) {
+                Write-Log "Config found for $projectName with type: $($config.Type)"
+            } else {
+                Write-Log "No config found for $projectName" "WARN"
+            }
             
             # Build phase
             $buildSuccess = $true
             if (-not $SkipBuild -and $projectType -in @("React", "PHP", "Node", "FullStack")) {
+                Write-Log "Step 3: Starting build for $projectName (type: $projectType)"
                 $buildSuccess = Invoke-Build $projectName $projectType $config
+                Write-Log "Build result for $projectName`: $buildSuccess"
+            } else {
+                Write-Log "Skipping build for $projectName (SkipBuild: $SkipBuild, Type: $projectType)"
             }
             
             # Deploy phase
             if ($buildSuccess -and -not $OnlyBuild) {
+                Write-Log "Step 4: Starting deployment for $projectName"
                 Copy-ProjectFiles $projectName $projectType $config
+                Write-Log "Deployment completed for $projectName"
+            } else {
+                Write-Log "Skipping deployment for $projectName (BuildSuccess: $buildSuccess, OnlyBuild: $OnlyBuild)"
             }
             
-            $results += @{
+            Write-Log "Step 5: Creating success result object for $projectName"
+            $results += New-Object PSObject -Property @{
                 Project = $projectName
                 Type = $projectType
                 Success = $buildSuccess
                 Error = $null
             }
+            Write-Log "Successfully processed $projectName" "SUCCESS"
             
         } catch {
-            Write-Log "Failed to process" "ERROR"
-            $results += @{
+            Write-Log "EXCEPTION in processing $projectName at step: $($_.InvocationInfo.ScriptLineNumber)" "ERROR"
+            Write-Log "Exception details: $($_.Exception.GetType().Name)" "ERROR"
+            Write-Log "Exception message: $($_.Exception.Message)" "ERROR"
+            Write-Log "Failed to process $projectName`: $_" "ERROR"
+            
+            Write-Log "Creating failure result object for $projectName"
+            $results += New-Object PSObject -Property @{
                 Project = $projectName
-                Type = $projectType
+                Type = "Unknown"
                 Success = $false
                 Error = $_.Exception.Message
             }

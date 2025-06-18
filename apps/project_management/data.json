@@ -1,0 +1,152 @@
+{
+  "projectTypes": [
+    "Software Development",
+    "Marketing Campaign", 
+    "Product Launch",
+    "Process Improvement",
+    "Event Planning",
+    "Research Project",
+    "Infrastructure Upgrade",
+    "Training Program"
+  ],
+  "timelineOptions": [
+    "1-2 weeks",
+    "1 month", 
+    "2-3 months",
+    "3-6 months",
+    "6-12 months",
+    "More than 1 year"
+  ],
+  "budgetRanges": [
+    "Under $10K",
+    "$10K - $50K",
+    "$50K - $100K", 
+    "$100K - $500K",
+    "$500K - $1M",
+    "Over $1M"
+  ],
+  "stakeholderTypes": [
+    "Project Sponsor",
+    "End Users",
+    "Development Team",
+    "Management",
+    "External Vendors",
+    "Customers",
+    "Regulatory Bodies"
+  ],
+  "riskCategories": [
+    "Technical",
+    "Financial", 
+    "Timeline",
+    "Resource",
+    "Market",
+    "Regulatory",
+    "Communication"
+  ],
+  "projectTemplates": {
+    "Software Development": {
+      "projectDescription": "Develop and deploy a software solution to meet business requirements",
+      "objectives": "• Create functional software meeting all requirements\n• Ensure code quality and maintainability\n• Deploy successfully to production environment",
+      "deliverables": "• Source code and documentation\n• User manual and training materials\n• Deployed application\n• Test results and quality reports",
+      "successCriteria": "• All user acceptance tests passed\n• Performance requirements met\n• Zero critical bugs in production",
+      "potentialRisks": "• Technical complexity underestimated\n• Third-party dependencies unavailable\n• Team skill gaps",
+      "mitigationStrategies": "• Proof of concept development\n• Vendor backup plans\n• Training and knowledge transfer sessions"
+    },
+    "Marketing Campaign": {
+      "projectDescription": "Execute a comprehensive marketing campaign to increase brand awareness and drive sales",
+      "objectives": "• Increase brand awareness by target percentage\n• Generate qualified leads\n• Achieve target ROI",
+      "deliverables": "• Campaign strategy document\n• Creative assets and content\n• Campaign analytics and reports\n• Lead generation database",
+      "successCriteria": "• Target metrics achieved\n• Campaign budget not exceeded\n• Positive brand sentiment maintained",
+      "potentialRisks": "• Market conditions change\n• Creative assets rejected\n• Budget overruns",
+      "mitigationStrategies": "• Market research and testing\n• Multiple creative options\n• Regular budget monitoring"
+    },
+    "Product Launch": {
+      "projectDescription": "Successfully launch a new product to market with proper go-to-market strategy",
+      "objectives": "• Launch product on schedule\n• Achieve target market penetration\n• Establish distribution channels",
+      "deliverables": "• Product launch plan\n• Marketing materials\n• Sales training materials\n• Launch event execution",
+      "successCriteria": "• Launch date met\n• Sales targets achieved in first quarter\n• Customer satisfaction > 80%",
+      "potentialRisks": "• Product delays\n• Market competition\n• Supply chain issues",
+      "mitigationStrategies": "• Contingency planning\n• Competitive analysis\n• Multiple supplier options"
+    }
+  },
+  "stakeholderInfluenceMap": {
+    "Project Sponsor": { 
+      "level": "High", 
+      "strategy": "Manage closely - regular updates and involvement in key decisions" 
+    },
+    "End Users": { 
+      "level": "High", 
+      "strategy": "Keep satisfied - regular feedback sessions and user testing" 
+    },
+    "Development Team": { 
+      "level": "Medium", 
+      "strategy": "Keep informed - daily standups and clear requirements" 
+    },
+    "Management": { 
+      "level": "High", 
+      "strategy": "Manage closely - executive briefings and milestone reviews" 
+    },
+    "External Vendors": { 
+      "level": "Medium", 
+      "strategy": "Monitor - clear contracts and regular check-ins" 
+    },
+    "Customers": { 
+      "level": "High", 
+      "strategy": "Keep satisfied - regular communication and feedback loops" 
+    },
+    "Regulatory Bodies": { 
+      "level": "Low", 
+      "strategy": "Monitor - ensure compliance and periodic updates" 
+    }
+  },
+  "defaultRisks": [
+    {
+      "risk": "Timeline Delays",
+      "category": "Schedule",
+      "probability": "Medium",
+      "impact": "High", 
+      "mitigation": "Implement weekly progress reviews and buffer time in critical path",
+      "level": "high"
+    },
+    {
+      "risk": "Budget Overrun",
+      "category": "Financial",
+      "probability": "Medium",
+      "impact": "High",
+      "mitigation": "Monthly budget reviews and change control process",
+      "level": "high"
+    },
+    {
+      "risk": "Resource Availability",
+      "category": "Resource",
+      "probability": "High",
+      "impact": "Medium",
+      "mitigation": "Identify backup resources and cross-train team members",
+      "level": "medium"
+    },
+    {
+      "risk": "Scope Creep",
+      "category": "Project Management",
+      "probability": "Medium",
+      "impact": "Medium",
+      "mitigation": "Strict change control process and regular stakeholder communication",
+      "level": "medium"
+    }
+  ],
+  "timelineMap": {
+    "1-2 weeks": ["Day 1", "Day 2", "Day 5", "Day 8", "Day 10", "Day 14"],
+    "1 month": ["Week 1", "Week 1", "Week 2", "Week 3", "Week 4", "Week 4"],
+    "2-3 months": ["Week 1", "Week 2", "Week 4", "Week 6", "Week 8", "Week 10"],
+    "3-6 months": ["Month 1", "Month 1", "Month 2", "Month 3", "Month 4", "Month 5"],
+    "6-12 months": ["Month 1", "Month 2", "Month 3", "Month 6", "Month 9", "Month 11"],
+    "More than 1 year": ["Month 1", "Month 3", "Month 6", "Month 9", "Month 12", "Month 15"]
+  },
+  "baseMilestones": [
+    { "title": "Project Kickoff & Planning", "date": "Week 1" },
+    { "title": "Requirements Gathering Complete", "date": "Week 2-3" },
+    { "title": "Design Phase Complete", "date": "25% through timeline" },
+    { "title": "Development/Implementation Phase", "date": "50% through timeline" },
+    { "title": "Testing & Quality Assurance", "date": "75% through timeline" },
+    { "title": "Project Delivery & Handover", "date": "Final week" }
+  ]
+}

@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test - AI Project Manager</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        .test-status { padding: 10px; margin: 10px 0; border-radius: 5px; }
+        .pass { background: #d4edda; color: #155724; border: 1px solid #c3e6cb; }
+        .fail { background: #f8d7da; color: #721c24; border: 1px solid #f5c6cb; }
+    </style>
+</head>
+<body>
+    <h1>AI Project Manager - Quick Test</h1>
+    <p>Testing if the main functionality works...</p>
+    
+    <div id="test-results"></div>
+    
+    <script>
+        // Simple test to verify the application loads and key functions exist
+        function runTests() {
+            const results = document.getElementById('test-results');
+            const tests = [];
+            
+            // Test 1: Check if ProjectManager class exists
+            try {
+                if (typeof ProjectManager !== 'undefined') {
+                    tests.push({ name: 'ProjectManager class exists', status: 'pass' });
+                } else {
+                    tests.push({ name: 'ProjectManager class exists', status: 'fail', error: 'Class not found' });
+                }
+            } catch (e) {
+                tests.push({ name: 'ProjectManager class exists', status: 'fail', error: e.message });
+            }
+            
+            // Test 2: Check if instance can be created
+            try {
+                const tempManager = new ProjectManager();
+                tests.push({ name: 'ProjectManager instance creation', status: 'pass' });
+            } catch (e) {
+                tests.push({ name: 'ProjectManager instance creation', status: 'fail', error: e.message });
+            }
+            
+            // Test 3: Check if key methods exist
+            try {
+                const tempManager = new ProjectManager();
+                const methods = ['addStakeholder', 'saveCurrentStepData', 'validateCurrentStep', 'populateDropdowns'];
+                let allMethodsExist = true;
+                
+                methods.forEach(method => {
+                    if (typeof tempManager[method] !== 'function') {
+                        allMethodsExist = false;
+                    }
+                });
+                
+                if (allMethodsExist) {
+                    tests.push({ name: 'Required methods exist', status: 'pass' });
+                } else {
+                    tests.push({ name: 'Required methods exist', status: 'fail', error: 'Some methods missing' });
+                }
+            } catch (e) {
+                tests.push({ name: 'Required methods exist', status: 'fail', error: e.message });
+            }
+            
+            // Display results
+            results.innerHTML = tests.map(test => 
+                `<div class="test-status ${test.status}">
+                    <strong>${test.name}:</strong> ${test.status.toUpperCase()}
+                    ${test.error ? ` - ${test.error}` : ''}
+                </div>`
+            ).join('');
+            
+            // Summary
+            const passed = tests.filter(t => t.status === 'pass').length;
+            const total = tests.length;
+            
+            results.innerHTML += `<div class="test-status ${passed === total ? 'pass' : 'fail'}">
+                <strong>Summary:</strong> ${passed}/${total} tests passed
+            </div>`;
+            
+            if (passed === total) {
+                results.innerHTML += `<p><strong>✅ All tests passed! The application should work correctly.</strong></p>
+                <p><a href="index.html">Launch AI Project Manager</a></p>`;
+            }
+        }
+        
+        // Load the main app script and run tests
+        const script = document.createElement('script');
+        script.src = 'app.js';
+        script.onload = runTests;
+        script.onerror = () => {
+            document.getElementById('test-results').innerHTML = 
+                '<div class="test-status fail"><strong>Failed to load app.js</strong></div>';
+        };
+        document.head.appendChild(script);
+    </script>
+</body>
+</html>

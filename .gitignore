@@ -7,10 +7,11 @@
 # ==================================================
 
 # Exclude specific projects that should have their own repositories
-/isitdoneyet/
-/litrpg_studio/
-/project_management/
-/meme_generator/
+# These projects are managed as separate git repositories
+
+# Web Applications with their own repos
+apps/isitdoneyet/
+
 
 # ==================================================
 # BUILD AND DEPLOYMENT ARTIFACTS
@@ -187,7 +188,6 @@ credentials.json
 !validate-projects.ps1
 !BUILD-README.md
 !projects.json
-!build-config.json
 !index.html
 !index.php
 !index.css
