@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tactical Combat Plugin - Fire Emblem Style</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <header class="game-header">
+            <h1>Tactical Combat Plugin System</h1>
+            <p class="text-secondary">Fire Emblem-style turn-based tactical combat for web games</p>
+        </header>
+
+        <div class="game-layout">
+            <!-- Game Board -->
+            <div class="game-board-container">
+                <div class="game-controls">
+                    <div class="turn-info">
+                        <span class="turn-counter">Turn: <span id="turnCounter">1</span></span>
+                        <span class="phase-indicator" id="phaseIndicator">Player Phase</span>
+                    </div>
+                    <button class="btn btn--secondary btn--sm" id="endTurnBtn">End Turn</button>
+                    <button class="btn btn--outline btn--sm" id="resetBtn">Reset Demo</button>
+                </div>
+                <canvas id="gameCanvas" width="512" height="512"></canvas>
+                <div class="movement-controls">
+                    <button class="btn btn--primary btn--sm" id="moveBtn" disabled>Move</button>
+                    <button class="btn btn--secondary btn--sm" id="attackBtn" disabled>Attack</button>
+                    <button class="btn btn--outline btn--sm" id="waitBtn" disabled>Wait</button>
+                </div>
+            </div>
+
+            <!-- Game Info Panel -->
+            <div class="game-info-panel">
+                <!-- Selected Unit Info -->
+                <div class="card unit-info-card">
+                    <div class="card__header">
+                        <h3>Unit Information</h3>
+                    </div>
+                    <div class="card__body" id="unitInfo">
+                        <p class="text-secondary">Select a unit to view stats</p>
+                    </div>
+                </div>
+
+                <!-- Combat Forecast -->
+                <div class="card combat-forecast-card" id="combatForecast" style="display: none;">
+                    <div class="card__header">
+                        <h3>Combat Forecast</h3>
+                    </div>
+                    <div class="card__body" id="combatForecastContent">
+                    </div>
+                </div>
+
+                <!-- Game Status -->
+                <div class="card game-status-card">
+                    <div class="card__header">
+                        <h3>Game Status</h3>
+                    </div>
+                    <div class="card__body">
+                        <div class="status-item">
+                            <span>Player Units:</span>
+                            <span id="playerUnitsCount">3</span>
+                        </div>
+                        <div class="status-item">
+                            <span>Enemy Units:</span>
+                            <span id="enemyUnitsCount">3</span>
+                        </div>
+                        <div class="status-item">
+                            <span>Victory Condition:</span>
+                            <span>Defeat all enemies</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Plugin Documentation -->
+        <div class="plugin-docs">
+            <div class="card">
+                <div class="card__header">
+                    <h2>Plugin Integration Guide</h2>
+                </div>
+                <div class="card__body">
+                    <div class="docs-grid">
+                        <div class="doc-section">
+                            <h4>Basic Integration</h4>
+                            <pre><code>// Initialize the tactical combat plugin
+const combat = new TacticalCombatPlugin({
+    canvas: document.getElementById('gameCanvas'),
+    units: unitData,
+    onGameEnd: (winner) => {
+        console.log('Game ended:', winner);
+    }
+});
+
+// Start the tactical combat
+combat.initialize();</code></pre>
+                        </div>
+                        
+                        <div class="doc-section">
+                            <h4>Plugin Features</h4>
+                            <ul>
+                                <li>✓ Complete weapon triangle system</li>
+                                <li>✓ Turn-based tactical combat</li>
+                                <li>✓ Unit stats and level progression</li>
+                                <li>✓ Movement and attack range visualization</li>
+                                <li>✓ Combat prediction system</li>
+                                <li>✓ Customizable unit classes and weapons</li>
+                            </ul>
+                        </div>
+
+                        <div class="doc-section">
+                            <h4>Weapon Triangle</h4>
+                            <div class="weapon-triangle">
+                                <div class="weapon-relation">
+                                    <span class="weapon sword">⚔️ Sword</span>
+                                    <span class="advantage">beats</span>
+                                    <span class="weapon axe">🪓 Axe</span>
+                                </div>
+                                <div class="weapon-relation">
+                                    <span class="weapon axe">🪓 Axe</span>
+                                    <span class="advantage">beats</span>
+                                    <span class="weapon lance">🗡️ Lance</span>
+                                </div>
+                                <div class="weapon-relation">
+                                    <span class="weapon lance">🗡️ Lance</span>
+                                    <span class="advantage">beats</span>
+                                    <span class="weapon sword">⚔️ Sword</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="doc-section">
+                            <h4>Configuration Options</h4>
+                            <pre><code>const config = {
+    doubleAttackSpeedThreshold: 4,
+    criticalHitRate: 5,
+    weaponTriangleBonus: 15,
+    movementRange: 3,
+    expGainBase: 10,
+    expGainKill: 30
+};</code></pre>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Architecture Diagram -->
+        <div class="architecture-section">
+            <div class="card">
+                <div class="card__header">
+                    <h2>Plugin Architecture</h2>
+                </div>
+                <div class="card__body">
+                    <img src="https://pplx-res.cloudinary.com/image/upload/v1750221618/pplx_project_search_images/1b945081332014a9ad3bb9f6e2602ab8a07166ec.jpg" 
+                         alt="Plugin Architecture Diagram" 
+                         class="architecture-diagram">
+                    <p class="text-secondary">
+                        The tactical combat plugin follows a modular architecture similar to modern web frameworks, 
+                        allowing easy integration into existing game systems while maintaining clean separation of concerns.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>

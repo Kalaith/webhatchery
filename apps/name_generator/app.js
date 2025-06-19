@@ -7,6 +7,9 @@ class NameGeneratorApp {
             methodUsage: {}
         };
         
+        // Initialize enhanced generators
+        this.generators = new NameGenerators();
+        
         this.mockData = {
             people: {
                 western: {
@@ -242,11 +245,11 @@ class NameGeneratorApp {
 
     generatePlaceNames(params) {
         const results = [];
-        const baseNames = this.mockData.places;
 
         for (let i = 0; i < params.count; i++) {
-            const baseName = baseNames[Math.floor(Math.random() * baseNames.length)];
-            const name = this.modifyPlaceName(baseName, params);
+            // Use enhanced place name generation
+            const name = this.generators.generatePlaceName(params.type, params.style, params.method);
+            
             results.push({
                 name: name,
                 type: params.type,
@@ -254,7 +257,9 @@ class NameGeneratorApp {
                 method: params.method,
                 description: this.generatePlaceDescription(name, params.type),
                 location: this.generateLocation(params.style),
-                established: this.generateEstablishedDate()
+                established: this.generateEstablishedDate(),
+                population: this.generatePopulation(params.type),
+                climate: this.generateClimate(params.style)
             });
         }
 
@@ -341,22 +346,102 @@ class NameGeneratorApp {
     }
 
     generatePersonName(culture, gender, params) {
-        const cultureData = this.mockData.people[culture] || this.mockData.people.western;
-        const genderData = cultureData[gender] || cultureData.male;
-        const fullName = genderData[Math.floor(Math.random() * genderData.length)];
-        const parts = fullName.split(' ');
+        let firstName = '';
+        let lastName = '';
 
+        // Use enhanced generation algorithms based on method
+        switch (params.method) {
+            case 'markov_chain':
+                firstName = this.generators.generateMarkovName(culture, gender);
+                lastName = this.generators.generateMarkovName(culture, 'surname');
+                break;
+                
+            case 'syllable_based':
+                firstName = this.generators.generateSyllableName(culture, 'first');
+                lastName = this.generators.generateSyllableName(culture, 'surname');
+                break;
+                
+            case 'phonetic_pattern':
+                firstName = this.generators.generatePhoneticName(culture, gender);
+                lastName = this.generators.generatePhoneticName(culture, 'surname');
+                break;
+                
+            case 'historical_pattern':
+                firstName = this.generators.generateHistoricalName(culture, params.period, gender);
+                lastName = this.generators.generateHistoricalName(culture, params.period, 'surname');
+                break;
+                
+            case 'fantasy_generated':
+                firstName = this.generators.generateSyllableName('fantasy', 'first');
+                lastName = this.generators.generateSyllableName('fantasy', 'surname');
+                break;
+                
+            default:
+                // Fallback to enhanced markov generation or mock data
+                if (this.generators.markovChains[culture]) {
+                    firstName = this.generators.generateMarkovName(culture, gender);
+                    lastName = this.generators.generateMarkovName(culture, 'surname');
+                } else {
+                    // Use mock data as fallback
+                    const cultureData = this.mockData.people[culture] || this.mockData.people.western;
+                    const genderData = cultureData[gender] || cultureData.male;
+                    const fullName = genderData[Math.floor(Math.random() * genderData.length)];
+                    const parts = fullName.split(' ');
+                    firstName = parts[0];
+                    lastName = parts[parts.length - 1];
+                }
+        }
+
+        // Apply type modifications
         switch (params.type) {
             case 'first_only':
-                return { full: parts[0], first: parts[0], last: '' };
+                return { 
+                    full: firstName, 
+                    first: firstName, 
+                    last: '',
+                    culture: this.getNameOrigin(culture),
+                    meaning: this.enhancedGetNameMeaning(),
+                    pronunciation: this.enhancedGeneratePronunciation(firstName)
+                };
             case 'last_only':
-                return { full: parts[parts.length - 1], first: '', last: parts[parts.length - 1] };
+                return { 
+                    full: lastName, 
+                    first: '', 
+                    last: lastName,
+                    culture: this.getNameOrigin(culture),
+                    meaning: this.enhancedGetNameMeaning(),
+                    pronunciation: this.enhancedGeneratePronunciation(lastName)
+                };
             case 'nickname':
-                return { full: this.generateNickname(parts[0]), first: parts[0], last: parts[parts.length - 1] };
+                const nickname = this.generateNickname(firstName);
+                return { 
+                    full: nickname, 
+                    first: firstName, 
+                    last: lastName,
+                    nickname: nickname,
+                    culture: this.getNameOrigin(culture),
+                    meaning: this.enhancedGetNameMeaning(),
+                    pronunciation: this.enhancedGeneratePronunciation(nickname)
+                };
             case 'formal':
-                return { full: `${parts[parts.length - 1]}, ${parts[0]}`, first: parts[0], last: parts[parts.length - 1] };
+                return { 
+                    full: `${lastName}, ${firstName}`, 
+                    first: firstName, 
+                    last: lastName,
+                    culture: this.getNameOrigin(culture),
+                    meaning: this.enhancedGetNameMeaning(),
+                    pronunciation: this.enhancedGeneratePronunciation(`${firstName} ${lastName}`)
+                };
             default:
-                return { full: fullName, first: parts[0], last: parts[parts.length - 1] };
+                const fullName = `${firstName} ${lastName}`;
+                return { 
+                    full: fullName, 
+                    first: firstName, 
+                    last: lastName,
+                    culture: this.getNameOrigin(culture),
+                    meaning: this.enhancedGetNameMeaning(),
+                    pronunciation: this.enhancedGeneratePronunciation(fullName)
+                };
         }
     }
 
@@ -859,6 +944,52 @@ class NameGeneratorApp {
             romance: 'love, relationships, emotion'
         };
         return keywords[genre] || 'story, narrative, character';
+    }
+
+    // Additional helper methods for enhanced generation
+    generatePopulation(type) {
+        const populations = {
+            city: Math.floor(Math.random() * 1000000) + 50000,
+            town: Math.floor(Math.random() * 50000) + 1000,
+            village: Math.floor(Math.random() * 1000) + 100,
+            landmark: 'N/A'
+        };
+        return populations[type] || Math.floor(Math.random() * 10000) + 500;
+    }
+
+    generateClimate(style) {
+        const climates = {
+            fantasy: ['Magical temperate', 'Mystical highland', 'Enchanted tropical', 'Arcane tundra'],
+            realistic: ['Temperate', 'Continental', 'Mediterranean', 'Subtropical', 'Highland'],
+            historical: ['Ancient temperate', 'Classical warm', 'Medieval continental']
+        };
+        const climateList = climates[style] || climates.realistic;
+        return climateList[Math.floor(Math.random() * climateList.length)];
+    }
+
+    enhancedGetNameMeaning() {
+        const meanings = [
+            'Noble warrior', 'Peaceful soul', 'Wise ruler', 'Bright light', 'Strong defender',
+            'Gentle heart', 'Bold spirit', 'Faithful friend', 'Pure essence', 'Divine blessing',
+            'Mountain strength', 'River flow', 'Ocean depth', 'Sky wanderer', 'Earth guardian',
+            'Fire bearer', 'Wind dancer', 'Star seeker', 'Moon blessed', 'Sun touched'
+        ];
+        return meanings[Math.floor(Math.random() * meanings.length)];
+    }
+
+    enhancedGeneratePronunciation(name) {
+        // Simple phonetic approximation
+        const phonetics = {
+            'a': 'ah', 'e': 'eh', 'i': 'ee', 'o': 'oh', 'u': 'oo',
+            'y': 'ee', 'c': 'k', 'ph': 'f', 'th': 'th', 'ch': 'ch'
+        };
+        
+        let pronunciation = name.toLowerCase();
+        Object.keys(phonetics).forEach(letter => {
+            pronunciation = pronunciation.replace(new RegExp(letter, 'g'), phonetics[letter]);
+        });
+        
+        return `/${pronunciation}/`;
     }
 }
 

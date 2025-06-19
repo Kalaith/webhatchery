@@ -116,8 +116,7 @@
               "vite": "^5.0.0",
               "@vitejs/plugin-react": "^4.4.1"
             }
-          }
-        },{
+          }        },{
           "title": "Monster Maker",
           "path": "apps/monster_maker/",
           "description": "D&D monster creation tool with challenge rating calculator and stat progression charts.",
@@ -125,9 +124,17 @@
             "type": "Static",
             "deployAs": "monster_maker"
           }
+        },{
+          "title": "Name Generator API",
+          "path": "apps/name_generator/",
+          "description": "Comprehensive name generation tool with multiple algorithms for creating people, place, event, and title names using Markov chains, phonetic patterns, and cultural linguistics.",
+          "deployment": {
+            "type": "Static",
+            "deployAs": "name_generator"
+          }
         }
       ]
-    },    "games": {
+    },"games": {
       "name": "Games & Game Design",
       "projects": [{
           "title": "Kaiju Simulator",

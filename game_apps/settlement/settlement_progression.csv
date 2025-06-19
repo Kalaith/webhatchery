@@ -1,0 +1,5 @@
+Settlement Tier,Population Slots,Required Infrastructure,Available Roles,Session Requirements,Expansion Features
+Hamlet,5-10,"Basic Shelter, Well, Storage","Leader, Crafter, Guard, Farmer, Healer","2 sessions/week, 2-3 hours","Basic crafting, Simple events"
+Village,11-25,"Workshops, Market Square, Walls","All Hamlet + Merchant, Scholar, Builder","3 sessions/week, 2-3 hours","Trade routes, Inter-settlement contact"
+Town,26-50,"Specialized Buildings, Roads, Governance","All Village + Captain, Judge, Architect, Priest","3-4 sessions/week, 3-4 hours","Advanced crafting, Political systems"
+City,51-100,"Multiple Districts, Advanced Systems","All Town + Governor, Diplomat, Guild Leaders","4-5 sessions/week, 3-4 hours","Kingdom formation, Regional influence"
