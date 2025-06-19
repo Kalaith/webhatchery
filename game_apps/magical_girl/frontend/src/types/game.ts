@@ -1,4 +1,7 @@
 // Core game types and interfaces
+import type { MagicalGirl, MagicalGirlStats } from './magicalGirl';
+import type { Mission } from './missions';
+
 export interface GameState {
   player: Player;
   magicalGirls: MagicalGirl[];

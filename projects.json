@@ -42,11 +42,14 @@
     },
     "apps": {
       "name": "Web Applications",
-      "projects": [        
-        {
+      "projects": [          {
           "title": "Is It Done Yet?",
           "path": "apps/isitdoneyet/",
           "description": "A full-stack web application for project tracking and status monitoring with real-time updates.",
+          "repository": {
+            "type": "git",
+            "url": "https://github.com/Kalaith/isitdoneyet"
+          },
           "deployment": {
             "type": "FullStack",
             "deployAs": "isitdoneyet",
@@ -105,7 +108,7 @@
             "type": "React",
             "deployAs": "litrpg_studio",
             "requiresBuild": true,
-            "buildCommand": "npm run build",
+            "buildCommand": "npm run build -- --base=./",
             "outputDir": "dist",
             "packageManager": "npm",
             "dependencies": {
@@ -114,7 +117,7 @@
               "@vitejs/plugin-react": "^4.4.1"
             }
           }
-        },        {
+        },{
           "title": "Monster Maker",
           "path": "apps/monster_maker/",
           "description": "D&D monster creation tool with challenge rating calculator and stat progression charts.",
@@ -143,16 +146,22 @@
           "deployment": {
             "type": "React",
             "outputDir": "dist",
-            "deployAs": "dragons_den"
+            "deployAs": "dragons_den",
+            "requiresBuild": true,
+            "buildCommand": "npm run build -- --base=./",
+            "packageManager": "npm"
           }
-        },{
+        },        {
           "title": "Magical Girl",
           "path": "game_apps/magical_girl/frontend/",
           "description": "Magical girl transformation and adventure game with character progression.",
           "deployment": {
             "type": "React",
             "outputDir": "dist",
-            "deployAs": "magical_girl"
+            "deployAs": "magical_girl",
+            "requiresBuild": true,
+            "buildCommand": "npm run build -- --base=./",
+            "packageManager": "npm"
           }
         },
         {
@@ -189,14 +198,17 @@
   },
   "rootFiles": {
     "name": "Root Level Files",
-    "description": "Individual files to deploy to the root directory",
-    "deployment": {
+    "description": "Individual files to deploy to the root directory",    "deployment": {
       "type": "Static",
-      "files": ["index.php", "index.css"],
-      "exclude": ["build-deploy.ps1", "build.bat", "validate-projects.ps1", "build-config.json", "BUILD-README.md", "README.md", "projects.json", "*.log"]
+      "files": ["index.php", "index.css", "projects.json"],
+      "exclude": ["build-deploy.ps1", "build.bat", "validate-projects.ps1", "build-config.json", "BUILD-README.md", "README.md", "*.log"]
     }
-  },
-  "global": {
+  },  "global": {
+    "repository": {
+      "type": "git",
+      "url": "https://github.com/Kalaith/webhatchery",
+      "name": "WebHatchery"
+    },
     "excludePatterns": [
       ".git",
       ".gitignore", 

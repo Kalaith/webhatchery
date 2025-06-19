@@ -1,5 +1,5 @@
 // Initial training data for the game
-import type { TrainingSession, TrainingType, TrainingCategory, TrainingDifficulty } from '../types';
+import type { TrainingSession } from '../types';
 
 export const initialTrainingSessions: TrainingSession[] = [
   {

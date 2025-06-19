@@ -33,11 +33,9 @@ export const AchievementsView: React.FC = () => {
     getNextAchievement,
     getRecentAchievements,
     getNearCompletionAchievements,
-    getTotalPoints
-  } = useAchievements();
+    getTotalPoints  } = useAchievements();
 
   const [showFilters, setShowFilters] = useState(false);
-  const [selectedModal, setSelectedModal] = useState<string | null>(null);
 
   const nextAchievement = getNextAchievement();
   const recentUnlocks = getRecentAchievements();
@@ -53,9 +51,9 @@ export const AchievementsView: React.FC = () => {
     if (bIndex !== -1) return 1;
     return a.localeCompare(b);
   });
-
   const handleAchievementClick = (achievementId: string) => {
-    setSelectedModal(achievementId);
+    // TODO: Implement achievement modal or details view
+    console.log('Achievement clicked:', achievementId);
   };
 
   return (

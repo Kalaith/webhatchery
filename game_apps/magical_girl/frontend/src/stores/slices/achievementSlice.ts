@@ -76,11 +76,7 @@ export const createAchievementSlice: StateCreator<
       return {
         achievements: updatedAchievements,
         recentlyUnlocked: [achievement, ...currentState.recentlyUnlocked.slice(0, 4)]
-      };
-    });
-    
-    // Calculate achievement points
-    const points = achievementRarities[achievement.rarity]?.points || 10;
+      };    });
     
     // Show notification
     state.addNotification({
@@ -279,7 +275,7 @@ export const createAchievementSlice: StateCreator<
   },
   
   // Event handlers
-  onTrainingCompleted: (trainingId, score) => {
+  onTrainingCompleted: (_trainingId, score) => {
     const state = get();
     
     // Count-based achievements
@@ -294,7 +290,7 @@ export const createAchievementSlice: StateCreator<
     }
   },
   
-  onMissionCompleted: (missionId, success, score) => {
+  onMissionCompleted: (_missionId, success, score) => {
     const state = get();
     const missionsCompleted = state.player?.statistics?.missionsCompleted || 0;
     
@@ -317,7 +313,7 @@ export const createAchievementSlice: StateCreator<
     }
   },
   
-  onMagicalGirlUnlocked: (girlId, rarity) => {
+  onMagicalGirlUnlocked: (_girlId, rarity) => {
     const state = get();
     const unlockedGirls = state.magicalGirls?.filter(g => g.isUnlocked) || [];
     
@@ -341,7 +337,7 @@ export const createAchievementSlice: StateCreator<
     state.updateAchievementProgress('veteran_trainer', Math.min(newLevel, 25));
   },
   
-  onBondLevelIncreased: (girlId, newBondLevel) => {
+  onBondLevelIncreased: (_girlId, newBondLevel) => {
     const state = get();
     
     state.updateAchievementProgress('bond_builder', 1);

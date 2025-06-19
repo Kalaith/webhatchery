@@ -10,9 +10,9 @@ import {
   Clock
 } from 'lucide-react';
 import { Card } from '../ui/Card';
-import type { AchievementStats } from '../../types/achievements';
+import type { AchievementStats as AchievementStatsType } from '../../types/achievements';
 
-interface AchievementStatsProps extends AchievementStats {
+interface AchievementStatsProps extends AchievementStatsType {
   className?: string;
 }
 
@@ -21,7 +21,6 @@ export const AchievementStats: React.FC<AchievementStatsProps> = ({
   unlockedAchievements,
   achievementPoints,
   completionRate,
-  favoriteCategory,
   recentUnlocks,
   nearCompletion,
   className = ''

@@ -212,6 +212,43 @@ When `-Production` flag is used:
 .\build-deploy.ps1 -Production
 ```
 
+## 🏠 Root Files Deployment
+
+The system supports deploying files directly to the web root (like `index.php`, `index.css`) using a special "rootFiles" configuration.
+
+### Deploy Only Root Files
+```powershell
+# Deploy just the root landing page files
+.\build-deploy.ps1 -ProjectFilter "rootFiles"
+
+# Production deployment of root files
+.\build-deploy.ps1 -ProjectFilter "rootFiles" -Production
+
+# Dry run to see what root files would be deployed
+.\build-deploy.ps1 -ProjectFilter "rootFiles" -DryRun -Verbose
+```
+
+### Root Files Configuration
+The root files are configured in `projects.json` under the `rootFiles` section:
+
+```json
+{
+  "rootFiles": {
+    "name": "Root Level Files",
+    "description": "Individual files to deploy to the root directory",
+    "deployment": {
+      "type": "Static",
+      "files": ["index.php", "index.css"],
+      "exclude": ["build-deploy.ps1", "*.log", "README.md"]
+    }
+  }
+}
+```
+
+**Files Included**: `index.php`, `index.css`
+**Files Excluded**: Build scripts, logs, documentation files
+**Deployment Location**: Web root (`F:\WebHatchery\`)
+
 ## 🐛 Troubleshooting
 
 ### Common Issues

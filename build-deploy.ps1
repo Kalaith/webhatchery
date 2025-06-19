@@ -8,7 +8,9 @@ param(
     [switch]$VerboseOutput,
     [switch]$DryRun,
     [switch]$SkipBuild,
-    [switch]$OnlyBuild
+    [switch]$OnlyBuild,
+    [switch]$CleanInstall,
+    [switch]$CleanDeploy
 )
 
 # Configuration
@@ -52,11 +54,12 @@ function Get-ProjectConfigs {
                         $configs[$projectName] = $config
                     }
                 }
-            }
-        }
+            }        }
         
-        # Add rootFiles config if it exists
-        if ($projectsData.groups.rootFiles -and $projectsData.groups.rootFiles.deployment) {
+        # Add rootFiles config if it exists (check both locations for compatibility)
+        if ($projectsData.rootFiles -and $projectsData.rootFiles.deployment) {
+            $configs["rootFiles"] = Convert-DeploymentConfig $projectsData.rootFiles.deployment
+        } elseif ($projectsData.groups.rootFiles -and $projectsData.groups.rootFiles.deployment) {
             $configs["rootFiles"] = Convert-DeploymentConfig $projectsData.groups.rootFiles.deployment
         }
         
@@ -269,17 +272,47 @@ function Invoke-Build {
             Set-Location (Join-Path $fullPath $Config.BuildPath)
         } elseif ($Config.BackendPath -and $ProjectType -eq "PHP") {
             Set-Location (Join-Path $fullPath $Config.BackendPath)
-        }
-        
-        switch ($ProjectType) {
+        }        switch ($ProjectType) {
             "React" {
+                if ($CleanInstall) {
+                    Write-Log "Performing clean install for React project"
+                    # Remove node_modules and package-lock.json
+                    $nodeModulesPath = Join-Path (Get-Location) "node_modules"
+                    $packageLockPath = Join-Path (Get-Location) "package-lock.json"
+                    
+                    if (Test-Path $nodeModulesPath) {
+                        Invoke-Command "Remove-Item -Recurse -Force '$nodeModulesPath'" "Removing node_modules"
+                    }
+                    if (Test-Path $packageLockPath) {
+                        Invoke-Command "Remove-Item -Force '$packageLockPath'" "Removing package-lock.json"
+                    }
+                }
+                
                 Invoke-Command "npm install" "Installing dependencies"
-                Invoke-Command "npm run build" "Building React application"
+                if ($Config.BuildCommand) {
+                    Invoke-Command $Config.BuildCommand "Building React application with custom command"
+                } else {
+                    Invoke-Command "npm run build" "Building React application"
+                }
             }
             "PHP" {
                 $composerArgs = if ($Production) { "install --no-dev --optimize-autoloader --no-interaction" } else { "install --no-interaction" }
                 Invoke-Command "composer $composerArgs" "Installing Composer dependencies"
             }            "Node" {
+                if ($CleanInstall) {
+                    Write-Log "Performing clean install for Node.js project"
+                    # Remove node_modules and package-lock.json
+                    $nodeModulesPath = Join-Path (Get-Location) "node_modules"
+                    $packageLockPath = Join-Path (Get-Location) "package-lock.json"
+                    
+                    if (Test-Path $nodeModulesPath) {
+                        Invoke-Command "Remove-Item -Recurse -Force '$nodeModulesPath'" "Removing node_modules"
+                    }
+                    if (Test-Path $packageLockPath) {
+                        Invoke-Command "Remove-Item -Force '$packageLockPath'" "Removing package-lock.json"
+                    }
+                }
+                
                 $npmArgs = if ($Production) { "install --production" } else { "install" }
                 Invoke-Command "npm $npmArgs" "Installing Node.js dependencies"
             }
@@ -295,10 +328,24 @@ function Invoke-Build {
                     } else {
                         Invoke-Command "composer $composerArgs" "Building backend"
                     }
-                }
-                # Handle frontend build if it's a React/Vite frontend
+                }                # Handle frontend build if it's a React/Vite frontend
                 if ($Config.FrontendType -eq "Vite") {
                     Set-Location $fullPath
+                    
+                    if ($CleanInstall) {
+                        Write-Log "Performing clean install for FullStack frontend"
+                        # Remove node_modules and package-lock.json
+                        $nodeModulesPath = Join-Path (Get-Location) "node_modules"
+                        $packageLockPath = Join-Path (Get-Location) "package-lock.json"
+                        
+                        if (Test-Path $nodeModulesPath) {
+                            Invoke-Command "Remove-Item -Recurse -Force '$nodeModulesPath'" "Removing frontend node_modules"
+                        }
+                        if (Test-Path $packageLockPath) {
+                            Invoke-Command "Remove-Item -Force '$packageLockPath'" "Removing frontend package-lock.json"
+                        }
+                    }
+                    
                     Invoke-Command "npm install" "Installing frontend dependencies"
                     Invoke-Command "npm run build" "Building frontend"
                 }
@@ -397,10 +444,19 @@ function Copy-ProjectFiles {
         Write-Log "Source path not found for project: $ProjectPath" "ERROR"
         return
     }
-    
-    $destPath = Join-Path $DEPLOY_PATH $actualProjectName
+      $destPath = Join-Path $DEPLOY_PATH $actualProjectName
     
     Write-Log "Deploying $ProjectPath from $sourcePath to $destPath"
+    
+    # Clean deploy: remove existing deployment directory first
+    if ($CleanDeploy -and (Test-Path $destPath)) {
+        if ($DryRun) {
+            Write-Log "[DRY RUN] Would clean existing deployment: $destPath"
+        } else {
+            Write-Log "Cleaning existing deployment: $destPath"
+            Remove-Item -Path $destPath -Recurse -Force -ErrorAction SilentlyContinue
+        }
+    }
     
     if (-not $DryRun -and -not (Test-Path $destPath)) {
         New-Item -ItemType Directory -Path $destPath -Force | Out-Null

@@ -161,10 +161,8 @@ export const MagicalGirlsView: React.FC = () => {
           isOpen={!!selectedGirl} 
           onClose={() => setSelectedGirl(null)}
           title={selectedGirl.name}
-        >
-          <MagicalGirlDetails 
+        >          <MagicalGirlDetails 
             girl={selectedGirl} 
-            onClose={() => setSelectedGirl(null)}
           />
         </Modal>
       )}

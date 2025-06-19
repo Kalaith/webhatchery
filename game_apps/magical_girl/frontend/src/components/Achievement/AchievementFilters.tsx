@@ -1,20 +1,20 @@
 // Achievement filters component - Single Responsibility Principle
 import React from 'react';
-import { Search, Filter, X } from 'lucide-react';
+import { Search, X } from 'lucide-react';
 import { Card } from '../ui/Card';
 import { Button } from '../ui/Button';
-import type { AchievementFilters } from '../../types/achievements';
+import type { AchievementFilters as AchievementFiltersType } from '../../types/achievements';
 import { achievementCategories, achievementRarities } from '../../data/achievements';
 
 interface AchievementFiltersProps {
   searchTerm: string;
   onSearchChange: (search: string) => void;
-  selectedCategory: AchievementFilters['category'];
-  onCategoryChange: (category: AchievementFilters['category']) => void;
-  selectedRarity: AchievementFilters['rarity'];
-  onRarityChange: (rarity: AchievementFilters['rarity']) => void;
-  selectedStatus: AchievementFilters['status'];
-  onStatusChange: (status: AchievementFilters['status']) => void;
+  selectedCategory: AchievementFiltersType['category'];
+  onCategoryChange: (category: AchievementFiltersType['category']) => void;
+  selectedRarity: AchievementFiltersType['rarity'];
+  onRarityChange: (rarity: AchievementFiltersType['rarity']) => void;
+  selectedStatus: AchievementFiltersType['status'];
+  onStatusChange: (status: AchievementFiltersType['status']) => void;
   showHidden: boolean;
   onShowHiddenChange: (showHidden: boolean) => void;
   onClearFilters: () => void;
@@ -60,10 +60,9 @@ export const AchievementFilters: React.FC<AchievementFiltersProps> = ({
         <div>
           <label className="block text-sm font-medium text-gray-700 mb-1">
             Category
-          </label>
-          <select
+          </label>          <select
             value={selectedCategory}
-            onChange={(e) => onCategoryChange(e.target.value as AchievementFilters['category'])}
+            onChange={(e) => onCategoryChange(e.target.value as AchievementFiltersType['category'])}
             className="w-full p-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent"
           >
             <option value="all">All Categories</option>
@@ -79,10 +78,9 @@ export const AchievementFilters: React.FC<AchievementFiltersProps> = ({
         <div>
           <label className="block text-sm font-medium text-gray-700 mb-1">
             Rarity
-          </label>
-          <select
+          </label>          <select
             value={selectedRarity}
-            onChange={(e) => onRarityChange(e.target.value as AchievementFilters['rarity'])}
+            onChange={(e) => onRarityChange(e.target.value as AchievementFiltersType['rarity'])}
             className="w-full p-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent"
           >
             <option value="all">All Rarities</option>
@@ -98,10 +96,9 @@ export const AchievementFilters: React.FC<AchievementFiltersProps> = ({
         <div>
           <label className="block text-sm font-medium text-gray-700 mb-1">
             Status
-          </label>
-          <select
+          </label>          <select
             value={selectedStatus}
-            onChange={(e) => onStatusChange(e.target.value as AchievementFilters['status'])}
+            onChange={(e) => onStatusChange(e.target.value as AchievementFiltersType['status'])}
             className="w-full p-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent"
           >
             <option value="all">All Status</option>

@@ -13,6 +13,7 @@ export interface CardProps extends BaseComponentProps {
   hoverable?: boolean;
   clickable?: boolean;
   onClick?: () => void;
+  style?: React.CSSProperties;
 }
 
 export const Card: React.FC<CardProps> = ({

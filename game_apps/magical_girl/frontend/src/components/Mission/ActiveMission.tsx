@@ -3,7 +3,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { 
-  Clock, 
   MapPin, 
   Target, 
   Users,
@@ -101,7 +100,7 @@ export const ActiveMission: React.FC<ActiveMissionProps> = ({
 
           {/* Objectives List */}
           <div className="space-y-2">
-            {mission.objectives.map((objective, index) => (
+            {mission.objectives.map((objective) => (
               <div 
                 key={objective.id}
                 className={`flex items-center gap-2 text-sm p-2 rounded ${

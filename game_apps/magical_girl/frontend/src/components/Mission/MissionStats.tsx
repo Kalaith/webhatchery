@@ -25,7 +25,6 @@ export const MissionStats: React.FC<MissionStatsProps> = ({
   totalMissions,
   completedMissions,
   activeMissions,
-  totalRewardsEarned,
   averageSuccessRate,
   streakCount
 }) => {

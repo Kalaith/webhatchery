@@ -1,6 +1,5 @@
 import React from 'react';
 import { Card } from '../ui/Card';
-import { useGameStore } from '../../stores/gameStore';
 
 interface VolumeControlProps {
   label: string;
