@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Comprehensive Name Generator API</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Header Section -->
+        <header class="header">
+            <div class="container">
+                <div class="header-content">
+                    <h1 class="header-title">Comprehensive Name Generator API</h1>
+                    <p class="header-subtitle">Generate names for people, places, events, and titles with advanced algorithms</p>
+                    <div class="theme-toggle">
+                        <button id="themeToggle" class="btn btn--secondary btn--sm">🌙</button>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Navigation Tabs -->
+        <nav class="nav-tabs">
+            <div class="container">
+                <div class="tabs">
+                    <button class="tab-btn active" data-tab="people">People</button>
+                    <button class="tab-btn" data-tab="places">Places</button>
+                    <button class="tab-btn" data-tab="events">Events</button>
+                    <button class="tab-btn" data-tab="titles">Titles</button>
+                    <button class="tab-btn" data-tab="batch">Batch</button>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <div class="container">
+                <!-- People Names Section -->
+                <section id="people-tab" class="tab-content active">
+                    <div class="section-header">
+                        <h2>People Name Generator</h2>
+                        <p>Generate realistic names from various cultures and historical periods</p>
+                    </div>
+                    
+                    <div class="generator-layout">
+                        <div class="generator-form">
+                            <div class="card">
+                                <div class="card__body">
+                                    <form id="people-form">
+                                        <div class="form-group">
+                                            <label class="form-label">Count: <span id="people-count-display">5</span></label>
+                                            <input type="range" id="people-count" min="1" max="10" value="5" class="slider">
+                                        </div>
+                                        
+                                        <div class="form-group">
+                                            <label class="form-label" for="people-gender">Gender</label>
+                                            <select id="people-gender" class="form-control">
+                                                <option value="any">Any</option>
+                                                <option value="male">Male</option>
+                                                <option value="female">Female</option>
+                                                <option value="neutral">Neutral</option>
+                                            </select>
+                                        </div>
+                                        
+                                        <div class="form-group">
+                                            <label class="form-label" for="people-culture">Culture</label>
+                                            <select id="people-culture" class="form-control">
+                                                <option value="any">Any</option>
+                                                <option value="western">Western</option>
+                                                <option value="eastern">Eastern</option>
+                                                <option value="african">African</option>
+                                                <option value="latin">Latin</option>
+                                                <option value="nordic">Nordic</option>
+                                                <option value="slavic">Slavic</option>
+                                                <option value="arabic">Arabic</option>
+                                                <option value="indian">Indian</option>
+                                                <option value="chinese">Chinese</option>
+                                                <option value="japanese">Japanese</option>
+                                                <option value="korean">Korean</option>
+                                                <option value="celtic">Celtic</option>
+                                                <option value="german">German</option>
+                                                <option value="french">French</option>
+                                                <option value="italian">Italian</option>
+                                                <option value="spanish">Spanish</option>
+                                                <option value="portuguese">Portuguese</option>
+                                                <option value="dutch">Dutch</option>
+                                                <option value="russian">Russian</option>
+                                                <option value="polish">Polish</option>
+                                                <option value="hungarian">Hungarian</option>
+                                                <option value="greek">Greek</option>
+                                                <option value="turkish">Turkish</option>
+                                            </select>
+                                        </div>
+                                        
+                                        <div class="form-group">
+                                            <label class="form-label" for="people-method">Generation Method</label>
+                                            <select id="people-method" class="form-control">
+                                                <option value="traditional_pattern">Traditional Pattern</option>
+                                                <option value="markov_chain">Markov Chain</option>
+                                                <option value="syllable_based">Syllable Based</option>
+                                                <option value="historical_pattern">Historical Pattern</option>
+                                                <option value="phonetic_pattern">Phonetic Pattern</option>
+                                                <option value="modern_fusion">Modern Fusion</option>
+                                                <option value="fantasy_generated">Fantasy Generated</option>
+                                                <option value="procedural">Procedural</option>
+                                                <option value="random">Random</option>
+                                            </select>
+                                        </div>
+                                        
+                                        <div class="form-group">
+                                            <label class="form-label" for="people-type">Name Type</label>
+                                            <select id="people-type" class="form-control">
+                                                <option value="full_name">Full Name</option>
+                                                <option value="first_only">First Only</option>
+                                                <option value="last_only">Last Only</option>
+                                                <option value="nickname">Nickname</option>
+                                                <option value="formal">Formal</option>
+                                            </select>
+                                        </div>
+                                        
+                                        <div class="form-group">
+                                            <label class="form-label" for="people-period">Historical Period</label>
+                                            <select id="people-period" class="form-control">
+                                                <option value="modern">Modern (2000+)</option>
+                                                <option value="contemporary">Contemporary (1950-2000)</option>
+                                                <option value="early_modern">Early Modern (1900-1950)</option>
+                                                <option value="victorian">Victorian (1837-1901)</option>
+                                                <option value="medieval">Medieval (500-1500)</option>
+                                                <option value="ancient">Ancient (Before 500)</option>
+                                            </select>
+                                        </div>
+                                        
+                                        <div class="form-group">
+                                            <label class="checkbox-label">
+                                                <input type="checkbox" id="people-exclude-real">
+                                                Exclude Real Names
+                                            </label>
+                                        </div>
+                                        
+                                        <button type="submit" class="btn btn--primary btn--full-width">Generate Names</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="generator-results">
+                            <div class="results-header">
+                                <h3>Generated Names</h3>
+                                <div class="results-actions">
+                                    <button id="export-people" class="btn btn--secondary btn--sm">Export</button>
+                                    <button id="clear-people" class="btn btn--outline btn--sm">Clear</button>
+                                </div>
+                            </div>
+                            <div id="people-results" class="results-grid"></div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Places Section -->
+                <section id="places-tab" class="tab-content">
+                    <div class="section-header">
+                        <h2>Place Name Generator</h2>
+                        <p>Create unique names for cities, landmarks, and geographical features</p>
+                    </div>
+                    
+                    <div class="generator-layout">
+                        <div class="generator-form">
+                            <div class="card">
+                                <div class="card__body">
+                                    <form id="places-form">
+                                        <div class="form-group">
+                                            <label class="form-label">Count: <span id="places-count-display">5</span></label>
+                                            <input type="range" id="places-count" min="1" max="10" value="5" class="slider">
+                                        </div>
+                                        
+                                        <div class="form-group">
+                                            <label class="form-label" for="places-type">Place Type</label>
+                                            <select id="places-type" class="form-control">
+                                                <option value="city">City</option>
+                                                <option value="town">Town</option>
+                                                <option value="village">Village</option>
+                                                <option value="country">Country</option>
+                                                <option value="region">Region</option>
+                                                <option value="mountain">Mountain</option>
+                                                <option value="river">River</option>
+                                                <option value="lake">Lake</option>
+                                                <option value="forest">Forest</option>
+                                                <option value="desert">Desert</option>
+                                                <option value="island">Island</option>
+                                                <option value="continent">Continent</option>
+                                                <option value="landmark">Landmark</option>
+                                                <option value="building">Building</option>
+                                                <option value="street">Street</option>
+                                                <option value="district">District</option>
+                                                <option value="fictional">Fictional</option>
+                                            </select>
+                                        </div>
+                                        
+                                        <div class="form-group">
+                                            <label class="form-label" for="places-style">Geographic Style</label>
+                                            <select id="places-style" class="form-control">
+                                                <option value="english">English</option>
+                                                <option value="gaelic">Gaelic</option>
+                                                <option value="norse">Norse</option>
+                                                <option value="latin">Latin</option>
+                                                <option value="native_american">Native American</option>
+                                                <option value="spanish">Spanish</option>
+                                                <option value="french">French</option>
+                                                <option value="german">German</option>
+                                                <option value="fantasy">Fantasy</option>
+                                            </select>
+                                        </div>
+                                        
+                                        <div class="form-group">
+                                            <label class="form-label" for="places-method">Generation Method</label>
+                                            <select id="places-method" class="form-control">
+                                                <option value="traditional_pattern">Traditional Pattern</option>
+                                                <option value="markov_chain">Markov Chain</option>
+                                                <option value="syllable_based">Syllable Based</option>
+                                                <option value="historical_pattern">Historical Pattern</option>
+                                                <option value="phonetic_pattern">Phonetic Pattern</option>
+                                                <option value="modern_fusion">Modern Fusion</option>
+                                                <option value="fantasy_generated">Fantasy Generated</option>
+                                                <option value="procedural">Procedural</option>
+                                                <option value="random">Random</option>
+                                            </select>
+                                        </div>
+                                        
+                                        <button type="submit" class="btn btn--primary btn--full-width">Generate Places</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="generator-results">
+                            <div class="results-header">
+                                <h3>Generated Places</h3>
+                                <div class="results-actions">
+                                    <button id="export-places" class="btn btn--secondary btn--sm">Export</button>
+                                    <button id="clear-places" class="btn btn--outline btn--sm">Clear</button>
+                                </div>
+                            </div>
+                            <div id="places-results" class="results-grid"></div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Events Section -->
+                <section id="events-tab" class="tab-content">
+                    <div class="section-header">
+                        <h2>Event Name Generator</h2>
+                        <p>Generate compelling names for conferences, festivals, and special occasions</p>
+                    </div>
+                    
+                    <div class="generator-layout">
+                        <div class="generator-form">
+                            <div class="card">
+                                <div class="card__body">
+                                    <form id="events-form">
+                                        <div class="form-group">
+                                            <label class="form-label">Count: <span id="events-count-display">5</span></label>
+                                            <input type="range" id="events-count" min="1" max="10" value="5" class="slider">
+                                        </div>
+                                        
+                                        <div class="form-group">
+                                            <label class="form-label" for="events-type">Event Type</label>
+                                            <select id="events-type" class="form-control">
+                                                <option value="conference">Conference</option>
+                                                <option value="festival">Festival</option>
+                                                <option value="competition">Competition</option>
+                                                <option value="celebration">Celebration</option>
+                                                <option value="ceremony">Ceremony</option>
+                                                <option value="concert">Concert</option>
+                                                <option value="exhibition">Exhibition</option>
+                                                <option value="tournament">Tournament</option>
+                                                <option value="gala">Gala</option>
+                                                <option value="workshop">Workshop</option>
+                                                <option value="meetup">Meetup</option>
+                                                <option value="convention">Convention</option>
+                                                <option value="seminar">Seminar</option>
+                                                <option value="performance">Performance</option>
+                                                <option value="fair">Fair</option>
+                                                <option value="charity">Charity</option>
+                                                <option value="fundraiser">Fundraiser</option>
+                                                <option value="awards">Awards</option>
+                                                <option value="launch">Launch</option>
+                                                <option value="summit">Summit</option>
+                                            </select>
+                                        </div>
+                                        
+                                        <div class="form-group">
+                                            <label class="form-label" for="events-theme">Theme</label>
+                                            <select id="events-theme" class="form-control">
+                                                <option value="technology">Technology</option>
+                                                <option value="arts">Arts</option>
+                                                <option value="business">Business</option>
+                                                <option value="health">Health</option>
+                                                <option value="education">Education</option>
+                                                <option value="environment">Environment</option>
+                                                <option value="innovation">Innovation</option>
+                                                <option value="culture">Culture</option>
+                                                <option value="music">Music</option>
+                                                <option value="sports">Sports</option>
+                                            </select>
+                                        </div>
+                                        
+                                        <div class="form-group">
+                                            <label class="form-label" for="events-tone">Tone</label>
+                                            <select id="events-tone" class="form-control">
+                                                <option value="professional">Professional</option>
+                                                <option value="casual">Casual</option>
+                                                <option value="inspiring">Inspiring</option>
+                                                <option value="playful">Playful</option>
+                                                <option value="elegant">Elegant</option>
+                                                <option value="modern">Modern</option>
+                                                <option value="traditional">Traditional</option>
+                                            </select>
+                                        </div>
+                                        
+                                        <button type="submit" class="btn btn--primary btn--full-width">Generate Events</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="generator-results">
+                            <div class="results-header">
+                                <h3>Generated Events</h3>
+                                <div class="results-actions">
+                                    <button id="export-events" class="btn btn--secondary btn--sm">Export</button>
+                                    <button id="clear-events" class="btn btn--outline btn--sm">Clear</button>
+                                </div>
+                            </div>
+                            <div id="events-results" class="results-grid"></div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Titles Section -->
+                <section id="titles-tab" class="tab-content">
+                    <div class="section-header">
+                        <h2>Title Generator</h2>
+                        <p>Create captivating titles for books, movies, songs, and creative works</p>
+                    </div>
+                    
+                    <div class="generator-layout">
+                        <div class="generator-form">
+                            <div class="card">
+                                <div class="card__body">
+                                    <form id="titles-form">
+                                        <div class="form-group">
+                                            <label class="form-label">Count: <span id="titles-count-display">5</span></label>
+                                            <input type="range" id="titles-count" min="1" max="10" value="5" class="slider">
+                                        </div>
+                                        
+                                        <div class="form-group">
+                                            <label class="form-label" for="titles-type">Title Type</label>
+                                            <select id="titles-type" class="form-control">
+                                                <option value="book">Book</option>
+                                                <option value="movie">Movie</option>
+                                                <option value="song">Song</option>
+                                                <option value="album">Album</option>
+                                                <option value="article">Article</option>
+                                                <option value="blog_post">Blog Post</option>
+                                                <option value="podcast">Podcast</option>
+                                                <option value="video">Video</option>
+                                                <option value="documentary">Documentary</option>
+                                                <option value="series">Series</option>
+                                                <option value="game">Game</option>
+                                                <option value="app">App</option>
+                                                <option value="course">Course</option>
+                                                <option value="presentation">Presentation</option>
+                                                <option value="report">Report</option>
+                                                <option value="thesis">Thesis</option>
+                                            </select>
+                                        </div>
+                                        
+                                        <div class="form-group">
+                                            <label class="form-label" for="titles-genre">Genre</label>
+                                            <select id="titles-genre" class="form-control">
+                                                <option value="fiction">Fiction</option>
+                                                <option value="non_fiction">Non-Fiction</option>
+                                                <option value="mystery">Mystery</option>
+                                                <option value="romance">Romance</option>
+                                                <option value="sci_fi">Science Fiction</option>
+                                                <option value="fantasy">Fantasy</option>
+                                                <option value="horror">Horror</option>
+                                                <option value="thriller">Thriller</option>
+                                                <option value="drama">Drama</option>
+                                                <option value="comedy">Comedy</option>
+                                                <option value="action">Action</option>
+                                                <option value="adventure">Adventure</option>
+                                            </select>
+                                        </div>
+                                        
+                                        <div class="form-group">
+                                            <label class="form-label" for="titles-tone">Tone</label>
+                                            <select id="titles-tone" class="form-control">
+                                                <option value="mysterious">Mysterious</option>
+                                                <option value="uplifting">Uplifting</option>
+                                                <option value="dark">Dark</option>
+                                                <option value="humorous">Humorous</option>
+                                                <option value="serious">Serious</option>
+                                                <option value="poetic">Poetic</option>
+                                                <option value="dramatic">Dramatic</option>
+                                            </select>
+                                        </div>
+                                        
+                                        <div class="form-group">
+                                            <label class="form-label" for="titles-keywords">Keywords (optional)</label>
+                                            <input type="text" id="titles-keywords" class="form-control" placeholder="Enter keywords separated by commas">
+                                        </div>
+                                        
+                                        <button type="submit" class="btn btn--primary btn--full-width">Generate Titles</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="generator-results">
+                            <div class="results-header">
+                                <h3>Generated Titles</h3>
+                                <div class="results-actions">
+                                    <button id="export-titles" class="btn btn--secondary btn--sm">Export</button>
+                                    <button id="clear-titles" class="btn btn--outline btn--sm">Clear</button>
+                                </div>
+                            </div>
+                            <div id="titles-results" class="results-grid"></div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Batch Section -->
+                <section id="batch-tab" class="tab-content">
+                    <div class="section-header">
+                        <h2>Batch Generator</h2>
+                        <p>Generate multiple types of names simultaneously</p>
+                    </div>
+                    
+                    <div class="generator-layout">
+                        <div class="generator-form">
+                            <div class="card">
+                                <div class="card__body">
+                                    <form id="batch-form">
+                                        <div class="form-group">
+                                            <label class="form-label">Select Types to Generate:</label>
+                                            <div class="checkbox-group">
+                                                <label class="checkbox-label">
+                                                    <input type="checkbox" value="people" checked> People Names
+                                                </label>
+                                                <label class="checkbox-label">
+                                                    <input type="checkbox" value="places" checked> Places
+                                                </label>
+                                                <label class="checkbox-label">
+                                                    <input type="checkbox" value="events" checked> Events
+                                                </label>
+                                                <label class="checkbox-label">
+                                                    <input type="checkbox" value="titles" checked> Titles
+                                                </label>
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="form-group">
+                                            <label class="form-label">Count per type: <span id="batch-count-display">3</span></label>
+                                            <input type="range" id="batch-count" min="1" max="5" value="3" class="slider">
+                                        </div>
+                                        
+                                        <button type="submit" class="btn btn--primary btn--full-width">Generate Batch</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="generator-results">
+                            <div class="results-header">
+                                <h3>Batch Results</h3>
+                                <div class="results-actions">
+                                    <button id="export-batch" class="btn btn--secondary btn--sm">Export All</button>
+                                    <button id="clear-batch" class="btn btn--outline btn--sm">Clear</button>
+                                </div>
+                            </div>
+                            <div id="batch-results" class="batch-results"></div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Statistics Section -->
+                <div class="stats-section">
+                    <div class="card">
+                        <div class="card__body">
+                            <h3>Generation Statistics</h3>
+                            <div class="stats-grid">
+                                <div class="stat-item">
+                                    <span class="stat-label">Total Generated:</span>
+                                    <span class="stat-value" id="total-generated">0</span>
+                                </div>
+                                <div class="stat-item">
+                                    <span class="stat-label">Favorites:</span>
+                                    <span class="stat-value" id="total-favorites">0</span>
+                                </div>
+                                <div class="stat-item">
+                                    <span class="stat-label">Most Used Method:</span>
+                                    <span class="stat-value" id="most-used-method">-</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Chart Section -->
+                <div class="chart-section">
+                    <div class="card">
+                        <div class="card__body">
+                            <h3>Name Generation Techniques Comparison</h3>
+                            <div class="chart-container">
+                                <img src="https://pplx-res.cloudinary.com/image/upload/v1750163038/pplx_code_interpreter/f2057b62_sakvvx.jpg" alt="Name Generation Techniques Comparison Chart" class="chart-image">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>

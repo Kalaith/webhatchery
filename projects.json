@@ -127,19 +127,17 @@
           }
         }
       ]
-    },
-    "games": {
-      "name": "Game Projects",
-      "projects": [
-        {
+    },    "games": {
+      "name": "Games & Game Design",
+      "projects": [{
           "title": "Kaiju Simulator",
           "path": "gdd/kaiju_simulator/",
-          "description": "Interactive Kaiju breeding and battle simulator with progression systems and combat mechanics.",
+          "description": "Game Design Document for a Kaiju breeding and battle simulator featuring detailed progression systems, combat mechanics, and creature management concepts.",
           "deployment": {
             "type": "Static",
             "deployAs": "kaiju_simulator"
           }
-        },        {
+        },{
           "title": "Dragons Den",
           "path": "game_apps/dragons_den/frontend/",
           "description": "Fantasy dragon management game with breeding and exploration mechanics.",

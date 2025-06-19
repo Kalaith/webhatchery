@@ -1,0 +1,6 @@
+Technique,Description,Complexity,Quality,Use Cases
+markov_chain,Uses statistical analysis of existing names to generate new ones based on letter transition probabilities,High,Excellent,Fantasy character names; Brand names; Cultural-specific names
+syllable_based,Combines predefined syllables to create new names,Low,Good,Fantasy worlds; Quick naming; Pattern-based names
+phonetic_pattern,Generates names based on phonetic rules and sound patterns,Medium,Very Good,Alien names; Fantasy languages; Pronunciation-focused names
+historical_pattern,Uses historical naming conventions and patterns from specific time periods,Medium,Excellent,Historical fiction; Period games; Academic research
+procedural,Algorithmic generation using rules and constraints,Medium,Good,Game development; Large-scale generation; Systematic naming
