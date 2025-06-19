@@ -354,5 +354,5 @@ class NameGenerators {
     }
 }
 
-// Export for use in main app
+// Make NameGenerators available globally (no module exports needed)
 window.NameGenerators = NameGenerators;

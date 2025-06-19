@@ -168,14 +168,54 @@
             "buildCommand": "npm run build -- --base=./",
             "packageManager": "npm"
           }
-        },
-        {
+        },        {
           "title": "Space Colony Simulator",
           "path": "game_apps/space_sim/",
           "description": "Space colony management simulator with resource management and exploration systems.",
           "deployment": {
             "type": "Static",
             "deployAs": "space_sim"
+          }
+        },
+        {
+          "title": "Echo of the Many",
+          "path": "gdd/echo_of_the_many/",
+          "description": "Fantasy strategy game where players control a mage who creates magical clones to infiltrate and influence a medieval city's political landscape. Features comprehensive React implementation plan with mobile-first PWA design.",
+          "deployment": {
+            "type": "Static",
+            "deployAs": "echo_of_the_many",
+            "files": ["interactive-gdd.html", "react-implementation-plan.md", "package.json", "QUICK-START.md", "*.md"],
+            "preserveStructure": true
+          }
+        },
+        {
+          "title": "Settlement Builder",
+          "path": "gdd/settlement/",
+          "description": "Medieval settlement building and management game design document featuring city planning, resource management, and citizen happiness mechanics.",
+          "deployment": {
+            "type": "Static",
+            "deployAs": "settlement",
+            "preserveStructure": true
+          }
+        },
+        {
+          "title": "Tactics Game",
+          "path": "game_apps/tactics_game/",
+          "description": "Turn-based tactical combat game with grid-based movement, character classes, and strategic battle mechanics.",
+          "deployment": {
+            "type": "Static",
+            "deployAs": "tactics_game",
+            "preserveStructure": true
+          }
+        },
+        {
+          "title": "Xenomorph Park",
+          "path": "game_apps/xenomorph_park/",
+          "description": "Sci-fi park management simulator inspired by Jurassic Park, featuring alien creature breeding, containment systems, and visitor safety management.",
+          "deployment": {
+            "type": "Static",
+            "deployAs": "xenomorph_park",
+            "preserveStructure": true
           }
         }
       ]
