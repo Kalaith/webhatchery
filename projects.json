@@ -102,21 +102,17 @@
           }
         },        {
           "title": "LitRPG Studio",
-          "path": "apps/litrpg_studio/",
+          "path": "apps/litrpg_studio/frontend/",
           "description": "A specialized writing tool designed for LitRPG authors to create and manage game mechanics in their stories.",
           "deployment": {
             "type": "React",
+            "outputDir": "dist",
             "deployAs": "litrpg_studio",
             "requiresBuild": true,
             "buildCommand": "npm run build -- --base=./",
-            "outputDir": "dist",
-            "packageManager": "npm",
-            "dependencies": {
-              "react": "^19.1.0",
-              "vite": "^5.0.0",
-              "@vitejs/plugin-react": "^4.4.1"
-            }
-          }        },{
+            "packageManager": "npm"
+          } 
+        },{
           "title": "Monster Maker",
           "path": "apps/monster_maker/",
           "description": "D&D monster creation tool with challenge rating calculator and stat progression charts.",

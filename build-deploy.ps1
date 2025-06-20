@@ -1,5 +1,3 @@
-# Clear the log file at the start of each run
-Clear-Content -Path $LOG_FILE -ErrorAction SilentlyContinue
 # WebHatchery Build and Deploy Script
 # Streamlined deployment solution for E:\WebHatchery to F:\WebHatchery
 
@@ -19,6 +17,9 @@ param(
 $SOURCE_PATH = "E:\WebHatchery"
 $DEPLOY_PATH = "F:\WebHatchery"
 $LOG_FILE = "$SOURCE_PATH\build-deploy.log"
+
+# Clear the log file at the start of each run
+Clear-Content -Path $LOG_FILE -ErrorAction SilentlyContinue
 
 # Load project configurations from projects.json
 function Get-ProjectConfigs {
