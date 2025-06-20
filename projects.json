@@ -210,12 +210,15 @@
         },
         {
           "title": "Xenomorph Park",
-          "path": "game_apps/xenomorph_park/",
-          "description": "Sci-fi park management simulator inspired by Jurassic Park, featuring alien creature breeding, containment systems, and visitor safety management.",
+          "path": "game_apps/xenomorph_park/frontend/",
+          "description": "Xenomorph Park is a sci-fi park management and survival game built with React. Manage alien creatures, containment systems, and visitor safety in a modern, interactive web app.",
           "deployment": {
-            "type": "Static",
+            "type": "React",
+            "outputDir": "dist",
             "deployAs": "xenomorph_park",
-            "preserveStructure": true
+            "requiresBuild": true,
+            "buildCommand": "npm run build -- --base=./",
+            "packageManager": "npm"
           }
         }
       ]

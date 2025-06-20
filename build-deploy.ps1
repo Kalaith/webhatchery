@@ -1,3 +1,5 @@
+# Clear the log file at the start of each run
+Clear-Content -Path $LOG_FILE -ErrorAction SilentlyContinue
 # WebHatchery Build and Deploy Script
 # Streamlined deployment solution for E:\WebHatchery to F:\WebHatchery
 
