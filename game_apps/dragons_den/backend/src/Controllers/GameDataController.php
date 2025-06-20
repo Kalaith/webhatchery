@@ -41,6 +41,11 @@ class GameDataController
     public static function getConstant(Request $request, Response $response, $args): Response
     {
         $key = $args['key'] ?? null;
+        if (empty($key)) {
+            $response = $response->withStatus(400);
+            $response->getBody()->write(json_encode(['error' => 'Constant key is required']));
+            return $response->withHeader('Content-Type', 'application/json');
+        }
         $data = GameDataActions::getConstant($key);
         if ($data === null) {
             $response = $response->withStatus(404);

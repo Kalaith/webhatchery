@@ -55,25 +55,23 @@ class PlayerActions
         ];
     }
 
-    public static function collectGold()
+    public static function collectGold($amount = 1)
     {
         $state = self::getPlayerState();
         $gold = new IdleNumber($state->gold_value, $state->gold_exp);
         $goblins = new IdleNumber($state->goblins_value, $state->goblins_exp);
         
-        // Base gold per click = 1, modified by upgrades and treasures
-        $goldPerClick = new IdleNumber(1, 0);
-        
         // Add gold
-        $gold = $gold->add($goldPerClick);
+        $goldToAdd = new IdleNumber($amount, 0);
+        $gold = $gold->add($goldToAdd);
         
         self::updatePlayerState($gold, $goblins);
         self::checkAchievements();
         
         return [
             'success' => true,
-            'gold_earned' => $goldPerClick->toString(),
-            'total_gold' => $gold->toString(),
+            'new_gold_amount' => $gold->toString(),
+            'gold_earned' => $goldToAdd->toString(),
             'gold_display' => $gold->toDisplay()
         ];
     }

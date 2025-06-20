@@ -11,6 +11,11 @@ class SystemController
     {
         $data = [
             'status' => 'ok',
+            'timestamp' => time(),
+            'version' => '1.0.0',
+            'database' => $_ENV['DB_NAME'] ?? 'dragons_den',
+            'memory_usage' => round(memory_get_usage(true) / 1024 / 1024, 2), // in MB
+            'uptime' => time() - $_SERVER['REQUEST_TIME'],
             'endpoints' => [
                 // Game Data
                 '/api/constants',

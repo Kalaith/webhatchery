@@ -1,134 +1,117 @@
 <?php
 
 // Dragons Den Database Initialization Script
-// This script creates and seeds tables for game constants, achievements, treasures, upgrades, and upgrade definitions.
+// This script creates the database, runs init.sql for schema, and seeds data.
 
 require_once __DIR__ . '/../vendor/autoload.php';
 
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Capsule\Manager as Capsule;
 
 // Load environment variables
 $dotenv = Dotenv\Dotenv::createImmutable(__DIR__ . '/../');
 $dotenv->load();
 
-echo "Initializing dragons_den database...\n";
+// Check if .env file exists and Dotenv will load it
+$envPath = realpath(__DIR__ . '/../.env');
+if ($envPath && file_exists($envPath)) {
+    echo ".env file found at: $envPath\n";
+} else {
+    echo "❌ .env file NOT found at expected location: " . (__DIR__ . '/../.env') . "\n";
+}
 
+// --- Ensure database exists ---
 try {
-    // Test connection
-    Capsule::connection()->getPdo();
-    echo "✓ Database connection established\n";
-
-    // --- Create Tables ---
-    // Game Constants (key-value)
-    if (!Capsule::schema()->hasTable('game_constants')) {
-        Capsule::schema()->create('game_constants', function (Blueprint $table) {
-            $table->string('key', 64)->primary();
-            $table->text('value');
-        });
-        echo "✓ Created game_constants table\n";
-    } else {
-        echo "✓ game_constants table already exists\n";
-    }
-
-    // Achievements
-    if (!Capsule::schema()->hasTable('achievements')) {
-        Capsule::schema()->create('achievements', function (Blueprint $table) {
-            $table->string('id', 64)->primary();
-            $table->string('name', 128);
-            $table->text('description');
-        });
-        echo "✓ Created achievements table\n";
-    } else {
-        echo "✓ achievements table already exists\n";
-    }
-
-    // Treasures
-    if (!Capsule::schema()->hasTable('treasures')) {
-        Capsule::schema()->create('treasures', function (Blueprint $table) {
-            $table->string('id', 64)->primary();
-            $table->string('name', 128);
-            $table->string('rarity', 32);
-            $table->text('description');
-            $table->text('effect');
-        });
-        echo "✓ Created treasures table\n";
-    } else {
-        echo "✓ treasures table already exists\n";
-    }
-
-    // Upgrades
-    if (!Capsule::schema()->hasTable('upgrades')) {
-        Capsule::schema()->create('upgrades', function (Blueprint $table) {
-            $table->string('id', 64)->primary();
-            $table->string('name', 128);
-            $table->integer('baseCost');
-            $table->text('effect');
-            $table->integer('maxLevel');
-        });
-        echo "✓ Created upgrades table\n";
-    } else {
-        echo "✓ upgrades table already exists\n";
-    }
-
-    // Upgrade Definitions
-    if (!Capsule::schema()->hasTable('upgrade_definitions')) {
-        Capsule::schema()->create('upgrade_definitions', function (Blueprint $table) {
-            $table->string('id', 64)->primary();
-            $table->string('name', 128);
-            $table->text('description');
-            $table->text('baseEffect');
-        });
-        echo "✓ Created upgrade_definitions table\n";
-    } else {
-        echo "✓ upgrade_definitions table already exists\n";
-    }
-
-    // --- Seed Data from JSON files ---
-    $backendDir = realpath(__DIR__ . '/../');
-
-    // Helper to seed a table from a JSON file
-    function seedTableFromJson($table, $jsonFile, $uniqueKey = null) {
-        $data = json_decode(file_get_contents($jsonFile), true);
-        if (!$data) return;
-        foreach ($data as $row) {
-            if ($uniqueKey && isset($row[$uniqueKey])) {
-                $exists = Capsule::table($table)->where($uniqueKey, $row[$uniqueKey])->first();
-                if (!$exists) {
-                    Capsule::table($table)->insert($row);
-                }
-            } else {
-                Capsule::table($table)->insert($row);
-            }
-        }
-        echo "✓ Seeded $table from $jsonFile\n";
-    }
-
-    // Seed game_constants (key-value)
-    $constants = json_decode(file_get_contents("$backendDir/game_constants.json"), true);
-    if ($constants) {
-        foreach ($constants as $key => $value) {
-            $exists = Capsule::table('game_constants')->where('key', $key)->first();
-            if (!$exists) {
-                Capsule::table('game_constants')->insert([
-                    'key' => $key,
-                    'value' => is_array($value) ? json_encode($value) : $value
-                ]);
-            }
-        }
-        echo "✓ Seeded game_constants from game_constants.json\n";
-    }
-
-    // Seed other tables
-    seedTableFromJson('achievements', "$backendDir/achievements.json", 'id');
-    seedTableFromJson('treasures', "$backendDir/treasures.json", 'id');
-    seedTableFromJson('upgrades', "$backendDir/upgrades.json", 'id');
-    seedTableFromJson('upgrade_definitions', "$backendDir/upgrade_definitions.json", 'id');
-
-    echo "\n✅ dragons_den database initialization completed successfully!\n";
-    echo "Backend server can now be started.\n";
-
-} catch (Exception $e) {
-    echo "❌ Error: " . $e->getMessage() . "\n";
+    $pdo = new PDO(
+        'mysql:host=' . ($_ENV['DB_HOST'] ?? '127.0.0.1'),
+        $_ENV['DB_USER'] ?? 'root',
+        $_ENV['DB_PASSWORD'] ?? ''
+    );
+    $dbName = $_ENV['DB_NAME'] ?? 'dragons_den';
+    // Drop if exists
+    $pdo->exec("DROP DATABASE IF EXISTS `$dbName`");
+    echo "✓ Dropped database if it existed: $dbName\n";
+    // Create
+    $pdo->exec("CREATE DATABASE `$dbName` CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci");
+    echo "✓ Created database: $dbName\n";
+} catch (PDOException $e) {
+    echo "❌ Error creating database: " . $e->getMessage() . "\n";
     exit(1);
 }
+
+// === Capsule/Eloquent Setup ===
+$capsule = new Capsule;
+$capsule->addConnection([
+    'driver'    => $_ENV['DB_CONNECTION'] ?? 'mysql',
+    'host'      => $_ENV['DB_HOST'] ?? '127.0.0.1',
+    'database'  => $_ENV['DB_NAME'] ?? 'dragons_den',
+    'username'  => $_ENV['DB_USER'] ?? 'root',
+    'password'  => $_ENV['DB_PASSWORD'] ?? '',
+    'charset'   => 'utf8',
+    'collation' => 'utf8_unicode_ci',
+    'prefix'    => '',
+]);
+$capsule->setAsGlobal();
+$capsule->bootEloquent();
+
+// --- Run init.sql for schema ---
+$initSqlPath = realpath(__DIR__ . '/../initData/init.sql');
+if ($initSqlPath && file_exists($initSqlPath)) {
+    try {
+        $pdo = new PDO(
+            'mysql:host=' . ($_ENV['DB_HOST'] ?? '127.0.0.1') . ';dbname=' . ($_ENV['DB_NAME'] ?? 'dragons_den'),
+            $_ENV['DB_USER'] ?? 'root',
+            $_ENV['DB_PASSWORD'] ?? ''
+        );
+        $sql = file_get_contents($initSqlPath);
+        $pdo->exec($sql);
+        echo "✓ Ran schema from init.sql\n";
+    } catch (PDOException $e) {
+        echo "❌ Error running init.sql: " . $e->getMessage() . "\n";
+        exit(1);
+    }
+} else {
+    echo "❌ init.sql not found at $initSqlPath\n";
+}
+
+// --- Seed Data from JSON files ---
+$backendDir = realpath(__DIR__ . '/../initData/');
+
+function seedTableFromJson($table, $jsonFile, $uniqueKey = null) {
+    $data = json_decode(file_get_contents($jsonFile), true);
+    if (!$data) return;
+    foreach ($data as $row) {
+        if ($uniqueKey && isset($row[$uniqueKey])) {
+            $exists = Capsule::table($table)->where($uniqueKey, $row[$uniqueKey])->first();
+            if (!$exists) {
+                Capsule::table($table)->insert($row);
+            }
+        } else {
+            Capsule::table($table)->insert($row);
+        }
+    }
+    echo "✓ Seeded $table from $jsonFile\n";
+}
+
+// Seed game_constants (key-value)
+$constants = json_decode(file_get_contents("$backendDir/game_constants.json"), true);
+if ($constants) {
+    foreach ($constants as $key => $value) {
+        $exists = Capsule::table('game_constants')->where('key', $key)->first();
+        if (!$exists) {
+            Capsule::table('game_constants')->insert([
+                'key' => $key,
+                'value' => is_array($value) ? json_encode($value) : $value
+            ]);
+        }
+    }
+    echo "✓ Seeded game_constants from game_constants.json\n";
+}
+
+// Seed other tables
+seedTableFromJson('achievements', "$backendDir/achievements.json", 'id');
+seedTableFromJson('treasures', "$backendDir/treasures.json", 'id');
+seedTableFromJson('upgrades', "$backendDir/upgrades.json", 'id');
+seedTableFromJson('upgrade_definitions', "$backendDir/upgrade_definitions.json", 'id');
+
+echo "\n✅ dragons_den database initialization completed successfully!\n";
+echo "Backend server can now be started.\n";
