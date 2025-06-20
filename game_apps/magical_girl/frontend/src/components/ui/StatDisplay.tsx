@@ -29,24 +29,23 @@ export const StatDisplay: React.FC<StatDisplayProps> = ({
     green: 'text-green-600 bg-green-500',
     orange: 'text-orange-600 bg-orange-500',
   };
-
   return (
     <div className={`resource-display ${className}`}>
       {icon && (
-        <div className={`w-5 h-5 ${colorClasses[color].split(' ')[0]}`}>
+        <div className={`w-4 h-4 lg:w-5 lg:h-5 ${colorClasses[color].split(' ')[0]}`}>
           {icon}
         </div>
       )}
       
       <div className="flex-1 min-w-0">
-        <div className="text-sm font-medium text-gray-700">
+        <div className="text-xs lg:text-sm font-medium text-gray-700 truncate">
           {label}
         </div>
         
-        <div className="flex items-center gap-2">
-          <span className="text-lg font-bold text-gray-900">
+        <div className="flex items-center gap-1 lg:gap-2">
+          <span className="text-sm lg:text-lg font-bold text-gray-900 truncate">
             {Math.floor(value)}
-            {maxValue && <span className="text-sm text-gray-500">/{maxValue}</span>}
+            {maxValue && <span className="text-xs lg:text-sm text-gray-500">/{maxValue}</span>}
           </span>
           
           {showBar && maxValue && (

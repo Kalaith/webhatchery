@@ -13,7 +13,7 @@ function App() {
   return (
     <div className="min-h-screen bg-amber-50 text-slate-800">
       <Header />
-      <div className="flex">
+      <div className="flex flex-col lg:flex-row">
         <Sidebar />
         <GameBoard />
       </div>

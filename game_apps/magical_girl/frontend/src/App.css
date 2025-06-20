@@ -1,5 +1,198 @@
-
 /* Tailwind CSS v4 Setup - REQUIRED for this project */
 /* This is the correct import for Tailwind CSS v4 */
 /* Do NOT change to v3 syntax (@import "tailwindcss/base" etc.) */
 @import "tailwindcss";
+
+/* Mobile optimizations for Magical Girl Simulator */
+@layer utilities {
+  /* Touch-friendly targets */
+  .touch-target {
+    @apply min-h-[44px] min-w-[44px];
+  }
+
+  /* Mobile-specific spacing */
+  .mobile-p-2 {
+    @apply p-2 lg:p-4;
+  }
+
+  .mobile-p-3 {
+    @apply p-3 lg:p-6;
+  }
+
+  .mobile-gap-2 {
+    @apply gap-2 lg:gap-4;
+  }
+
+  /* Mobile typography scaling */
+  .mobile-text-sm {
+    @apply text-xs lg:text-sm;
+  }
+
+  .mobile-text-base {
+    @apply text-sm lg:text-base;
+  }
+
+  .mobile-text-lg {
+    @apply text-base lg:text-lg;
+  }
+
+  .mobile-text-xl {
+    @apply text-lg lg:text-xl;
+  }
+
+  .mobile-text-2xl {
+    @apply text-xl lg:text-2xl;
+  }
+
+  .mobile-text-4xl {
+    @apply text-2xl lg:text-4xl;
+  }
+
+  /* Mobile grid layouts */
+  .mobile-grid-1 {
+    @apply grid-cols-1 md:grid-cols-2;
+  }
+
+  .mobile-grid-2 {
+    @apply grid-cols-2 lg:grid-cols-3;
+  }
+
+  .mobile-grid-3 {
+    @apply grid-cols-2 lg:grid-cols-4;
+  }
+}
+
+/* Mobile responsive breakpoints */
+@media (max-width: 768px) {
+  body {
+    /* Prevent horizontal scrolling on mobile */
+    overflow-x: hidden;
+    /* Improve touch scrolling on iOS */
+    -webkit-overflow-scrolling: touch;
+  }
+
+  /* Ensure touch targets are large enough */
+  button, a, input, select, textarea {
+    min-height: 44px;
+    min-width: 44px;
+  }
+
+  /* Prevent zoom on input focus for iOS */
+  input[type="text"],
+  input[type="number"],
+  input[type="email"],
+  input[type="password"],
+  textarea,
+  select {
+    font-size: 16px;
+  }
+
+  /* Improve tap highlights */
+  button, a {
+    -webkit-tap-highlight-color: rgba(168, 85, 247, 0.1);
+  }
+
+  /* Fix for iPhone safe areas */
+  .ios-safe-area {
+    padding-top: env(safe-area-inset-top);
+    padding-bottom: env(safe-area-inset-bottom);
+    padding-left: env(safe-area-inset-left);
+    padding-right: env(safe-area-inset-right);
+  }
+
+  /* Reduce header height on mobile */
+  header {
+    min-height: 60px;
+  }
+
+  /* Make cards more compact on mobile */
+  .card-compact {
+    padding: 1rem;
+  }
+
+  /* Improve grid layouts for small screens */
+  .mobile-stack {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* iPhone specific optimizations */
+@media only screen and (max-width: 480px) {
+  /* Even smaller spacing for phone */
+  .px-4 {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+  
+  .py-6 {
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+  }
+
+  /* Reduce gaps on small screens */
+  .space-y-6 > * + * {
+    margin-top: 1rem;
+  }
+
+  /* Make navigation more compact */
+  .nav-compact {
+    padding: 0.5rem;
+  }
+}
+
+/* iPhone Safari specific fixes */
+@supports (-webkit-touch-callout: none) {
+  /* iOS Safari */
+  body {
+    /* Prevent zoom on double tap */
+    touch-action: manipulation;
+    /* Improve scrolling performance */
+    -webkit-overflow-scrolling: touch;
+  }
+
+  /* Prevent iOS Safari from adding blue highlight on buttons */
+  button, .touch-target {
+    -webkit-tap-highlight-color: transparent;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    user-select: none;
+  }
+
+  /* Improve touch responsiveness */
+  .interactive {
+    cursor: pointer;
+    -webkit-tap-highlight-color: rgba(168, 85, 247, 0.1);
+  }
+}
+
+/* High DPI screens (Retina displays) */
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+  /* Ensure crisp text rendering on high DPI screens */
+  * {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+}
+
+/* Landscape mode on mobile */
+@media (max-height: 500px) and (orientation: landscape) {
+  .min-h-screen {
+    min-height: 100vh;
+  }
+  
+  /* Reduce vertical spacing in landscape */
+  .space-y-6 > * + * {
+    margin-top: 0.75rem;
+  }
+  
+  .space-y-4 > * + * {
+    margin-top: 0.5rem;
+  }
+}
+
+/* Dark mode support - keep magical girl theme bright */
+@media (prefers-color-scheme: dark) {
+  body {
+    color-scheme: light;
+  }
+}

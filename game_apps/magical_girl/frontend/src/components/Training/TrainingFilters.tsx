@@ -47,10 +47,9 @@ export const TrainingFilters: React.FC<TrainingFiltersProps> = ({
   const formatCategoryName = (category: string): string => {
     return category.replace(/_/g, ' ');
   };
-
   return (
-    <Card className="p-4">
-      <div className="space-y-4">
+    <Card className="p-3 sm:p-4">
+      <div className="space-y-3 sm:space-y-4">
         {/* Search */}
         <div className="relative">
           <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4" />
@@ -59,19 +58,22 @@ export const TrainingFilters: React.FC<TrainingFiltersProps> = ({
             placeholder="Search training sessions..."
             value={searchTerm}
             onChange={(e) => onSearchChange(e.target.value)}
-            className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+            className="w-full pl-10 pr-4 py-3 sm:py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent text-sm sm:text-base"
           />
         </div>
 
-        {/* Filters Row */}
-        <div className="flex flex-col md:flex-row gap-4">
+        {/* Filters Grid */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
           {/* Type Filter */}
-          <div className="flex items-center gap-2">
-            <Target className="w-4 h-4 text-gray-500" />
+          <div className="space-y-1">
+            <div className="flex items-center gap-2">
+              <Target className="w-4 h-4 text-gray-500" />
+              <label className="text-xs sm:text-sm font-medium text-gray-700">Type</label>
+            </div>
             <select
               value={selectedType}
               onChange={(e) => onTypeChange(e.target.value as TrainingType | 'all')}
-              className="px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 bg-white"
+              className="w-full px-3 py-3 sm:py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 bg-white text-sm sm:text-base"
             >
               {trainingTypes.map(type => (
                 <option key={type} value={type}>
@@ -82,12 +84,15 @@ export const TrainingFilters: React.FC<TrainingFiltersProps> = ({
           </div>
 
           {/* Difficulty Filter */}
-          <div className="flex items-center gap-2">
-            <Filter className="w-4 h-4 text-gray-500" />
+          <div className="space-y-1">
+            <div className="flex items-center gap-2">
+              <Filter className="w-4 h-4 text-gray-500" />
+              <label className="text-xs sm:text-sm font-medium text-gray-700">Difficulty</label>
+            </div>
             <select
               value={selectedDifficulty}
               onChange={(e) => onDifficultyChange(e.target.value as TrainingDifficulty | 'all')}
-              className="px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 bg-white"
+              className="w-full px-3 py-3 sm:py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 bg-white text-sm sm:text-base"
             >
               {difficulties.map(difficulty => (
                 <option key={difficulty} value={difficulty}>
@@ -98,12 +103,15 @@ export const TrainingFilters: React.FC<TrainingFiltersProps> = ({
           </div>
 
           {/* Category Filter */}
-          <div className="flex items-center gap-2">
-            <Clock className="w-4 h-4 text-gray-500" />
+          <div className="space-y-1">
+            <div className="flex items-center gap-2">
+              <Clock className="w-4 h-4 text-gray-500" />
+              <label className="text-xs sm:text-sm font-medium text-gray-700">Category</label>
+            </div>
             <select
               value={selectedCategory}
               onChange={(e) => onCategoryChange(e.target.value as TrainingCategory | 'all')}
-              className="px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 bg-white"
+              className="w-full px-3 py-3 sm:py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 bg-white text-sm sm:text-base"
             >
               {categories.map(category => (
                 <option key={category} value={category}>
@@ -114,8 +122,8 @@ export const TrainingFilters: React.FC<TrainingFiltersProps> = ({
           </div>
 
           {/* Show Only Unlocked */}
-          <div className="flex items-center gap-2">
-            <label className="flex items-center gap-2 cursor-pointer">
+          <div className="flex items-center justify-center sm:justify-start">
+            <label className="flex items-center gap-2 cursor-pointer p-2 rounded hover:bg-gray-50 min-h-[44px]">
               <input
                 type="checkbox"
                 checked={showOnlyUnlocked}

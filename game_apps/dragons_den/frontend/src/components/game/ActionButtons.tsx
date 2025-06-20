@@ -26,12 +26,16 @@ export const ActionButtons: React.FC = () => {
   return (
     <div className="space-y-4">
       {/* Main Action Buttons */}
-      <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-4 p-6">
+      <div className="grid grid-cols-2 lg:grid-cols-2 xl:grid-cols-4 gap-3 lg:gap-4 p-4 lg:p-6">
         <ActionButton
           onClick={handleCollectGold}
           variant="primary"
         >
-          🐉 Collect Gold (+{goldPerClick})
+          <span className="block text-center">
+            <span className="block text-lg lg:text-xl mb-1">🐉</span>
+            <span className="block text-xs lg:text-sm">Collect Gold</span>
+            <span className="block text-xs lg:text-sm font-bold">(+{goldPerClick})</span>
+          </span>
         </ActionButton>
         
         <ActionButton
@@ -40,7 +44,11 @@ export const ActionButtons: React.FC = () => {
           variant="danger"
           cooldownTime={minionCooldown}
         >
-          👹 Send Minions ({minions})
+          <span className="block text-center">
+            <span className="block text-lg lg:text-xl mb-1">👹</span>
+            <span className="block text-xs lg:text-sm">Send Minions</span>
+            <span className="block text-xs lg:text-sm font-bold">({minions})</span>
+          </span>
         </ActionButton>
         
         <ActionButton
@@ -49,7 +57,11 @@ export const ActionButtons: React.FC = () => {
           variant="secondary"
           cooldownTime={exploreCooldown}
         >
-          🗺️ Explore Ruins
+          <span className="block text-center">
+            <span className="block text-lg lg:text-xl mb-1">🗺️</span>
+            <span className="block text-xs lg:text-sm">Explore</span>
+            <span className="block text-xs lg:text-sm">Ruins</span>
+          </span>
         </ActionButton>
         
         <ActionButton
@@ -57,7 +69,11 @@ export const ActionButtons: React.FC = () => {
           disabled={!canHireMinion}
           variant="success"
         >
-          🏰 Hire Minion ({formatNumber(hireMinionCost)})
+          <span className="block text-center">
+            <span className="block text-lg lg:text-xl mb-1">🏰</span>
+            <span className="block text-xs lg:text-sm">Hire Minion</span>
+            <span className="block text-xs lg:text-sm font-bold">({formatNumber(hireMinionCost)})</span>
+          </span>
         </ActionButton>
       </div>
 

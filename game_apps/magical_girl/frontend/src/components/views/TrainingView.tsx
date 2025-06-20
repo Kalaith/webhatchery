@@ -58,48 +58,45 @@ export const TrainingView: React.FC = () => {
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       className="space-y-6"
-    >
-      {/* Header */}
+    >      {/* Header */}
       <div className="text-center">
         <div className="flex items-center justify-center gap-2 mb-2">
-          <Dumbbell className="w-8 h-8 text-purple-600" />
-          <h1 className="text-3xl font-bold text-gradient">
+          <Dumbbell className="w-6 h-6 sm:w-8 sm:h-8 text-purple-600" />
+          <h1 className="text-2xl sm:text-3xl font-bold text-gradient">
             Training Center
           </h1>
         </div>
-        <p className="text-gray-600">
+        <p className="text-sm sm:text-base text-gray-600 px-4">
           Enhance your magical girls' abilities through focused training sessions
         </p>
-      </div>
-
-      {/* Quick Info */}
+      </div>      {/* Quick Info */}
       {availableMagicalGirls.length === 0 && (
-        <Card className="p-4 border-amber-200 bg-amber-50">
-          <div className="flex items-center gap-3">
-            <AlertCircle className="w-5 h-5 text-amber-600" />
+        <Card className="p-3 sm:p-4 border-amber-200 bg-amber-50 mx-2 sm:mx-0">
+          <div className="flex items-start gap-3">
+            <AlertCircle className="w-5 h-5 text-amber-600 flex-shrink-0 mt-0.5" />
             <div>
-              <h3 className="font-medium text-amber-800">No Available Magical Girls</h3>
-              <p className="text-sm text-amber-700">
+              <h3 className="font-medium text-amber-800 text-sm sm:text-base">No Available Magical Girls</h3>
+              <p className="text-xs sm:text-sm text-amber-700">
                 You need to unlock at least one magical girl to start training.
               </p>
             </div>
           </div>
         </Card>
-      )}
-
-      {/* Magical Girl Selection */}
+      )}      {/* Magical Girl Selection */}
       {availableMagicalGirls.length > 0 && (
-        <Card className="p-4">
-          <div className="flex items-center gap-4">
-            <Users className="w-5 h-5 text-gray-500" />
-            <div className="flex-1">
-              <label className="text-sm font-medium text-gray-700 mb-2 block">
+        <Card className="p-3 sm:p-4 mx-2 sm:mx-0">
+          <div className="space-y-3 sm:space-y-0 sm:flex sm:items-center sm:gap-4">
+            <div className="flex items-center gap-2 sm:gap-4">
+              <Users className="w-5 h-5 text-gray-500 flex-shrink-0" />
+              <label className="text-sm font-medium text-gray-700">
                 Select Magical Girl for Training:
               </label>
+            </div>
+            <div className="flex-1">
               <select
                 value={selectedGirlId || ''}
                 onChange={(e) => setSelectedGirlId(e.target.value)}
-                className="px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 bg-white"
+                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 bg-white text-sm sm:text-base"
               >
                 {availableMagicalGirls.map(girl => (
                   <option key={girl.id} value={girl.id}>
@@ -111,10 +108,10 @@ export const TrainingView: React.FC = () => {
           </div>
         </Card>
       )}      {/* Training Statistics */}
-      <div>
-        <div className="flex items-center gap-2 mb-4">
+      <div className="px-2 sm:px-0">
+        <div className="flex items-center gap-2 mb-3 sm:mb-4">
           <BookOpen className="w-5 h-5 text-gray-500" />
-          <h2 className="text-xl font-semibold">Training Progress</h2>
+          <h2 className="text-lg sm:text-xl font-semibold">Training Progress</h2>
         </div>
         <TrainingStats {...trainingStats} />
       </div>
@@ -137,16 +134,14 @@ export const TrainingView: React.FC = () => {
         onCategoryChange={setSelectedCategory}
         showOnlyUnlocked={filters.showOnlyUnlocked}
         onShowOnlyUnlockedChange={setShowOnlyUnlocked}
-      />
-
-      {/* Available Training Sessions */}
+      />      {/* Available Training Sessions */}
       {unlockedSessions.length > 0 && (
-        <div>
-          <h2 className="text-xl font-semibold mb-4 flex items-center gap-2">
+        <div className="px-2 sm:px-0">
+          <h2 className="text-lg sm:text-xl font-semibold mb-3 sm:mb-4 flex items-center gap-2">
             <Star className="w-5 h-5 text-green-600" />
             Available Training ({unlockedSessions.length})
           </h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4">
             {unlockedSessions.map((training) => (
               <TrainingCard
                 key={training.id}
@@ -161,12 +156,12 @@ export const TrainingView: React.FC = () => {
 
       {/* Locked Training Sessions */}
       {lockedSessions.length > 0 && !filters.showOnlyUnlocked && (
-        <div>
-          <h2 className="text-xl font-semibold mb-4 text-gray-500 flex items-center gap-2">
+        <div className="px-2 sm:px-0">
+          <h2 className="text-lg sm:text-xl font-semibold mb-3 sm:mb-4 text-gray-500 flex items-center gap-2">
             <BookOpen className="w-5 h-5" />
             Locked Training ({lockedSessions.length})
           </h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4">
             {lockedSessions.map((training) => (
               <TrainingCard
                 key={training.id}
@@ -177,16 +172,15 @@ export const TrainingView: React.FC = () => {
             ))}
           </div>
         </div>
-      )}
-
-      {/* Empty State */}
+      )}      {/* Empty State */}
       {filteredTrainingSessions.length === 0 && (
-        <Card className="p-8 text-center">
-          <BookOpen className="w-12 h-12 text-gray-400 mx-auto mb-4" />
-          <h3 className="text-xl font-semibold mb-2">No Training Sessions Found</h3>
-          <p className="text-gray-600 mb-4">
+        <Card className="p-6 sm:p-8 text-center mx-2 sm:mx-0">
+          <BookOpen className="w-10 h-10 sm:w-12 sm:h-12 text-gray-400 mx-auto mb-4" />
+          <h3 className="text-lg sm:text-xl font-semibold mb-2">No Training Sessions Found</h3>
+          <p className="text-sm sm:text-base text-gray-600 mb-4">
             Try adjusting your search criteria or filters.
-          </p>          <Button 
+          </p>
+          <Button 
             variant="secondary" 
             onClick={() => {
               setSearchTerm('');
@@ -195,6 +189,7 @@ export const TrainingView: React.FC = () => {
               setSelectedCategory('all');
               setShowOnlyUnlocked(false);
             }}
+            className="min-h-[44px]"
           >
             Clear All Filters
           </Button>

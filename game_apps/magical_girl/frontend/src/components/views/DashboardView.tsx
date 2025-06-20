@@ -34,25 +34,24 @@ export const DashboardView: React.FC = () => {
       color: 'orange' as const,
     },
   ];
-
   return (
-    <div className="space-y-6">
+    <div className="space-y-4 lg:space-y-6">
       {/* Welcome Section */}
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         className="text-center"
       >
-        <h1 className="text-4xl font-bold text-gradient mb-2">
+        <h1 className="text-2xl lg:text-4xl font-bold text-gradient mb-2">
           Welcome to Magical Girl Academy
         </h1>
-        <p className="text-gray-600 text-lg">
+        <p className="text-gray-600 text-base lg:text-lg">
           Train your magical girls, complete missions, and become legendary!
         </p>
       </motion.div>
 
       {/* Quick Stats */}
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+      <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 lg:gap-4">
         {quickStats.map((stat, index) => (
           <motion.div
             key={stat.label}
@@ -60,20 +59,20 @@ export const DashboardView: React.FC = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: index * 0.1 }}
           >
-            <Card className="text-center p-6 hover:shadow-lg transition-shadow">
+            <Card className="text-center p-4 lg:p-6 hover:shadow-lg transition-shadow">
               <div className={`
-                inline-flex items-center justify-center w-12 h-12 rounded-full mb-3
+                inline-flex items-center justify-center w-8 h-8 lg:w-12 lg:h-12 rounded-full mb-2 lg:mb-3
                 ${stat.color === 'purple' ? 'bg-purple-100 text-purple-600' : ''}
                 ${stat.color === 'blue' ? 'bg-blue-100 text-blue-600' : ''}
                 ${stat.color === 'green' ? 'bg-green-100 text-green-600' : ''}
                 ${stat.color === 'orange' ? 'bg-orange-100 text-orange-600' : ''}
               `}>
-                {stat.icon}
+                {React.cloneElement(stat.icon, { className: "w-4 h-4 lg:w-6 lg:h-6" })}
               </div>
-              <div className="text-2xl font-bold text-gray-900 mb-1">
+              <div className="text-lg lg:text-2xl font-bold text-gray-900 mb-1">
                 {stat.value}
               </div>
-              <div className="text-sm text-gray-600">
+              <div className="text-xs lg:text-sm text-gray-600">
                 {stat.label}
               </div>
             </Card>
@@ -82,21 +81,22 @@ export const DashboardView: React.FC = () => {
       </div>
 
       {/* Recent Activity */}
-      <div className="grid md:grid-cols-2 gap-6">
-        <Card className="p-6">
-          <h3 className="text-lg font-semibold mb-4 text-gradient">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-6">
+        <Card className="p-4 lg:p-6">
+          <h3 className="text-base lg:text-lg font-semibold mb-3 lg:mb-4 text-gradient">
             Recent Missions
-          </h3>          <div className="space-y-3">
+          </h3>
+          <div className="space-y-2 lg:space-y-3">
             {player.statistics.missionsCompleted > 0 ? (
               // Show last few completed missions (simplified - we don't have completed missions list)
               Array.from({ length: Math.min(3, player.statistics.missionsCompleted) }, (_, index) => (
-                <div key={index} className="flex items-center justify-between p-3 bg-purple-50 rounded-lg">
-                  <span className="font-medium">Mission {index + 1}</span>
-                  <span className="text-sm text-green-600">Completed</span>
+                <div key={index} className="flex items-center justify-between p-2 lg:p-3 bg-purple-50 rounded-lg">
+                  <span className="font-medium text-sm lg:text-base">Mission {index + 1}</span>
+                  <span className="text-xs lg:text-sm text-green-600">Completed</span>
                 </div>
               ))
             ) : (
-              <p className="text-gray-500 text-center py-4">
+              <p className="text-gray-500 text-center py-3 lg:py-4 text-sm lg:text-base">
                 No missions completed yet. Start your first mission!
               </p>
             )}
