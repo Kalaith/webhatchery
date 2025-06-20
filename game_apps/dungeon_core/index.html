@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dungeon Core Simulator</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="game-container">
+        <!-- Header with resources -->
+        <header class="game-header">
+            <div class="resource-bar">
+                <div class="resource" id="mana-display">
+                    <div class="resource-icon">✨</div>
+                    <div class="resource-value">
+                        <span id="current-mana">50</span>/<span id="max-mana">100</span>
+                        <div class="resource-regen">+<span id="mana-regen">1</span>/s</div>
+                    </div>
+                </div>
+                <div class="resource" id="gold-display">
+                    <div class="resource-icon">💰</div>
+                    <div class="resource-value">
+                        <span id="current-gold">100</span>
+                    </div>
+                </div>
+                <div class="resource" id="souls-display">
+                    <div class="resource-icon">👻</div>
+                    <div class="resource-value">
+                        <span id="current-souls">0</span>
+                    </div>
+                </div>
+                <div class="day-cycle">
+                    <div class="time-display">
+                        Day <span id="day-count">1</span> - <span id="time-display">6:00 AM</span>
+                    </div>
+                    <div class="status-indicator" id="dungeon-status">Open</div>
+                </div>
+            </div>
+        </header>
+
+        <main class="game-main">
+            <!-- Left sidebar: Room selection -->
+            <aside class="sidebar sidebar-left">
+                <h3>Room Types</h3>
+                <div class="room-selector" id="room-selector">
+                    <!-- Room types will be dynamically populated -->
+                </div>
+            </aside>
+
+            <!-- Main game grid -->
+            <section class="dungeon-area">
+                <div class="game-controls">
+                    <button class="btn btn--primary" id="start-day">Start Day</button>
+                    <button class="btn btn--secondary" id="speed-toggle">1x Speed</button>
+                </div>
+                <canvas id="dungeon-grid" width="500" height="500"></canvas>
+                <div class="game-log-container">
+                    <h4>Dungeon Log</h4>
+                    <div id="game-log" class="game-log"></div>
+                </div>
+            </section>
+
+            <!-- Right sidebar: Monster selection -->
+            <aside class="sidebar sidebar-right">
+                <h3>Monsters</h3>
+                <div class="monster-selector" id="monster-selector">
+                    <!-- Monster types will be dynamically populated -->
+                </div>
+            </aside>
+        </main>
+
+        <!-- Game modal for tutorials, upgrades, etc. -->
+        <div class="modal" id="game-modal">
+            <div class="modal-content">
+                <span class="close-button" id="modal-close">&times;</span>
+                <h3 id="modal-title">Welcome to Dungeon Core Simulator</h3>
+                <div id="modal-body">
+                    <p>You are a newly formed Dungeon Core. Your task is to build and maintain a dungeon, attracting adventurers who will challenge your monsters.</p>
+                    <p>Start by placing rooms on the grid, then populate them with monsters. Adventurers will automatically enter during the day cycle.</p>
+                    <p>Good luck, Dungeon Core!</p>
+                </div>
+                <button class="btn btn--primary" id="modal-confirm">Got it!</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
