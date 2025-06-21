@@ -11,6 +11,8 @@ export const AdventurerSystem: React.FC<AdventurerSystemProps> = ({ running }) =
   const gameStore = useGameStore();
   const spawnTimerRef = useRef<ReturnType<typeof setInterval> | null>(null);
   const movementTimerRef = useRef<ReturnType<typeof setInterval> | null>(null);
+  const lastPartyExitRef = useRef<number>(Date.now() - 15000); // Track when last party left, start with cooldown expired
+  const isSpawningRef = useRef<boolean>(false); // Flag to prevent concurrent spawning
 
   // Generate a random adventurer party with level scaling
   const generateParty = (id: number): AdventurerParty => {
@@ -192,10 +194,10 @@ export const AdventurerSystem: React.FC<AdventurerSystemProps> = ({ running }) =
               currentFloor: party.currentFloor - 1,
               currentRoom: lastRoom
             });
-          }
-        } else {
+          }        } else {
           // Escaped!
           gameStore.removeAdventurerParty(party.id);
+          lastPartyExitRef.current = Date.now(); // Track when party left
           gameStore.addLog({
             message: `Party ${party.id} escaped with ${party.loot} gold!`,
             type: "adventurer"
@@ -207,9 +209,8 @@ export const AdventurerSystem: React.FC<AdventurerSystemProps> = ({ running }) =
       // Combat in current room (skip entrance and core rooms)
       if (currentRoom.type !== 'entrance' && currentRoom.type !== 'core' && currentRoom.monsters.length > 0) {
         const combat = resolveCombat(party, currentRoom);
-        
-        if (combat.monsterDeaths.length > 0) {
-          // Update room to remove dead monsters
+          if (combat.monsterDeaths.length > 0) {
+          // Update room to mark monsters as dead instead of removing them
           const updatedFloors = gameStore.floors.map(floor => {
             if (floor.number === party.currentFloor) {
               return {
@@ -218,7 +219,18 @@ export const AdventurerSystem: React.FC<AdventurerSystemProps> = ({ running }) =
                   if (room.position === party.currentRoom) {
                     return {
                       ...room,
-                      monsters: room.monsters.filter(m => m.alive)
+                      monsters: room.monsters.map(monster => {
+                        // Find if this monster was killed in combat
+                        const wasKilled = combat.monsterDeaths.some(deadMonster => deadMonster.id === monster.id);
+                        if (wasKilled) {
+                          return {
+                            ...monster,
+                            alive: false,
+                            hp: 0
+                          };
+                        }
+                        return monster;
+                      })
                     };
                   }
                   return room;
@@ -246,12 +258,11 @@ export const AdventurerSystem: React.FC<AdventurerSystemProps> = ({ running }) =
             message: `Boss defeated! Gained 5 souls!`,
             type: "combat"
           });
-        }
-
-        // Remove party if all members dead
+        }        // Remove party if all members dead
         const aliveMembers = party.members.filter(m => m.alive);
         if (aliveMembers.length === 0) {
           gameStore.removeAdventurerParty(party.id);
+          lastPartyExitRef.current = Date.now(); // Track when party left
           gameStore.gainGold(Math.floor(party.loot * 0.5)); // Dungeon core gets some loot
           gameStore.addLog({
             message: `Party ${party.id} was completely wiped out! Gained ${Math.floor(party.loot * 0.5)} gold.`,
@@ -293,10 +304,10 @@ export const AdventurerSystem: React.FC<AdventurerSystemProps> = ({ running }) =
               message: `Party ${party.id} rested and healed before the boss floor!`,
               type: "adventurer"
             });
-          }
-        } else {
+          }        } else {
           // Reached target or no more floors - exit successfully
           gameStore.removeAdventurerParty(party.id);
+          lastPartyExitRef.current = Date.now(); // Track when party left
           gameStore.addLog({
             message: `Party ${party.id} completed their adventure and left with ${party.loot} gold!`,
             type: "adventurer"
@@ -305,25 +316,52 @@ export const AdventurerSystem: React.FC<AdventurerSystemProps> = ({ running }) =
       }
     });
   };
-
   // Spawn new parties during open hours
   useEffect(() => {
+    // Only spawn if dungeon is open (not closing, closed, or in maintenance)
     if (!running || gameStore.status !== 'Open') {
       if (spawnTimerRef.current) {
         clearInterval(spawnTimerRef.current);
         spawnTimerRef.current = null;
       }
-      return;
-    }
-
-    spawnTimerRef.current = setInterval(() => {
-      if (gameStore.status === 'Open' && Math.random() < GAME_CONSTANTS.ADVENTURER_SPAWN_CHANCE) {
-        const newParty = generateParty(Date.now());
-        gameStore.addAdventurerParty(newParty);
-        gameStore.addLog({
-          message: `New adventurer party (${newParty.members.length} level ${newParty.members[0].level} adventurers) entered the dungeon!`,
-          type: "adventurer"
-        });
+      return;    }    spawnTimerRef.current = setInterval(() => {
+      // Prevent concurrent spawning attempts
+      if (isSpawningRef.current) {
+        return;
+      }
+      
+      const now = Date.now();
+      const timeSinceLastExit = now - lastPartyExitRef.current;
+      const cooldownPeriod = 20000; // 20 seconds cooldown after party leaves (increased)
+      
+      // Only allow one party at a time in the dungeon, with cooldown period, and only when Open
+      if (gameStore.status === 'Open' && 
+          gameStore.adventurerParties.length === 0 && 
+          timeSinceLastExit > cooldownPeriod &&
+          Math.random() < GAME_CONSTANTS.ADVENTURER_SPAWN_CHANCE) {
+        
+        // Set spawning flag to prevent concurrent attempts
+        isSpawningRef.current = true;
+        
+        // Double-check party count right before spawning (using current store values)
+        if (gameStore.adventurerParties.length === 0 && gameStore.status === 'Open') {
+          const newParty = generateParty(Date.now());
+          gameStore.addAdventurerParty(newParty);
+          gameStore.addLog({
+            message: `New adventurer party (${newParty.members.length} level ${newParty.members[0].level} adventurers) entered the dungeon! (Party ID: ${newParty.id})`,
+            type: "adventurer"
+          });
+        } else {
+          gameStore.addLog({
+            message: `Spawn attempt blocked - ${gameStore.adventurerParties.length} parties already present`,
+            type: "system"
+          });
+        }
+        
+        // Reset spawning flag after a short delay
+        setTimeout(() => {
+          isSpawningRef.current = false;
+        }, 1000);
       }
     }, GAME_CONSTANTS.TIME_ADVANCE_INTERVAL);
 
@@ -353,14 +391,52 @@ export const AdventurerSystem: React.FC<AdventurerSystemProps> = ({ running }) =
         clearInterval(movementTimerRef.current);
       }
     };
-  }, [running, gameStore.speed, gameStore.adventurerParties]);
-
-  // Respawn monsters when dungeon is empty during maintenance
+  }, [running, gameStore.speed, gameStore.adventurerParties]);  // Respawn monsters when dungeon is empty during maintenance OR when last party leaves
   useEffect(() => {
     if (gameStore.status === 'Maintenance' && gameStore.adventurerParties.length === 0) {
       gameStore.respawnMonsters();
     }
-  }, [gameStore.status, gameStore.adventurerParties.length]);
+  }, [gameStore.status, gameStore.adventurerParties.length]);// Track when parties leave to respawn monsters and handle status changes
+  const prevPartyCountRef = useRef(gameStore.adventurerParties.length);
+  const lastRespawnRef = useRef<number>(0);
+  
+  useEffect(() => {
+    const currentPartyCount = gameStore.adventurerParties.length;
+    const prevPartyCount = prevPartyCountRef.current;
+    const now = Date.now();
+    
+    // Handle status change from Closing to Closed when last party leaves
+    if (prevPartyCount > 0 && currentPartyCount === 0 && gameStore.status === 'Closing') {
+      gameStore.setStatus('Closed');
+    }
+    
+    // If we had parties and now we don't, and it's been at least 2 seconds since last respawn
+    if (prevPartyCount > 0 && currentPartyCount === 0 && (now - lastRespawnRef.current) > 2000) {
+      // Small delay to ensure all cleanup is done
+      setTimeout(() => {
+        // Double-check that no parties are still in the dungeon
+        if (gameStore.adventurerParties.length === 0) {
+          // Check if there are actually dead monsters to respawn
+          const hasDeadMonsters = gameStore.floors.some(floor => 
+            floor.rooms.some(room => 
+              room.monsters.some(monster => !monster.alive)
+            )
+          );
+          
+          if (hasDeadMonsters) {
+            gameStore.respawnMonsters();
+            lastRespawnRef.current = Date.now();
+            gameStore.addLog({
+              message: "The dungeon is quiet... monsters begin to stir back to life.",
+              type: "system"
+            });
+          }
+        }
+      }, 1500); // Increased delay to ensure all party cleanup is complete
+    }
+    
+    prevPartyCountRef.current = currentPartyCount;
+  }, [gameStore.adventurerParties.length]);
 
   return null; // This is a system component, no visual rendering
 };

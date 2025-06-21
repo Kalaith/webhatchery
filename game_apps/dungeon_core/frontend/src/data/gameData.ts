@@ -148,10 +148,9 @@ export const GAME_CONSTANTS = {
   MAX_ROOMS_PER_FLOOR: 5,
   MAX_LOG_ENTRIES: 50,
   BASE_ROOM_COST: 20, // Base mana cost to add a room
-  BOSS_ROOM_EXTRA_COST: 30, // Additional cost for boss rooms
-  MANA_REGEN_INTERVAL: 1000, // milliseconds
+  BOSS_ROOM_EXTRA_COST: 30, // Additional cost for boss rooms  MANA_REGEN_INTERVAL: 1000, // milliseconds
   TIME_ADVANCE_INTERVAL: 5000, // 5 seconds = 1 hour in game
-  ADVENTURER_SPAWN_CHANCE: 0.3, // 30% chance per hour during open hours
+  ADVENTURER_SPAWN_CHANCE: 0.05, // 5% chance per hour during open hours (further reduced to prevent overlapping parties)
   MAX_PARTY_SIZE: 4,
   MIN_PARTY_SIZE: 2,
   RETREAT_THRESHOLD: 0.5, // Retreat if 50%+ casualties

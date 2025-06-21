@@ -14,7 +14,7 @@ export interface GameState {
   souls: number;
   day: number;
   hour: number; // 0-23 hour format
-  status: 'Open' | 'Closed' | 'Maintenance';
+  status: 'Open' | 'Closing' | 'Closed' | 'Maintenance';
   speed: number;
   selectedRoom: number | null;
   selectedMonster: number | null;

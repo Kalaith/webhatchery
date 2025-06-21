@@ -16,7 +16,7 @@ interface GameStore extends GameState {
   gainSouls: (amount: number) => void;
   placeMonster: (floorNumber: number, roomPosition: number, monsterType: number) => boolean;
   advanceTime: () => void;
-  setStatus: (status: 'Open' | 'Closed' | 'Maintenance') => void;
+  setStatus: (status: 'Open' | 'Closing' | 'Closed' | 'Maintenance') => void;
   setSpeed: (speed: number) => void;
   closeModal: () => void;
   addAdventurerParty: (party: AdventurerParty) => void;
@@ -406,16 +406,18 @@ export const useGameStore = create<GameStore>()(
         if (newHour >= 24) {
           newHour = 0;
           newDay += 1;
-        }
-
-        // Determine status based on time
-        let status: 'Open' | 'Closed' | 'Maintenance' = 'Open';
-        if (newHour >= 0 && newHour < 6) {
-          status = 'Maintenance';
-        } else if (newHour >= 6 && newHour < 18) {
-          status = 'Open';
-        } else {
-          status = 'Closed';
+        }        // Determine status based on time (but can be overridden by manual control)
+        let status: 'Open' | 'Closing' | 'Closed' | 'Maintenance' = state.status;
+        
+        // Only auto-update status if not manually set to Closing or Closed
+        if (state.status !== 'Closing' && state.status !== 'Closed') {
+          if (newHour >= 0 && newHour < 6) {
+            status = 'Maintenance';
+          } else if (newHour >= 6 && newHour < 18) {
+            status = 'Open';
+          } else {
+            status = 'Open'; // Changed: Keep open during evening hours too
+          }
         }
 
         return {
@@ -427,7 +429,32 @@ export const useGameStore = create<GameStore>()(
         };
       }),
 
-      setStatus: (status) => set({ status }),
+      setStatus: (status) => {
+        const state = get();
+        
+        // Special logic for closing the dungeon
+        if (status === 'Closed' && state.adventurerParties.length > 0) {
+          // If there are parties in the dungeon, set to Closing instead
+          set({ status: 'Closing' });
+          get().addLog({
+            message: "Dungeon is closing... waiting for current adventurers to finish.",
+            type: "system"
+          });
+        } else {
+          set({ status });
+          if (status === 'Closed') {
+            get().addLog({
+              message: "Dungeon is now closed to new adventurers.",
+              type: "system"
+            });
+          } else if (status === 'Open') {
+            get().addLog({
+              message: "Dungeon is now open to adventurers!",
+              type: "system"
+            });
+          }
+        }
+      },
 
       setSpeed: (speed) => set({ speed }),
 
@@ -436,11 +463,20 @@ export const useGameStore = create<GameStore>()(
         if (typeof window !== 'undefined') {
           sessionStorage.setItem("dungeoncore_modal_seen", "1");
         }
-      },
-
-      addAdventurerParty: (party) => set((state) => ({
-        adventurerParties: [...state.adventurerParties, party]
-      })),
+      },      addAdventurerParty: (party) => set((state) => {
+        // Safety check: only allow one party at a time
+        if (state.adventurerParties.length > 0) {
+          get().addLog({
+            message: `Cannot add party - ${state.adventurerParties.length} parties already in dungeon`,
+            type: "system"
+          });
+          return state;
+        }
+        
+        return {
+          adventurerParties: [...state.adventurerParties, party]
+        };
+      }),
 
       updateAdventurerParty: (partyId, updates) => set((state) => ({
         adventurerParties: state.adventurerParties.map(party =>
@@ -466,7 +502,7 @@ export const useGameStore = create<GameStore>()(
           }))
         }));
 
-        get().addLog({ message: "All monsters have respawned!", type: "system" });
+        get().addLog({ message: "Monsters have respawned throughout the dungeon!", type: "system" });
         return { floors: updatedFloors };
       }),      resetGame: () => {
         // Clear localStorage and sessionStorage

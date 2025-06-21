@@ -18,10 +18,10 @@ export const ResourceBar: React.FC = () => {
     const period = hour < 12 ? 'AM' : 'PM';
     return `${displayHour}:00 ${period}`;
   };
-
   const getStatusColor = (status: string) => {
     switch (status) {
       case 'Open': return 'text-green-600';
+      case 'Closing': return 'text-orange-600';
       case 'Closed': return 'text-yellow-600';
       case 'Maintenance': return 'text-red-600';
       default: return 'text-gray-600';

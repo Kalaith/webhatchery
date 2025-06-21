@@ -12,15 +12,32 @@ const RoomComponent: React.FC<{
   room: Room; 
   onClick: () => void;
   isActive: boolean;
-}> = ({ room, onClick, isActive }) => {
-  const getRoomColor = () => {
-    switch (room.type) {
-      case 'entrance': return '#4CAF50';
-      case 'normal': return '#9E9E9E';
-      case 'boss': return '#F44336';
-      case 'core': return '#9C27B0';
-      default: return '#9E9E9E';
+}> = ({ room, onClick, isActive }) => {  const getRoomColor = () => {
+    const baseColor = (() => {
+      switch (room.type) {
+        case 'entrance': return '#4CAF50';
+        case 'normal': return '#9E9E9E';
+        case 'boss': return '#F44336';
+        case 'core': return '#9C27B0';
+        default: return '#9E9E9E';
+      }
+    })();
+
+    // Modify color based on monster status
+    if (room.monsters.length > 0) {
+      const aliveMonsters = room.monsters.filter(m => m.alive).length;
+      const deadMonsters = room.monsters.filter(m => !m.alive).length;
+      
+      if (deadMonsters > 0 && aliveMonsters === 0) {
+        // All monsters dead - darker/desaturated
+        return baseColor + '80'; // Add transparency
+      } else if (deadMonsters > 0) {
+        // Some monsters dead - slightly darker
+        return baseColor + 'CC'; // Slightly transparent
+      }
     }
+    
+    return baseColor;
   };
 
   const getRoomIcon = () => {
@@ -58,31 +75,78 @@ const RoomComponent: React.FC<{
 
       {/* Monsters */}
       {room.monsters.length > 0 && (
-        <div className="monsters-container flex flex-wrap gap-1 justify-center mb-2">
-          {room.monsters.slice(0, 3).map((monster) => {
+        <div className="monsters-container flex flex-wrap gap-1 justify-center mb-2">          {room.monsters.slice(0, 3).map((monster) => {
             const monsterType = monsterTypes[monster.type];
             const scaledStats = getScaledMonsterStats(
               { hp: monsterType.hp, attack: monsterType.attack, defense: monsterType.defense },
               monster.floorNumber,
               monster.isBoss
             );
+              const getMonsterEmoji = () => {
+              if (!monster.alive) {
+                return '💀'; // Skull for dead monsters
+              }
+              // Use different emojis based on monster type
+              const emojiMap: Record<string, string> = {
+                'Goblin': '�',
+                'Orc': '🧌',
+                'Skeleton': '💀',
+                'Dragon': '🐉',
+                'Troll': '🧌',
+                'Demon': '😈',
+                'Golem': '🗿',
+                'Vampire': '🧛',
+                'Werewolf': '🐺',
+                'Lich': '☠️'
+              };
+              return emojiMap[monsterType.name] || '🐲'; // Fallback to dragon
+            };
+            
+            const getMonsterStyle = () => {
+              if (!monster.alive) {
+                return { 
+                  color: '#666666', // Gray color for dead monsters
+                  filter: 'grayscale(100%)'
+                };
+              }
+              return { color: monsterType.color };
+            };
             
             return (
               <div
                 key={monster.id}
-                className={`monster-icon relative text-lg ${monster.alive ? '' : 'opacity-50'}`}
-                title={`${monsterType.name} ${monster.isBoss ? '(Boss)' : ''} - HP: ${monster.hp}/${scaledStats.hp}`}
-                style={{ color: monsterType.color }}
+                className={`monster-icon relative text-lg transition-all duration-300 ${
+                  monster.alive 
+                    ? 'hover:scale-110' 
+                    : 'opacity-75 cursor-help'
+                }`}
+                title={`${monsterType.name} ${monster.isBoss ? '(Boss)' : ''} - ${
+                  monster.alive 
+                    ? `HP: ${monster.hp}/${scaledStats.hp}` 
+                    : 'DEAD - Will respawn when all adventurers leave'
+                }`}
+                style={getMonsterStyle()}
               >
-                🐲
+                {getMonsterEmoji()}
                 {monster.isBoss && (
-                  <div className="absolute -top-1 -right-1 text-xs">👑</div>
+                  <div className={`absolute -top-1 -right-1 text-xs ${monster.alive ? '' : 'opacity-50'}`}>
+                    👑
+                  </div>
+                )}
+                {!monster.alive && (
+                  <div className="absolute -bottom-1 -right-1 text-xs" title="Dead">
+                    ⚰️
+                  </div>
                 )}
               </div>
             );
-          })}
-          {room.monsters.length > 3 && (
-            <div className="text-xs text-white">+{room.monsters.length - 3}</div>
+          })}          {room.monsters.length > 3 && (
+            <div className="text-xs text-white">
+              +{room.monsters.length - 3}
+              {room.monsters.filter(m => !m.alive).length > 0 && (
+                <span className="ml-1 opacity-75" title="Some monsters are dead">💀</span>
+              )}
+            </div>
           )}
         </div>
       )}
@@ -101,11 +165,24 @@ const RoomComponent: React.FC<{
       {/* Room upgrade indicator */}
       {room.roomUpgrade && (
         <div className="absolute top-1 right-1 text-xs">⚡</div>
-      )}
-
-      {/* Loot indicator */}
+      )}      {/* Loot indicator */}
       {room.loot > 0 && (
         <div className="absolute bottom-1 right-1 text-xs">💰</div>
+      )}
+
+      {/* Monster status indicator */}
+      {room.monsters.length > 0 && (
+        <div className="absolute top-1 left-1 text-xs">
+          <div className="flex items-center gap-1 bg-black bg-opacity-50 rounded px-1">
+            <span className="text-green-400">{room.monsters.filter(m => m.alive).length}</span>
+            {room.monsters.filter(m => !m.alive).length > 0 && (
+              <>
+                <span className="text-gray-400">/</span>
+                <span className="text-red-400">{room.monsters.filter(m => !m.alive).length}💀</span>
+              </>
+            )}
+          </div>
+        </div>
       )}
     </div>
   );
@@ -136,11 +213,15 @@ export const DungeonFloorView: React.FC<DungeonFloorViewProps> = ({ floor, onRoo
               )}
             </React.Fragment>
           ))}
-      </div>
-
-      <div className="floor-stats text-center mt-2 text-sm text-gray-400">
-        Rooms: {floor.rooms.length}/{GAME_CONSTANTS.MAX_ROOMS_PER_FLOOR + 1}
-        {floor.isDeepest && <span className="ml-4">🔮 Core Room Active</span>}
+      </div>      <div className="floor-stats text-center mt-2 text-sm text-gray-400">
+        <div>
+          Rooms: {floor.rooms.length}/{GAME_CONSTANTS.MAX_ROOMS_PER_FLOOR + 1}
+          {floor.isDeepest && <span className="ml-4">🔮 Core Room Active</span>}
+        </div>
+        <div className="mt-1">
+          Monsters: {floor.rooms.reduce((total, room) => total + room.monsters.filter(m => m.alive).length, 0)} alive, {' '}
+          {floor.rooms.reduce((total, room) => total + room.monsters.filter(m => !m.alive).length, 0)} dead
+        </div>
       </div>
     </div>
   );

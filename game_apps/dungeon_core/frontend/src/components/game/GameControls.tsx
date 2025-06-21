@@ -27,11 +27,10 @@ export const GameControls: React.FC = () => {
     const newSpeed = speed === 1 ? 2 : speed === 2 ? 4 : 1;
     setSpeed(newSpeed);
   };
-
   const handleToggleDungeon = () => {
     if (status === 'Open') {
-      setStatus('Closed');
-    } else if (status === 'Closed') {
+      setStatus('Closed'); // This will automatically handle the closing logic in game store
+    } else if (status === 'Closed' || status === 'Closing') {
       setStatus('Open');
     }
     // Can't toggle out of Maintenance - that's automatic
@@ -69,21 +68,34 @@ export const GameControls: React.FC = () => {
       >
         {speed}x Speed
       </button>
-      
-      <button 
+        <button 
         className={`btn px-4 py-2 rounded text-white transition-colors ${
           status === 'Open' 
             ? 'bg-red-500 hover:bg-red-600' 
             : status === 'Closed'
               ? 'bg-green-500 hover:bg-green-600'
-              : 'bg-gray-400 cursor-not-allowed'
+              : status === 'Closing'
+                ? 'bg-orange-500 hover:bg-orange-600'
+                : 'bg-gray-400 cursor-not-allowed'
         }`}
         onClick={handleToggleDungeon}
         disabled={status === 'Maintenance'}
-        title={status === 'Maintenance' ? 'Cannot control during maintenance' : 'Toggle dungeon open/closed'}
+        title={
+          status === 'Maintenance' 
+            ? 'Cannot control during maintenance' 
+            : status === 'Closing'
+              ? 'Dungeon is closing - waiting for adventurers to finish'
+              : 'Toggle dungeon open/closed'
+        }
       >
-        {status === 'Open' ? 'Close Dungeon' : status === 'Closed' ? 'Open Dungeon' : 'Maintenance'}
-      </button>      <button
+        {status === 'Open' 
+          ? 'Close Dungeon' 
+          : status === 'Closed' 
+            ? 'Open Dungeon' 
+            : status === 'Closing'
+              ? 'Closing...'
+              : 'Maintenance'}
+      </button><button
         className={`btn px-4 py-2 rounded text-white transition-colors ${
           adventurerParties.length === 0 
             ? 'bg-purple-500 hover:bg-purple-600' 

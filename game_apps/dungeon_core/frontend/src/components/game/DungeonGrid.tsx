@@ -51,8 +51,7 @@ export const DungeonGrid: React.FC<DungeonGridProps> = ({ onCellClick }) => {
                   style={{ background: roomTypes[cell.roomType].color, opacity: 0.4 }}
                   title={`${roomTypes[cell.roomType].name} - ${roomTypes[cell.roomType].description}`}
                 />
-              )}
-              {cell.monsters.length > 0 && (
+              )}              {cell.monsters.length > 0 && (
                 <div className="z-10 text-xs flex flex-wrap" title={`${cell.monsters.length} monsters`}>                  {cell.monsters.slice(0, 4).map((monster) => (
                     <span 
                       key={monster.id} 
