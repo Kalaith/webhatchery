@@ -167,6 +167,170 @@
           "base_stats": {"health": 80, "damage": 8, "speed": 0.7}
         }
       ]
+    },
+    {
+      "family_name": "Mimetic",
+      "description": "Shape-shifting mimics and impostors.",
+      "species": [
+        {"name": "False Chest", "traits": ["Ambush", "Sticky", "Slow"]},
+        {"name": "Mimic Crate", "traits": ["Latch", "Scavenge", "Blend In"]},
+        {"name": "Impostor Stool", "traits": ["Jump Attack", "Blend In", "Surprise"]},
+        {"name": "Living Wardrobe", "traits": ["Swallow", "Stun", "Intimidating"]},
+        {"name": "Door Mimic", "traits": ["Constrict", "Terrify", "Camouflage"]},
+        {"name": "Mirrorling", "traits": ["Reflect", "Illusion", "Teleport"]},
+        {"name": "Mimic Colony", "traits": ["Summon Mini-Mimics", "Shared Health", "Sticky Floor"]},
+        {"name": "Tome of Teeth", "traits": ["Spell Mimicry", "Consume Magic", "Fake Casting"]},
+        {"name": "Vault Tyrant", "traits": ["True Mimicry", "Devour", "Reflect Damage", "Terrifying Presence", "Spell Resistance"]},
+        {"name": "Shelf Crawler", "traits": ["Blend In", "Latch", "Frail"]},
+        {"name": "Candle Mimic", "traits": ["Flammable", "Surprise", "Illuminating"]},
+        {"name": "Scroll Lurker", "traits": ["Spell Trap", "Burn", "Paper Thin"]},
+        {"name": "Desk Ghoul", "traits": ["Ambush", "Poison Ink", "Grip"]},
+        {"name": "Wallshade", "traits": ["Shadow Form", "Teleport Short", "Fear Pulse"]},
+        {"name": "Living Gallery", "traits": ["Create Illusion", "Haunt Room", "Spell Reflect"]},
+        {"name": "Spellrack Mimic", "traits": ["Store Spells", "Cast Copy", "Break Focus"]},
+        {"name": "Library Wyrm", "traits": ["Absorb Knowledge", "Mental Assault", "Memory Lock", "Illusory Room", "Devour Spell"]}
+      ]
+    },
+    {
+      "family_name": "Amorphous",
+      "description": "Slimes, oozes, and other shapeless monsters.",
+      "species": [
+        {"name": "Slime", "traits": ["Sticky", "Split", "Slow"]},
+        {"name": "Gel Slug", "traits": ["Trail", "Absorb", "Slow"]},
+        {"name": "Bile Blob", "traits": ["Acidic", "Unstable", "Low Profile"]},
+        {"name": "Iron Slime", "traits": ["Armor Shell", "Reflect", "Crushing Weight"]},
+        {"name": "Plague Ooze", "traits": ["Poison Cloud", "Multiply", "Contagion"]},
+        {"name": "Crystal Slime", "traits": ["Refract Light", "Magic Resistance", "Fragile Core"]},
+        {"name": "Echo Pudding", "traits": ["Mimic Voice", "Ambush", "Terrify"]},
+        {"name": "Primordial Slime", "traits": ["Devour", "Amorphous Giant", "Split on Death", "Reshape", "Spell Absorb"]}
+      ]
+    },
+    {
+      "family_name": "Plant",
+      "description": "Carnivorous plants, vines, and fungi.",
+      "species": [
+        {"name": "Creeping Vine", "traits": ["Entangle", "Regrowth", "Rooted"]},
+        {"name": "Grasping Tangle", "traits": ["Multi-Grab", "Trap Placement", "Camouflage"]},
+        {"name": "Spinevine", "traits": ["Thorns", "Poison", "Quick Burst"]},
+        {"name": "Bloom Trap", "traits": ["Lure", "Sleep Spores", "Burrow"]},
+        {"name": "Rotroot", "traits": ["Decay Aura", "Slow Regeneration", "Disease"]},
+        {"name": "Bramblerush", "traits": ["Ranged Vines", "Rapid Spread", "Piercing Roots"]},
+        {"name": "Verdant Sentinel", "traits": ["Photosynthesis", "Guard Allies", "Thick Hide"]},
+        {"name": "Heartwood Horror", "traits": ["Mass Entangle", "Regrow Limbs", "Rootquake", "Poison Bloom", "Fungal Bloom"]},
+        {"name": "Spore Crawler", "traits": ["Poison", "Multiply", "Slow"]},
+        {"name": "Sporeling Swarm", "traits": ["Swarming", "Tiny", "Regen Spores"]},
+        {"name": "Toxic Puffcap", "traits": ["Explode on Death", "Gas Cloud", "Contagion"]},
+        {"name": "Mycelial Walker", "traits": ["Spread Terrain", "Heal Overgrowth", "Slow Aura"]},
+        {"name": "Plague Fungus", "traits": ["Debuff Resistance", "Rotting Spore", "Summon Spores"]},
+        {"name": "Mushroom Sentinel", "traits": ["Thick Hide", "Absorb Nutrients", "Thorns"]},
+        {"name": "Spore Witch", "traits": ["Control Fungus", "Mind Fog", "Spore Puppet"]},
+        {"name": "Blightroot Colossus", "traits": ["Spore Storm", "Rot Field", "Regeneration", "Spore Rebirth", "Pollen of Madness"]}
+      ]
+    },
+    {
+      "family_name": "Crustacean",
+      "description": "Crabs and other armored tunnelers.",
+      "species": [
+        {"name": "Tunnel Crab", "traits": ["Armor Shell", "Side Step", "Burrow"]},
+        {"name": "Pebbleback Crab", "traits": ["Camouflage", "Guard", "Slow"]},
+        {"name": "Clacker", "traits": ["Stun on Hit", "Aggressive", "High Crit"]},
+        {"name": "Rocksnapper", "traits": ["Armor Crush", "Heavy Blow", "Tough Hide"]},
+        {"name": "Burrow Breaker", "traits": ["Tunnel Collapse", "Debris Shield", "Ambush"]},
+        {"name": "Chitin Knight", "traits": ["Reflect Damage", "Battle Cry", "Shell Slam"]},
+        {"name": "Sandstorm Crab", "traits": ["Dust Cloak", "Speed Burst", "Blinding Strike"]},
+        {"name": "Titan Carapace", "traits": ["Siege Slam", "Shell Fortress", "Earthquake Step", "Hardened Plates", "Unshakable"]}
+      ]
+    },
+    {
+      "family_name": "Avian",
+      "description": "Birds and flying predators.",
+      "species": [
+        {"name": "Shrieker", "traits": ["Screech", "Flight", "Blind"]},
+        {"name": "Echo Talon", "traits": ["Sound Pulse", "Bleed", "Flight"]},
+        {"name": "Nesting Hawk", "traits": ["Dive", "Guard Nest", "Pack Instinct"]},
+        {"name": "Sonic Raptor", "traits": ["Piercing Screech", "Fast Dive", "Fear Aura"]},
+        {"name": "Carrion Skyrend", "traits": ["Scavenge", "Disease", "Vulture Grip"]},
+        {"name": "Stormclaw", "traits": ["Electrify", "Fast Flier", "Shock Wave"]},
+        {"name": "Harpy Matron", "traits": ["Charming Song", "Command Minions", "Flight Shield"]},
+        {"name": "Sky Tyrant", "traits": ["Roaring Tempest", "Gale Slam", "Magic Resistance", "Predator Dive", "Shriek of Dread"]}
+      ]
+    },
+    {
+      "family_name": "Insectoid",
+      "description": "Ants and other hive creatures.",
+      "species": [
+        {"name": "Worker Ant", "traits": ["Swarming", "Tireless", "Burrow"]},
+        {"name": "Soldier Ant", "traits": ["Armor Shell", "Guard", "Slow"]},
+        {"name": "Spitter Ant", "traits": ["Acid Spit", "Range Attack", "Fragile"]},
+        {"name": "Fungus Ant", "traits": ["Spore Spread", "Disease", "Burrow"]},
+        {"name": "Fire Ant", "traits": ["Burn", "Swarm Boost", "Aggressive"]},
+        {"name": "Tunnel Reaver", "traits": ["Siege Mandibles", "Dig Speed", "Pack Commander"]},
+        {"name": "Aerial Scout", "traits": ["Flight", "Radar Sense", "Retreat"]},
+        {"name": "Brood Empress", "traits": ["Spawn Minions", "Royal Pheromones", "Thick Carapace", "Hive Mind", "Summon Soldiers"]}
+      ]
+    },
+    {
+      "family_name": "Batkin",
+      "description": "Bats and vampiric flyers.",
+      "species": [
+        {"name": "Cave Bat", "traits": ["Flight", "Echo Pulse", "Fragile"]},
+        {"name": "Nightflutter", "traits": ["Dodge Boost", "Agile", "Ambush"]},
+        {"name": "Squeakfang", "traits": ["Bleed", "Fast", "Piercing Cry"]},
+        {"name": "Hollow Screecher", "traits": ["Stun Cry", "Evasive", "Darkvision"]},
+        {"name": "Blooddrinker", "traits": ["Life Drain", "Pack Tactics", "Fear Aura"]},
+        {"name": "Cloakwing", "traits": ["Camouflage", "Silence Aura", "Spell Resistance"]},
+        {"name": "Blight Bat", "traits": ["Disease", "Rotting Bite", "Exploding Death"]},
+        {"name": "Nocturnis", "traits": ["Void Wings", "Echo Shatter", "Fear Pulse", "Soul Drain", "Blackout"]},
+        {"name": "Bloodwing", "traits": ["Bleed", "Stealth", "Agile"]},
+        {"name": "Redfang", "traits": ["Life Steal", "Dive Attack", "Fragile"]},
+        {"name": "Chirostalker", "traits": ["Ambush", "Slow Flight", "Shadowmeld"]},
+        {"name": "Hemovore", "traits": ["Blood Clone", "Heal on Kill", "Resilient"]},
+        {"name": "Mistbat", "traits": ["Mist Form", "Dodge Boost", "Illusion Aura"]},
+        {"name": "Vampire Batlord", "traits": ["Command Lesser Bats", "Charm", "Flyby Slash"]},
+        {"name": "Bloodwind Siren", "traits": ["Sonic Pulse", "Life Drain", "Fear Shriek"]},
+        {"name": "Crimson Eclipse", "traits": ["Total Darkness", "Bloodstorm", "Vampiric Aura", "Phase Shift", "Sanguine Wings"]}
+      ]
+    },
+    {
+      "family_name": "Reptilian",
+      "description": "Lizards, serpents, and scaled monsters.",
+      "species": [
+        {"name": "Rockscale", "traits": ["Tough Hide", "Climb", "Slow"]},
+        {"name": "Cliff Crawler", "traits": ["Ambush", "Grip", "Leap Down"]},
+        {"name": "Mudback", "traits": ["Camouflage", "Soften Blow", "Slippery"]},
+        {"name": "Ridge Basilisk", "traits": ["Glare", "Stun", "Poison Fang"]},
+        {"name": "Spiketail", "traits": ["Thorns", "Tail Swipe", "Knockback"]},
+        {"name": "Lava Newt", "traits": ["Burn", "Heat Resistance", "Molten Trail"]},
+        {"name": "Stoneblood Serpent", "traits": ["Hard Scales", "Burrow", "Coil Grip"]},
+        {"name": "Ancient Earthwyrm", "traits": ["Tunnel Collapse", "Earthquake Roar", "Hardened Plates", "Petrify Glance", "Massive Coil"]}
+      ]
+    },
+    {
+      "family_name": "Canine",
+      "description": "Wolves and other pack hunters.",
+      "species": [
+        {"name": "Gnarl Pup", "traits": ["Pack Tactics", "Bark", "Fast"]},
+        {"name": "Howlhound", "traits": ["Fear Howl", "Agile", "Alert Allies"]},
+        {"name": "Digfang", "traits": ["Burrow", "Ambush", "Tracker"]},
+        {"name": "Snarl Alpha", "traits": ["Command Pack", "Savage Bite", "Thick Hide"]},
+        {"name": "Frost Fang", "traits": ["Cold Bite", "Slowing Aura", "Resist Freeze"]},
+        {"name": "Moonhowler", "traits": ["Buff at Night", "Fear Aura", "Evasion"]},
+        {"name": "Gravemauler", "traits": ["Undead Bite", "Disease", "Stench Aura"]},
+        {"name": "Warden of the Wild Hunt", "traits": ["Summon Ghost Pack", "Mark Prey", "Unrelenting Chase", "Life Drain", "Lunar Empowerment"]}
+      ]
+    },
+    {
+      "family_name": "Undead (Evolved)",
+      "description": "Advanced undead forms from the evolution tree.",
+      "species": [
+        {"name": "Plague Walker", "traits": ["Infect on Hit", "Stench Cloud", "Rotting Aura"]},
+        {"name": "Shambling Hulk", "traits": ["Knockback", "Resist Pain", "Tanky"]},
+        {"name": "Corpse Swarm", "traits": ["Split Body", "Swarming", "Absorb Corpse"]},
+        {"name": "Screamer", "traits": ["Fear Shriek", "Fast", "Frail"]},
+        {"name": "Stitched Abomination", "traits": ["Multi-Limb Strike", "Explode on Death", "Fearless"]},
+        {"name": "Toxic Revenant", "traits": ["Plague Trail", "Spit Disease", "Undying"]},
+        {"name": "Dread Husk", "traits": ["Immortal Core", "Aura of Decay", "Raise Dead", "Plague Nova", "Soul Rot"]}
+      ]
     }
   ]
 }

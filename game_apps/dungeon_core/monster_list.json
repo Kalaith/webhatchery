@@ -11,7 +11,7 @@
         "Tier 2": {
           "Mimic Crate": {
             "traits": ["Latch", "Scavenge", "Blend In"],
-            "description": "Slightly more mobile and less suspicious than a chest; found stacked with loot."
+            "description": "A mimic disguised as a crate, often found among supplies."
           },
           "Impostor Stool": {
             "traits": ["Jump Attack", "Blend In", "Surprise"],
@@ -98,7 +98,8 @@
       "Slime": {
         "Tier 1": {
           "Slime": {
-            "traits": ["Sticky", "Split", "Slow"]
+            "traits": ["Sticky", "Split", "Slow"],
+            "description": "A basic, slow-moving ooze that splits when struck."
           }
         },
         "Tier 2": {
@@ -107,7 +108,8 @@
             "description": "Leaves a damaging slime trail and resists knockback."
           },
           "Bile Blob": {
-            "traits": ["Acidic", "Unstable", "Low Profile"]
+            "traits": ["Acidic", "Unstable", "Low Profile"],
+            "description": "A volatile, acidic blob that can slip through cracks."
           }
         },
         "Tier 3": {
@@ -116,7 +118,8 @@
             "description": "Covered in debris and metal, tanky variant."
           },
           "Plague Ooze": {
-            "traits": ["Poison Cloud", "Multiply", "Contagion"]
+            "traits": ["Poison Cloud", "Multiply", "Contagion"],
+            "description": "Spreads toxic clouds and multiplies rapidly."
           }
         },
         "Tier 4": {
@@ -125,7 +128,8 @@
             "description": "Evolves after absorbing magical energy."
           },
           "Echo Pudding": {
-            "traits": ["Mimic Voice", "Ambush", "Terrify"]
+            "traits": ["Mimic Voice", "Ambush", "Terrify"],
+            "description": "A mimicry ooze that lures prey with voices."
           }
         },
         "Tier 5": {
@@ -140,15 +144,18 @@
       "Creeping Vine": {
         "Tier 1": {
           "Creeping Vine": {
-            "traits": ["Entangle", "Regrowth", "Rooted"]
+            "traits": ["Entangle", "Regrowth", "Rooted"],
+            "description": "A basic vine that entangles and regrows quickly."
           }
         },
         "Tier 2": {
           "Grasping Tangle": {
-            "traits": ["Multi-Grab", "Trap Placement", "Camouflage"]
+            "traits": ["Multi-Grab", "Trap Placement", "Camouflage"],
+            "description": "A tangle of vines that can grab multiple targets and set traps."
           },
           "Spinevine": {
-            "traits": ["Thorns", "Poison", "Quick Burst"]
+            "traits": ["Thorns", "Poison", "Quick Burst"],
+            "description": "A spiny, poisonous plant that attacks quickly."
           }
         },
         "Tier 3": {
@@ -157,15 +164,18 @@
             "description": "Flowers to attract prey before striking."
           },
           "Rotroot": {
-            "traits": ["Decay Aura", "Slow Regeneration", "Disease"]
+            "traits": ["Decay Aura", "Slow Regeneration", "Disease"],
+            "description": "A rotting root that spreads disease and decays enemies."
           }
         },
         "Tier 4": {
           "Bramblerush": {
-            "traits": ["Ranged Vines", "Rapid Spread", "Piercing Roots"]
+            "traits": ["Ranged Vines", "Rapid Spread", "Piercing Roots"],
+            "description": "A mass of brambles that attacks from a distance."
           },
           "Verdant Sentinel": {
-            "traits": ["Photosynthesis", "Guard Allies", "Thick Hide"]
+            "traits": ["Photosynthesis", "Guard Allies", "Thick Hide"],
+            "description": "A plant guardian that protects allies and heals in sunlight."
           }
         },
         "Tier 5": {
@@ -188,7 +198,8 @@
             "description": "Very weak individually, dangerous in numbers."
           },
           "Toxic Puffcap": {
-            "traits": ["Explode on Death", "Gas Cloud", "Contagion"]
+            "traits": ["Explode on Death", "Gas Cloud", "Contagion"],
+            "description": "A puffball fungus that explodes in a toxic cloud."
           }
         },
         "Tier 3": {
@@ -197,7 +208,8 @@
             "description": "Turns the ground into difficult terrain."
           },
           "Plague Fungus": {
-            "traits": ["Debuff Resistance", "Rotting Spore", "Summon Spores"]
+            "traits": ["Debuff Resistance", "Rotting Spore", "Summon Spores"],
+            "description": "A resilient fungus that spreads rot and summons spores."
           }
         },
         "Tier 4": {
@@ -222,23 +234,28 @@
       "Tunnel Crab": {
         "Tier 1": {
           "Tunnel Crab": {
-            "traits": ["Armor Shell", "Side Step", "Burrow"]
+            "traits": ["Armor Shell", "Side Step", "Burrow"],
+            "description": "A crab adapted for digging tunnels and defense."
           }
         },
         "Tier 2": {
           "Pebbleback Crab": {
-            "traits": ["Camouflage", "Guard", "Slow"]
+            "traits": ["Camouflage", "Guard", "Slow"],
+            "description": "A crab with a rocky shell that guards its territory."
           },
           "Clacker": {
-            "traits": ["Stun on Hit", "Aggressive", "High Crit"]
+            "traits": ["Stun on Hit", "Aggressive", "High Crit"],
+            "description": "A fast, aggressive crab with powerful claws."
           }
         },
         "Tier 3": {
           "Rocksnapper": {
-            "traits": ["Armor Crush", "Heavy Blow", "Tough Hide"]
+            "traits": ["Armor Crush", "Heavy Blow", "Tough Hide"],
+            "description": "A heavy crab that crushes armor and withstands attacks."
           },
           "Burrow Breaker": {
-            "traits": ["Tunnel Collapse", "Debris Shield", "Ambush"]
+            "traits": ["Tunnel Collapse", "Debris Shield", "Ambush"],
+            "description": "A crab that causes cave-ins and ambushes intruders."
           }
         },
         "Tier 4": {
@@ -247,7 +264,8 @@
             "description": "Wears natural armor like a knight's shield."
           },
           "Sandstorm Crab": {
-            "traits": ["Dust Cloak", "Speed Burst", "Blinding Strike"]
+            "traits": ["Dust Cloak", "Speed Burst", "Blinding Strike"],
+            "description": "A crab that moves quickly and blinds foes with sand."
           }
         },
         "Tier 5": {
@@ -282,7 +300,8 @@
             "description": "Specialized in disrupting formations and terrifying groups."
           },
           "Carrion Skyrend": {
-            "traits": ["Scavenge", "Disease", "Vulture Grip"]
+            "traits": ["Scavenge", "Disease", "Vulture Grip"],
+            "description": "A vulture-like bird that feeds on the dead and spreads disease."
           }
         },
         "Tier 4": {
@@ -291,7 +310,8 @@
             "description": "Flies during storms, empowered by static discharge."
           },
           "Harpy Matron": {
-            "traits": ["Charming Song", "Command Minions", "Flight Shield"]
+            "traits": ["Charming Song", "Command Minions", "Flight Shield"],
+            "description": "A matriarchal harpy that commands lesser minions."
           }
         },
         "Tier 5": {
@@ -306,7 +326,8 @@
       "Worker Ant": {
         "Tier 1": {
           "Worker Ant": {
-            "traits": ["Swarming", "Tireless", "Burrow"]
+            "traits": ["Swarming", "Tireless", "Burrow"],
+            "description": "A tireless ant that works in large groups."
           }
         },
         "Tier 2": {
@@ -315,7 +336,8 @@
             "description": "Defends tunnels and colonies."
           },
           "Spitter Ant": {
-            "traits": ["Acid Spit", "Range Attack", "Fragile"]
+            "traits": ["Acid Spit", "Range Attack", "Fragile"],
+            "description": "An ant that spits acid from a distance."
           }
         },
         "Tier 3": {
@@ -324,15 +346,18 @@
             "description": "Lives among fungal beds, spreads infection."
           },
           "Fire Ant": {
-            "traits": ["Burn", "Swarm Boost", "Aggressive"]
+            "traits": ["Burn", "Swarm Boost", "Aggressive"],
+            "description": "A fiery ant that attacks in swarms."
           }
         },
         "Tier 4": {
           "Tunnel Reaver": {
-            "traits": ["Siege Mandibles", "Dig Speed", "Pack Commander"]
+            "traits": ["Siege Mandibles", "Dig Speed", "Pack Commander"],
+            "description": "A powerful ant that leads tunnel assaults."
           },
           "Aerial Scout": {
-            "traits": ["Flight", "Radar Sense", "Retreat"]
+            "traits": ["Flight", "Radar Sense", "Retreat"],
+            "description": "A flying ant that scouts and retreats quickly."
           }
         },
         "Tier 5": {
@@ -347,15 +372,18 @@
       "Cave Bat": {
         "Tier 1": {
           "Cave Bat": {
-            "traits": ["Flight", "Echo Pulse", "Fragile"]
+            "traits": ["Flight", "Echo Pulse", "Fragile"],
+            "description": "A small, fragile bat that uses echolocation."
           }
         },
         "Tier 2": {
           "Nightflutter": {
-            "traits": ["Dodge Boost", "Agile", "Ambush"]
+            "traits": ["Dodge Boost", "Agile", "Ambush"],
+            "description": "A nimble bat that dodges attacks and ambushes prey."
           },
           "Squeakfang": {
-            "traits": ["Bleed", "Fast", "Piercing Cry"]
+            "traits": ["Bleed", "Fast", "Piercing Cry"],
+            "description": "A fast bat whose bite causes bleeding."
           }
         },
         "Tier 3": {
@@ -364,15 +392,18 @@
             "description": "Uses shrieks to paralyze enemies."
           },
           "Blooddrinker": {
-            "traits": ["Life Drain", "Pack Tactics", "Fear Aura"]
+            "traits": ["Life Drain", "Pack Tactics", "Fear Aura"],
+            "description": "A vampiric bat that drains life and fights in packs."
           }
         },
         "Tier 4": {
           "Cloakwing": {
-            "traits": ["Camouflage", "Silence Aura", "Spell Resistance"]
+            "traits": ["Camouflage", "Silence Aura", "Spell Resistance"],
+            "description": "A bat that blends into shadows and resists magic."
           },
           "Blight Bat": {
-            "traits": ["Disease", "Rotting Bite", "Exploding Death"]
+            "traits": ["Disease", "Rotting Bite", "Exploding Death"],
+            "description": "A diseased bat that explodes on death."
           }
         },
         "Tier 5": {
@@ -395,7 +426,8 @@
             "description": "Strikes with deadly precision."
           },
           "Chirostalker": {
-            "traits": ["Ambush", "Slow Flight", "Shadowmeld"]
+            "traits": ["Ambush", "Slow Flight", "Shadowmeld"],
+            "description": "A bat that ambushes from the shadows and moves slowly in flight."
           }
         },
         "Tier 3": {
@@ -404,15 +436,18 @@
             "description": "Uses blood to create duplicates."
           },
           "Mistbat": {
-            "traits": ["Mist Form", "Dodge Boost", "Illusion Aura"]
+            "traits": ["Mist Form", "Dodge Boost", "Illusion Aura"],
+            "description": "A bat that transforms into mist and creates illusions."
           }
         },
         "Tier 4": {
           "Vampire Batlord": {
-            "traits": ["Command Lesser Bats", "Charm", "Flyby Slash"]
+            "traits": ["Command Lesser Bats", "Charm", "Flyby Slash"],
+            "description": "A bat lord that commands lesser bats and charms foes."
           },
           "Bloodwind Siren": {
-            "traits": ["Sonic Pulse", "Life Drain", "Fear Shriek"]
+            "traits": ["Sonic Pulse", "Life Drain", "Fear Shriek"],
+            "description": "A siren bat that uses sound and drains life."
           }
         },
         "Tier 5": {
@@ -437,7 +472,8 @@
             "description": "Specializes in vertical movement and ambushing from above."
           },
           "Mudback": {
-            "traits": ["Camouflage", "Soften Blow", "Slippery"]
+            "traits": ["Camouflage", "Soften Blow", "Slippery"],
+            "description": "A mud-colored lizard that slips away from danger."
           }
         },
         "Tier 3": {
@@ -446,7 +482,8 @@
             "description": "Has a lesser petrification effect."
           },
           "Spiketail": {
-            "traits": ["Thorns", "Tail Swipe", "Knockback"]
+            "traits": ["Thorns", "Tail Swipe", "Knockback"],
+            "description": "A lizard with a spiked tail for defense."
           }
         },
         "Tier 4": {
@@ -455,7 +492,8 @@
             "description": "Evolved from volcanic environments."
           },
           "Stoneblood Serpent": {
-            "traits": ["Hard Scales", "Burrow", "Coil Grip"]
+            "traits": ["Hard Scales", "Burrow", "Coil Grip"],
+            "description": "A serpent with stone-like scales and a crushing grip."
           }
         },
         "Tier 5": {
@@ -480,7 +518,8 @@
             "description": "Specializes in disrupting enemies and warning packs."
           },
           "Digfang": {
-            "traits": ["Burrow", "Ambush", "Tracker"]
+            "traits": ["Burrow", "Ambush", "Tracker"],
+            "description": "A canine that digs and ambushes prey."
           }
         },
         "Tier 3": {
@@ -489,7 +528,8 @@
             "description": "Buffs nearby canines."
           },
           "Frost Fang": {
-            "traits": ["Cold Bite", "Slowing Aura", "Resist Freeze"]
+            "traits": ["Cold Bite", "Slowing Aura", "Resist Freeze"],
+            "description": "A wolf with icy fangs that slow enemies."
           }
         },
         "Tier 4": {
@@ -514,31 +554,38 @@
       "Zombie": {
         "Tier 1": {
           "Zombie": {
-            "traits": ["Disease", "Slow", "Relentless"]
+            "traits": ["Disease", "Slow", "Relentless"],
+            "description": "A slow, relentless undead that spreads disease."
           }
         },
         "Tier 2": {
           "Plague Walker": {
-            "traits": ["Infect on Hit", "Stench Cloud", "Rotting Aura"]
+            "traits": ["Infect on Hit", "Stench Cloud", "Rotting Aura"],
+            "description": "A diseased zombie that infects with every blow."
           },
           "Shambling Hulk": {
-            "traits": ["Knockback", "Resist Pain", "Tanky"]
+            "traits": ["Knockback", "Resist Pain", "Tanky"],
+            "description": "A hulking zombie that shrugs off pain and knocks back foes."
           }
         },
         "Tier 3": {
           "Corpse Swarm": {
-            "traits": ["Split Body", "Swarming", "Absorb Corpse"]
+            "traits": ["Split Body", "Swarming", "Absorb Corpse"],
+            "description": "A mass of corpses that splits and absorbs the dead."
           },
           "Screamer": {
-            "traits": ["Fear Shriek", "Fast", "Frail"]
+            "traits": ["Fear Shriek", "Fast", "Frail"],
+            "description": "A fast, frail undead that terrifies with its scream."
           }
         },
         "Tier 4": {
           "Stitched Abomination": {
-            "traits": ["Multi-Limb Strike", "Explode on Death", "Fearless"]
+            "traits": ["Multi-Limb Strike", "Explode on Death", "Fearless"],
+            "description": "A stitched-together monster that explodes on death."
           },
           "Toxic Revenant": {
-            "traits": ["Plague Trail", "Spit Disease", "Undying"]
+            "traits": ["Plague Trail", "Spit Disease", "Undying"],
+            "description": "A revenant that leaves a trail of disease and cannot be killed easily."
           }
         },
         "Tier 5": {
