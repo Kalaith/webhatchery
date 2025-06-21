@@ -1,0 +1,172 @@
+{
+  "monster_families": [
+    {
+      "family_name": "Humanoid",
+      "description": "Bipedal creatures with tool-using intelligence",
+      "species": [
+        {
+          "name": "Goblin",
+          "traits": ["Small", "Cowardly", "Swarming"],
+          "base_stats": {"health": 30, "damage": 5, "speed": 1.2}
+        },
+        {
+          "name": "Orc",
+          "traits": ["Brutish", "Bloodlust", "Tough"],
+          "base_stats": {"health": 60, "damage": 12, "speed": 0.9}
+        },
+        {
+          "name": "Kobold",
+          "traits": ["Trapmaker", "Light-sensitive", "Clever"],
+          "base_stats": {"health": 25, "damage": 4, "speed": 1.3}
+        }
+      ]
+    },
+    {
+      "family_name": "Beast",
+      "description": "Natural animals with enhanced dungeon adaptations",
+      "species": [
+        {
+          "name": "Cave Bear",
+          "traits": ["Hibernation", "Thick Hide", "Powerful"],
+          "base_stats": {"health": 80, "damage": 15, "speed": 0.7}
+        },
+        {
+          "name": "Shadow Panther",
+          "traits": ["Stealth", "Bleed", "Agile"],
+          "base_stats": {"health": 45, "damage": 10, "speed": 1.5}
+        },
+        {
+          "name": "Dire Wolf",
+          "traits": ["Pack Tactics", "Howl", "Fast"],
+          "base_stats": {"health": 50, "damage": 8, "speed": 1.4}
+        }
+      ]
+    },
+    {
+      "family_name": "Undead",
+      "description": "Reanimated corpses with unnatural resilience",
+      "species": [
+        {
+          "name": "Zombie",
+          "traits": ["Disease", "Slow", "Relentless"],
+          "base_stats": {"health": 40, "damage": 7, "speed": 0.5}
+        },
+        {
+          "name": "Skeleton",
+          "traits": ["Pierce-resistant", "Reassembly", "Frail"],
+          "base_stats": {"health": 25, "damage": 6, "speed": 1.0}
+        },
+        {
+          "name": "Wight",
+          "traits": ["Life Drain", "Fear Aura", "Intelligent"],
+          "base_stats": {"health": 55, "damage": 9, "speed": 1.1}
+        }
+      ]
+    },
+    {
+      "family_name": "Elemental",
+      "description": "Living embodiments of primal forces",
+      "species": [
+        {
+          "name": "Fire Sprite",
+          "traits": ["Burn", "Fragile", "Illuminating"],
+          "base_stats": {"health": 20, "damage": 8, "speed": 1.2}
+        },
+        {
+          "name": "Stone Golem",
+          "traits": ["Crushing", "Slow", "Durable"],
+          "base_stats": {"health": 100, "damage": 12, "speed": 0.4}
+        },
+        {
+          "name": "Water Nymph",
+          "traits": ["Healing", "Fluid Form", "Weak"],
+          "base_stats": {"health": 35, "damage": 3, "speed": 1.3}
+        }
+      ]
+    },
+    {
+      "family_name": "Aberration",
+      "description": "Twisted creatures from beyond reality",
+      "species": [
+        {
+          "name": "Gibbering Mouther",
+          "traits": ["Madness", "Amorphous", "Consuming"],
+          "base_stats": {"health": 65, "damage": 10, "speed": 0.3}
+        },
+        {
+          "name": "Beholderkin",
+          "traits": ["Eye Rays", "Floating", "Arrogant"],
+          "base_stats": {"health": 45, "damage": 14, "speed": 0.8}
+        },
+        {
+          "name": "Phase Spider",
+          "traits": ["Teleport", "Venom", "Unpredictable"],
+          "base_stats": {"health": 40, "damage": 9, "speed": 1.4}
+        }
+      ]
+    },
+    {
+      "family_name": "Construct",
+      "description": "Artificial beings created for war",
+      "species": [
+        {
+          "name": "Clockwork Soldier",
+          "traits": ["Precise", "Rust-prone", "Reliable"],
+          "base_stats": {"health": 50, "damage": 11, "speed": 1.0}
+        },
+        {
+          "name": "Scrap Golem",
+          "traits": ["Improvised", "Junk Armor", "Clumsy"],
+          "base_stats": {"health": 70, "damage": 9, "speed": 0.6}
+        },
+        {
+          "name": "Arcane Sentinel",
+          "traits": ["Spellshield", "Slow", "Powerful"],
+          "base_stats": {"health": 90, "damage": 13, "speed": 0.5}
+        }
+      ]
+    },
+    {
+      "family_name": "Fey",
+      "description": "Magical creatures from enchanted realms",
+      "species": [
+        {
+          "name": "Pixie",
+          "traits": ["Charming", "Tiny", "Annoying"],
+          "base_stats": {"health": 15, "damage": 2, "speed": 1.8}
+        },
+        {
+          "name": "Redcap",
+          "traits": ["Bloodthirsty", "Strong", "Short"],
+          "base_stats": {"health": 55, "damage": 14, "speed": 1.1}
+        },
+        {
+          "name": "Treant Sapling",
+          "traits": ["Rooted", "Photosynthesis", "Growing"],
+          "base_stats": {"health": 60, "damage": 7, "speed": 0.4}
+        }
+      ]
+    },
+    {
+      "family_name": "Draconic",
+      "description": "Scaled creatures with ancient bloodlines",
+      "species": [
+        {
+          "name": "Drake Hatchling",
+          "traits": ["Fire Breath", "Young", "Hungry"],
+          "base_stats": {"health": 45, "damage": 10, "speed": 1.2}
+        },
+        {
+          "name": "Wyvernling",
+          "traits": ["Poison Sting", "Flying", "Aggressive"],
+          "base_stats": {"health": 50, "damage": 12, "speed": 1.5}
+        },
+        {
+          "name": "Basilisk",
+          "traits": ["Petrify", "Slow", "Tough"],
+          "base_stats": {"health": 80, "damage": 8, "speed": 0.7}
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,419 @@
+{
+  "Mimetic": {
+    "starter": "False Chest",
+    "evolutions": [
+      {
+        "tier": 2,
+        "options": [
+          "Mimic Crate",
+          "Impostor Stool"
+        ]
+      },
+      {
+        "tier": 3,
+        "options": [
+          "Living Wardrobe",
+          "Door Mimic",
+          "Mirrorling"
+        ]
+      },
+      {
+        "tier": 4,
+        "options": [
+          "Mimic Colony",
+          "Tome of Teeth"
+        ]
+      },
+      {
+        "tier": 5,
+        "options": [
+          "Vault Tyrant"
+        ]
+      }
+    ]
+  },
+  "Amorphous": {
+    "starter": "Slime",
+    "evolutions": [
+      {
+        "tier": 2,
+        "options": [
+          "Gel Slug",
+          "Bile Blob"
+        ]
+      },
+      {
+        "tier": 3,
+        "options": [
+          "Iron Slime",
+          "Plague Ooze"
+        ]
+      },
+      {
+        "tier": 4,
+        "options": [
+          "Crystal Slime",
+          "Echo Pudding"
+        ]
+      },
+      {
+        "tier": 5,
+        "options": [
+          "Primordial Slime"
+        ]
+      }
+    ]
+  },
+  "Plant": {
+    "starter": "Creeping Vine",
+    "evolutions": [
+      {
+        "tier": 2,
+        "options": [
+          "Grasping Tangle",
+          "Spinevine"
+        ]
+      },
+      {
+        "tier": 3,
+        "options": [
+          "Bloom Trap",
+          "Rotroot"
+        ]
+      },
+      {
+        "tier": 4,
+        "options": [
+          "Bramblerush",
+          "Verdant Sentinel"
+        ]
+      },
+      {
+        "tier": 5,
+        "options": [
+          "Heartwood Horror"
+        ]
+      }
+    ]
+  },
+  "Crustacean": {
+    "starter": "Tunnel Crab",
+    "evolutions": [
+      {
+        "tier": 2,
+        "options": [
+          "Pebbleback Crab",
+          "Clacker"
+        ]
+      },
+      {
+        "tier": 3,
+        "options": [
+          "Rocksnapper",
+          "Burrow Breaker"
+        ]
+      },
+      {
+        "tier": 4,
+        "options": [
+          "Chitin Knight",
+          "Sandstorm Crab"
+        ]
+      },
+      {
+        "tier": 5,
+        "options": [
+          "Titan Carapace"
+        ]
+      }
+    ]
+  },
+  "Avian": {
+    "starter": "Shrieker",
+    "evolutions": [
+      {
+        "tier": 2,
+        "options": [
+          "Echo Talon",
+          "Nesting Hawk"
+        ]
+      },
+      {
+        "tier": 3,
+        "options": [
+          "Sonic Raptor",
+          "Carrion Skyrend"
+        ]
+      },
+      {
+        "tier": 4,
+        "options": [
+          "Stormclaw",
+          "Harpy Matron"
+        ]
+      },
+      {
+        "tier": 5,
+        "options": [
+          "Sky Tyrant"
+        ]
+      }
+    ]
+  },
+  "Insectoid": {
+    "starter": "Worker Ant",
+    "evolutions": [
+      {
+        "tier": 2,
+        "options": [
+          "Soldier Ant",
+          "Spitter Ant"
+        ]
+      },
+      {
+        "tier": 3,
+        "options": [
+          "Fungus Ant",
+          "Fire Ant"
+        ]
+      },
+      {
+        "tier": 4,
+        "options": [
+          "Tunnel Reaver",
+          "Aerial Scout"
+        ]
+      },
+      {
+        "tier": 5,
+        "options": [
+          "Brood Empress"
+        ]
+      }
+    ]
+  },
+  "Batkin": {
+    "starter": "Cave Bat",
+    "evolutions": [
+      {
+        "tier": 2,
+        "options": [
+          "Nightflutter",
+          "Squeakfang"
+        ]
+      },
+      {
+        "tier": 3,
+        "options": [
+          "Hollow Screecher",
+          "Blooddrinker"
+        ]
+      },
+      {
+        "tier": 4,
+        "options": [
+          "Cloakwing",
+          "Blight Bat"
+        ]
+      },
+      {
+        "tier": 5,
+        "options": [
+          "Nocturnis"
+        ]
+      }
+    ]
+  },
+  "Reptilian": {
+    "starter": "Rockscale",
+    "evolutions": [
+      {
+        "tier": 2,
+        "options": [
+          "Cliff Crawler",
+          "Mudback"
+        ]
+      },
+      {
+        "tier": 3,
+        "options": [
+          "Ridge Basilisk",
+          "Spiketail"
+        ]
+      },
+      {
+        "tier": 4,
+        "options": [
+          "Lava Newt",
+          "Stoneblood Serpent"
+        ]
+      },
+      {
+        "tier": 5,
+        "options": [
+          "Ancient Earthwyrm"
+        ]
+      }
+    ]
+  },
+  "Plant_Alt": {
+    "starter": "Spore Crawler",
+    "evolutions": [
+      {
+        "tier": 2,
+        "options": [
+          "Sporeling Swarm",
+          "Toxic Puffcap"
+        ]
+      },
+      {
+        "tier": 3,
+        "options": [
+          "Mycelial Walker",
+          "Plague Fungus"
+        ]
+      },
+      {
+        "tier": 4,
+        "options": [
+          "Mushroom Sentinel",
+          "Spore Witch"
+        ]
+      },
+      {
+        "tier": 5,
+        "options": [
+          "Blightroot Colossus"
+        ]
+      }
+    ]
+  },
+  "Mimetic_ShelfCrawler": {
+    "starter": "Shelf Crawler",
+    "evolutions": [
+      {
+        "tier": 2,
+        "options": [
+          "Candle Mimic",
+          "Scroll Lurker"
+        ]
+      },
+      {
+        "tier": 3,
+        "options": [
+          "Desk Ghoul",
+          "Wallshade"
+        ]
+      },
+      {
+        "tier": 4,
+        "options": [
+          "Living Gallery",
+          "Spellrack Mimic"
+        ]
+      },
+      {
+        "tier": 5,
+        "options": [
+          "Library Wyrm"
+        ]
+      }
+    ]
+  },
+  "Canine": {
+    "starter": "Gnarl Pup",
+    "evolutions": [
+      {
+        "tier": 2,
+        "options": [
+          "Howlhound",
+          "Digfang"
+        ]
+      },
+      {
+        "tier": 3,
+        "options": [
+          "Snarl Alpha",
+          "Frost Fang"
+        ]
+      },
+      {
+        "tier": 4,
+        "options": [
+          "Moonhowler",
+          "Gravemauler"
+        ]
+      },
+      {
+        "tier": 5,
+        "options": [
+          "Warden of the Wild Hunt"
+        ]
+      }
+    ]
+  },
+  "Batkin_Alt": {
+    "starter": "Bloodwing",
+    "evolutions": [
+      {
+        "tier": 2,
+        "options": [
+          "Redfang",
+          "Chirostalker"
+        ]
+      },
+      {
+        "tier": 3,
+        "options": [
+          "Hemovore",
+          "Mistbat"
+        ]
+      },
+      {
+        "tier": 4,
+        "options": [
+          "Vampire Batlord",
+          "Bloodwind Siren"
+        ]
+      },
+      {
+        "tier": 5,
+        "options": [
+          "Crimson Eclipse"
+        ]
+      }
+    ]
+  },
+  "Undead": {
+    "starter": "Zombie",
+    "evolutions": [
+      {
+        "tier": 2,
+        "options": [
+          "Plague Walker",
+          "Shambling Hulk"
+        ]
+      },
+      {
+        "tier": 3,
+        "options": [
+          "Corpse Swarm",
+          "Screamer"
+        ]
+      },
+      {
+        "tier": 4,
+        "options": [
+          "Stitched Abomination",
+          "Toxic Revenant"
+        ]
+      },
+      {
+        "tier": 5,
+        "options": [
+          "Dread Husk"
+        ]
+      }
+    ]
+  }
+}
