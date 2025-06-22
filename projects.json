@@ -223,7 +223,7 @@
         },
         {
           "title": "Space Colony Simulator",
-          "path": "game_apps/space_sim/",
+          "path": "gdd/space_sim/",
           "description": "Space colony management simulator with resource management and exploration systems.",
           "deployment": {
             "type": "Static",
@@ -232,7 +232,7 @@
         },
         {
           "title": "Tactics Game",
-          "path": "game_apps/tactics_game/",
+          "path": "gdd/tactics_game/",
           "description": "Turn-based tactical combat game with grid-based movement, character classes, and strategic battle mechanics.",
           "deployment": {
             "type": "Static",
@@ -273,7 +273,7 @@
   },  "global": {
     "repository": {
       "type": "git",
-      "url": "https://github.com/Kalaith/webhatchery",
+      "url": "https://github.com/Kalaith/webhachery",
       "name": "WebHatchery"
     },
     "excludePatterns": [
