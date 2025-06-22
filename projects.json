@@ -216,6 +216,19 @@
             "buildCommand": "npm run build -- --base=./",
             "packageManager": "npm"
           }
+        },
+        {
+          "title": "Dungeon Core",
+          "path": "game_apps/dungeon_core/frontend/",
+          "description": "Dungeon management game with a React frontend, detailed JSON-based monster evolution trees, trait system, unlock conditions, and a comprehensive GDD. Features persistent adventurer parties, mana/trap economy, room themes, monster breeds/evolution, and advanced UI/gameplay systems. All monster, trait, and unlock data is modular and up-to-date.",
+          "deployment": {
+            "type": "React",
+            "outputDir": "dist",
+            "deployAs": "dungeon_core",
+            "requiresBuild": true,
+            "buildCommand": "npm run build -- --base=./",
+            "packageManager": "npm"
+          }
         }
       ]
     },

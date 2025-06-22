@@ -1,5 +1,39 @@
 // Room and Monster data for Dungeon Core Simulator v1.2 - Floor-based system
-import type { MonsterType, AdventurerClass, FloorScaling } from '../types/game';
+import type { MonsterType, AdventurerClass, FloorScaling, RoomType } from '../types/game';
+
+// Room types for the floor-based system
+export const roomTypes: RoomType[] = [
+  {
+    name: "Normal Room",
+    cost: 20,
+    description: "Basic room for monsters",
+    color: "#8B7355",
+    spawnCostReduction: 0
+  },
+  {
+    name: "Boss Room", 
+    cost: 50,
+    description: "Powerful room for boss monsters",
+    color: "#8B0000",
+    spawnCostReduction: 0,
+    special: "boss"
+  },
+  {
+    name: "Treasure Room",
+    cost: 35,
+    description: "Room that increases loot rewards",
+    color: "#FFD700", 
+    spawnCostReduction: 0,
+    special: "treasure"
+  },
+  {
+    name: "Spawning Chamber",
+    cost: 30,
+    description: "Reduces monster spawn costs by 25%",
+    color: "#4B0082",
+    spawnCostReduction: 0.25
+  }
+];
 
 export const roomUpgrades = [
   { 
@@ -148,7 +182,8 @@ export const GAME_CONSTANTS = {
   MAX_ROOMS_PER_FLOOR: 5,
   MAX_LOG_ENTRIES: 50,
   BASE_ROOM_COST: 20, // Base mana cost to add a room
-  BOSS_ROOM_EXTRA_COST: 30, // Additional cost for boss rooms  MANA_REGEN_INTERVAL: 1000, // milliseconds
+  BOSS_ROOM_EXTRA_COST: 30, // Additional cost for boss rooms
+  MANA_REGEN_INTERVAL: 1000, // milliseconds
   TIME_ADVANCE_INTERVAL: 5000, // 5 seconds = 1 hour in game
   ADVENTURER_SPAWN_CHANCE: 0.05, // 5% chance per hour during open hours (further reduced to prevent overlapping parties)
   MAX_PARTY_SIZE: 4,
