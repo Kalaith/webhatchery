@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fantasy Quest Generator</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <h1 class="header__title">Fantasy Quest Generator</h1>
+            <p class="header__subtitle">Generate epic adventures for your campaigns</p>
+        </header>
+
+        <div class="controls">
+            <div class="controls__filters">
+                <div class="form-group">
+                    <label for="difficulty" class="form-label">Difficulty</label>
+                    <select id="difficulty" class="form-control">
+                        <option value="any">Any Difficulty</option>
+                        <option value="Easy">Easy</option>
+                        <option value="Medium">Medium</option>
+                        <option value="Hard">Hard</option>
+                        <option value="Epic">Epic</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="questType" class="form-label">Quest Type</label>
+                    <select id="questType" class="form-control">
+                        <option value="any">Any Type</option>
+                        <option value="basic">Basic Quests</option>
+                        <option value="advanced">Advanced Quests</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="length" class="form-label">Length</label>
+                    <select id="length" class="form-control">
+                        <option value="any">Any Length</option>
+                        <option value="Short">Short</option>
+                        <option value="Medium">Medium</option>
+                        <option value="Long">Long</option>
+                        <option value="Campaign">Campaign</option>
+                    </select>
+                </div>
+            </div>
+            <button id="generateQuest" class="btn btn--primary btn--lg generate-btn">
+                <span class="generate-btn__icon">⚔️</span>
+                Generate Quest
+            </button>
+        </div>
+
+        <div id="questDisplay" class="quest-display hidden">
+            <div class="quest-card">
+                <div class="quest-card__header">
+                    <h2 id="questTitle" class="quest-card__title"></h2>
+                    <div class="quest-card__badges">
+                        <span id="questTypeBadge" class="badge"></span>
+                        <span id="questDifficultyBadge" class="badge"></span>
+                        <span id="questLengthBadge" class="badge"></span>
+                    </div>
+                </div>
+                <div class="quest-card__body">
+                    <p id="questDescription" class="quest-card__description"></p>
+                    <div class="quest-card__objective">
+                        <h3>Primary Objective</h3>
+                        <p id="primaryObjective"></p>
+                    </div>
+                    <div id="secondaryObjectives" class="quest-card__secondary hidden">
+                        <h3>Secondary Objectives</h3>
+                        <ul id="secondaryObjectivesList"></ul>
+                    </div>
+                    <div class="quest-card__details">
+                        <div class="quest-detail">
+                            <span class="quest-detail__label">Reward:</span>
+                            <span id="questReward" class="quest-detail__value"></span>
+                        </div>
+                        <div class="quest-detail">
+                            <span class="quest-detail__label">Estimated Time:</span>
+                            <span id="questTime" class="quest-detail__value"></span>
+                        </div>
+                    </div>
+                    <div id="questLore" class="quest-card__lore">
+                        <h3>Background</h3>
+                        <p id="questLoreText"></p>
+                    </div>
+                </div>
+                <div class="quest-card__actions">
+                    <button id="generateAnother" class="btn btn--secondary">Generate Another</button>
+                    <button id="copyQuest" class="btn btn--outline">Copy to Clipboard</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="quest-history">
+            <div class="quest-history__header">
+                <h2>Quest History</h2>
+                <button id="clearHistory" class="btn btn--outline btn--sm">Clear History</button>
+            </div>
+            <div id="historyList" class="quest-history__list">
+                <p class="quest-history__empty">No quests generated yet. Click "Generate Quest" to begin!</p>
+            </div>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>

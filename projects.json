@@ -82,7 +82,7 @@
           }
         },        {
           "title": "Meme Generator",
-          "path": "apps/meme_generator/",
+          "path": "apps/meme_generator/frontend/",
           "description": "Interactive tool for creating custom memes with various templates and text customization options.",
           "deployment": {
             "type": "React",
@@ -277,6 +277,11 @@
       "type": "git",
       "url": "https://github.com/Kalaith/webhachery",
       "name": "WebHatchery"
+    },
+    "favicon": {
+      "enabled": true,
+      "sourcePath": "favicon/",
+      "description": "Automatically copy favicon files to all deployed projects unless skipFavicon is set to true in project deployment config"
     },
     "excludePatterns": [
       ".git",

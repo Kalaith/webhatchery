@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MMORPG Sandbox Simulator</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Character Creation Modal -->
+    <div id="character-creation-modal" class="modal">
+        <div class="modal-content">
+            <h2>Create Your Character</h2>
+            <div class="form-group">
+                <label class="form-label" for="character-name">Character Name</label>
+                <input type="text" id="character-name" class="form-control" placeholder="Enter your character name">
+            </div>
+            <button id="create-character-btn" class="btn btn--primary btn--full-width">Enter the World</button>
+        </div>
+    </div>
+
+    <!-- Main Game Interface -->
+    <div id="game-interface" class="game-container hidden">
+        <!-- Header -->
+        <header class="game-header">
+            <div class="character-info">
+                <div class="character-avatar">
+                    <div class="avatar-placeholder">👤</div>
+                    <div class="character-details">
+                        <h3 id="character-display-name">Adventurer</h3>
+                        <div class="character-stats">
+                            <span>Level: <span id="character-level">1</span></span>
+                            <span>Total XP: <span id="total-xp">0</span></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="resources-bar">
+                <div class="resource-counter">
+                    <span class="resource-icon">💰</span>
+                    <span id="gold-count">1000</span> Gold
+                </div>
+                <div class="resource-counter">
+                    <span class="resource-icon">⚡</span>
+                    <span id="energy-count">100</span> Energy
+                </div>
+                <div class="resource-counter">
+                    <span class="resource-icon">⭐</span>
+                    <span id="skill-points">10</span> Skill Points
+                </div>
+            </div>
+        </header>
+
+        <!-- Navigation Tabs -->
+        <nav class="game-nav">
+            <button class="nav-tab active" data-tab="dashboard">Dashboard</button>
+            <button class="nav-tab" data-tab="character">Character</button>
+            <button class="nav-tab" data-tab="skills">Skills</button>
+            <button class="nav-tab" data-tab="crafting">Crafting</button>
+            <button class="nav-tab" data-tab="pvp">PvP</button>
+            <button class="nav-tab" data-tab="guilds">Guilds</button>
+            <button class="nav-tab" data-tab="world">World Map</button>
+            <button class="nav-tab" data-tab="market">Market</button>
+        </nav>
+
+        <!-- Tab Content -->
+        <main class="game-content">
+            <!-- Dashboard Tab -->
+            <div id="dashboard-tab" class="tab-content active">
+                <div class="dashboard-grid">
+                    <div class="dashboard-section">
+                        <h3>Activity Feed</h3>
+                        <div id="activity-feed" class="activity-feed">
+                            <div class="activity-item">Welcome to the MMORPG Sandbox!</div>
+                        </div>
+                    </div>
+                    
+                    <div class="dashboard-section">
+                        <h3>Quick Stats</h3>
+                        <div class="stats-grid">
+                            <div class="stat-card">
+                                <h4>Combat Level</h4>
+                                <span id="combat-level">1</span>
+                            </div>
+                            <div class="stat-card">
+                                <h4>Crafting Level</h4>
+                                <span id="crafting-level">1</span>
+                            </div>
+                            <div class="stat-card">
+                                <h4>Guild Rank</h4>
+                                <span id="guild-rank">None</span>
+                            </div>
+                            <div class="stat-card">
+                                <h4>PvP Rating</h4>
+                                <span id="pvp-rating">1000</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="dashboard-section">
+                        <h3>Recent Events</h3>
+                        <div id="world-events" class="events-list">
+                            <div class="event-item">🌟 World Event: Dragon Sighting in the Northern Peaks</div>
+                            <div class="event-item">⚔️ Guild War: Shadow Clan vs Light Brotherhood</div>
+                            <div class="event-item">💰 Market Alert: Iron Ore prices rising</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Character Tab -->
+            <div id="character-tab" class="tab-content">
+                <div class="character-panel">
+                    <div class="character-display">
+                        <div class="character-model">
+                            <div class="equipment-slots">
+                                <div class="equipment-slot" data-slot="helmet">⛑️</div>
+                                <div class="equipment-slot" data-slot="armor">🛡️</div>
+                                <div class="equipment-slot" data-slot="weapon">⚔️</div>
+                                <div class="equipment-slot" data-slot="boots">👢</div>
+                            </div>
+                        </div>
+                        <div class="character-attributes">
+                            <h3>Attributes</h3>
+                            <div class="attribute-list">
+                                <div class="attribute">Strength: <span id="attr-strength">10</span></div>
+                                <div class="attribute">Dexterity: <span id="attr-dexterity">10</span></div>
+                                <div class="attribute">Intelligence: <span id="attr-intelligence">10</span></div>
+                                <div class="attribute">Constitution: <span id="attr-constitution">10</span></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Skills Tab -->
+            <div id="skills-tab" class="tab-content">
+                <div class="skills-container">
+                    <div class="skill-categories">
+                        <button class="skill-category active" data-category="Combat">Combat</button>
+                        <button class="skill-category" data-category="Crafting">Crafting</button>
+                        <button class="skill-category" data-category="Gathering">Gathering</button>
+                        <button class="skill-category" data-category="Social">Social</button>
+                    </div>
+                    <div id="skill-tree" class="skill-tree">
+                        <!-- Skills will be populated by JavaScript -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- Crafting Tab -->
+            <div id="crafting-tab" class="tab-content">
+                <div class="crafting-interface">
+                    <div class="crafting-stations">
+                        <button class="crafting-station active" data-station="smithy">🔨 Smithy</button>
+                        <button class="crafting-station" data-station="alchemy">🧪 Alchemy</button>
+                        <button class="crafting-station" data-station="tailoring">🧵 Tailoring</button>
+                        <button class="crafting-station" data-station="enchanting">✨ Enchanting</button>
+                    </div>
+                    
+                    <div class="crafting-content">
+                        <div class="recipes-panel">
+                            <h3>Available Recipes</h3>
+                            <div id="recipes-list"></div>
+                        </div>
+                        
+                        <div class="crafting-panel">
+                            <h3>Craft Item</h3>
+                            <div id="selected-recipe" class="selected-recipe">
+                                <p>Select a recipe to begin crafting</p>
+                            </div>
+                            <button id="craft-btn" class="btn btn--primary" disabled>Craft Item</button>
+                        </div>
+                    </div>
+
+                    <div class="inventory-panel">
+                        <h3>Inventory</h3>
+                        <div id="inventory-grid" class="inventory-grid"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- PvP Tab -->
+            <div id="pvp-tab" class="tab-content">
+                <div class="pvp-interface">
+                    <div class="pvp-zones">
+                        <h3>Combat Zones</h3>
+                        <div class="zone-buttons">
+                            <button class="zone-btn" data-zone="open-world">Open World</button>
+                            <button class="zone-btn" data-zone="arena">Arena</button>
+                            <button class="zone-btn" data-zone="guild-wars">Guild Wars</button>
+                            <button class="zone-btn" data-zone="territory">Territory Control</button>
+                        </div>
+                    </div>
+
+                    <div class="pvp-stats">
+                        <h3>PvP Status</h3>
+                        <div class="pvp-info">
+                            <div class="pvp-stat">Rating: <span id="pvp-rating-display">1000</span></div>
+                            <div class="pvp-stat">Wins: <span id="pvp-wins">0</span></div>
+                            <div class="pvp-stat">Losses: <span id="pvp-losses">0</span></div>
+                            <div class="pvp-stat">PK Level: <span id="pk-level">0</span></div>
+                        </div>
+                    </div>
+
+                    <div class="combat-simulator">
+                        <h3>Combat Simulator</h3>
+                        <div id="combat-area">
+                            <div class="combat-log">Ready for combat...</div>
+                            <div class="combat-actions">
+                                <button class="combat-btn" id="attack-btn">⚔️ Attack</button>
+                                <button class="combat-btn" id="defend-btn">🛡️ Defend</button>
+                                <button class="combat-btn" id="magic-btn">✨ Magic</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Guilds Tab -->
+            <div id="guilds-tab" class="tab-content">
+                <div class="guild-interface">
+                    <div class="guild-status">
+                        <h3>Guild Status</h3>
+                        <div id="guild-info">
+                            <p>You are not in a guild. Create or join one to access guild features!</p>
+                            <button id="create-guild-btn" class="btn btn--primary">Create Guild</button>
+                            <button id="join-guild-btn" class="btn btn--secondary">Find Guilds</button>
+                        </div>
+                    </div>
+
+                    <div class="guild-management hidden" id="guild-management">
+                        <div class="guild-details">
+                            <h3 id="guild-name-display">Guild Name</h3>
+                            <div class="guild-stats">
+                                <div>Members: <span id="guild-members">1</span></div>
+                                <div>Level: <span id="guild-level">1</span></div>
+                                <div>Treasury: <span id="guild-treasury">0</span> Gold</div>
+                            </div>
+                        </div>
+
+                        <div class="guild-members">
+                            <h4>Members</h4>
+                            <div id="guild-member-list"></div>
+                        </div>
+
+                        <div class="guild-actions">
+                            <button class="btn btn--secondary">Invite Player</button>
+                            <button class="btn btn--secondary">Manage Roles</button>
+                            <button class="btn btn--secondary">Guild Hall</button>
+                            <button class="btn btn--warning">Leave Guild</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- World Map Tab -->
+            <div id="world-tab" class="tab-content">
+                <div class="world-map">
+                    <h3>World Map</h3>
+                    <div class="map-container">
+                        <div class="map-regions">
+                            <div class="region" data-region="northern-peaks">
+                                <h4>Northern Peaks</h4>
+                                <p>Rich mining resources</p>
+                                <button class="travel-btn">Travel Here</button>
+                            </div>
+                            <div class="region" data-region="mystic-forest">
+                                <h4>Mystic Forest</h4>
+                                <p>Rare herbs and magic</p>
+                                <button class="travel-btn">Travel Here</button>
+                            </div>
+                            <div class="region" data-region="coastal-towns">
+                                <h4>Coastal Towns</h4>
+                                <p>Trade and fishing</p>
+                                <button class="travel-btn">Travel Here</button>
+                            </div>
+                            <div class="region" data-region="desert-ruins">
+                                <h4>Desert Ruins</h4>
+                                <p>Ancient artifacts</p>
+                                <button class="travel-btn">Travel Here</button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="current-location">
+                        <h4>Current Location: <span id="current-region">Coastal Towns</span></h4>
+                        <div class="region-activities">
+                            <button class="activity-btn">Gather Resources</button>
+                            <button class="activity-btn">Explore Area</button>
+                            <button class="activity-btn">Find NPCs</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Market Tab -->
+            <div id="market-tab" class="tab-content">
+                <div class="marketplace">
+                    <div class="market-search">
+                        <h3>Player Marketplace</h3>
+                        <div class="search-filters">
+                            <select class="form-control" id="item-category">
+                                <option value="all">All Categories</option>
+                                <option value="weapons">Weapons</option>
+                                <option value="armor">Armor</option>
+                                <option value="resources">Resources</option>
+                                <option value="consumables">Consumables</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="market-listings">
+                        <h4>Current Listings</h4>
+                        <div id="market-items" class="market-grid">
+                            <!-- Market items will be populated by JavaScript -->
+                        </div>
+                    </div>
+
+                    <div class="sell-interface">
+                        <h4>Sell Items</h4>
+                        <div class="sell-form">
+                            <select class="form-control" id="sell-item">
+                                <option value="">Select item to sell</option>
+                            </select>
+                            <input type="number" class="form-control" id="sell-price" placeholder="Price">
+                            <button class="btn btn--primary" id="list-item-btn">List Item</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>

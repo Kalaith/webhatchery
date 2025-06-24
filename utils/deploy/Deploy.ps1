@@ -1,11 +1,54 @@
 # Deploy.ps1 - Deployment and file copy logic
+function Copy-FaviconFiles {
+    param(
+        [string]$DestPath,
+        [Parameter()]
+        $SkipFavicon = $false
+    )
+    
+    # Convert SkipFavicon to boolean safely
+    $skipFaviconBool = $false
+    if ($SkipFavicon -is [bool]) {
+        $skipFaviconBool = $SkipFavicon
+    } elseif ($SkipFavicon -eq $true -or $SkipFavicon -eq "true" -or $SkipFavicon -eq 1) {
+        $skipFaviconBool = $true
+    }    
+    if ($skipFaviconBool) {
+        Write-Log "Skipping favicon copy for $DestPath (skipFavicon=true)"
+        return
+    }
+    
+    $faviconSourcePath = Join-Path $SOURCE_PATH "favicon"
+    
+    if (-not (Test-Path $faviconSourcePath)) {
+        Write-Log "Favicon source directory not found: $faviconSourcePath" "WARN"
+        return
+    }
+    
+    if ($DryRun) {
+        Write-Log "[DRY RUN] Would copy favicon files to: $DestPath"
+        return
+    }
+    
+    # Copy all favicon files to the destination
+    $faviconFiles = Get-ChildItem -Path $faviconSourcePath -File
+    foreach ($file in $faviconFiles) {
+        $destFile = Join-Path $DestPath $file.Name
+        try {
+            Copy-Item -Path $file.FullName -Destination $destFile -Force
+            Write-Log "Copied favicon: $($file.Name) -> $DestPath"
+        } catch {
+            Write-Log "Failed to copy favicon $($file.Name): $_" "WARN"
+        }
+    }
+}
+
 function Copy-ProjectFiles {
     param(
         $ProjectPath,
         $ProjectType,
         $Config
-    )
-    # Handle rootFiles specially - copy to root of deployment directory
+    )    # Handle rootFiles specially - copy to root of deployment directory
     if ($ProjectPath -eq "rootFiles") {
         $sourcePath = $SOURCE_PATH
         $destPath = $DEPLOY_PATH
@@ -28,6 +71,13 @@ function Copy-ProjectFiles {
                 }
             }
         }
+          # Copy favicon files to root deployment (unless explicitly disabled)
+        $skipFavicon = $false
+        if ($Config.SkipFavicon -eq $true -or ($Config.Favicon -and $Config.Favicon.skip -eq $true)) {
+            $skipFavicon = $true
+        }
+        Copy-FaviconFiles $destPath $skipFavicon
+        
         return
     }
     
@@ -134,18 +184,26 @@ function Copy-ProjectFiles {
             Copy-Files "$sourcePath\*" $destPath $true
         }
     }
-    
-    # Remove excluded items
+      # Remove excluded items
     $excludeItems | ForEach-Object {
         $excludePath = Join-Path $destPath $_
         if (Test-Path $excludePath) {
             Remove-Files $excludePath
         }
     }
-      # Apply production configs
+      # Copy favicon files to the deployed project (unless explicitly disabled)
+    $skipFavicon = $false
+    if ($Config.SkipFavicon -eq $true -or ($Config.Favicon -and $Config.Favicon.skip -eq $true)) {
+        $skipFavicon = $true
+    }
+    Copy-FaviconFiles $destPath $skipFavicon
+    
+    # Apply production configs
     if ($Config.ProductionApiUrl) {
         Update-ProductionUrls $destPath $Config.ProductionApiUrl
     }
+    # Copy favicon files
+    Copy-FaviconFiles $destPath $Config.SkipFavicon
 }
 
 function Copy-Files {

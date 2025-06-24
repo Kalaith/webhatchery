@@ -1,0 +1,82 @@
+[
+  {
+    "id": "gareth",
+    "name": "Gareth the Bold",
+    "class": "Fighter",
+    "personality": "Aggressive",
+    "mood": 75,
+    "description": "A brave warrior who always wants to charge headfirst into danger",
+    "currentRequest": "I say we venture forth and find some real adventure! This tavern talk is making me restless.",
+    "portraitClass": "fighter",
+    "commonRequests": [
+      "Let's attack those monsters before they see us!",
+      "I want to kick down that door!",
+      "We should challenge them to single combat!",
+      "I'll lead the charge against our enemies!"
+    ]
+  },
+  {
+    "id": "luna",
+    "name": "Luna the Wise",
+    "class": "Wizard",
+    "personality": "Cautious",
+    "mood": 80,
+    "description": "A scholarly mage who prefers careful planning and research",
+    "currentRequest": "Perhaps we should gather more information about potential dangers before rushing into anything.",
+    "portraitClass": "wizard",
+    "commonRequests": [
+      "Let me examine this with a detect magic spell first",
+      "We should research this area before proceeding",
+      "I think we need more information before acting",
+      "Can we set up camp and prepare our spells?"
+    ]
+  },
+  {
+    "id": "pip",
+    "name": "Pip the Curious",
+    "class": "Rogue",
+    "personality": "Impulsive",
+    "mood": 85,
+    "description": "A sneaky rogue who can't resist investigating every mystery",
+    "currentRequest": "I heard whispers about a hidden treasure in the old ruins nearby. We should investigate!",
+    "portraitClass": "rogue",
+    "commonRequests": [
+      "I want to sneak ahead and scout the area",
+      "Let me try to pick that lock!",
+      "What's in that chest over there?",
+      "I'll slip into the shadows and listen in"
+    ]
+  },
+  {
+    "id": "marcus",
+    "name": "Brother Marcus",
+    "class": "Cleric",
+    "personality": "Helpful",
+    "mood": 90,
+    "description": "A kind healer who always wants to help others in need",
+    "currentRequest": "I've heard there are villagers in need near the crossroads. We should offer our assistance.",
+    "portraitClass": "cleric",
+    "commonRequests": [
+      "I should heal the wounded party member",
+      "Let's help these villagers with their problem",
+      "We should bless our weapons before the fight",
+      "I want to tend to the injured innocent"
+    ]
+  },
+  {
+    "id": "kara",
+    "name": "Kara the Ranger",
+    "class": "Archer",
+    "personality": "Practical",
+    "mood": 70,
+    "description": "A tactical ranger who always suggests the most sensible approach",
+    "currentRequest": "We should stock up on supplies and plan our route carefully before leaving town.",
+    "portraitClass": "archer",
+    "commonRequests": [
+      "I'll track the enemies' movements",
+      "We should take the high ground for better position",
+      "Let me gather supplies before we continue",
+      "I think we should split up to cover more ground"
+    ]
+  }
+]

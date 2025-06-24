@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { ExportProps, ExportFormat } from '../types';
+import CustomDropdown from './CustomDropdown';
 
 const Export: React.FC<ExportProps> = ({ onExport }) => {
   const [format, setFormat] = useState<ExportFormat>('png');
@@ -10,18 +11,19 @@ const Export: React.FC<ExportProps> = ({ onExport }) => {
 
   return (
     <div className="tool-section">
-      <h3 className="tool-title">💾 Export</h3>
-      <div className="form-group">
+      <h3 className="tool-title">💾 Export</h3>      <div className="form-group">
         <label className="form-label">Format</label>
-        <select
-          className="form-control"
+        <CustomDropdown
+          options={[
+            { value: "png", label: "PNG" },
+            { value: "jpeg", label: "JPG" },
+            { value: "webp", label: "WebP" }
+          ]}
           value={format}
-          onChange={(e) => setFormat(e.target.value as ExportFormat)}
-        >
-          <option value="png">PNG</option>
-          <option value="jpeg">JPG</option>
-          <option value="webp">WebP</option>
-        </select>
+          onChange={(value) => setFormat(value as ExportFormat)}
+          placeholder="Select format"
+          className="form-control"
+        />
       </div>
       <button className="btn btn--primary btn--full-width" onClick={handleExport}>
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">

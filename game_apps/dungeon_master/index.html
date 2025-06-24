@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dungeon Master's Tale</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="game-container">
+        <!-- Header -->
+        <header class="game-header">
+            <h1>Dungeon Master's Tale</h1>
+            <p>Guide your party through their adventure</p>
+        </header>
+
+        <!-- Main Game Area -->
+        <div class="game-board">
+            <!-- Story Display Area -->
+            <section class="story-section">
+                <div class="card">
+                    <div class="card__header">
+                        <h2>Current Story</h2>
+                        <div class="story-location">
+                            <span id="current-location">The Prancing Pony Tavern</span>
+                        </div>
+                    </div>
+                    <div class="card__body">
+                        <div class="story-content" id="story-content">
+                            <p>Your adventuring party has gathered at the Prancing Pony Tavern to plan their next adventure. The fire crackles warmly as your companions discuss potential quests and share their thoughts on what lies ahead...</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Game Content Grid -->
+            <div class="game-content">
+                <!-- NPC Panel -->
+                <section class="npc-panel">
+                    <div class="card">
+                        <div class="card__header">
+                            <h3>Your Party</h3>
+                        </div>
+                        <div class="card__body">
+                            <div class="npc-list" id="npc-list">
+                                <!-- NPCs will be dynamically generated here -->
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- DM Action Panel -->
+                <section class="dm-panel">
+                    <div class="card">
+                        <div class="card__header">
+                            <h3>DM Actions</h3>
+                        </div>
+                        <div class="card__body">
+                            <!-- Current NPC Request -->
+                            <div class="current-request" id="current-request">
+                                <h4>Current Request</h4>
+                                <p id="request-text">Select an NPC to see their request</p>
+                                <p class="request-npc" id="request-npc"></p>
+                            </div>
+
+                            <!-- Response Options -->
+                            <div class="response-options" id="response-options" style="display: none;">
+                                <h4>Your Response</h4>
+                                <div class="response-buttons">
+                                    <button class="btn btn--primary btn--sm" onclick="respondToNPC('approve')">Approve</button>
+                                    <button class="btn btn--secondary btn--sm" onclick="respondToNPC('deny')">Deny</button>
+                                    <button class="btn btn--outline btn--sm" onclick="respondToNPC('modify')">Modify</button>
+                                    <button class="btn btn--outline btn--sm" onclick="respondToNPC('alternative')">Alternative</button>
+                                </div>
+                            </div>
+
+                            <!-- Custom Response -->
+                            <div class="custom-response">
+                                <label class="form-label" for="custom-input">Custom DM Response:</label>
+                                <textarea class="form-control" id="custom-input" rows="3" placeholder="Describe what happens next..."></textarea>
+                                <button class="btn btn--primary btn--sm mt-8" onclick="submitCustomResponse()">Submit Response</button>
+                            </div>
+
+                            <!-- Story Progression -->
+                            <div class="story-progression">
+                                <h4>Story Controls</h4>
+                                <div class="progression-buttons">
+                                    <button class="btn btn--secondary btn--sm" onclick="advanceTime()">Advance Time</button>
+                                    <button class="btn btn--secondary btn--sm" onclick="introduceEvent()">Random Event</button>
+                                    <button class="btn btn--secondary btn--sm" onclick="addChallenge()">Add Challenge</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+
+        <!-- Game Status Bar -->
+        <footer class="game-status">
+            <div class="status-meters">
+                <div class="meter">
+                    <label>Story Tension</label>
+                    <div class="progress-bar">
+                        <div class="progress-fill tension-meter" id="tension-meter"></div>
+                    </div>
+                    <span id="tension-value">Medium</span>
+                </div>
+                
+                <div class="meter">
+                    <label>Party Morale</label>
+                    <div class="progress-bar">
+                        <div class="progress-fill morale-meter" id="morale-meter"></div>
+                    </div>
+                    <span id="morale-value">Good</span>
+                </div>
+                
+                <div class="resources">
+                    <div class="resource">
+                        <span class="resource-label">Gold:</span>
+                        <span id="gold-amount">150</span>
+                    </div>
+                    <div class="resource">
+                        <span class="resource-label">Supplies:</span>
+                        <span id="supplies-amount">High</span>
+                    </div>
+                    <div class="resource">
+                        <span class="resource-label">Reputation:</span>
+                        <span id="reputation-amount">Neutral</span>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>

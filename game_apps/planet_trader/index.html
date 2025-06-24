@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Planetary Terraforming Company</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="game-container">
+        <!-- Top Resources Panel -->
+        <header class="resources-panel">
+            <div class="container flex justify-between items-center">
+                <div class="company-logo">
+                    <h1>🪐 Terraforming Co.</h1>
+                </div>
+                <div class="resources-info flex gap-16 items-center">
+                    <div class="resource-item">
+                        <span class="resource-label">Credits:</span>
+                        <span class="resource-value" id="credits">10000</span>
+                    </div>
+                    <div class="resource-item">
+                        <span class="resource-label">Current Planet:</span>
+                        <span class="resource-value" id="currentPlanetName">None</span>
+                    </div>
+                    <button class="btn btn--primary" id="buyPlanetBtn">🛒 Buy New Planet</button>
+                </div>
+            </div>
+        </header>
+
+        <main class="game-main">
+            <!-- Game Area -->
+            <div class="game-area">
+                <!-- Terraforming Tools Panel (Left) -->
+                <aside class="tools-panel">
+                    <div class="card">
+                        <div class="card__header">
+                            <h3>Terraforming Tools</h3>
+                        </div>
+                        <div class="card__body">
+                            <div class="tool-categories">
+                                <div class="tool-category">
+                                    <h4>🌡️ Temperature</h4>
+                                    <div class="tool-buttons" id="temperatureTools"></div>
+                                </div>
+                                <div class="tool-category">
+                                    <h4>🌫️ Atmosphere</h4>
+                                    <div class="tool-buttons" id="atmosphereTools"></div>
+                                </div>
+                                <div class="tool-category">
+                                    <h4>💧 Water</h4>
+                                    <div class="tool-buttons" id="waterTools"></div>
+                                </div>
+                                <div class="tool-category">
+                                    <h4>⚖️ Gravity</h4>
+                                    <div class="tool-buttons" id="gravityTools"></div>
+                                </div>
+                                <div class="tool-category">
+                                    <h4>☢️ Radiation</h4>
+                                    <div class="tool-buttons" id="radiationTools"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </aside>
+
+                <!-- Planet Workshop (Center) -->
+                <section class="planet-workshop">
+                    <div class="planet-display-card card">
+                        <div class="planet-visual-area">
+                            <div class="planet-sphere" id="planetSphere">
+                                <div class="planet-surface"></div>
+                                <div class="planet-atmosphere"></div>
+                                <div class="planet-water"></div>
+                            </div>
+                        </div>
+                        <div class="planet-stats">
+                            <div class="stat-row">
+                                <span class="stat-label">Temperature:</span>
+                                <span class="stat-value" id="tempValue">0°C</span>
+                                <div class="stat-bar">
+                                    <div class="stat-fill" id="tempBar"></div>
+                                </div>
+                            </div>
+                            <div class="stat-row">
+                                <span class="stat-label">Atmosphere:</span>
+                                <span class="stat-value" id="atmoValue">0.0x</span>
+                                <div class="stat-bar">
+                                    <div class="stat-fill" id="atmoBar"></div>
+                                </div>
+                            </div>
+                            <div class="stat-row">
+                                <span class="stat-label">Water:</span>
+                                <span class="stat-value" id="waterValue">0%</span>
+                                <div class="stat-bar">
+                                    <div class="stat-fill" id="waterBar"></div>
+                                </div>
+                            </div>
+                            <div class="stat-row">
+                                <span class="stat-label">Gravity:</span>
+                                <span class="stat-value" id="gravValue">0.0x</span>
+                                <div class="stat-bar">
+                                    <div class="stat-fill" id="gravBar"></div>
+                                </div>
+                            </div>
+                            <div class="stat-row">
+                                <span class="stat-label">Radiation:</span>
+                                <span class="stat-value" id="radValue">0.0x</span>
+                                <div class="stat-bar">
+                                    <div class="stat-fill" id="radBar"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Alien Market Panel (Right) -->
+                <aside class="market-panel">
+                    <div class="card">
+                        <div class="card__header">
+                            <h3>👽 Alien Market</h3>
+                        </div>
+                        <div class="card__body">
+                            <div class="alien-buyers" id="alienBuyers"></div>
+                        </div>
+                    </div>
+                </aside>
+            </div>
+
+            <!-- Planet Inventory (Bottom) -->
+            <section class="planet-inventory">
+                <div class="card">
+                    <div class="card__header flex justify-between items-center">
+                        <h3>🌍 Planet Inventory</h3>
+                        <div class="inventory-actions">
+                            <button class="btn btn--secondary btn--sm" id="buyPlanetBtn2">🛒 Buy Planet</button>
+                        </div>
+                    </div>
+                    <div class="card__body">
+                        <div class="planet-thumbnails" id="planetInventory">
+                            <div class="no-planets">No planets owned. Buy your first planet to get started!</div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <!-- Game Messages -->
+        <div class="game-messages" id="gameMessages"></div>
+
+        <!-- Planet Purchase Modal -->
+        <div class="modal" id="planetModal">
+            <div class="modal-content card">
+                <div class="card__header">
+                    <h3>🛒 Buy New Planet</h3>
+                    <button class="btn btn--outline btn--sm" id="closeModalBtn">✕</button>
+                </div>
+                <div class="card__body">
+                    <div class="planet-options" id="planetOptions"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tutorial -->
+        <div class="tutorial" id="tutorial">
+            <div class="card">
+                <div class="card__header">
+                    <h3>🎓 Welcome to Terraforming Co!</h3>
+                </div>
+                <div class="card__body">
+                    <p>Transform barren worlds into thriving planets for alien species!</p>
+                    <ol>
+                        <li>Buy a planet using the "Buy New Planet" button</li>
+                        <li>Check what alien species want (right panel)</li>
+                        <li>Use terraforming tools (left panel) to modify conditions</li>
+                        <li>Sell your terraformed planet for profit!</li>
+                    </ol>
+                    <button class="btn btn--primary" id="startGameBtn">Start Terraforming!</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>

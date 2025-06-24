@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { TextOverlayControlsProps, TextOverlay } from '../types';
+import CustomDropdown from './CustomDropdown';
 
 const TextOverlayControls: React.FC<TextOverlayControlsProps> = ({ 
   onAddText, 
@@ -72,19 +73,20 @@ const TextOverlayControls: React.FC<TextOverlayControlsProps> = ({
             onChange={e => handleTextChange(e.target.value)}
             placeholder="Enter your meme text..."
           />
-        </div>
-        <div className="form-group">
+        </div>        <div className="form-group">
           <label className="form-label">Font Style</label>
-          <select
-            className="form-control"
+          <CustomDropdown
+            options={[
+              { value: "Impact, Arial Black, sans-serif", label: "Impact (Classic)" },
+              { value: "Arial, sans-serif", label: "Arial" },
+              { value: "Comic Sans MS, cursive", label: "Comic Sans" },
+              { value: "Montserrat, sans-serif", label: "Montserrat" }
+            ]}
             value={font}
-            onChange={e => handleFontChange(e.target.value)}
-          >
-            <option value="Impact, Arial Black, sans-serif">Impact (Classic)</option>
-            <option value="Arial, sans-serif">Arial</option>
-            <option value="Comic Sans MS, cursive">Comic Sans</option>
-            <option value="Montserrat, sans-serif">Montserrat</option>
-          </select>
+            onChange={handleFontChange}
+            placeholder="Select font style"
+            className="form-control"
+          />
         </div>
         <div className="form-group">
           <label className="form-label">

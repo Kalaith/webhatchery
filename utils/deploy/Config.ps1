@@ -58,8 +58,7 @@ function Convert-DeploymentConfig {
     $config = @{
         Type = $deployConfig.type
     }
-    
-    # Map JSON properties to PowerShell script properties
+      # Map JSON properties to PowerShell script properties
     if ($deployConfig.buildPath) { $config.BuildPath = $deployConfig.buildPath }
     if ($deployConfig.outputDir) { $config.OutputDir = $deployConfig.outputDir }
     if ($deployConfig.deployAs) { $config.DeployAs = $deployConfig.deployAs }
@@ -71,6 +70,8 @@ function Convert-DeploymentConfig {
     if ($deployConfig.buildCommand) { $config.BuildCommand = $deployConfig.buildCommand }
     if ($deployConfig.packageManager) { $config.PackageManager = $deployConfig.packageManager }
     if ($deployConfig.dependencies) { $config.Dependencies = $deployConfig.dependencies }
+    if ($deployConfig.skipFavicon) { $config.SkipFavicon = $deployConfig.skipFavicon }
+    if ($deployConfig.favicon) { $config.Favicon = $deployConfig.favicon }
     
     # Handle FullStack structure
     if ($deployConfig.frontend) {

@@ -1,0 +1,22 @@
+[
+  {
+    "title": "The Mysterious Cave",
+    "description": "Your party discovers a dark cave entrance with strange sounds echoing from within",
+    "tensionLevel": "medium"
+  },
+  {
+    "title": "Bandit Ambush",
+    "description": "Bandits have blocked the road ahead and are demanding payment",
+    "tensionLevel": "high"
+  },
+  {
+    "title": "Village in Need",
+    "description": "A small village asks for your help with a local monster problem",
+    "tensionLevel": "low"
+  },
+  {
+    "title": "Ancient Ruins",
+    "description": "You've discovered mysterious ruins covered in strange symbols",
+    "tensionLevel": "medium"
+  }
+]
