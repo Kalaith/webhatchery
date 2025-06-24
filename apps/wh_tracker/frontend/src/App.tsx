@@ -22,7 +22,7 @@ const App: React.FC = () => {
         setProjectsData(data);
         setLoading(false);
       })
-      .catch(err => {
+      .catch(() => {
         setError('Failed to load project data');
         setLoading(false);
       });

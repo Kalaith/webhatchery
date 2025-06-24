@@ -139,6 +139,18 @@
             "deployAs": "quest_generator",
             "files": ["index.html", "main.js", "style.css"]
           }
+        },{
+          "title": "WebHatchery Tracker",
+          "path": "apps/wh_tracker/frontend/",
+          "description": "A modern project tracking dashboard for WebHatchery, built with React and Tailwind CSS v4.",
+          "deployment": {
+            "type": "React",
+            "outputDir": "dist",
+            "deployAs": "wh_tracker",
+            "requiresBuild": true,
+            "buildCommand": "npm run build -- --base=./",
+            "packageManager": "npm"
+          }
         }
       ]
     },
