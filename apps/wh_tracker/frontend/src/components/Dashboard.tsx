@@ -1,5 +1,4 @@
 import React, { useContext } from 'react';
-import styles from './Dashboard.module.css';
 import StatsGrid from './StatsGrid';
 import RequestCard from './RequestCard';
 import ActivityFeed from './ActivityFeed';
@@ -22,26 +21,26 @@ const Dashboard: React.FC = () => {
   const completedRequests = 0;
 
   return (
-    <div>
-      <div className={styles.dashboard__header}>
-        <h2 className={`text-xl font-semibold ${styles.dashboard__title}`}>Project Overview</h2>
-        <p className={styles.dashboard__subtitle}>Track feature requests and manage project development</p>
+    <div className="space-y-8">
+      <div className="space-y-2">
+        <h2 className="text-2xl font-bold tracking-tight">Project Overview</h2>
+        <p className="text-gray-400">Track feature requests and manage project development</p>
       </div>
-      <div className={styles['stats-grid']}>
-        <StatsGrid
-          totalProjects={totalProjects}
-          totalRequests={totalRequests}
-          openRequests={openRequests}
-          completedRequests={completedRequests}
-        />
-      </div>
-      <div className={styles.dashboard__content}>
-        <div className={`${styles.dashboard__section} ${styles['most-voted-section']}`}>
-          <h3>Most Voted Requests</h3>
+      
+      <StatsGrid
+        totalProjects={totalProjects}
+        totalRequests={totalRequests}
+        openRequests={openRequests}
+        completedRequests={completedRequests}
+      />
+      
+      <div className="grid gap-8 lg:grid-cols-2">
+        <div className="space-y-4">
+          <h3 className="text-lg font-semibold">Most Voted Requests</h3>
           <RequestCard />
         </div>
-        <div className={styles.dashboard__section}>
-          <h3>Recent Activity</h3>
+        <div className="space-y-4">
+          <h3 className="text-lg font-semibold">Recent Activity</h3>
           <ActivityFeed />
         </div>
       </div>

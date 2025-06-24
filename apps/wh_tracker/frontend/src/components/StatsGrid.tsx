@@ -1,5 +1,4 @@
 import React from 'react';
-import styles from './StatsGrid.module.css';
 
 interface StatsGridProps {
   totalProjects: number;
@@ -14,22 +13,21 @@ const StatsGrid: React.FC<StatsGridProps> = ({
   openRequests,
   completedRequests,
 }) => (
-  <div className="grid grid-cols-2 md:grid-cols-4 gap-6 my-8">
-    <div className={`stat-card bg-surface border rounded p-6 text-center ${styles['stat-card']}`}>
-      <div className={`stat-card__value text-3xl font-bold text-primary ${styles['stat-card__value']}`}>{totalProjects}</div>
-      <div className="stat-card__label text-secondary">Total Projects</div>
+  <div className="grid grid-cols-2 gap-4 md:grid-cols-4 md:gap-6">
+    <div className="card card-content text-center">
+      <div className="text-3xl font-bold text-[rgb(var(--color-primary))] mb-2">{totalProjects}</div>
+      <div className="text-sm text-gray-400">Total Projects</div>
     </div>
-    <div className={`stat-card bg-surface border rounded p-6 text-center ${styles['stat-card']}`}>
-      <div className={`stat-card__value text-3xl font-bold text-primary ${styles['stat-card__value']}`}>{totalRequests}</div>
-      <div className="stat-card__label text-secondary">Feature Requests</div>
+    <div className="card card-content text-center">
+      <div className="text-3xl font-bold text-[rgb(var(--color-primary))] mb-2">{totalRequests}</div>      <div className="text-sm text-gray-400">Feature Requests</div>
     </div>
-    <div className={`stat-card bg-surface border rounded p-6 text-center ${styles['stat-card']}`}>
-      <div className={`stat-card__value text-3xl font-bold text-primary ${styles['stat-card__value']}`}>{openRequests}</div>
-      <div className="stat-card__label text-secondary">Open Requests</div>
+    <div className="card card-content text-center">
+      <div className="text-3xl font-bold text-[rgb(var(--color-primary))] mb-2">{openRequests}</div>
+      <div className="text-sm text-gray-400">Open Requests</div>
     </div>
-    <div className={`stat-card bg-surface border rounded p-6 text-center ${styles['stat-card']}`}>
-      <div className={`stat-card__value text-3xl font-bold text-primary ${styles['stat-card__value']}`}>{completedRequests}</div>
-      <div className="stat-card__label text-secondary">Completed</div>
+    <div className="card card-content text-center">
+      <div className="text-3xl font-bold text-[rgb(var(--color-primary))] mb-2">{completedRequests}</div>
+      <div className="text-sm text-gray-400">Completed</div>
     </div>
   </div>
 );

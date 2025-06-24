@@ -27,18 +27,29 @@ const App: React.FC = () => {
         setLoading(false);
       });
   }, []);
-
-  if (loading) return <div className="p-8 text-center">Loading projects...</div>;
-  if (error) return <div className="p-8 text-center text-red-600">{error}</div>;
-
+  if (loading) return (
+    <div className="min-h-screen flex items-center justify-center">
+      <div className="text-center">
+        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-[rgb(var(--color-primary))] mx-auto mb-4"></div>
+        <div className="text-gray-600 dark:text-gray-400">Loading projects...</div>
+      </div>
+    </div>
+  );
+  
+  if (error) return (
+    <div className="min-h-screen flex items-center justify-center">
+      <div className="text-center">
+        <div className="text-red-600 dark:text-red-400">{error}</div>
+      </div>
+    </div>
+  );
   return (
     <ProjectsContext.Provider value={projectsData}>
-      <Router>
-        <div className="min-h-screen flex flex-col">
+      <Router>        <div className="min-h-screen flex flex-col bg-gray-900">
           <Header />
-          <div className="flex flex-1">
+          <div className="flex flex-1 overflow-hidden">
             <Sidebar />
-            <main className="flex-1 p-6">
+            <main className="flex-1 p-6 overflow-y-auto scrollbar-thin">
               <Routes>
                 <Route path="/" element={<Dashboard />} />
                 <Route path="/project/:projectId" element={<ProjectView />} />
