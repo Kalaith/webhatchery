@@ -1,0 +1,46 @@
+.project-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: var(--space-24);
+  margin-bottom: var(--space-32);
+  padding-bottom: var(--space-24);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.project-header__info {
+  flex: 1;
+}
+
+.project-header__meta {
+  display: flex;
+  align-items: center;
+  gap: var(--space-16);
+  margin-top: var(--space-12);
+}
+
+.project-filters {
+  display: flex;
+  gap: var(--space-24);
+  margin-bottom: var(--space-24);
+  padding: var(--space-16);
+  background: var(--color-surface);
+  border: 1px solid var(--color-card-border);
+  border-radius: var(--radius-lg);
+}
+
+.filter-group {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-8);
+}
+
+.filter-group .form-control {
+  min-width: 150px;
+}
+
+.requests-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-16);
+}

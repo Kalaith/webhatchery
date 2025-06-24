@@ -1,0 +1,355 @@
+{
+  "version": "2.0.0",
+  "description": "WebHatchery Projects and Build Configuration",
+  "groups": {
+    "fiction": {
+      "name": "Fiction Projects",
+      "projects": [        {
+          "title": "Stories",
+          "path": "stories/",
+          "description": "Collection of interactive stories and creative writing projects with immersive web presentations.",
+          "deployment": {
+            "type": "Static",
+            "deployAs": "stories",
+            "recursive": true,
+            "preserveStructure": true,
+            "files": ["index.php", "**/*.html", "**/*.php", "**/*.css", "**/*.js", "**/*.md"]
+          }
+        },        {
+          "title": "Stories Explicit",
+          "path": "storiesx/",
+          "description": "Story collection that may contain explicit language.",
+          "deployment": {
+            "type": "Static",
+            "deployAs": "storiesx",
+            "recursive": true,
+            "preserveStructure": true,
+            "files": ["index.php", "**/*.html", "**/*.php", "**/*.css", "**/*.js", "**/*.md"]
+          }
+        },        {
+          "title": "Anime Hub",
+          "path": "anime/",
+          "description": "Character analysis and development charts for popular anime series including Dragon Ball and Granblue Fantasy.",
+          "deployment": {
+            "type": "Static",
+            "deployAs": "anime",
+            "recursive": true,
+            "preserveStructure": true,
+            "files": ["index.php", "**/*.html", "**/*.php", "**/*.css", "**/*.js", "**/*.md", "**/*.jpg", "**/*.png", "**/*.gif", "**/*.webp"]
+          }
+        }
+      ]
+    },
+    "apps": {
+      "name": "Web Applications",
+      "projects": [          {
+          "title": "Is It Done Yet?",
+          "path": "apps/isitdoneyet/",
+          "description": "A full-stack web application for project tracking and status monitoring with real-time updates.",
+          "repository": {
+            "type": "git",
+            "url": "https://github.com/Kalaith/isitdoneyet"
+          },
+          "deployment": {
+            "type": "FullStack",
+            "deployAs": "isitdoneyet",
+            "frontend": {
+              "type": "Static",
+              "files": ["index.html", "app.js", "api-service.js", "style.css", "server.js"]
+            },
+            "backend": {
+              "type": "PHP",
+              "path": "backend",
+              "requiresBuild": true,
+              "buildCommand": "composer install --no-dev --optimize-autoloader",
+              "databaseInit": true,
+              "envFile": ".env"
+            },
+            "production": {
+              "apiUrl": "https://webhatchery.au/isitdoneyet/api",
+              "corsOrigins": ["https://webhatchery.au"],
+              "environmentUpdates": {
+                "DEBUG": "false",
+                "APP_ENV": "production"
+              }
+            },
+            "exclude": ["deployment-test.html", "initialize-database.php", "mcp-server.js", "MCP-README.md"],
+            "apache": {
+              "requiresRewrite": true,
+              "documentRoot": "/",
+              "apiBasePath": "/api"
+            }
+          }
+        },        {
+          "title": "Meme Generator",
+          "path": "apps/meme_generator/frontend/",
+          "description": "Interactive tool for creating custom memes with various templates and text customization options.",
+          "deployment": {
+            "type": "React",
+            "outputDir": "dist",
+            "deployAs": "meme_generator",
+            "requiresBuild": true,
+            "buildCommand": "npm run build -- --base=./",
+            "packageManager": "npm"
+          }
+        },{
+          "title": "Project Management",
+          "path": "apps/project_management/",
+          "description": "Comprehensive project management dashboard with stakeholder tracking and report generation features.",
+          "deployment": {
+            "type": "Static",
+            "deployAs": "project_management",
+            "files": ["index.html", "app.js", "style.css", "*.js", "data.json", "*.png"],
+            "exclude": ["test.html", "php-integration-guide.md"]
+          }
+        },        {
+          "title": "LitRPG Studio",
+          "path": "apps/litrpg_studio/frontend/",
+          "description": "A specialized writing tool designed for LitRPG authors to create and manage game mechanics in their stories.",
+          "deployment": {
+            "type": "React",
+            "outputDir": "dist",
+            "deployAs": "litrpg_studio",
+            "requiresBuild": true,
+            "buildCommand": "npm run build -- --base=./",
+            "packageManager": "npm"
+          } 
+        },{
+          "title": "Monster Maker",
+          "path": "apps/monster_maker/",
+          "description": "D&D monster creation tool with challenge rating calculator and stat progression charts.",
+          "deployment": {
+            "type": "Static",
+            "deployAs": "monster_maker"
+          }
+        },{
+          "title": "Name Generator API",
+          "path": "apps/name_generator/",
+          "description": "Comprehensive name generation tool with multiple algorithms for creating people, place, event, and title names using Markov chains, phonetic patterns, and cultural linguistics.",
+          "deployment": {
+            "type": "Static",
+            "deployAs": "name_generator"
+          }
+        },{
+          "title": "Quest Generator",
+          "path": "apps/quest_generator/",
+          "description": "A simple quest generator web app for tabletop RPGs and creative writing, built with basic HTML and JavaScript.",
+          "deployment": {
+            "type": "Static",
+            "deployAs": "quest_generator",
+            "files": ["index.html", "main.js", "style.css"]
+          }
+        }
+      ]
+    },
+    "games": {
+      "name": "Games & Game Design",
+      "projects": [
+        {
+          "title": "Dragons Den",
+          "path": "game_apps/dragons_den/frontend/",
+          "description": "Fantasy dragon management game with breeding and exploration mechanics.",
+          "deployment": {
+            "type": "React",
+            "outputDir": "dist",
+            "deployAs": "dragons_den",
+            "requiresBuild": true,
+            "buildCommand": "npm run build -- --base=./",
+            "packageManager": "npm"
+          }
+        },
+        {
+          "title": "Magical Girl",
+          "path": "game_apps/magical_girl/frontend/",
+          "description": "Magical girl transformation and adventure game with character progression.",
+          "deployment": {
+            "type": "React",
+            "outputDir": "dist",
+            "deployAs": "magical_girl",
+            "requiresBuild": true,
+            "buildCommand": "npm run build -- --base=./",
+            "packageManager": "npm"
+          }
+        },
+        {
+          "title": "Xenomorph Park",
+          "path": "game_apps/xenomorph_park/frontend/",
+          "description": "Xenomorph Park is a sci-fi park management and survival game built with React. Manage alien creatures, containment systems, and visitor safety in a modern, interactive web app.",
+          "deployment": {
+            "type": "React",
+            "outputDir": "dist",
+            "deployAs": "xenomorph_park",
+            "requiresBuild": true,
+            "buildCommand": "npm run build -- --base=./",
+            "packageManager": "npm"
+          }
+        },
+        {
+          "title": "Dungeon Core",
+          "path": "game_apps/dungeon_core/frontend/",
+          "description": "Dungeon management game with a React frontend, detailed JSON-based monster evolution trees, trait system, unlock conditions, and a comprehensive GDD. Features persistent adventurer parties, mana/trap economy, room themes, monster breeds/evolution, and advanced UI/gameplay systems. All monster, trait, and unlock data is modular and up-to-date.",
+          "deployment": {
+            "type": "React",
+            "outputDir": "dist",
+            "deployAs": "dungeon_core",
+            "requiresBuild": true,
+            "buildCommand": "npm run build -- --base=./",
+            "packageManager": "npm"
+          }
+        },
+        {
+          "title": "Dungeon Master",
+          "path": "game_apps/dungeon_master/frontend/",
+          "description": "Dungeon Master is a multiplayer dungeon sandbox game with a React frontend, featuring real-time dungeon building, player-vs-player traps, and advanced AI adventurer parties.",
+          "deployment": {
+            "type": "React",
+            "outputDir": "dist",
+            "deployAs": "dungeon_master",
+            "requiresBuild": true,
+            "buildCommand": "npm run build -- --base=./",
+            "packageManager": "npm"
+          }
+        },
+        {
+          "title": "MMO Sandbox",
+          "path": "game_apps/mmo_sandbox/frontend/",
+          "description": "MMO Sandbox is a full-featured massively multiplayer online sandbox game with a React frontend, including crafting, PvP, guilds, world map, market, and skills systems, all using mock data.",
+          "deployment": {
+            "type": "React",
+            "outputDir": "dist",
+            "deployAs": "mmo_sandbox",
+            "requiresBuild": true,
+            "buildCommand": "npm run build -- --base=./",
+            "packageManager": "npm"
+          }
+        },
+        {
+          "title": "Planet Trader",
+          "path": "game_apps/planet_trader/",
+          "description": "A classic trading simulation game set in space, implemented as a basic HTML/JS site.",
+          "deployment": {
+            "type": "Static",
+            "deployAs": "planet_trader",
+            "files": ["index.html", "main.js", "style.css"]
+          }
+        }
+      ]
+    },
+    "game_design": {
+      "name": "Game Design",
+      "projects": [
+        {
+          "title": "Kaiju Simulator",
+          "path": "gdd/kaiju_simulator/",
+          "description": "Game Design Document for a Kaiju breeding and battle simulator featuring detailed progression systems, combat mechanics, and creature management concepts.",
+          "deployment": {
+            "type": "Static",
+            "deployAs": "kaiju_simulator"
+          }
+        },
+        {
+          "title": "Echo of the Many",
+          "path": "gdd/echo_of_the_many/",
+          "description": "Fantasy strategy game where players control a mage who creates magical clones to infiltrate and influence a medieval city's political landscape. Features comprehensive React implementation plan with mobile-first PWA design.",
+          "deployment": {
+            "type": "Static",
+            "deployAs": "echo_of_the_many",
+            "files": ["interactive-gdd.html", "react-implementation-plan.md", "package.json", "QUICK-START.md", "*.md"],
+            "preserveStructure": true
+          }
+        },
+        {
+          "title": "Settlement Builder",
+          "path": "gdd/settlement/",
+          "description": "Medieval settlement building and management game design document featuring city planning, resource management, and citizen happiness mechanics.",
+          "deployment": {
+            "type": "Static",
+            "deployAs": "settlement",
+            "preserveStructure": true
+          }
+        },
+        {
+          "title": "Space Colony Simulator",
+          "path": "gdd/space_sim/",
+          "description": "Space colony management simulator with resource management and exploration systems.",
+          "deployment": {
+            "type": "Static",
+            "deployAs": "space_sim"
+          }
+        },
+        {
+          "title": "Tactics Game",
+          "path": "gdd/tactics_game/",
+          "description": "Turn-based tactical combat game with grid-based movement, character classes, and strategic battle mechanics.",
+          "deployment": {
+            "type": "Static",
+            "deployAs": "tactics_game",
+            "preserveStructure": true
+          }
+        }
+      ]
+    },
+    "tools": {
+      "name": "AI & Development Tools",
+      "projects": [        {
+          "title": "ComfyUI Integration",
+          "path": "utils/comfyui/",
+          "description": "AI image generation tool with web interface and downloadable PowerShell scripts for batch processing.",
+          "deployment": {
+            "type": "Static",
+            "deployAs": "comfyui",
+            "files": ["index.html", "comfiui.php", "comfyui-generate.ps1", "comfyui-gen.bat"],
+            "production": {
+              "environmentUpdates": {
+                "COMFYUI_API_URL": "http://127.0.0.1:7860",
+                "NGROK_URL": "https://your-ngrok-url.ngrok.io"
+              }
+            }
+          }
+        }
+      ]
+    }
+  },
+  "rootFiles": {
+    "name": "Root Level Files",
+    "description": "Individual files to deploy to the root directory",    "deployment": {
+      "type": "Static",
+      "files": ["index.php", "index.css", "projects.json"],
+      "exclude": ["build-deploy.ps1", "build.bat", "validate-projects.ps1", "build-config.json", "BUILD-README.md", "README.md", "*.log"]
+    }
+  },  "global": {
+    "repository": {
+      "type": "git",
+      "url": "https://github.com/Kalaith/webhachery",
+      "name": "WebHatchery"
+    },
+    "favicon": {
+      "enabled": true,
+      "sourcePath": "favicon/",
+      "description": "Automatically copy favicon files to all deployed projects unless skipFavicon is set to true in project deployment config"
+    },
+    "excludePatterns": [
+      ".git",
+      ".gitignore", 
+      "node_modules",
+      ".env.example",
+      "*.log",
+      "*.tmp",
+      ".DS_Store",
+      "Thumbs.db",
+      "*.bak",
+      "*.log"
+    ],
+    "buildTools": {
+      "node": ">=18.0.0",
+      "npm": ">=8.0.0", 
+      "php": ">=8.1.0",
+      "composer": ">=2.0.0"
+    },
+    "deployment": {
+      "backupBeforeDeploy": true,
+      "verifyAfterDeploy": true,
+      "rollbackOnFailure": true
+    }
+  }
+}

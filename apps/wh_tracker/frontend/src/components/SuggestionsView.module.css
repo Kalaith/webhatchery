@@ -1,0 +1,113 @@
+.suggestions-header {
+  align-items: center;
+  border-bottom: 1px solid rgba(119, 124, 124, 0.3);
+  box-sizing: border-box;
+  color: rgb(245, 245, 245);
+  display: flex;
+  font-family: FKGroteskNeue, Geist, Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  font-size: 16px;
+  height: 80px;
+  justify-content: space-between;
+  line-height: 21px;
+  padding: 24px 32px 24px 32px;
+  width: 100%;
+  background: rgb(38, 40, 40);
+  border-radius: 12px 12px 0 0;
+  -webkit-font-smoothing: antialiased;
+}
+
+.suggestions-header h2 {
+  margin: 0;
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #fff;
+}
+
+.suggestions-header p {
+  margin: 0 24px;
+  color: var(--color-text-secondary);
+  font-size: 1rem;
+}
+
+.suggestions-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+  gap: var(--space-24);
+}
+
+.suggest-btn {
+  align-items: center;
+  appearance: auto;
+  background-attachment: scroll;
+  background-clip: border-box;
+  background-color: rgb(45, 166, 178);
+  background-image: none;
+  background-origin: padding-box;
+  background-position-x: 0%;
+  background-position-y: 0%;
+  background-repeat: repeat;
+  background-size: auto;
+  border-bottom-color: rgb(19, 52, 59);
+  border-bottom-left-radius: 8px;
+  border-bottom-right-radius: 8px;
+  border-bottom-style: none;
+  border-bottom-width: 0px;
+  border-image-outset: 0;
+  border-image-repeat: stretch;
+  border-image-slice: 100%;
+  border-image-source: none;
+  border-image-width: 1;
+  border-left-color: rgb(19, 52, 59);
+  border-left-style: none;
+  border-left-width: 0px;
+  border-right-color: rgb(19, 52, 59);
+  border-right-style: none;
+  border-right-width: 0px;
+  border-top-color: rgb(19, 52, 59);
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
+  border-top-style: none;
+  border-top-width: 0px;
+  box-sizing: border-box;
+  color: rgb(19, 52, 59);
+  cursor: pointer;
+  display: flex;
+  font-family: Arial, sans-serif;
+  font-feature-settings: normal;
+  font-kerning: auto;
+  font-optical-sizing: auto;
+  font-size: 14px;
+  font-size-adjust: none;
+  font-stretch: 100%;
+  font-style: normal;
+  font-variant-alternates: normal;
+  font-variant-caps: normal;
+  font-variant-east-asian: normal;
+  font-variant-emoji: normal;
+  font-variant-ligatures: normal;
+  font-variant-numeric: normal;
+  font-variant-position: normal;
+  font-variation-settings: normal;
+  font-weight: 500;
+  height: 37px;
+  justify-content: center;
+  letter-spacing: normal;
+  line-height: 21px;
+  margin: 0;
+  padding: 8px 16px;
+  position: relative;
+  text-align: center;
+  text-decoration: none;
+  text-indent: 0px;
+  text-rendering: auto;
+  text-shadow: none;
+  text-transform: none;
+  transition-delay: 0s;
+  transition-duration: 0.25s;
+  transition-property: all;
+  transition-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
+  width: 162.734px;
+  word-spacing: 0px;
+  -webkit-font-smoothing: antialiased;
+  -webkit-border-image: none;
+}

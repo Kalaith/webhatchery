@@ -1,0 +1,94 @@
+.project-suggestion-form {
+  border: 1px solid rgba(119, 124, 124, 0.3);
+  border-radius: 12px;
+  background: rgb(38, 40, 40);
+  padding: 24px 32px;
+  margin-top: 32px;
+  box-sizing: border-box;
+  color: #fff;
+}
+
+.project-suggestion-form label,
+.project-suggestion-form input,
+.project-suggestion-form textarea,
+.project-suggestion-form select {
+  color: #fff;
+}
+
+.project-suggestion-form label {
+  font-weight: bold;
+  margin-bottom: 4px;
+  display: block;
+}
+
+.project-suggestion-form input,
+.project-suggestion-form textarea,
+.project-suggestion-form select {
+  background: rgb(31, 33, 33);
+  border: 1.5px solid rgba(119, 124, 124, 0.3);
+  border-radius: 8px;
+  padding: 12px 16px;
+  margin-bottom: 16px;
+  font-size: 16px;
+  box-sizing: border-box;
+  color: #fff;
+  width: 100%;
+  transition: border-color 0.2s, box-shadow 0.2s;
+  outline: none;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+}
+
+.project-suggestion-form input:focus,
+.project-suggestion-form textarea:focus,
+.project-suggestion-form select:focus {
+  border-color: rgb(45, 166, 178);
+  box-shadow: 0 0 0 2px rgba(45, 166, 178, 0.2);
+}
+
+.project-suggestion-form .form-actions button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 120px;
+  padding: 10px 20px;
+  border-radius: 8px;
+  font-size: 15px;
+  font-weight: 500;
+  cursor: pointer;
+  border: none;
+  transition: background 0.2s, color 0.2s, box-shadow 0.2s;
+  margin-right: 8px;
+}
+
+.project-suggestion-form .form-actions .btn-outline {
+  background: transparent;
+  color: rgb(45, 166, 178);
+  border: 1.5px solid rgb(45, 166, 178);
+}
+
+.project-suggestion-form .form-actions .btn-outline:hover {
+  background: rgba(45, 166, 178, 0.08);
+}
+
+.project-suggestion-form .form-actions .btn-primary {
+  background: rgb(45, 166, 178);
+  color: rgb(19, 52, 59);
+  border: none;
+  box-shadow: 0 2px 8px rgba(45, 166, 178, 0.08);
+}
+
+.project-suggestion-form .form-actions .btn-primary:hover {
+  background: rgb(41, 150, 161);
+}
+
+@media (max-width: 600px) {
+  .project-suggestion-form {
+    padding: 16px 8px;
+  }
+  .project-suggestion-form input,
+  .project-suggestion-form textarea,
+  .project-suggestion-form select {
+    font-size: 15px;
+    padding: 10px 8px;
+  }
+}
