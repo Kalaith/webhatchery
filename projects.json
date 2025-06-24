@@ -85,12 +85,14 @@
           "path": "apps/meme_generator/",
           "description": "Interactive tool for creating custom memes with various templates and text customization options.",
           "deployment": {
-            "type": "Static",
+            "type": "React",
+            "outputDir": "dist",
             "deployAs": "meme_generator",
-            "files": ["index.html", "app.js", "style.css", "css/", "js/", "*.png"],
-            "exclude": ["chart_script.py"]
+            "requiresBuild": true,
+            "buildCommand": "npm run build -- --base=./",
+            "packageManager": "npm"
           }
-        },        {
+        },{
           "title": "Project Management",
           "path": "apps/project_management/",
           "description": "Comprehensive project management dashboard with stakeholder tracking and report generation features.",
