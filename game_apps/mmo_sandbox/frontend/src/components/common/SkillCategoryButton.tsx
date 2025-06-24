@@ -2,13 +2,15 @@ import React from 'react';
 
 interface SkillCategoryButtonProps {
   name: string;
-  selected?: boolean;
+  color?: string;
+  active?: boolean;
   onClick: () => void;
 }
 
-const SkillCategoryButton: React.FC<SkillCategoryButtonProps> = ({ name, selected, onClick }) => (
+const SkillCategoryButton: React.FC<SkillCategoryButtonProps> = ({ name, color, active, onClick }) => (
   <button
-    className={`px-2 py-1 rounded ${selected ? 'bg-purple-500 text-white' : 'bg-gray-200'}`}
+    className={`px-2 py-1 rounded ${active ? 'bg-purple-500 text-white' : 'bg-gray-200'}`}
+    style={color ? { borderLeft: `4px solid ${color}` } : {}}
     onClick={onClick}
   >
     {name}

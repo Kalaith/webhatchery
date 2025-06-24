@@ -99,8 +99,8 @@ export async function getRegionActivities(regionId: string) {
   return [];
 }
 
-export async function travel(/*regionId: string*/) {
-  // For mock, just return success
+export async function travel(regionId: string) {
+  void regionId; // suppress unused warning
   return { success: true };
 }
 
@@ -108,7 +108,8 @@ export async function getMarketListings(search: string = '') {
   return marketListings.filter(l => l.item.toLowerCase().includes(search.toLowerCase()));
 }
 
-export async function marketBuy(/*listingId: string, quantity: number*/) {
-  // For mock, just return success
+export async function marketBuy(listingId: string, quantity: number) {
+  void listingId; // suppress unused warning
+  void quantity;
   return { success: true, message: 'Purchase successful.' };
 }

@@ -71,7 +71,7 @@ const SkillsTab: React.FC<SkillsTabProps> = ({ categories = defaultCategories })
         {categories.map((cat) => (
           <SkillCategoryButton
             key={cat.name}
-            label={cat.name}
+            name={cat.name}
             color={cat.color}
             active={selectedCategory.name === cat.name}
             onClick={() => setSelectedCategory(cat)}

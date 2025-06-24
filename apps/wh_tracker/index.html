@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WebHatchery Project Tracker</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Header -->
+        <header class="header">
+            <div class="header__content">
+                <h1 class="header__title">WebHatchery Project Tracker</h1>
+                <div class="header__actions">
+                    <div class="search-container">
+                        <input type="text" id="searchInput" class="form-control search-input" placeholder="Search projects...">
+                    </div>
+                    <button class="btn btn--primary" id="newProjectBtn">Suggest New Project</button>
+                </div>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <div class="main-content">
+            <!-- Sidebar -->
+            <aside class="sidebar">
+                <nav class="sidebar__nav">
+                    <div class="sidebar__section">
+                        <button class="sidebar__item active" data-view="dashboard">
+                            <span class="sidebar__icon">📊</span>
+                            Dashboard
+                        </button>
+                        <button class="sidebar__item" data-view="suggestions">
+                            <span class="sidebar__icon">💡</span>
+                            Project Suggestions
+                        </button>
+                    </div>
+                    <div class="sidebar__section">
+                        <h3 class="sidebar__heading">Project Groups</h3>
+                        <div id="projectGroups"></div>
+                    </div>
+                </nav>
+            </aside>
+
+            <!-- Content Area -->
+            <main class="content">
+                <!-- Dashboard View -->
+                <div id="dashboardView" class="view active">
+                    <div class="dashboard">
+                        <div class="dashboard__header">
+                            <h2>Project Overview</h2>
+                            <p class="dashboard__subtitle">Track feature requests and manage project development</p>
+                        </div>
+                        
+                        <div class="stats-grid">
+                            <div class="stat-card">
+                                <div class="stat-card__value" id="totalProjects">0</div>
+                                <div class="stat-card__label">Total Projects</div>
+                            </div>
+                            <div class="stat-card">
+                                <div class="stat-card__value" id="totalRequests">0</div>
+                                <div class="stat-card__label">Feature Requests</div>
+                            </div>
+                            <div class="stat-card">
+                                <div class="stat-card__value" id="openRequests">0</div>
+                                <div class="stat-card__label">Open Requests</div>
+                            </div>
+                            <div class="stat-card">
+                                <div class="stat-card__value" id="completedRequests">0</div>
+                                <div class="stat-card__label">Completed</div>
+                            </div>
+                        </div>
+
+                        <div class="dashboard__content">
+                            <div class="dashboard__section">
+                                <h3>Most Voted Requests</h3>
+                                <div id="topRequests" class="request-list"></div>
+                            </div>
+                            
+                            <div class="dashboard__section">
+                                <h3>Recent Activity</h3>
+                                <div id="recentActivity" class="activity-feed"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project View -->
+                <div id="projectView" class="view">
+                    <div class="project-header">
+                        <div class="project-header__info">
+                            <h2 id="projectTitle"></h2>
+                            <p id="projectDescription"></p>
+                            <div class="project-header__meta">
+                                <span class="status" id="projectType"></span>
+                                <span id="requestCount"></span>
+                            </div>
+                        </div>
+                        <button class="btn btn--primary" id="newRequestBtn">New Feature Request</button>
+                    </div>
+
+                    <div class="project-content">
+                        <div class="project-filters">
+                            <div class="filter-group">
+                                <label class="form-label">Sort by:</label>
+                                <select id="sortSelect" class="form-control">
+                                    <option value="votes">Most Votes</option>
+                                    <option value="date">Most Recent</option>
+                                    <option value="priority">Priority</option>
+                                    <option value="status">Status</option>
+                                </select>
+                            </div>
+                            <div class="filter-group">
+                                <label class="form-label">Status:</label>
+                                <select id="statusFilter" class="form-control">
+                                    <option value="all">All</option>
+                                    <option value="open">Open</option>
+                                    <option value="in-progress">In Progress</option>
+                                    <option value="under-review">Under Review</option>
+                                    <option value="completed">Completed</option>
+                                    <option value="rejected">Rejected</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div id="requestsList" class="requests-list"></div>
+                    </div>
+                </div>
+
+                <!-- Project Suggestions View -->
+                <div id="suggestionsView" class="view">
+                    <div class="suggestions-header">
+                        <h2>Project Suggestions</h2>
+                        <p>Community-suggested projects waiting for consideration</p>
+                        <button class="btn btn--primary" id="suggestProjectBtn">Suggest New Project</button>
+                    </div>
+                    <div id="suggestionsList" class="suggestions-list"></div>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <!-- Modals -->
+    <div id="modal" class="modal">
+        <div class="modal__backdrop"></div>
+        <div class="modal__content">
+            <div class="modal__header">
+                <h3 id="modalTitle"></h3>
+                <button class="modal__close" id="modalClose">&times;</button>
+            </div>
+            <div class="modal__body" id="modalBody"></div>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>

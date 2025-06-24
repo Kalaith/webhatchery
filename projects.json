@@ -130,6 +130,15 @@
             "type": "Static",
             "deployAs": "name_generator"
           }
+        },{
+          "title": "Quest Generator",
+          "path": "apps/quest_generator/",
+          "description": "A simple quest generator web app for tabletop RPGs and creative writing, built with basic HTML and JavaScript.",
+          "deployment": {
+            "type": "Static",
+            "deployAs": "quest_generator",
+            "files": ["index.html", "main.js", "style.css"]
+          }
         }
       ]
     },
@@ -186,6 +195,42 @@
             "requiresBuild": true,
             "buildCommand": "npm run build -- --base=./",
             "packageManager": "npm"
+          }
+        },
+        {
+          "title": "Dungeon Master",
+          "path": "game_apps/dungeon_master/frontend/",
+          "description": "Dungeon Master is a multiplayer dungeon sandbox game with a React frontend, featuring real-time dungeon building, player-vs-player traps, and advanced AI adventurer parties.",
+          "deployment": {
+            "type": "React",
+            "outputDir": "dist",
+            "deployAs": "dungeon_master",
+            "requiresBuild": true,
+            "buildCommand": "npm run build -- --base=./",
+            "packageManager": "npm"
+          }
+        },
+        {
+          "title": "MMO Sandbox",
+          "path": "game_apps/mmo_sandbox/frontend/",
+          "description": "MMO Sandbox is a full-featured massively multiplayer online sandbox game with a React frontend, including crafting, PvP, guilds, world map, market, and skills systems, all using mock data.",
+          "deployment": {
+            "type": "React",
+            "outputDir": "dist",
+            "deployAs": "mmo_sandbox",
+            "requiresBuild": true,
+            "buildCommand": "npm run build -- --base=./",
+            "packageManager": "npm"
+          }
+        },
+        {
+          "title": "Planet Trader",
+          "path": "game_apps/planet_trader/",
+          "description": "A classic trading simulation game set in space, implemented as a basic HTML/JS site.",
+          "deployment": {
+            "type": "Static",
+            "deployAs": "planet_trader",
+            "files": ["index.html", "main.js", "style.css"]
           }
         }
       ]
