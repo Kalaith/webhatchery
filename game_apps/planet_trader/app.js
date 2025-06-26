@@ -12,6 +12,8 @@ let playerResearch = {
   unlocked: [] // names of unlocked research
 };
 
+let ALIEN_SPECIES_TYPES = [];
+
 async function loadGameData() {
   const [planetTypes, alienSpecies, terraformingTools, planetNames] = await Promise.all([
     fetch('data/planet_types.json').then(r => r.json()),
@@ -27,6 +29,10 @@ async function loadGameData() {
 
 async function loadResearchData() {
   RESEARCH_DATA = await fetch('data/tool_research.json').then(r => r.json());
+}
+
+async function loadAlienSpeciesTypes() {
+  ALIEN_SPECIES_TYPES = await fetch('data/alien_species_types.json').then(r => r.json());
 }
 
 // Game State
@@ -254,18 +260,46 @@ function useTool(tool) {
   showMessage(`Used ${tool.name}`, 'success');
 }
 
-function generateAlienBuyers() {
-  game.alienBuyers = [];
-  const numBuyers = 3 + Math.floor(Math.random() * 2); // 3-4 buyers
-  for (let i = 0; i < numBuyers; i++) {
-    const species = randomItem(GAME_DATA.alienSpecies);
-    game.alienBuyers.push({
-      ...species,
-      id: Date.now() + i,
-      timeLeft: 60 + Math.random() * 120,
-      currentPrice: species.basePrice + Math.floor((Math.random() - 0.5) * 1000)
+function generateRandomSpecies(count) {
+  const types = ALIEN_SPECIES_TYPES;
+  const getRandomInRange = (min, max) => Math.random() * (max - min) + min;
+  const getRandomInt = (min, max) => Math.floor(Math.random() * (max - min + 1)) + min;
+  const randomElement = arr => arr[Math.floor(Math.random() * arr.length)];
+  const speciesList = [];
+  for (let i = 0; i < count; i++) {
+    const type = randomElement(types);
+    const name = `${randomElement(type.prefixes)}${randomElement(type.suffixes)}`;
+    const tempMin = getRandomInRange(type.temp[0], type.temp[1] - 20);
+    const tempMax = getRandomInRange(tempMin + 10, type.temp[1]);
+    const species = {
+      name: name,
+      description: type.desc,
+      tempRange: [Math.round(tempMin), Math.round(tempMax)],
+      atmoRange: [parseFloat(getRandomInRange(type.atmo[0], type.atmo[1]).toFixed(1)), parseFloat(getRandomInRange(type.atmo[0], type.atmo[1]).toFixed(1))],
+      waterRange: [parseFloat(getRandomInRange(type.water[0], type.water[1]).toFixed(1)), parseFloat(getRandomInRange(type.water[0], type.water[1]).toFixed(1))],
+      gravRange: [parseFloat(getRandomInRange(type.grav[0], type.grav[1]).toFixed(1)), parseFloat(getRandomInRange(type.grav[0], type.grav[1]).toFixed(1))],
+      radRange: [parseFloat(getRandomInRange(type.rad[0], type.rad[1]).toFixed(1)), parseFloat(getRandomInRange(type.rad[0], type.rad[1]).toFixed(1))],
+      basePrice: getRandomInt(3000, 8000),
+      color: randomElement(type.colors)
+    };
+    // Ensure ranges are ordered
+    ['atmoRange', 'waterRange', 'gravRange', 'radRange'].forEach(key => {
+      if (species[key][0] > species[key][1]) {
+        [species[key][0], species[key][1]] = [species[key][1], species[key][0]];
+      }
     });
+    speciesList.push(species);
   }
+  return speciesList;
+}
+
+function generateAlienBuyers() {
+  game.alienBuyers = generateRandomSpecies(3 + Math.floor(Math.random() * 2)).map((s, i) => ({
+    ...s,
+    id: Date.now() + i,
+    timeLeft: 60 + Math.random() * 120,
+    currentPrice: s.basePrice + Math.floor((Math.random() - 0.5) * 1000)
+  }));
   renderAlienBuyers();
 }
 
@@ -692,6 +726,7 @@ function refreshAlienMarket() {
 async function loadAllGameData() {
   await loadGameData();
   await loadResearchData();
+  await loadAlienSpeciesTypes();
 }
 
 // Initialize the game when the page loads
