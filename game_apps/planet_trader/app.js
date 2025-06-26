@@ -1,144 +1,33 @@
-// Game Data
-const GAME_DATA = {
-  planetTypes: [
-    {"name": "Rocky", "baseTemp": 15, "baseAtmo": 0.3, "baseWater": 0.1, "baseGrav": 1.0, "baseRad": 0.2},
-    {"name": "Ice World", "baseTemp": -40, "baseAtmo": 0.1, "baseWater": 0.8, "baseGrav": 0.8, "baseRad": 0.1},
-    {"name": "Volcanic", "baseTemp": 80, "baseAtmo": 0.6, "baseWater": 0.0, "baseGrav": 1.2, "baseRad": 0.4},
-    {"name": "Desert", "baseTemp": 50, "baseAtmo": 0.2, "baseWater": 0.05, "baseGrav": 0.9, "baseRad": 0.3},
-    {"name": "Gas Dwarf", "baseTemp": -20, "baseAtmo": 2.0, "baseWater": 0.3, "baseGrav": 0.6, "baseRad": 0.15}
-  ],
-  alienSpecies: [
-    {
-      "name": "Pyrothane Lizards",
-      "description": "Cold-blooded reptilian species that thrive in volcanic environments",
-      "tempRange": [80, 120],
-      "atmoRange": [0.8, 1.5],
-      "waterRange": [0.0, 0.3],
-      "gravRange": [0.8, 1.3],
-      "radRange": [0.2, 0.8],
-      "basePrice": 5000,
-      "color": "#FF4500"
-    },
-    {
-      "name": "Cryophyte Crystals",
-      "description": "Silicon-based beings that prefer frigid, high-radiation worlds",
-      "tempRange": [-50, -10],
-      "atmoRange": [0.1, 0.4],
-      "waterRange": [0.1, 0.6],
-      "gravRange": [0.5, 1.2],
-      "radRange": [0.6, 1.0],
-      "basePrice": 4500,
-      "color": "#00BFFF"
-    },
-    {
-      "name": "Aquatic Molluscoids",
-      "description": "Ocean-dwelling species requiring high humidity and water coverage",
-      "tempRange": [10, 30],
-      "atmoRange": [0.8, 1.2],
-      "waterRange": [0.7, 1.0],
-      "gravRange": [0.7, 1.1],
-      "radRange": [0.1, 0.3],
-      "basePrice": 6000,
-      "color": "#20B2AA"
-    },
-    {
-      "name": "Desert Nomads",
-      "description": "Hardy species adapted to hot, arid environments",
-      "tempRange": [60, 90],
-      "atmoRange": [0.1, 0.3],
-      "waterRange": [0.0, 0.1],
-      "gravRange": [0.8, 1.2],
-      "radRange": [0.3, 0.7],
-      "basePrice": 4000,
-      "color": "#DEB887"
-    },
-    {
-      "name": "High-Gravity Hunters",
-      "description": "Powerful beings that evolved in dense, high-gravity worlds",
-      "tempRange": [20, 40],
-      "atmoRange": [1.0, 1.8],
-      "waterRange": [0.2, 0.5],
-      "gravRange": [2.0, 3.0],
-      "radRange": [0.1, 0.4],
-      "basePrice": 7000,
-      "color": "#8B4513"
-    },
-    {
-      "name": "Energy Feeders",
-      "description": "Ethereal beings that consume radiation and electromagnetic energy",
-      "tempRange": [-10, 60],
-      "atmoRange": [0.0, 0.2],
-      "waterRange": [0.0, 0.4],
-      "gravRange": [0.3, 1.0],
-      "radRange": [0.8, 1.0],
-      "basePrice": 5500,
-      "color": "#9400D3"
-    }
-  ],
-  terraformingTools: [
-    {
-      "name": "Heat Generator",
-      "category": "temperature",
-      "effect": {"temperature": 10},
-      "cost": 100,
-      "description": "Raises planetary temperature through controlled fusion reactions"
-    },
-    {
-      "name": "Cooling System",
-      "category": "temperature", 
-      "effect": {"temperature": -10},
-      "cost": 100,
-      "description": "Reduces temperature using orbital solar shades and heat dispersal"
-    },
-    {
-      "name": "Atmosphere Processor",
-      "category": "atmosphere",
-      "effect": {"atmosphere": 0.2},
-      "cost": 150,
-      "description": "Generates breathable atmosphere from planetary materials"
-    },
-    {
-      "name": "Atmospheric Scrubber",
-      "category": "atmosphere",
-      "effect": {"atmosphere": -0.2},
-      "cost": 150,
-      "description": "Removes excess atmospheric gases through molecular filtration"
-    },
-    {
-      "name": "Ice Comet Bombardment",
-      "category": "water",
-      "effect": {"water": 0.15, "temperature": -5},
-      "cost": 200,
-      "description": "Directs ice comets to increase planetary water content"
-    },
-    {
-      "name": "Ocean Former",
-      "category": "water",
-      "effect": {"water": 0.1},
-      "cost": 120,
-      "description": "Terraforms land into ocean basins and manages water distribution"
-    },
-    {
-      "name": "Gravity Intensifier",
-      "category": "gravity",
-      "effect": {"gravity": 0.3},
-      "cost": 300,
-      "description": "Increases planetary mass through controlled matter compression"
-    },
-    {
-      "name": "Magnetic Field Generator",
-      "category": "radiation",
-      "effect": {"radiation": -0.2},
-      "cost": 250,
-      "description": "Creates protective magnetic field to deflect harmful radiation"
-    }
-  ],
-  planetNames: [
-    "Kepler-442b", "Proxima Centauri c", "TRAPPIST-1e", "Tau Ceti f", "Gliese 667Cc",
-    "HD 40307g", "Wolf 1061c", "K2-18b", "TOI-715b", "LHS 1140b", "GJ 273b",
-    "Ross 128b", "Kapteyn b", "Barnard's Star b", "AD Leonis b"
-  ]
+// Game Data is now loaded from external JSON files
+let GAME_DATA = {
+  planetTypes: [],
+  alienSpecies: [],
+  terraformingTools: [],
+  planetNames: []
 };
+
+let RESEARCH_DATA = [];
+let playerResearch = {
+  rpTotal: 0,
+  unlocked: [] // names of unlocked research
+};
+
+async function loadGameData() {
+  const [planetTypes, alienSpecies, terraformingTools, planetNames] = await Promise.all([
+    fetch('data/planet_types.json').then(r => r.json()),
+    fetch('data/alien_species.json').then(r => r.json()),
+    fetch('data/terraforming_tools.json').then(r => r.json()),
+    fetch('data/planet_names.json').then(r => r.json())
+  ]);
+  GAME_DATA.planetTypes = planetTypes;
+  GAME_DATA.alienSpecies = alienSpecies;
+  GAME_DATA.terraformingTools = terraformingTools;
+  GAME_DATA.planetNames = planetNames;
+}
+
+async function loadResearchData() {
+  RESEARCH_DATA = await fetch('data/tool_research.json').then(r => r.json());
+}
 
 // Game State
 class GameState {
@@ -190,22 +79,19 @@ class Planet {
   }
 
   applyTool(tool) {
-    const effects = tool.effect;
-    
-    if (effects.temperature) {
-      this.temperature = Math.max(-100, Math.min(200, this.temperature + effects.temperature));
+    const apply = (stat, delta) => {
+      if (stat === 'temperature') this.temperature = Math.max(-100, Math.min(200, this.temperature + delta));
+      if (stat === 'atmosphere') this.atmosphere = Math.max(0, Math.min(3, this.atmosphere + delta));
+      if (stat === 'water') this.water = Math.max(0, Math.min(1, this.water + delta));
+      if (stat === 'gravity') this.gravity = Math.max(0.1, Math.min(5, this.gravity + delta));
+      if (stat === 'radiation') this.radiation = Math.max(0, Math.min(2, this.radiation + delta));
+      // Add biosphere etc as needed
+    };
+    if (tool.effect) {
+      Object.entries(tool.effect).forEach(([stat, delta]) => apply(stat, delta));
     }
-    if (effects.atmosphere) {
-      this.atmosphere = Math.max(0, Math.min(3, this.atmosphere + effects.atmosphere));
-    }
-    if (effects.water) {
-      this.water = Math.max(0, Math.min(1, this.water + effects.water));
-    }
-    if (effects.gravity) {
-      this.gravity = Math.max(0.1, Math.min(5, this.gravity + effects.gravity));
-    }
-    if (effects.radiation) {
-      this.radiation = Math.max(0, Math.min(2, this.radiation + effects.radiation));
+    if (tool.sideEffects) {
+      Object.entries(tool.sideEffects).forEach(([stat, delta]) => apply(stat, delta));
     }
   }
 
@@ -269,7 +155,10 @@ const elements = {
   tutorial: document.getElementById('tutorial'),
   startGameBtn: document.getElementById('startGameBtn'),
   gameMessages: document.getElementById('gameMessages'),
-  closeModalBtn: document.getElementById('closeModalBtn')
+  closeModalBtn: document.getElementById('closeModalBtn'),
+  researchPanel: document.getElementById('researchPanel'),
+  rpTotal: document.getElementById('rpTotal'),
+  researchList: document.getElementById('researchList')
 };
 
 // Initialize game
@@ -298,23 +187,51 @@ function startGame() {
   showMessage('Welcome to Terraforming Co! Buy your first planet to get started.', 'success');
 }
 
+// Utility: create element with classes, innerHTML, and event listeners
+function createElement(tag, { className = '', html = '', onClick = null } = {}) {
+  const el = document.createElement(tag);
+  if (className) el.className = className;
+  if (html) el.innerHTML = html;
+  if (onClick) el.addEventListener('click', onClick);
+  return el;
+}
+
+// Utility: get random item from array
+function randomItem(arr) {
+  return arr[Math.floor(Math.random() * arr.length)];
+}
+
 function renderTerraformingTools() {
-  const categories = ['temperature', 'atmosphere', 'water', 'gravity', 'radiation'];
-  
+  const categories = ['temperature', 'atmosphere', 'water', 'gravity', 'radiation', 'biological'];
   categories.forEach(category => {
     const container = document.getElementById(category + 'Tools');
-    const tools = GAME_DATA.terraformingTools.filter(tool => tool.category === category);
-    
-    tools.forEach(tool => {
-      const button = document.createElement('button');
-      button.className = 'tool-btn';
-      button.innerHTML = `
-        <div class="tool-name">${tool.name}</div>
-        <div class="tool-cost">Cost: ${tool.cost} credits</div>
-        <div class="tool-description">${tool.description}</div>
-      `;
-      
-      button.addEventListener('click', () => useTool(tool));
+    if (!container) return;
+    container.innerHTML = '';
+    GAME_DATA.terraformingTools.filter(tool => tool.category === category).forEach(tool => {
+      // Tool lock/unlock logic
+      const locked = tool.unlocked === false;
+      let sideEffectsHtml = '';
+      if (tool.sideEffects && Object.keys(tool.sideEffects).length > 0) {
+        const sideList = Object.entries(tool.sideEffects)
+          .map(([k,v]) => `${k}: ${v > 0 ? '+' : ''}${v}`)
+          .join(', ');
+        sideEffectsHtml = `<div class="tool-sideeffects"><strong>Side Effects:</strong> ${sideList}</div>`;
+      }
+      const upgradeHtml = tool.upgradeRequired ? `<div class="tool-upgrade">🔒 Requires: ${tool.upgradeRequired}</div>` : '';
+      const tierHtml = `<div class="tool-tier">Tier ${tool.tier || 1}</div>`;
+      const button = createElement('button', {
+        className: `tool-btn${locked ? ' tool-locked' : ''}`,
+        html: `
+          <div class="tool-name">${tool.name}</div>
+          <div class="tool-cost">Cost: ${tool.cost} credits</div>
+          ${tierHtml}
+          <div class="tool-description">${tool.description}</div>
+          ${sideEffectsHtml}
+          ${upgradeHtml}
+        `,
+        onClick: locked ? null : () => useTool(tool)
+      });
+      button.disabled = locked;
       container.appendChild(button);
     });
   });
@@ -340,124 +257,83 @@ function useTool(tool) {
 function generateAlienBuyers() {
   game.alienBuyers = [];
   const numBuyers = 3 + Math.floor(Math.random() * 2); // 3-4 buyers
-  
   for (let i = 0; i < numBuyers; i++) {
-    const species = GAME_DATA.alienSpecies[Math.floor(Math.random() * GAME_DATA.alienSpecies.length)];
-    const buyer = {
+    const species = randomItem(GAME_DATA.alienSpecies);
+    game.alienBuyers.push({
       ...species,
       id: Date.now() + i,
-      timeLeft: 60 + Math.random() * 120, // 1-3 minutes
+      timeLeft: 60 + Math.random() * 120,
       currentPrice: species.basePrice + Math.floor((Math.random() - 0.5) * 1000)
-    };
-    game.alienBuyers.push(buyer);
+    });
   }
-  
   renderAlienBuyers();
 }
 
 function renderAlienBuyers() {
   elements.alienBuyers.innerHTML = '';
-  
   game.alienBuyers.forEach(buyer => {
-    const buyerElement = document.createElement('div');
-    buyerElement.className = 'alien-buyer';
-    buyerElement.style.borderLeftColor = buyer.color;
-    buyerElement.style.borderLeftWidth = '4px';
-    
-    buyerElement.innerHTML = `
-      <div class="alien-header">
-        <div class="alien-name">${buyer.name}</div>
-        <div class="alien-price">${buyer.currentPrice.toLocaleString()}₵</div>
-      </div>
-      <div class="alien-description">${buyer.description}</div>
-      <div class="alien-preferences">
-        <div class="preference-match">
-          <div class="match-indicator" data-type="temp"></div>
-          <span>Temp: ${buyer.tempRange[0]}°C to ${buyer.tempRange[1]}°C</span>
+    const buyerElement = createElement('div', {
+      className: 'alien-buyer',
+      html: `
+        <div class="alien-header">
+          <div class="alien-name">${buyer.name}</div>
+          <div class="alien-price">${buyer.currentPrice.toLocaleString()}₵</div>
         </div>
-        <div class="preference-match">
-          <div class="match-indicator" data-type="atmo"></div>
-          <span>Atmosphere: ${buyer.atmoRange[0]}x to ${buyer.atmoRange[1]}x</span>
+        <div class="alien-description">${buyer.description}</div>
+        <div class="alien-preferences">
+          ${['temp','atmo','water','grav','rad'].map((type, idx) => `
+            <div class="preference-match">
+              <div class="match-indicator" data-type="${type}"></div>
+              <span>${[
+                `Temp: ${buyer.tempRange[0]}°C to ${buyer.tempRange[1]}°C`,
+                `Atmosphere: ${buyer.atmoRange[0]}x to ${buyer.atmoRange[1]}x`,
+                `Water: ${Math.round(buyer.waterRange[0]*100)}% to ${Math.round(buyer.waterRange[1]*100)}%`,
+                `Gravity: ${buyer.gravRange[0]}x to ${buyer.gravRange[1]}x`,
+                `Radiation: ${buyer.radRange[0]}x to ${buyer.radRange[1]}x`
+              ][idx]}</span>
+            </div>
+          `).join('')}
         </div>
-        <div class="preference-match">
-          <div class="match-indicator" data-type="water"></div>
-          <span>Water: ${Math.round(buyer.waterRange[0]*100)}% to ${Math.round(buyer.waterRange[1]*100)}%</span>
-        </div>
-        <div class="preference-match">
-          <div class="match-indicator" data-type="grav"></div>
-          <span>Gravity: ${buyer.gravRange[0]}x to ${buyer.gravRange[1]}x</span>
-        </div>
-        <div class="preference-match">
-          <div class="match-indicator" data-type="rad"></div>
-          <span>Radiation: ${buyer.radRange[0]}x to ${buyer.radRange[1]}x</span>
-        </div>
-      </div>
-      <button class="btn btn--primary sell-btn" onclick="sellPlanet('${buyer.id}')">
-        Sell Planet
-      </button>
-    `;
-    
+        <button class="btn btn--primary sell-btn" data-buyer-id="${buyer.id}">Sell Planet</button>
+      `
+    });
     elements.alienBuyers.appendChild(buyerElement);
+    buyerElement.querySelector('.sell-btn').addEventListener('click', () => sellPlanet(buyer.id));
   });
-  
   updateAlienCompatibility();
 }
 
 function updateAlienCompatibility() {
   if (!game.currentPlanet) {
-    // If no planet selected, show all indicators as neutral
     game.alienBuyers.forEach(buyer => {
-      const buyerElement = elements.alienBuyers.querySelector(`[onclick="sellPlanet('${buyer.id}')"]`).parentElement;
-      const indicators = buyerElement.querySelectorAll('.match-indicator');
+      const buyerElement = elements.alienBuyers.querySelector(`[data-buyer-id="${buyer.id}"]`).parentElement;
+      buyerElement.querySelectorAll('.match-indicator').forEach(ind => ind.className = 'match-indicator');
       const sellBtn = buyerElement.querySelector('.sell-btn');
-      
-      indicators.forEach(indicator => {
-        indicator.className = 'match-indicator';
-      });
-      
       sellBtn.disabled = true;
       sellBtn.textContent = 'No Planet Selected';
     });
     return;
   }
-  
   game.alienBuyers.forEach(buyer => {
-    const buyerElement = elements.alienBuyers.querySelector(`[onclick="sellPlanet('${buyer.id}')"]`).parentElement;
+    const buyerElement = elements.alienBuyers.querySelector(`[data-buyer-id="${buyer.id}"]`).parentElement;
     const indicators = buyerElement.querySelectorAll('.match-indicator');
     const planet = game.currentPlanet;
-    
-    // Temperature
-    const tempMatch = planet.temperature >= buyer.tempRange[0] && planet.temperature <= buyer.tempRange[1];
-    indicators[0].className = `match-indicator ${tempMatch ? 'good' : ''}`;
-    
-    // Atmosphere
-    const atmoMatch = planet.atmosphere >= buyer.atmoRange[0] && planet.atmosphere <= buyer.atmoRange[1];
-    indicators[1].className = `match-indicator ${atmoMatch ? 'good' : ''}`;
-    
-    // Water
-    const waterMatch = planet.water >= buyer.waterRange[0] && planet.water <= buyer.waterRange[1];
-    indicators[2].className = `match-indicator ${waterMatch ? 'good' : ''}`;
-    
-    // Gravity
-    const gravMatch = planet.gravity >= buyer.gravRange[0] && planet.gravity <= buyer.gravRange[1];
-    indicators[3].className = `match-indicator ${gravMatch ? 'good' : ''}`;
-    
-    // Radiation
-    const radMatch = planet.radiation >= buyer.radRange[0] && planet.radiation <= buyer.radRange[1];
-    indicators[4].className = `match-indicator ${radMatch ? 'good' : ''}`;
-    
-    // Update sell button based on compatibility
+    const matches = [
+      planet.temperature >= buyer.tempRange[0] && planet.temperature <= buyer.tempRange[1],
+      planet.atmosphere >= buyer.atmoRange[0] && planet.atmosphere <= buyer.atmoRange[1],
+      planet.water >= buyer.waterRange[0] && planet.water <= buyer.waterRange[1],
+      planet.gravity >= buyer.gravRange[0] && planet.gravity <= buyer.gravRange[1],
+      planet.radiation >= buyer.radRange[0] && planet.radiation <= buyer.radRange[1]
+    ];
+    indicators.forEach((ind, i) => ind.className = `match-indicator${matches[i] ? ' good' : ''}`);
     const compatibility = planet.getCompatibilityScore(buyer);
     const sellBtn = buyerElement.querySelector('.sell-btn');
-    sellBtn.disabled = compatibility < 0.6; // Need at least 60% compatibility
-    
-    if (compatibility >= 0.8) {
-      sellBtn.textContent = `Sell for ${Math.floor(buyer.currentPrice * 1.2).toLocaleString()}₵`;
-    } else if (compatibility >= 0.6) {
-      sellBtn.textContent = `Sell for ${buyer.currentPrice.toLocaleString()}₵`;
-    } else {
-      sellBtn.textContent = 'Incompatible';
-    }
+    sellBtn.disabled = compatibility < 0.6;
+    sellBtn.textContent = compatibility >= 0.8
+      ? `Sell for ${Math.floor(buyer.currentPrice * 1.2).toLocaleString()}₵`
+      : compatibility >= 0.6
+        ? `Sell for ${buyer.currentPrice.toLocaleString()}₵`
+        : 'Incompatible';
   });
 }
 
@@ -491,6 +367,9 @@ function sellPlanet(buyerId) {
   // Add credits
   game.addCredits(salePrice);
   
+  // Grant Research Points based on compatibility
+  grantResearchPoints(compatibility);
+  
   // Update UI
   renderPlanetInventory();
   renderAlienBuyers();
@@ -500,7 +379,7 @@ function sellPlanet(buyerId) {
   
   // Generate new buyer
   setTimeout(() => {
-    const species = GAME_DATA.alienSpecies[Math.floor(Math.random() * GAME_DATA.alienSpecies.length)];
+    const species = randomItem(GAME_DATA.alienSpecies);
     const newBuyer = {
       ...species,
       id: Date.now(),
@@ -512,35 +391,49 @@ function sellPlanet(buyerId) {
   }, 2000);
 }
 
+function grantResearchPoints(compatibility) {
+  const percent = Math.round(compatibility * 100);
+  let rp = 0;
+  if (percent >= 100) {
+    rp = 20 + 5; // 20 + Bonus
+  } else if (percent >= 90) {
+    rp = 15;
+  } else if (percent >= 70) {
+    rp = 10;
+  } else if (percent >= 50) {
+    rp = 5;
+  }
+  if (rp > 0) {
+    playerResearch.rpTotal += rp;
+    showMessage(`Gained ${rp} Research Points!`, 'success');
+    renderResearchPanel();
+  }
+}
+
 function showPlanetPurchaseModal() {
   if (!game.gameStarted) {
     showMessage('Complete the tutorial first!', 'error');
     return;
   }
-  
   elements.planetOptions.innerHTML = '';
-  
-  // Generate 3-4 planet options
-  for (let i = 0; i < 3 + Math.floor(Math.random() * 2); i++) {
-    const planetType = GAME_DATA.planetTypes[Math.floor(Math.random() * GAME_DATA.planetTypes.length)];
+  for (let i = 0, n = 3 + Math.floor(Math.random() * 2); i < n; i++) {
+    const planetType = randomItem(GAME_DATA.planetTypes);
     const planetName = getRandomPlanetName();
     const planet = new Planet(planetType, planetName);
-    
-    const option = document.createElement('div');
-    option.className = 'planet-option';
-    option.innerHTML = `
-      <div class="option-preview" style="background: ${getPlanetColor(planet)}"></div>
-      <div class="option-info">
-        <div class="option-name">${planet.name}</div>
-        <div class="option-type">${planet.type.name}</div>
-        <div class="option-price">${planet.purchasePrice.toLocaleString()}₵</div>
-      </div>
-    `;
-    
-    option.addEventListener('click', () => purchasePlanet(planet));
+    const option = createElement('div', {
+      className: 'planet-option',
+      html: `
+        <div class="option-preview" style="background: ${getPlanetColor(planet)}"></div>
+        <div class="option-info">
+          <div class="option-name">${planet.name}</div>
+          <div class="option-type">${planet.type.name}</div>
+          <div class="option-price">${planet.purchasePrice.toLocaleString()}₵</div>
+        </div>
+      `,
+      onClick: () => purchasePlanet(planet)
+    });
     elements.planetOptions.appendChild(option);
   }
-  
   elements.planetModal.classList.add('active');
 }
 
@@ -563,26 +456,123 @@ function closePlanetModal() {
 }
 
 function getRandomPlanetName() {
-  let name;
-  do {
-    name = GAME_DATA.planetNames[Math.floor(Math.random() * GAME_DATA.planetNames.length)];
-  } while (game.usedPlanetNames.has(name));
-  
+  // Use hardcoded names if any remain unused
+  if (GAME_DATA.planetNames && GAME_DATA.planetNames.length > 0 && game.usedPlanetNames.size < GAME_DATA.planetNames.length) {
+    let name;
+    do {
+      name = randomItem(GAME_DATA.planetNames);
+    } while (game.usedPlanetNames.has(name));
+    game.usedPlanetNames.add(name);
+    return name;
+  }
+  // Otherwise, generate a procedural name
+  const starPrefixes = ["HD", "Kepler", "Gliese", "Epsilon", "Tau", "TYC", "Alpha", "Delta", "Theta", "Zeta", "Xeno", "Vesmir", "PX", "LV", "LX"];
+  const romanNumerals = ["I", "II", "III", "IV", "V", "VI", "VII", "VIII", "IX", "X"];
+  const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+  function randLetters(n) {
+    let s = "";
+    for (let i = 0; i < n; i++) s += letters[Math.floor(Math.random() * letters.length)];
+    return s;
+  }
+  const prefix = randomItem(starPrefixes);
+  const code = Math.floor(100 + Math.random() * 9000);
+  const suffix = Math.random() < 0.5 ? String.fromCharCode(97 + Math.floor(Math.random() * 3)) : '';
+  const roman = Math.random() < 0.3 ? ' ' + randomItem(romanNumerals) : '';
+  let name = `${prefix}-${code}${suffix}${roman}`.trim();
+  // Ensure uniqueness in session
+  let tries = 0;
+  while (game.usedPlanetNames.has(name) && tries < 10) {
+    name = `${prefix}-${Math.floor(100 + Math.random() * 9000)}${suffix}${roman}`.trim();
+    tries++;
+  }
   game.usedPlanetNames.add(name);
   return name;
 }
 
+function hexToRgb(hex) {
+  hex = hex.replace('#', '');
+  if (hex.length === 3) hex = hex.split('').map(x => x + x).join('');
+  const num = parseInt(hex, 16);
+  return {
+    r: (num >> 16) & 255,
+    g: (num >> 8) & 255,
+    b: num & 255
+  };
+}
+function rgbToHex(r, g, b) {
+  return '#' + [r, g, b].map(x => x.toString(16).padStart(2, '0')).join('');
+}
+
 function getPlanetColor(planet) {
-  // Base color on temperature and water
+  let baseColor;
+  // Determine base by temp and water
   if (planet.water > 0.5) {
-    return '#4682B4'; // Steel blue for water worlds
+    baseColor = '#4682B4'; // Water
   } else if (planet.temperature > 60) {
-    return '#B22222'; // Fire brick for hot worlds
+    baseColor = '#B22222'; // Hot
   } else if (planet.temperature < -10) {
-    return '#E0E6FF'; // Light blue for ice worlds
+    baseColor = '#E0E6FF'; // Ice
   } else {
-    return '#8B4513'; // Saddle brown for rocky worlds
+    baseColor = '#8B4513'; // Rocky
   }
+  // Apply radiation as brightness modifier
+  const radiation = Math.min(planet.radiation || 0, 1); // 0–1
+  let brightnessMod = 1 - radiation * 0.3;
+  // Apply gravity as hue shift (higher gravity = more green, lower = more red)
+  let rgb = hexToRgb(baseColor);
+  let hsl = rgbToHsl(rgb.r, rgb.g, rgb.b);
+  const gravNorm = Math.max(0, Math.min(1, (planet.gravity - 0.5) / 2.5)); // 0.5–3.0 mapped to 0–1
+  hsl.h = (hsl.h + gravNorm * 40) % 360; // shift hue up to +40deg
+  // Convert back to RGB
+  rgb = hslToRgb(hsl.h, hsl.s, hsl.l);
+  // Apply brightness
+  const moddedRgb = {
+    r: Math.round(rgb.r * brightnessMod),
+    g: Math.round(rgb.g * brightnessMod),
+    b: Math.round(rgb.b * brightnessMod)
+  };
+  return rgbToHex(moddedRgb.r, moddedRgb.g, moddedRgb.b);
+}
+// HSL helpers
+function rgbToHsl(r, g, b) {
+  r /= 255; g /= 255; b /= 255;
+  const max = Math.max(r, g, b), min = Math.min(r, g, b);
+  let h, s, l = (max + min) / 2;
+  if (max === min) {
+    h = s = 0;
+  } else {
+    const d = max - min;
+    s = l > 0.5 ? d / (2 - max - min) : d / (max + min);
+    switch (max) {
+      case r: h = (g - b) / d + (g < b ? 6 : 0); break;
+      case g: h = (b - r) / d + 2; break;
+      case b: h = (r - g) / d + 4; break;
+    }
+    h *= 60;
+  }
+  return { h, s, l };
+}
+function hslToRgb(h, s, l) {
+  let r, g, b;
+  h /= 360;
+  if (s === 0) {
+    r = g = b = l;
+  } else {
+    const hue2rgb = (p, q, t) => {
+      if (t < 0) t += 1;
+      if (t > 1) t -= 1;
+      if (t < 1/6) return p + (q - p) * 6 * t;
+      if (t < 1/2) return q;
+      if (t < 2/3) return p + (q - p) * (2/3 - t) * 6;
+      return p;
+    };
+    const q = l < 0.5 ? l * (1 + s) : l + s - l * s;
+    const p = 2 * l - q;
+    r = hue2rgb(p, q, h + 1/3);
+    g = hue2rgb(p, q, h);
+    b = hue2rgb(p, q, h - 1/3);
+  }
+  return { r: Math.round(r * 255), g: Math.round(g * 255), b: Math.round(b * 255) };
 }
 
 function renderPlanetInventory() {
@@ -590,21 +580,19 @@ function renderPlanetInventory() {
     elements.planetInventory.innerHTML = '<div class="no-planets">No planets owned. Buy your first planet to get started!</div>';
     return;
   }
-  
   elements.planetInventory.innerHTML = '';
-  
   game.planets.forEach(planet => {
-    const thumbnail = document.createElement('div');
-    thumbnail.className = `planet-thumbnail ${planet === game.currentPlanet ? 'active' : ''}`;
-    thumbnail.innerHTML = `
-      <div class="planet-preview" style="background: ${getPlanetColor(planet)}"></div>
-      <div class="planet-info">
-        <div class="planet-name">${planet.name}</div>
-        <div class="planet-type">${planet.type.name}</div>
-      </div>
-    `;
-    
-    thumbnail.addEventListener('click', () => selectPlanet(planet));
+    const thumbnail = createElement('div', {
+      className: `planet-thumbnail${planet === game.currentPlanet ? ' active' : ''}`,
+      html: `
+        <div class="planet-preview" style="background: ${getPlanetColor(planet)}"></div>
+        <div class="planet-info">
+          <div class="planet-name">${planet.name}</div>
+          <div class="planet-type">${planet.type.name}</div>
+        </div>
+      `,
+      onClick: () => selectPlanet(planet)
+    });
     elements.planetInventory.appendChild(thumbnail);
   });
 }
@@ -700,5 +688,16 @@ function refreshAlienMarket() {
   }
 }
 
+// Call this after loading all data
+async function loadAllGameData() {
+  await loadGameData();
+  await loadResearchData();
+}
+
 // Initialize the game when the page loads
-document.addEventListener('DOMContentLoaded', initGame);
+
+document.addEventListener('DOMContentLoaded', async () => {
+  await loadAllGameData();
+  initGame();
+  renderResearchPanel();
+});
