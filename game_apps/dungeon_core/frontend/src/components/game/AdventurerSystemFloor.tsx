@@ -1,6 +1,7 @@
-import { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import type { AdventurerParty, Adventurer, Room, Monster } from "../../types/game";
 import { useGameStore } from "../../stores/gameStore";
+import { fetchGameConstantsData, getFloorScaling, getMonsterTypes, fetchAdventurerClassesData } from "../../api/gameApi";
 
 export interface AdventurerSystemProps {
   running: boolean;
@@ -12,10 +13,22 @@ export const AdventurerSystem: React.FC<AdventurerSystemProps> = ({ running }) =
   const movementTimerRef = useRef<ReturnType<typeof setInterval> | null>(null);
   const lastPartyExitRef = useRef<number>(Date.now() - 15000); // Track when last party left, start with cooldown expired
   const isSpawningRef = useRef<boolean>(false); // Flag to prevent concurrent spawning
+  const [gameConstants, setGameConstants] = useState<any>(null);
+
+  useEffect(() => {
+    const fetchConstants = async () => {
+      setGameConstants(await fetchGameConstantsData());
+    };
+    fetchConstants();
+  }, []);
+
+  if (!gameConstants) {
+    return null; // Render nothing or a loading spinner until constants are loaded
+  }
 
   // Generate a random adventurer party with level scaling
-  const generateParty = (id: number): AdventurerParty => {
-    const partySize = Math.floor(Math.random() * (GAME_CONSTANTS.MAX_PARTY_SIZE - GAME_CONSTANTS.MIN_PARTY_SIZE + 1)) + GAME_CONSTANTS.MIN_PARTY_SIZE;
+  const generateParty = async (id: number, gameConstants: any, adventurerClasses: any): Promise<AdventurerParty> => {
+    const partySize = Math.floor(Math.random() * (gameConstants.MAX_PARTY_SIZE - gameConstants.MIN_PARTY_SIZE + 1)) + gameConstants.MIN_PARTY_SIZE;
     const members: Adventurer[] = [];
 
     // Determine target floor based on party strength
@@ -70,7 +83,9 @@ export const AdventurerSystem: React.FC<AdventurerSystemProps> = ({ running }) =
   };
 
   // Combat resolution between party and monsters in a room
-  const resolveCombat = (party: AdventurerParty, room: Room): { partyDamage: number, monsterDeaths: Monster[], loot: number, partyWins: boolean } => {
+  const resolveCombat = async (party: AdventurerParty, room: Room, gameConstants: any, monsterTypes: any): Promise<{ partyDamage: number, monsterDeaths: Monster[], loot: number, partyWins: boolean }> => {
+    const gameConstants = await fetchGameConstantsData();
+    const monsterTypes = await getMonsterTypes();
     let partyDamage = 0;
     const monsterDeaths: Monster[] = [];
     let loot = 0;
@@ -102,7 +117,7 @@ export const AdventurerSystem: React.FC<AdventurerSystemProps> = ({ running }) =
           
           // Boss room bonus
           if (room.type === 'boss') {
-            baseLoot *= GAME_CONSTANTS.BOSS_ROOM_LOOT_MULTIPLIER;
+            baseLoot *= gameConstants.BOSS_ROOM_LOOT_MULTIPLIER;
           }
           
           loot += baseLoot;
@@ -143,20 +158,25 @@ export const AdventurerSystem: React.FC<AdventurerSystemProps> = ({ running }) =
   };
 
   // Check if party should retreat
-  const shouldRetreat = (party: AdventurerParty): boolean => {
+  const shouldRetreat = async (party: AdventurerParty): Promise<boolean> => {
+    const gameConstants = await fetchGameConstantsData();
+    const gameConstants = await fetchGameConstantsData();
     const casualtyRate = party.casualties / party.members.length;
     const floorDifference = party.currentFloor - party.targetFloor;
     
     // Higher retreat chance if underleveled for the floor
     const underleveled = floorDifference > 0;
-    const retreatChance = casualtyRate >= GAME_CONSTANTS.RETREAT_THRESHOLD || 
-                         (underleveled && Math.random() < GAME_CONSTANTS.RETREAT_CHANCE_UNDERLEVELED);
+    const retreatChance = casualtyRate >= gameConstants.RETREAT_THRESHOLD || 
+                         (underleveled && Math.random() < gameConstants.RETREAT_CHANCE_UNDERLEVELED);
     
     return retreatChance;
   };
 
   // Move party through dungeon and handle encounters
-  const updateParties = () => {
+  const updateParties = async (gameConstants: any, monsterTypes: any) => {
+    const gameConstants = await fetchGameConstantsData();
+    const monsterTypes = await getMonsterTypes();
+    const gameConstants = await fetchGameConstantsData();
     gameStore.adventurerParties.forEach(party => {
       const currentFloor = gameStore.floors.find(f => f.number === party.currentFloor);
       if (!currentFloor) {
@@ -319,12 +339,14 @@ export const AdventurerSystem: React.FC<AdventurerSystemProps> = ({ running }) =
   // Spawn new parties during open hours
   useEffect(() => {
     // Only spawn if dungeon is open (not closing, closed, or in maintenance)
-    if (!running || gameStore.status !== 'Open') {
+    if (!running || gameStore.status !== 'Open' || !gameConstants) {
       if (spawnTimerRef.current) {
         clearInterval(spawnTimerRef.current);
         spawnTimerRef.current = null;
       }
-      return;    }    spawnTimerRef.current = setInterval(() => {
+      return;    }
+
+    spawnTimerRef.current = setInterval(async () => {
       // Prevent concurrent spawning attempts
       if (isSpawningRef.current) {
         return;
@@ -338,24 +360,18 @@ export const AdventurerSystem: React.FC<AdventurerSystemProps> = ({ running }) =
       if (gameStore.status === 'Open' && 
           gameStore.adventurerParties.length === 0 && 
           timeSinceLastExit > cooldownPeriod &&
-          Math.random() < GAME_CONSTANTS.ADVENTURER_SPAWN_CHANCE) {
+          Math.random() < gameConstants.ADVENTURER_SPAWN_CHANCE) {
         
         // Set spawning flag to prevent concurrent attempts
         isSpawningRef.current = true;
         
         // Double-check party count right before spawning (using current store values)
         if (gameStore.adventurerParties.length === 0 && gameStore.status === 'Open') {
-          const newParty = generateParty(Date.now());
+          const newParty = await generateParty(Date.now(), gameConstants, await fetchAdventurerClassesData());
           gameStore.addAdventurerParty(newParty);
-          gameStore.addLog({
-            message: `New adventurer party (${newParty.members.length} level ${newParty.members[0].level} adventurers) entered the dungeon! (Party ID: ${newParty.id})`,
-            type: "adventurer"
-          });
+          gameStore.addLog(`New adventurer party (${newParty.members.length} level ${newParty.members[0].level} adventurers) entered the dungeon! (Party ID: ${newParty.id})`);
         } else {
-          gameStore.addLog({
-            message: `Spawn attempt blocked - ${gameStore.adventurerParties.length} parties already present`,
-            type: "system"
-          });
+          gameStore.addLog(`Spawn attempt blocked - ${gameStore.adventurerParties.length} parties already present`);
         }
         
         // Reset spawning flag after a short delay
@@ -363,14 +379,14 @@ export const AdventurerSystem: React.FC<AdventurerSystemProps> = ({ running }) =
           isSpawningRef.current = false;
         }, 1000);
       }
-    }, GAME_CONSTANTS.TIME_ADVANCE_INTERVAL);
+    }, gameConstants.TIME_ADVANCE_INTERVAL);
 
     return () => {
       if (spawnTimerRef.current) {
         clearInterval(spawnTimerRef.current);
       }
     };
-  }, [running, gameStore.status]);
+  }, [running, gameStore.status, gameConstants]);
 
   // Move parties and handle combat
   useEffect(() => {

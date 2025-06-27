@@ -136,6 +136,64 @@ export const fetchGameConstantsData = async (): Promise<GameConstants> => {
   return gameConstants.default as GameConstants;
 };
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+export const getMonsterTypes = async (): Promise<{ [key: string]: MonsterType }> => {
+  const monsterTypes: { [key: string]: MonsterType } = {};
+  const monsterList = await fetchMonsterList();
+  const monsterSpeciesData = await fetchMonsterSpeciesList();
+
+  for (const speciesName in monsterSpeciesData.species) {
+    const species = monsterSpeciesData.species[speciesName];
+    for (const treeName in monsterList.evolution_trees[speciesName]) {
+      const tree = monsterList.evolution_trees[speciesName][treeName];
+      for (const tier in tree) {
+        for (const monsterName in tree[tier]) {
+          const monsterInfo = tree[tier][monsterName];
+          const baseStats = species.base_stats;
+          const growthFactor = species.growth_factor;
+          
+          const tierNumber = parseInt(tier.replace('Tier ', ''));
+          const hp = Math.floor(baseStats.hp * (1 + (growthFactor.hp - 1) * (tierNumber - 1)));
+          const attack = Math.floor(baseStats.attack * (1 + (growthFactor.attack - 1) * (tierNumber - 1)));
+          const defense = Math.floor(baseStats.defense * (1 + (growthFactor.defense - 1) * (tierNumber - 1)));
+
+          const calculatedBaseCost = Math.floor(
+            (hp * 0.5) + (attack * 0.7) + (defense * 0.6) + (tierNumber * 5)
+          );
+
+          monsterTypes[monsterName] = {
+            name: monsterName,
+            baseCost: Math.max(5, calculatedBaseCost), // Ensure minimum cost
+            hp,
+            attack,
+            defense,
+            color: "#808080", // Default color, can be customized per species/monster
+            description: monsterInfo.description,
+            special: monsterInfo.traits.join(', '), // Join traits for display
+            bossAbility: monsterInfo.traits.includes('Boss') ? "Special Boss Ability" : "none", // Placeholder
+            species: speciesName,
+            tier: tierNumber,
+            traits: monsterInfo.traits
+          };
+        }
+      }
+    }
+  }
+  return monsterTypes;
+};
+
 // Helper to get a monster's full data by its name and species
 export const getMonsterData = async (speciesName: string, monsterName: string): Promise<MonsterInfo | null> => {
   const monsterList = await fetchMonsterList();
