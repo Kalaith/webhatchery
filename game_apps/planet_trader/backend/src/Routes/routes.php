@@ -46,6 +46,10 @@ return function (App $app) {
             $trading->options('/{routes:.+}', [TradingController::class, 'options']);
         });
 
+        // Utility/Meta Routes
+        $group->get('/planet-name', [PlanetController::class, 'getRandomPlanetName']);
+        $group->post('/species/generate', [PlanetController::class, 'generateSpecies']);
+
         // Handle all OPTIONS requests for CORS
         $group->options('/{routes:.+}', function ($request, $response, $args) {
             return $response

@@ -13,15 +13,36 @@ class PlanetController extends BaseController
     private PlanetGeneratorService $planetGeneratorService;
     private TradingService $tradingService;
     private GameStateServiceEnhanced $gameStateService;
+    private \App\Actions\GeneratePlanetOptionsAction $generatePlanetOptionsAction;
+    private \App\Actions\GetOwnedPlanetsAction $getOwnedPlanetsAction;
+    private \App\Actions\GetCurrentPlanetAction $getCurrentPlanetAction;
+    private \App\Actions\GetPlanetAction $getPlanetAction;
+    private \App\Actions\PurchasePlanetAction $purchasePlanetAction;
+    private \App\Actions\SetCurrentPlanetAction $setCurrentPlanetAction;
+    private \App\Actions\AnalyzePlanetAction $analyzePlanetAction;
 
     public function __construct(
         PlanetGeneratorService $planetGeneratorService,
         TradingService $tradingService,
-        GameStateServiceEnhanced $gameStateService
+        GameStateServiceEnhanced $gameStateService,
+        \App\Actions\GeneratePlanetOptionsAction $generatePlanetOptionsAction,
+        \App\Actions\GetOwnedPlanetsAction $getOwnedPlanetsAction,
+        \App\Actions\GetCurrentPlanetAction $getCurrentPlanetAction,
+        \App\Actions\GetPlanetAction $getPlanetAction,
+        \App\Actions\PurchasePlanetAction $purchasePlanetAction,
+        \App\Actions\SetCurrentPlanetAction $setCurrentPlanetAction,
+        \App\Actions\AnalyzePlanetAction $analyzePlanetAction
     ) {
         $this->planetGeneratorService = $planetGeneratorService;
         $this->tradingService = $tradingService;
         $this->gameStateService = $gameStateService;
+        $this->generatePlanetOptionsAction = $generatePlanetOptionsAction;
+        $this->getOwnedPlanetsAction = $getOwnedPlanetsAction;
+        $this->getCurrentPlanetAction = $getCurrentPlanetAction;
+        $this->getPlanetAction = $getPlanetAction;
+        $this->purchasePlanetAction = $purchasePlanetAction;
+        $this->setCurrentPlanetAction = $setCurrentPlanetAction;
+        $this->analyzePlanetAction = $analyzePlanetAction;
     }
 
     /**
@@ -34,8 +55,8 @@ class PlanetController extends BaseController
             $queryParams = $request->getQueryParams();
             $count = max(1, min(10, (int) ($queryParams['count'] ?? 3))); // Between 1-10 planets
             
-            // Generate planets using the enhanced service
-            $planets = $this->planetGeneratorService->generatePlanetOptions($count);
+            // Use Action instead of service for business logic
+            $planets = $this->generatePlanetOptionsAction->execute($count);
             
             // Convert to array format for JSON response
             $planetsData = array_map(fn($planet) => $planet->toArray(), $planets);
@@ -64,21 +85,16 @@ class PlanetController extends BaseController
     {
         try {
             $planetId = $args['id'] ?? '';
-            
             if (empty($planetId)) {
                 return $this->errorResponse($response, 'Planet ID is required', 400);
             }
-
-            $planet = $this->gameStateService->getPlanetById($planetId);
-            
+            $planet = $this->getPlanetAction->execute($planetId);
             if (!$planet) {
                 return $this->errorResponse($response, 'Planet not found', 404);
             }
-
             return $this->successResponse($response, [
                 'planet' => $planet->toArray()
             ], 'Planet details retrieved');
-
         } catch (\Exception $e) {
             $this->logAction('planet_get_error', ['error' => $e->getMessage()]);
             return $this->errorResponse($response, 'Failed to get planet: ' . $e->getMessage(), 500);
@@ -93,25 +109,19 @@ class PlanetController extends BaseController
         try {
             $sessionId = $this->getSessionId($request);
             $planetId = $args['id'] ?? '';
-            
             if (empty($planetId)) {
                 return $this->errorResponse($response, 'Planet ID is required', 400);
             }
-
-            $result = $this->tradingService->purchasePlanet($sessionId, $planetId);
-            
+            $result = $this->purchasePlanetAction->execute($sessionId, $planetId);
             if (!$result['success']) {
                 return $this->errorResponse($response, $result['message'], 400);
             }
-
             $this->logAction('planet_purchased', [
                 'session_id' => $sessionId,
                 'planet_id' => $planetId,
                 'price' => $result['planet']['purchasePrice'] ?? 0
             ]);
-            
             return $this->successResponse($response, $result, $result['message']);
-
         } catch (\Exception $e) {
             $this->logAction('planet_purchase_error', ['error' => $e->getMessage()]);
             return $this->errorResponse($response, 'Failed to purchase planet: ' . $e->getMessage(), 500);
@@ -126,15 +136,10 @@ class PlanetController extends BaseController
         try {
             $sessionId = $this->getSessionId($request);
             [$page, $perPage] = $this->getPaginationParams($request);
-            
-            $planets = $this->tradingService->getOwnedPlanets($sessionId);
+            $planets = $this->getOwnedPlanetsAction->execute($sessionId);
             $paginatedData = $this->paginate($planets, $page, $perPage);
-            
-            // Convert planets to array format
             $paginatedData['items'] = array_map(fn($planet) => $planet->toArray(), $paginatedData['items']);
-            
             return $this->successResponse($response, $paginatedData, 'Owned planets retrieved');
-
         } catch (\Exception $e) {
             $this->logAction('owned_planets_error', ['error' => $e->getMessage()]);
             return $this->errorResponse($response, 'Failed to get owned planets: ' . $e->getMessage(), 500);
@@ -149,24 +154,18 @@ class PlanetController extends BaseController
         try {
             $sessionId = $this->getSessionId($request);
             $planetId = $args['id'] ?? '';
-            
             if (empty($planetId)) {
                 return $this->errorResponse($response, 'Planet ID is required', 400);
             }
-
-            $result = $this->tradingService->setCurrentPlanet($sessionId, $planetId);
-            
+            $result = $this->setCurrentPlanetAction->execute($sessionId, $planetId);
             if (!$result['success']) {
                 return $this->errorResponse($response, $result['message'], 400);
             }
-
             $this->logAction('current_planet_set', [
                 'session_id' => $sessionId,
                 'planet_id' => $planetId
             ]);
-            
             return $this->successResponse($response, $result, $result['message']);
-
         } catch (\Exception $e) {
             $this->logAction('set_current_planet_error', ['error' => $e->getMessage()]);
             return $this->errorResponse($response, 'Failed to set current planet: ' . $e->getMessage(), 500);
@@ -180,19 +179,15 @@ class PlanetController extends BaseController
     {
         try {
             $sessionId = $this->getSessionId($request);
-            
-            $planet = $this->tradingService->getCurrentPlanet($sessionId);
-            
+            $planet = $this->getCurrentPlanetAction->execute($sessionId);
             if (!$planet) {
                 return $this->successResponse($response, [
                     'currentPlanet' => null
                 ], 'No current planet selected');
             }
-
             return $this->successResponse($response, [
                 'currentPlanet' => $planet->toArray()
             ], 'Current planet retrieved');
-
         } catch (\Exception $e) {
             $this->logAction('get_current_planet_error', ['error' => $e->getMessage()]);
             return $this->errorResponse($response, 'Failed to get current planet: ' . $e->getMessage(), 500);
@@ -206,36 +201,14 @@ class PlanetController extends BaseController
     {
         try {
             $planetId = $args['id'] ?? '';
-            
             if (empty($planetId)) {
                 return $this->errorResponse($response, 'Planet ID is required', 400);
             }
-
-            $planet = $this->gameStateService->getPlanetById($planetId);
-            
-            if (!$planet) {
-                return $this->errorResponse($response, 'Planet not found', 404);
+            $result = $this->analyzePlanetAction->execute($planetId);
+            if (!$result['success']) {
+                return $this->errorResponse($response, $result['message'], 404);
             }
-
-            $value = $this->planetGeneratorService->calculatePlanetValue($planet);
-            $rarity = $this->planetGeneratorService->getPlanetRarity($planet);
-            
-            $analysis = [
-                'planet' => $planet->toArray(),
-                'estimatedValue' => $value,
-                'rarity' => $rarity,
-                'profitPotential' => $value - $planet->purchasePrice,
-                'characteristics' => [
-                    'habitable' => $this->isHabitable($planet),
-                    'waterRich' => $planet->water > 0.5,
-                    'lowRadiation' => $planet->radiation < 0.2,
-                    'earthLikeGravity' => abs($planet->gravity - 1.0) < 0.3,
-                    'temperateClimate' => $planet->temperature >= 0 && $planet->temperature <= 30
-                ]
-            ];
-            
-            return $this->successResponse($response, $analysis, 'Planet analysis completed');
-
+            return $this->successResponse($response, $result['analysis'], $result['message']);
         } catch (\Exception $e) {
             $this->logAction('planet_analysis_error', ['error' => $e->getMessage()]);
             return $this->errorResponse($response, 'Failed to analyze planet: ' . $e->getMessage(), 500);
