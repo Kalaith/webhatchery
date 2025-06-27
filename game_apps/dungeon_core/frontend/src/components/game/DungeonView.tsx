@@ -1,6 +1,7 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useGameStore } from "../../stores/gameStore";
 import type { DungeonFloor, Room } from "../../types/game";
+import { fetchGameConstantsData } from "../../api/gameApi";
 
 interface DungeonFloorViewProps {
   floor: DungeonFloor;
@@ -188,6 +189,18 @@ const RoomComponent: React.FC<{
 };
 
 export const DungeonFloorView: React.FC<DungeonFloorViewProps> = ({ floor, onRoomClick }) => {
+  const [gameConstants, setGameConstants] = useState<any>(null);
+
+  useEffect(() => {
+    const fetchConstants = async () => {
+      setGameConstants(await fetchGameConstantsData());
+    };
+    fetchConstants();
+  }, []);
+
+  if (!gameConstants) {
+    return null; // Or a loading indicator
+  }
   return (
     <div className="dungeon-floor bg-gray-800 rounded-lg p-4 mb-4">
       <div className="floor-header text-center mb-4">
@@ -214,7 +227,7 @@ export const DungeonFloorView: React.FC<DungeonFloorViewProps> = ({ floor, onRoo
           ))}
       </div>      <div className="floor-stats text-center mt-2 text-sm text-gray-400">
         <div>
-          Rooms: {floor.rooms.length}/{GAME_CONSTANTS.MAX_ROOMS_PER_FLOOR + 1}
+          Rooms: {floor.rooms.length}/{gameConstants.MAX_ROOMS_PER_FLOOR + 1}
           {floor.isDeepest && <span className="ml-4">🔮 Core Room Active</span>}
         </div>
         <div className="mt-1">

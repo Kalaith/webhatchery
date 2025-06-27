@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useGameContext } from '../contexts/GameContext';
+import { TOOL_CATEGORIES } from '../types/entities';
 import type { Tool } from '../types/entities';
 
 interface ToolCategoryProps {
@@ -167,15 +168,6 @@ const ToolButton: React.FC<ToolButtonProps> = ({ tool }) => {
   );
 };
 
-const categories = [
-  { label: '🌡️ Temperature', id: 'temperature' },
-  { label: '🌫️ Atmosphere', id: 'atmosphere' },
-  { label: '💧 Water', id: 'water' },
-  { label: '⚖️ Gravity', id: 'gravity' },
-  { label: '☢️ Radiation', id: 'radiation' },
-  { label: '🏗️ Infrastructure', id: 'infrastructure' },
-];
-
 const TerraformingToolsPanel: React.FC = () => {
   const { gameData, credits, currentPlanet } = useGameContext();
 
@@ -195,7 +187,7 @@ const TerraformingToolsPanel: React.FC = () => {
           <p className="text-xs text-gray-500 mt-1">Tap tool to expand details</p>
         </div>
         <div className="max-h-64 sm:max-h-96 overflow-y-auto scrollbar-custom pr-1 space-y-3">
-          {categories.map(cat => {
+          {TOOL_CATEGORIES.map(cat => {
             const categoryTools = gameData.terraformingTools.filter(tool => tool.category === cat.id);
             // Only show categories that have tools
             if (categoryTools.length === 0) return null;

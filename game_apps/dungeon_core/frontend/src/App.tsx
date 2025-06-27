@@ -3,7 +3,7 @@ import { ResourceBar } from "./components/layout/ResourceBar";
 import { RoomSelector } from "./components/game/RoomSelector";
 import { MonsterSelector } from "./components/game/MonsterSelector";
 import { GameControls } from "./components/game/GameControls";
-import { GameLog } from "./components/game/GameLog";
+
 import { GameModal } from "./components/ui/GameModal";
 import { DungeonView } from "./components/game/DungeonView";
 import { AdventurerSystem } from "./components/game/AdventurerSystemFloor";
@@ -72,9 +72,7 @@ function App() {
             <DungeonView floors={floors} onRoomClick={handleRoomClick} />
           </div>
           
-          <div className="game-log-container w-full max-w-2xl">
-            <GameLog />
-          </div>
+          
         </section>
         
         <MonsterSelector />

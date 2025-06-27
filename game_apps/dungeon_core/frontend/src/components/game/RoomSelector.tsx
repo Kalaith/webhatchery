@@ -3,6 +3,14 @@ import { useGameStore } from "../../stores/gameStore";
 import { fetchGameConstantsData, getRoomCost } from "../../api/gameApi";
 
 export const RoomSelector: React.FC = () => {
+  const [gameConstants, setGameConstants] = useState<any>(null);
+
+  useEffect(() => {
+    const fetchConstants = async () => {
+      setGameConstants(await fetchGameConstantsData());
+    };
+    fetchConstants();
+  }, []);
   const { mana, addRoom, floors, totalFloors } = useGameStore();
   // Calculate the cost for the next room
   const getNextRoomCost = async () => {
@@ -27,7 +35,14 @@ export const RoomSelector: React.FC = () => {
     }
   };
 
-  const roomCost = getNextRoomCost();
+  const [roomCost, setRoomCost] = useState(0);
+
+  useEffect(() => {
+    const updateRoomCost = async () => {
+      setRoomCost(await getNextRoomCost());
+    };
+    updateRoomCost();
+  }, [floors]); // Recalculate when floors change
 
   const handleAddRoom = () => {
     if (mana >= roomCost) {
@@ -62,18 +77,31 @@ export const RoomSelector: React.FC = () => {
               </span>
             </div>            <div className="text-xs mt-1 opacity-90">
               {(() => {
-                const deepestFloor = floors.find(f => f.isDeepest);
-                if (!deepestFloor) return "Adds to deepest floor";
-                
-                const nonCoreRooms = deepestFloor.rooms.filter(room => room.type !== 'core');
-                
-                if (nonCoreRooms.length >= GAME_CONSTANTS.MAX_ROOMS_PER_FLOOR + 1) {
-                  return `Creates floor ${totalFloors + 1}`;
-                } else {
-                  const nextPosition = nonCoreRooms.length;
-                  const roomType = nextPosition === GAME_CONSTANTS.MAX_ROOMS_PER_FLOOR ? 'Boss' : 'Normal';
-                  return `${roomType} room on floor ${deepestFloor.number}`;
-                }
+                const [displayMessage, setDisplayMessage] = useState("Loading...");
+
+                useEffect(() => {
+                  const getMessage = async () => {
+                    const deepestFloor = floors.find(f => f.isDeepest);
+                    if (!deepestFloor) {
+                      setDisplayMessage("Adds to deepest floor");
+                      return;
+                    }
+                    
+                    const nonCoreRooms = deepestFloor.rooms.filter(room => room.type !== 'core');
+                    
+                    const gameConstants = await fetchGameConstantsData();
+                    if (nonCoreRooms.length >= gameConstants.MAX_ROOMS_PER_FLOOR + 1) {
+                      setDisplayMessage(`Creates floor ${totalFloors + 1}`);
+                    } else {
+                      const nextPosition = nonCoreRooms.length;
+                      const roomType = nextPosition === gameConstants.MAX_ROOMS_PER_FLOOR ? 'Boss' : 'Normal';
+                      setDisplayMessage(`${roomType} room on floor ${deepestFloor.number}`);
+                    }
+                  };
+                  getMessage();
+                }, [floors, totalFloors]);
+
+                return displayMessage;
               })()}
             </div>
           </button>
@@ -84,7 +112,7 @@ export const RoomSelector: React.FC = () => {
           <div className="text-xs text-blue-700 space-y-1">
             <div>• Rooms 1-4: Normal combat</div>
             <div>• Room 5: Boss chamber</div>
-            <div>• {GAME_CONSTANTS.MAX_ROOMS_PER_FLOOR + 1} rooms per floor</div>
+            <div>• {gameConstants?.MAX_ROOMS_PER_FLOOR + 1} rooms per floor</div>
             <div>• Core room on deepest floor</div>
             <div>• New floor when current is full</div>
           </div>
@@ -102,7 +130,7 @@ export const RoomSelector: React.FC = () => {
       </div>
 
       <div className="mt-4 p-2 bg-gray-50 rounded text-xs text-gray-600">
-        💡 Add rooms to expand your dungeon. When a floor reaches {GAME_CONSTANTS.MAX_ROOMS_PER_FLOOR + 1} rooms, 
+        💡 Add rooms to expand your dungeon. When a floor reaches {gameConstants?.MAX_ROOMS_PER_FLOOR + 1} rooms, 
         the next room will start a new floor.
       </div>
     </aside>

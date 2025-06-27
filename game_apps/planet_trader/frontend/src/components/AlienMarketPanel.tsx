@@ -1,5 +1,9 @@
+
 import React, { useState } from 'react';
 import { useGameContext } from '../contexts/GameContext';
+import RequirementGrid from './RequirementGrid';
+import RequirementStatusCell from './RequirementStatusCell';
+import { TOOL_CATEGORIES } from '../types/entities';
 
 const AlienMarketPanel: React.FC = () => {
   const { alienBuyers, currentPlanet, sellPlanet } = useGameContext();
@@ -65,6 +69,8 @@ const AlienMarketPanel: React.FC = () => {
     return 'hover:bg-red-900/30';
   };
 
+
+
   return (
     <aside className="bg-gray-800 border border-gray-700 rounded-lg shadow-lg">
       <div className="p-3 sm:p-6">
@@ -110,53 +116,19 @@ const AlienMarketPanel: React.FC = () => {
                           <div className="inline-block border border-gray-600 rounded bg-gray-700/50">
                             <table className="text-sm">
                               <tr>
-                                <td className="px-2 py-1 text-orange-400 text-center">🌡️</td>
-                                <td className="px-2 py-1 text-blue-400 text-center">🌫️</td>
-                                <td className="px-2 py-1 text-blue-300 text-center">💧</td>
-                                <td className="px-2 py-1 text-purple-400 text-center">⚖️</td>
-                                <td className="px-2 py-1 text-yellow-400 text-center">☢️</td>
+                                {TOOL_CATEGORIES.map(cat => (
+                                  <td
+                                    key={cat.id}
+                                    className={`px-2 py-1 text-center ${cat.colorClass || ''}`}
+                                  >
+                                    {cat.icon}
+                                  </td>
+                                ))}
                               </tr>
                               <tr>
-                                <td className="px-2 py-1 text-center">
-                                  <span className={
-                                    (buyer.tempRange && currentPlanet.temperature >= buyer.tempRange[0] && currentPlanet.temperature <= buyer.tempRange[1])
-                                      ? 'text-green-400' : 'text-red-400'
-                                  }>
-                                    {(buyer.tempRange && currentPlanet.temperature >= buyer.tempRange[0] && currentPlanet.temperature <= buyer.tempRange[1]) ? '✓' : '✗'}
-                                  </span>
-                                </td>
-                                <td className="px-2 py-1 text-center">
-                                  <span className={
-                                    (buyer.atmoRange && currentPlanet.atmosphere >= buyer.atmoRange[0] && currentPlanet.atmosphere <= buyer.atmoRange[1])
-                                      ? 'text-green-400' : 'text-red-400'
-                                  }>
-                                    {(buyer.atmoRange && currentPlanet.atmosphere >= buyer.atmoRange[0] && currentPlanet.atmosphere <= buyer.atmoRange[1]) ? '✓' : '✗'}
-                                  </span>
-                                </td>
-                                <td className="px-2 py-1 text-center">
-                                  <span className={
-                                    (buyer.waterRange && currentPlanet.water >= buyer.waterRange[0] && currentPlanet.water <= buyer.waterRange[1])
-                                      ? 'text-green-400' : 'text-red-400'
-                                  }>
-                                    {(buyer.waterRange && currentPlanet.water >= buyer.waterRange[0] && currentPlanet.water <= buyer.waterRange[1]) ? '✓' : '✗'}
-                                  </span>
-                                </td>
-                                <td className="px-2 py-1 text-center">
-                                  <span className={
-                                    (buyer.gravRange && currentPlanet.gravity >= buyer.gravRange[0] && currentPlanet.gravity <= buyer.gravRange[1])
-                                      ? 'text-green-400' : 'text-red-400'
-                                  }>
-                                    {(buyer.gravRange && currentPlanet.gravity >= buyer.gravRange[0] && currentPlanet.gravity <= buyer.gravRange[1]) ? '✓' : '✗'}
-                                  </span>
-                                </td>
-                                <td className="px-2 py-1 text-center">
-                                  <span className={
-                                    (buyer.radRange && currentPlanet.radiation >= buyer.radRange[0] && currentPlanet.radiation <= buyer.radRange[1])
-                                      ? 'text-green-400' : 'text-red-400'
-                                  }>
-                                    {(buyer.radRange && currentPlanet.radiation >= buyer.radRange[0] && currentPlanet.radiation <= buyer.radRange[1]) ? '✓' : '✗'}
-                                  </span>
-                                </td>
+                                {TOOL_CATEGORIES.map((cat) => (
+                                  <RequirementStatusCell key={cat.id} buyer={buyer} currentPlanet={currentPlanet} categoryId={cat.id} />
+                                ))}
                               </tr>
                             </table>
                           </div>
@@ -200,91 +172,7 @@ const AlienMarketPanel: React.FC = () => {
                       </div>
 
                       {/* Requirements Grid with Met/Unmet Status */}
-                      <div className="grid grid-cols-2 gap-2 text-xs">
-                        {currentPlanet && (
-                          <>
-                            <div className={`rounded p-2 ${
-                              currentPlanet.temperature >= (buyer.tempRange?.[0] || 0) && currentPlanet.temperature <= (buyer.tempRange?.[1] || 0)
-                                ? 'bg-green-900/30 border border-green-600/50' : 'bg-red-900/30 border border-red-600/50'
-                            }`}>
-                              <div className="flex items-center gap-1">
-                                <span>{currentPlanet.temperature >= (buyer.tempRange?.[0] || 0) && currentPlanet.temperature <= (buyer.tempRange?.[1] || 0) ? '✅' : '❌'}</span>
-                                <span className="text-gray-400">Temperature</span>
-                              </div>
-                              <div className="text-white">🌡️ {buyer.tempRange?.[0] || 0}°C to {buyer.tempRange?.[1] || 0}°C</div>
-                              <div className="text-xs text-blue-400">Your planet: {currentPlanet.temperature.toFixed(1)}°C</div>
-                            </div>
-                            <div className={`rounded p-2 ${
-                              currentPlanet.atmosphere >= (buyer.atmoRange?.[0] || 0) && currentPlanet.atmosphere <= (buyer.atmoRange?.[1] || 0)
-                                ? 'bg-green-900/30 border border-green-600/50' : 'bg-red-900/30 border border-red-600/50'
-                            }`}>
-                              <div className="flex items-center gap-1">
-                                <span>{currentPlanet.atmosphere >= (buyer.atmoRange?.[0] || 0) && currentPlanet.atmosphere <= (buyer.atmoRange?.[1] || 0) ? '✅' : '❌'}</span>
-                                <span className="text-gray-400">Atmosphere</span>
-                              </div>
-                              <div className="text-white">🌫️ {buyer.atmoRange?.[0] || 0}x to {buyer.atmoRange?.[1] || 0}x</div>
-                              <div className="text-xs text-blue-400">Your planet: {currentPlanet.atmosphere.toFixed(2)}x</div>
-                            </div>
-                            <div className={`rounded p-2 ${
-                              currentPlanet.water >= (buyer.waterRange?.[0] || 0) && currentPlanet.water <= (buyer.waterRange?.[1] || 0)
-                                ? 'bg-green-900/30 border border-green-600/50' : 'bg-red-900/30 border border-red-600/50'
-                            }`}>
-                              <div className="flex items-center gap-1">
-                                <span>{currentPlanet.water >= (buyer.waterRange?.[0] || 0) && currentPlanet.water <= (buyer.waterRange?.[1] || 0) ? '✅' : '❌'}</span>
-                                <span className="text-gray-400">Water</span>
-                              </div>
-                              <div className="text-white">💧 {Math.round((buyer.waterRange?.[0] || 0)*100)}% to {Math.round((buyer.waterRange?.[1] || 0)*100)}%</div>
-                              <div className="text-xs text-blue-400">Your planet: {Math.round(currentPlanet.water*100)}%</div>
-                            </div>
-                            <div className={`rounded p-2 ${
-                              currentPlanet.gravity >= (buyer.gravRange?.[0] || 0) && currentPlanet.gravity <= (buyer.gravRange?.[1] || 0)
-                                ? 'bg-green-900/30 border border-green-600/50' : 'bg-red-900/30 border border-red-600/50'
-                            }`}>
-                              <div className="flex items-center gap-1">
-                                <span>{currentPlanet.gravity >= (buyer.gravRange?.[0] || 0) && currentPlanet.gravity <= (buyer.gravRange?.[1] || 0) ? '✅' : '❌'}</span>
-                                <span className="text-gray-400">Gravity</span>
-                              </div>
-                              <div className="text-white">⚖️ {buyer.gravRange?.[0] || 0}x to {buyer.gravRange?.[1] || 0}x</div>
-                              <div className="text-xs text-blue-400">Your planet: {currentPlanet.gravity.toFixed(2)}x</div>
-                            </div>
-                            <div className={`rounded p-2 col-span-2 ${
-                              currentPlanet.radiation >= (buyer.radRange?.[0] || 0) && currentPlanet.radiation <= (buyer.radRange?.[1] || 0)
-                                ? 'bg-green-900/30 border border-green-600/50' : 'bg-red-900/30 border border-red-600/50'
-                            }`}>
-                              <div className="flex items-center gap-1">
-                                <span>{currentPlanet.radiation >= (buyer.radRange?.[0] || 0) && currentPlanet.radiation <= (buyer.radRange?.[1] || 0) ? '✅' : '❌'}</span>
-                                <span className="text-gray-400">Radiation</span>
-                              </div>
-                              <div className="text-white">☢️ {buyer.radRange?.[0] || 0}x to {buyer.radRange?.[1] || 0}x</div>
-                              <div className="text-xs text-blue-400">Your planet: {currentPlanet.radiation.toFixed(2)}x</div>
-                            </div>
-                          </>
-                        )}
-                        {!currentPlanet && (
-                          <>
-                            <div className="bg-gray-600 rounded p-2">
-                              <div className="text-gray-400">Temperature</div>
-                              <div className="text-white">🌡️ {buyer.tempRange?.[0] || 0}°C to {buyer.tempRange?.[1] || 0}°C</div>
-                            </div>
-                            <div className="bg-gray-600 rounded p-2">
-                              <div className="text-gray-400">Atmosphere</div>
-                              <div className="text-white">🌫️ {buyer.atmoRange?.[0] || 0}x to {buyer.atmoRange?.[1] || 0}x</div>
-                            </div>
-                            <div className="bg-gray-600 rounded p-2">
-                              <div className="text-gray-400">Water</div>
-                              <div className="text-white">💧 {Math.round((buyer.waterRange?.[0] || 0)*100)}% to {Math.round((buyer.waterRange?.[1] || 0)*100)}%</div>
-                            </div>
-                            <div className="bg-gray-600 rounded p-2">
-                              <div className="text-gray-400">Gravity</div>
-                              <div className="text-white">⚖️ {buyer.gravRange?.[0] || 0}x to {buyer.gravRange?.[1] || 0}x</div>
-                            </div>
-                            <div className="bg-gray-600 rounded p-2 col-span-2">
-                              <div className="text-gray-400">Radiation</div>
-                              <div className="text-white">☢️ {buyer.radRange?.[0] || 0}x to {buyer.radRange?.[1] || 0}x</div>
-                            </div>
-                          </>
-                        )}
-                      </div>
+                      <RequirementGrid buyer={buyer} currentPlanet={currentPlanet} />
 
                       {/* Current Planet Compatibility */}
                       {currentPlanet && (

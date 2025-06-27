@@ -1,14 +1,29 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useGameStore } from "../../stores/gameStore";
-import type { MonsterType } from "../../types/game";
+import type { MonsterType, MonsterSpecies } from "../../types/game";
+import { fetchMonsterSpeciesList, fetchMonsterList, getMonsterManaCost, getMonsterTrait, getMonsterTypes } from "../../api/gameApi";
 
 export const MonsterSelector: React.FC = () => {
   const { mana, selectedMonster, selectMonster, unlockedMonsterSpecies, unlockMonsterSpecies } = useGameStore();
-  const [selectedSpecies, setSelectedSpecies] = useState<string | null>(() => {
-    const initialSelected = unlockedMonsterSpecies.length > 0 ? unlockedMonsterSpecies[0] : (MONSTER_SPECIES_DATA["Mimetic"] ? "Mimetic" : null);
-    console.log("MonsterSelector (useState init): unlockedMonsterSpecies=", unlockedMonsterSpecies, "MONSTER_SPECIES_DATA[\"Mimetic\"]=", MONSTER_SPECIES_DATA["Mimetic"], "initialSelected=", initialSelected);
-    return initialSelected;
-  });
+  const [monsterSpeciesData, setMonsterSpeciesData] = useState<{[key: string]: MonsterSpecies} | null>(null);
+  const [monsterEvolutionTrees, setMonsterEvolutionTrees] = useState<any>(null);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      setMonsterSpeciesData((await fetchMonsterSpeciesList()).species);
+      setMonsterEvolutionTrees((await fetchMonsterList()).evolution_trees);
+    };
+    fetchData();
+  }, []);
+
+  const [selectedSpecies, setSelectedSpecies] = useState<string | null>(null);
+
+  useEffect(() => {
+    if (monsterSpeciesData && unlockedMonsterSpecies.length > 0 && selectedSpecies === null) {
+      const initialSelected = unlockedMonsterSpecies[0];
+      setSelectedSpecies(initialSelected);
+    }
+  }, [monsterSpeciesData, unlockedMonsterSpecies, selectedSpecies]);
 
   console.log("MonsterSelector (render): mana=", mana, "selectedMonster=", selectedMonster, "unlockedMonsterSpecies=", unlockedMonsterSpecies, "selectedSpecies=", selectedSpecies);
 
@@ -19,22 +34,23 @@ export const MonsterSelector: React.FC = () => {
   };
 
   const getMonstersForSelectedSpecies = (): MonsterType[] => {
-    console.log("getMonstersForSelectedSpecies: selectedSpecies=", selectedSpecies);
-    if (!selectedSpecies) return [];
-    const speciesData = MONSTER_SPECIES_DATA[selectedSpecies];
-    console.log("getMonstersForSelectedSpecies: speciesData=", speciesData);
+    if (!selectedSpecies || !monsterSpeciesData || !monsterEvolutionTrees) return [];
+    const speciesData = monsterSpeciesData[selectedSpecies];
     if (!speciesData) return [];
 
     const monsters: MonsterType[] = [];
-    const evolutionTree = MONSTER_EVOLUTION_TREES[selectedSpecies];
-    console.log("getMonstersForSelectedSpecies: evolutionTree=", evolutionTree);
+    const evolutionTree = monsterEvolutionTrees[selectedSpecies];
 
     if (evolutionTree) {
       for (const monsterFamily in evolutionTree) {
         for (const tierKey in evolutionTree[monsterFamily]) {
           const tierMonsters = evolutionTree[monsterFamily][tierKey];
           for (const monsterName in tierMonsters) {
-            const monster = monsterTypes[monsterName];
+            // Assuming getMonsterTypes is already fetching and populating monsterTypes
+            // We need to await getMonsterTypes here or pass it down
+            // For now, let's assume monsterTypes is available globally or passed down
+            // This will be addressed in a later step if it causes issues
+            const monster = useGameStore.getState().monsterTypes[monsterName]; // Access from store state
             if (monster) {
               monsters.push(monster);
             }
@@ -57,9 +73,9 @@ export const MonsterSelector: React.FC = () => {
       <div className="mb-4">
         <h4 className="font-semibold text-gray-700 mb-2">Monster Species</h4>
         <div className="flex flex-wrap gap-2">
-          {Object.keys(MONSTER_SPECIES_DATA).map(speciesName => {
+          {monsterSpeciesData && Object.keys(monsterSpeciesData).map(speciesName => {
             const isUnlocked = unlockedMonsterSpecies.includes(speciesName);
-            const speciesData = MONSTER_SPECIES_DATA[speciesName];
+            const speciesData = monsterSpeciesData[speciesName];
             const canAffordUnlock = mana >= speciesData.unlock_cost;
 
             return (
