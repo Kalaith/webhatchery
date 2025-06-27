@@ -8,19 +8,7 @@ export interface AdventurerSystemProps {
 }
 
 export const AdventurerSystem: React.FC<AdventurerSystemProps> = ({ running }) => {
-  const gameStore = useGameStore();
-  const spawnTimerRef = useRef<ReturnType<typeof setInterval> | null>(null);
-  const movementTimerRef = useRef<ReturnType<typeof setInterval> | null>(null);
-  const lastPartyExitRef = useRef<number>(Date.now() - 15000); // Track when last party left, start with cooldown expired
-  const isSpawningRef = useRef<boolean>(false); // Flag to prevent concurrent spawning
-  const [gameConstants, setGameConstants] = useState<any>(null);
-
-  useEffect(() => {
-    const fetchConstants = async () => {
-      setGameConstants(await fetchGameConstantsData());
-    };
-    fetchConstants();
-  }, []);
+  
 
   if (!gameConstants) {
     return null; // Render nothing or a loading spinner until constants are loaded
@@ -84,8 +72,6 @@ export const AdventurerSystem: React.FC<AdventurerSystemProps> = ({ running }) =
 
   // Combat resolution between party and monsters in a room
   const resolveCombat = async (party: AdventurerParty, room: Room, gameConstants: any, monsterTypes: any): Promise<{ partyDamage: number, monsterDeaths: Monster[], loot: number, partyWins: boolean }> => {
-    const gameConstants = await fetchGameConstantsData();
-    const monsterTypes = await getMonsterTypes();
     let partyDamage = 0;
     const monsterDeaths: Monster[] = [];
     let loot = 0;
@@ -174,10 +160,7 @@ export const AdventurerSystem: React.FC<AdventurerSystemProps> = ({ running }) =
 
   // Move party through dungeon and handle encounters
   const updateParties = async (gameConstants: any, monsterTypes: any) => {
-    const gameConstants = await fetchGameConstantsData();
-    const monsterTypes = await getMonsterTypes();
-    const gameConstants = await fetchGameConstantsData();
-    gameStore.adventurerParties.forEach(party => {
+    for (const party of gameStore.adventurerParties) {
       const currentFloor = gameStore.floors.find(f => f.number === party.currentFloor);
       if (!currentFloor) {
         gameStore.removeAdventurerParty(party.id);
@@ -398,8 +381,8 @@ export const AdventurerSystem: React.FC<AdventurerSystemProps> = ({ running }) =
       return;
     }
 
-    movementTimerRef.current = setInterval(() => {
-      updateParties();
+    movementTimerRef.current = setInterval(async () => {
+      await updateParties(gameConstants, await getMonsterTypes());
     }, 2000 / gameStore.speed); // Movement speed based on game speed
 
     return () => {
