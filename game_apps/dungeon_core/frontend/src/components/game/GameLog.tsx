@@ -7,24 +7,10 @@ export const GameLog: React.FC = () => {
 
   // Auto-scroll to bottom when new entries are added
   useEffect(() => {
-    logEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+    logEndRef.current?.scrollIntoView({ behavior: 'smooth', block: 'end' });
   }, [log]);
 
-  const getLogEntryStyle = (type: string) => {
-    switch (type) {
-      case 'system': return 'text-blue-600 font-medium';
-      case 'combat': return 'text-red-600';
-      case 'economic': return 'text-yellow-600';
-      case 'adventurer': return 'text-green-600';
-      default: return 'text-gray-600';
-    }
-  };
-
-  const formatTimestamp = (timestamp?: number) => {
-    if (!timestamp) return '';
-    const date = new Date(timestamp);
-    return date.toLocaleTimeString();
-  };
+  
 
   return (
     <div className="game-log-container mt-4 bg-white rounded-lg shadow p-4">
@@ -36,15 +22,9 @@ export const GameLog: React.FC = () => {
           log.map((entry, idx) => (
             <div 
               key={idx} 
-              className={`log-entry py-1 text-sm ${getLogEntryStyle(entry.type)}`}
+              className="log-entry py-1 text-sm text-gray-600"
             >
-              <span className="text-xs text-gray-400 mr-2">
-                {formatTimestamp(entry.timestamp)}
-              </span>
-              <span className="inline-block w-2 h-2 rounded-full mr-2" 
-                    style={{ backgroundColor: getLogEntryStyle(entry.type).split(' ')[0].replace('text-', '') }}>
-              </span>
-              {entry.message}
+              {entry}
             </div>
           ))
         )}

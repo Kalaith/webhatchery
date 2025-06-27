@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from "react";
 import { useGameStore } from "../../stores/gameStore";
-import { GAME_CONSTANTS } from "../../data/gameData";
+import { fetchGameConstantsData } from "../../api/gameApi";
 
 export const GameControls: React.FC = () => {
   const { speed, status, setSpeed, setStatus, advanceTime, respawnMonsters, adventurerParties, resetGame } = useGameStore();
@@ -8,13 +8,17 @@ export const GameControls: React.FC = () => {
 
   // Auto-advance time
   useEffect(() => {
-    if (timeIntervalRef.current) {
-      clearInterval(timeIntervalRef.current);
-    }
+    const setupInterval = async () => {
+      if (timeIntervalRef.current) {
+        clearInterval(timeIntervalRef.current);
+      }
+      const gameConstants = await fetchGameConstantsData();
+      timeIntervalRef.current = setInterval(() => {
+        advanceTime();
+      }, gameConstants.TIME_ADVANCE_INTERVAL / speed);
+    };
 
-    timeIntervalRef.current = setInterval(() => {
-      advanceTime();
-    }, GAME_CONSTANTS.TIME_ADVANCE_INTERVAL / speed);
+    setupInterval();
 
     return () => {
       if (timeIntervalRef.current) {

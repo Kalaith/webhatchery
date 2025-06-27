@@ -1,6 +1,5 @@
 import { useEffect, useRef } from "react";
 import type { AdventurerParty, Adventurer, Room, Monster } from "../../types/game";
-import { adventurerClasses, monsterTypes, GAME_CONSTANTS, getFloorScaling } from "../../data/gameData";
 import { useGameStore } from "../../stores/gameStore";
 
 export interface AdventurerSystemProps {
@@ -98,7 +97,7 @@ export const AdventurerSystem: React.FC<AdventurerSystemProps> = ({ running }) =
           monsterDeaths.push(target);
           
           // Loot calculation
-          const monsterType = monsterTypes[target.type];
+          const monsterType = monsterTypes[target.type] || { name: "Unknown", baseCost: 0, hp: 0, attack: 0, defense: 0, color: "gray" };
           let baseLoot = Math.floor(monsterType.baseCost * 0.8);
           
           // Boss room bonus
@@ -107,6 +106,7 @@ export const AdventurerSystem: React.FC<AdventurerSystemProps> = ({ running }) =
           }
           
           loot += baseLoot;
+          gameStore.gainMonsterExperience(target.type, Math.floor(monsterType.baseCost * 10));
         }
       });
 
@@ -128,7 +128,7 @@ export const AdventurerSystem: React.FC<AdventurerSystemProps> = ({ running }) =
 
       // Boss abilities
       aliveMonsters.filter(m => m.alive && m.isBoss).forEach(boss => {
-        const monsterType = monsterTypes[boss.type];
+        const monsterType = monsterTypes[boss.type] || { name: "Unknown", baseCost: 0, hp: 0, attack: 0, defense: 0, color: "gray" };
         if (monsterType.bossAbility) {
           // Simple boss ability implementation
           if (monsterType.name === "Troll" && boss.hp < boss.maxHp) {

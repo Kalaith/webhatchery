@@ -1,5 +1,4 @@
 import React from "react";
-import { monsterTypes, adventurerClasses } from "../../data/gameData";
 import { useGameStore } from "../../stores/gameStore";
 import type { Room } from "../../types/game";
 
@@ -82,7 +81,7 @@ export const DungeonGrid: React.FC<DungeonGridProps> = ({ onRoomClick }) => {
                           {room.monsters.slice(0, 2).map((monster) => (
                             <span 
                               key={monster.id} 
-                              style={{ color: monsterTypes[monster.type].color }}
+                              style={{ color: monsterTypes[monster.type]?.color || "gray" }}
                               className={monster.alive ? "" : "opacity-50"}
                             >
                               🐲

@@ -5,4 +5,9 @@ import react from '@vitejs/plugin-react'
 export default defineConfig({
   plugins: [react()],
   base: './', // Use relative paths for assets
+  server: {
+    fs: {
+      allow: ['../mocks'], // Allow serving files from the mocks directory
+    },
+  },
 })

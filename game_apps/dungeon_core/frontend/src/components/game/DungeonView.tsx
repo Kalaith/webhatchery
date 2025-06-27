@@ -1,5 +1,4 @@
 import React from "react";
-import { monsterTypes, GAME_CONSTANTS, getScaledMonsterStats } from "../../data/gameData";
 import { useGameStore } from "../../stores/gameStore";
 import type { DungeonFloor, Room } from "../../types/game";
 
@@ -76,7 +75,7 @@ const RoomComponent: React.FC<{
       {/* Monsters */}
       {room.monsters.length > 0 && (
         <div className="monsters-container flex flex-wrap gap-1 justify-center mb-2">          {room.monsters.slice(0, 3).map((monster) => {
-            const monsterType = monsterTypes[monster.type];
+            const monsterType = monsterTypes[monster.type] || { color: "gray", name: "Unknown" };
             const scaledStats = getScaledMonsterStats(
               { hp: monsterType.hp, attack: monsterType.attack, defense: monsterType.defense },
               monster.floorNumber,

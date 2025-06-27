@@ -1,6 +1,6 @@
 import { useEffect, useRef } from "react";
 import type { AdventurerParty, Adventurer, Room, Monster } from "../../types/game";
-import { adventurerClasses, monsterTypes, GAME_CONSTANTS, getFloorScaling } from "../../data/gameData";
+import { getMonsterTypes, getFloorScaling, fetchAdventurerClassesData, fetchGameConstantsData } from "../../api/gameApi";
 import { useGameStore } from "../../stores/gameStore";
 
 export interface AdventurerSystemProps {
@@ -13,14 +13,16 @@ export const AdventurerSystem: React.FC<AdventurerSystemProps> = ({ running }) =
   const movementTimerRef = useRef<ReturnType<typeof setInterval> | null>(null);
 
   // Generate a random adventurer party with level scaling
-  const generateParty = (id: number): AdventurerParty => {
-    const partySize = Math.floor(Math.random() * (GAME_CONSTANTS.MAX_PARTY_SIZE - GAME_CONSTANTS.MIN_PARTY_SIZE + 1)) + GAME_CONSTANTS.MIN_PARTY_SIZE;
+  const generateParty = async (id: number): Promise<AdventurerParty> => {
+    const gameConstants = await fetchGameConstantsData();
+    const adventurerClasses = await fetchAdventurerClassesData();
+    const partySize = Math.floor(Math.random() * (gameConstants.MAX_PARTY_SIZE - gameConstants.MIN_PARTY_SIZE + 1)) + gameConstants.MIN_PARTY_SIZE;
     const members: Adventurer[] = [];
 
     // Determine target floor based on party strength
     const maxFloor = Math.max(1, gameStore.totalFloors);
     const targetFloor = Math.min(maxFloor, Math.floor(Math.random() * 2) + 1); // Parties target floors 1-2 mostly
-    const floorScaling = getFloorScaling(targetFloor);
+    const floorScaling = await getFloorScaling(targetFloor);
     
     for (let i = 0; i < partySize; i++) {
       const classIdx = Math.floor(Math.random() * adventurerClasses.length);
@@ -96,7 +98,7 @@ export const AdventurerSystem: React.FC<AdventurerSystemProps> = ({ running }) =
           monsterDeaths.push(target);
           
           // Loot calculation
-          const monsterType = monsterTypes[target.type];
+          const monsterType = monsterTypes[target.type] || { name: "Unknown", baseCost: 0, hp: 0, attack: 0, defense: 0, color: "gray" };
           let baseLoot = Math.floor(monsterType.baseCost * 0.8);
           
           // Boss room bonus
@@ -105,6 +107,7 @@ export const AdventurerSystem: React.FC<AdventurerSystemProps> = ({ running }) =
           }
           
           loot += baseLoot;
+          gameStore.gainMonsterExperience(target.type, Math.floor(monsterType.baseCost * 10));
         }
       });
 
@@ -126,7 +129,7 @@ export const AdventurerSystem: React.FC<AdventurerSystemProps> = ({ running }) =
 
       // Boss abilities
       aliveMonsters.filter(m => m.alive && m.isBoss).forEach(boss => {
-        const monsterType = monsterTypes[boss.type];
+        const monsterType = monsterTypes[boss.type] || { name: "Unknown", baseCost: 0, hp: 0, attack: 0, defense: 0, color: "gray" };
         if (monsterType.bossAbility) {
           // Simple boss ability implementation
           if (monsterType.name === "Troll" && boss.hp < boss.maxHp) {

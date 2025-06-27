@@ -1,13 +1,14 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useGameStore } from "../../stores/gameStore";
-import { GAME_CONSTANTS, getRoomCost } from "../../data/gameData";
+import { fetchGameConstantsData, getRoomCost } from "../../api/gameApi";
 
 export const RoomSelector: React.FC = () => {
   const { mana, addRoom, floors, totalFloors } = useGameStore();
   // Calculate the cost for the next room
-  const getNextRoomCost = () => {
+  const getNextRoomCost = async () => {
+    const gameConstants = await fetchGameConstantsData();
     const deepestFloor = floors.find(f => f.isDeepest);
-    if (!deepestFloor) return getRoomCost(0, 'normal');
+    if (!deepestFloor) return await getRoomCost(0, 'normal');
 
     const nonCoreRooms = deepestFloor.rooms.filter(room => room.type !== 'core');
     
@@ -17,13 +18,12 @@ export const RoomSelector: React.FC = () => {
     }, 0);
     
     // If the current floor is full, next room will be on a new floor
-    if (nonCoreRooms.length >= GAME_CONSTANTS.MAX_ROOMS_PER_FLOOR + 1) {
-      return getRoomCost(totalRoomCount, 'normal');
+    if (nonCoreRooms.length >= gameConstants.MAX_ROOMS_PER_FLOOR + 1) {
+      return await getRoomCost(totalRoomCount, 'normal');
     } else {
-      // Next room on current floor
       const nextPosition = nonCoreRooms.length;
-      const roomType = nextPosition === GAME_CONSTANTS.MAX_ROOMS_PER_FLOOR ? 'boss' : 'normal';
-      return getRoomCost(totalRoomCount, roomType);
+      const roomType = nextPosition === gameConstants.MAX_ROOMS_PER_FLOOR ? 'boss' : 'normal';
+      return await getRoomCost(totalRoomCount, roomType);
     }
   };
 

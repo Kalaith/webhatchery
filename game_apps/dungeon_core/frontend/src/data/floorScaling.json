@@ -1,0 +1,6 @@
+[
+  { "manaCostMultiplier": 1.0, "monsterBoostPercentage": 0, "adventurerLevelRange": [1, 3] },
+  { "manaCostMultiplier": 1.5, "monsterBoostPercentage": 30, "adventurerLevelRange": [3, 5] },
+  { "manaCostMultiplier": 2.2, "monsterBoostPercentage": 60, "adventurerLevelRange": [5, 7] },
+  { "manaCostMultiplier": 3.0, "monsterBoostPercentage": 100, "adventurerLevelRange": [7, 10] }
+]

@@ -1,0 +1,5 @@
+{
+  "weapons": ["Rusty Sword", "Iron Blade", "Steel Sword", "Magic Blade", "Dragon Slayer"],
+  "armor": ["Cloth Robe", "Leather Armor", "Chain Mail", "Plate Armor", "Dragon Scale"],
+  "accessories": ["Worn Ring", "Silver Ring", "Magic Amulet", "Ring of Power", "Legendary Talisman"]
+}
