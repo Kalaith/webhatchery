@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { apiService } from '../services/apiService';
 import type { Story, Paragraph } from '../types';
-import { useAuth } from '../hooks/useAuth';
 
 interface StoryReadingPageProps {
   showToast: (message: string, type?: 'success' | 'error' | 'warning') => void;
@@ -11,7 +10,6 @@ interface StoryReadingPageProps {
 const StoryReadingPage: React.FC<StoryReadingPageProps> = ({ showToast }) => {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
-  const { currentUser } = useAuth();
   const [story, setStory] = useState<Story | null>(null);
 
   useEffect(() => {
@@ -65,15 +63,6 @@ const StoryReadingPage: React.FC<StoryReadingPageProps> = ({ showToast }) => {
     }
   };
 
-  const handleContributeClick = () => {
-    if (currentUser && canUserContribute(currentUser.id, story)) {
-      navigate(`/write/${story.id}`); // Assuming a writing page route
-    } else if (!currentUser) {
-      showToast('Please sign in to contribute', 'error');
-    } else {
-      showToast('You cannot contribute to this story', 'error');
-    }
-  };
 
   const handleManageStoryClick = () => {
     navigate(`/manage-story/${story.id}`); // Assuming a story management page route
@@ -92,14 +81,6 @@ const StoryReadingPage: React.FC<StoryReadingPageProps> = ({ showToast }) => {
               <span className={`access-level-badge ${accessLevelClass}`}>{accessLevelText}</span>
             </div>
             <p className="story-description">{story.description}</p>
-          </div>
-          <div className="story-actions">
-            {currentUser && canUserContribute(currentUser.id, story) && (
-              <button className="btn btn--primary" onClick={handleContributeClick}>Contribute</button>
-            )}
-            {currentUser && story.createdBy === currentUser.id && (
-              <button className="btn btn--secondary" onClick={handleManageStoryClick}>Manage Story</button>
-            )}
           </div>
         </div>
         

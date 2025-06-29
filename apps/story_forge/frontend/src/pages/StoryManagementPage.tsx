@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { apiService } from '../services/apiService';
-import { useAuth } from '../hooks/useAuth';
 import type { Story, User } from '../types';
 
 interface StoryManagementPageProps {
@@ -11,7 +10,6 @@ interface StoryManagementPageProps {
 const StoryManagementPage: React.FC<StoryManagementPageProps> = ({ showToast }) => {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
-  const { currentUser } = useAuth();
   const [story, setStory] = useState<Story | null>(null);
   const [activeTab, setActiveTab] = useState('contributors');
 
@@ -27,14 +25,8 @@ const StoryManagementPage: React.FC<StoryManagementPageProps> = ({ showToast }) 
     }
   }, [id, navigate, showToast]);
 
-  useEffect(() => {
-    if (story && currentUser && story.createdBy !== currentUser.id) {
-      showToast('Access denied', 'error');
-      navigate('/dashboard');
-    }
-  }, [story, currentUser, navigate, showToast]);
 
-  if (!story || !currentUser) {
+  if (!story) {
     return <div>Loading...</div>;
   }
 

@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import { useAuth } from '../hooks/useAuth';
 import { apiService } from '../services/apiService';
 import StoryCard from '../components/StoryCard';
 import type { Story, Paragraph } from '../types';
@@ -10,46 +9,13 @@ interface DashboardPageProps {
 }
 
 const DashboardPage: React.FC<DashboardPageProps> = (/*{ showToast }*/) => {
-  const { currentUser } = useAuth();
   const navigate = useNavigate();
   const [activeTab, setActiveTab] = useState('myStories');
   const [userStories, setUserStories] = useState<Story[]>([]);
   const [userContributions, setUserContributions] = useState<{ story: Story; paragraph: Paragraph }[]>([]);
   const [storiesToManage, setStoriesToManage] = useState<Story[]>([]);
 
-  useEffect(() => {
-    if (currentUser) {
-      const allStories = apiService.getStories();
-      
-      // My Stories
-      setUserStories(allStories.filter(story => story.createdBy === currentUser.id));
-
-      // My Contributions
-      const contributions: { story: Story; paragraph: Paragraph }[] = [];
-      allStories.forEach(story => {
-        story.paragraphs.forEach(paragraph => {
-          if (paragraph.author === currentUser.username) {
-            contributions.push({ story, paragraph });
-          }
-        });
-      });
-      setUserContributions(contributions);
-
-      // Story Management Panel
-      setStoriesToManage(allStories.filter(story => story.createdBy === currentUser.id));
-    }
-  }, [currentUser]);
-
-  if (!currentUser) {
-    return (
-      <div className="container">
-        <div className="empty-state">
-          <h3>Please sign in to view your dashboard.</h3>
-        </div>
-      </div>
-    );
-  }
-
+  
   const handleStoryClick = (story: Story) => {
     navigate(`/story/${story.id}`);
   };

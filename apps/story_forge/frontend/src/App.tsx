@@ -1,7 +1,5 @@
 import React, { useState } from 'react';
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
-import { AuthProvider } from './context/AuthProvider';
-import { useAuth } from './hooks/useAuth';
 import HomePage from './pages/HomePage';
 import StoryReadingPage from './pages/StoryReadingPage';
 import DashboardPage from './pages/DashboardPage';
@@ -12,7 +10,6 @@ import WritingPage from './pages/WritingPage'; // New import
 import StoryManagementPage from './pages/StoryManagementPage'; // New import
 
 const AppContent: React.FC = () => {
-  const { currentUser, logout } = useAuth();
   const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
   const [toast, setToast] = useState<{ message: string; type: 'success' | 'error' | 'warning' } | null>(null);
 
@@ -31,15 +28,7 @@ const AppContent: React.FC = () => {
           <div className="navbar__actions">
             <button className="btn btn--secondary btn--sm" id="searchBtn">Search</button>
             <div className="user-menu" id="userMenu">
-              {!currentUser ? (
-                <button className="btn btn--primary btn--sm" onClick={() => setIsLoginModalOpen(true)}>Sign In</button>
-              ) : (
-                <div className="user-profile">
-                  <span className="user-name">{currentUser.username}</span>
-                  <Link to="/dashboard" className="btn btn--secondary btn--sm">Dashboard</Link>
-                  <button className="btn btn--outline btn--sm" onClick={logout}>Sign Out</button>
-                </div>
-              )}
+              <button className="btn btn--primary btn--sm" onClick={() => setIsLoginModalOpen(true)}>Sign In</button>
             </div>
           </div>
         </div>
@@ -64,9 +53,7 @@ const AppContent: React.FC = () => {
 
 const App: React.FC = () => (
   <Router>
-    <AuthProvider>
-      <AppContent />
-    </AuthProvider>
+    <AppContent />
   </Router>
 );
 

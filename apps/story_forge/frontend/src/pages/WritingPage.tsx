@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { apiService } from '../services/apiService';
-import { useAuth } from '../hooks/useAuth';
 import type { Story, Paragraph } from '../types';
 
 interface WritingPageProps {
@@ -11,7 +10,6 @@ interface WritingPageProps {
 const WritingPage: React.FC<WritingPageProps> = ({ showToast }) => {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
-  const { currentUser } = useAuth();
   const [story, setStory] = useState<Story | null>(null);
   const [writingSampleContent, setWritingSampleContent] = useState('');
   const [newParagraphContent, setNewParagraphContent] = useState('');
@@ -28,36 +26,6 @@ const WritingPage: React.FC<WritingPageProps> = ({ showToast }) => {
     }
   }, [id, navigate, showToast]);
 
-  const canUserContribute = (userId: number, currentStory: Story) => {
-    if (currentStory.blockedUsers.includes(userId)) {
-      return false;
-    }
-
-    switch (currentStory.accessLevel) {
-      case 'anyone':
-        return true;
-      case 'approved_only':
-        return currentStory.approvedContributors.includes(userId) || 
-               apiService.getWritingSamplesForStory(currentStory.id).some(sample => 
-                sample.userId === userId && 
-                sample.status === 'approved'
-              );
-      case 'specific_users':
-        return currentStory.approvedContributors.includes(userId);
-      default:
-        return false;
-    }
-  };
-
-  useEffect(() => {
-    if (story && currentUser) {
-      if (!canUserContribute(currentUser.id, story)) {
-        showToast('You cannot contribute to this story', 'error');
-        navigate(`/story/${story.id}`);
-      }
-    }
-  }, [story, currentUser, navigate, showToast]);
-
   const handleSubmitWritingSample = (e: React.FormEvent) => {
     e.preventDefault();
     if (!writingSampleContent.trim()) {
@@ -65,52 +33,14 @@ const WritingPage: React.FC<WritingPageProps> = ({ showToast }) => {
       return;
     }
 
-    if (currentUser && story) {
-      const sampleData = {
-        userId: currentUser.id,
-        storyId: story.id,
-        content: writingSampleContent
-      };
-      apiService.addWritingSample(sampleData);
-      showToast('Writing sample submitted for review');
-
-      // Simulate auto-approval for demo purposes
-      setTimeout(() => {
-        apiService.updateWritingSample(currentUser.id, story.id, { status: 'approved' });
-        if (!story.approvedContributors.includes(currentUser.id)) {
-          story.approvedContributors.push(currentUser.id);
-        }
-        showToast('Your writing sample has been approved!');
-        setStory({ ...story }); // Force re-render to update UI
-      }, 2000);
-    }
   };
 
-  const handleSubmitParagraph = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!newParagraphContent.trim()) {
-      showToast('Please write a paragraph', 'error');
-      return;
-    }
 
-    if (currentUser && story) {
-      const paragraphData = {
-        author: currentUser.username,
-        content: newParagraphContent
-      };
-      apiService.addParagraph(story.id, paragraphData);
-      showToast('Paragraph added successfully!');
-      currentUser.contributions++; // Update user contributions
-      navigate(`/story/${story.id}`);
-    }
-  };
-
-  if (!story || !currentUser) {
+  if (!story) {
     return <div>Loading...</div>; // Or redirect to login/homepage
   }
 
   const hasApprovedSample = apiService.getWritingSamplesForStory(story.id).some(sample => 
-    sample.userId === currentUser.id && 
     sample.status === 'approved'
   );
 
@@ -161,7 +91,7 @@ const WritingPage: React.FC<WritingPageProps> = ({ showToast }) => {
               ></textarea>
               <div className="writing-actions">
                 <button className="btn btn--outline" onClick={() => navigate(`/story/${story.id}`)}>Cancel</button>
-                <button className="btn btn--primary" onClick={handleSubmitParagraph}>Submit Paragraph</button>
+                <button className="btn btn--primary" >Submit Paragraph</button>
               </div>
             </div>
           )}

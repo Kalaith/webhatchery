@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { apiService } from '../services/apiService';
-import { useAuth } from '../hooks/useAuth';
 
 interface CreateStoryPageProps {
   showToast: (message: string, type?: 'success' | 'error' | 'warning') => void;
@@ -9,7 +8,6 @@ interface CreateStoryPageProps {
 
 const CreateStoryPage: React.FC<CreateStoryPageProps> = ({ showToast }) => {
   const navigate = useNavigate();
-  const { currentUser } = useAuth();
   const genres = apiService.getGenres();
 
   const [storyTitle, setStoryTitle] = useState('');
@@ -22,19 +20,15 @@ const CreateStoryPage: React.FC<CreateStoryPageProps> = ({ showToast }) => {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
 
-    if (!currentUser) {
-      showToast('Please sign in to create stories', 'error');
-      return;
-    }
 
     const newStoryData = {
       title: storyTitle,
       genre: storyGenre,
       description: storyDescription,
-      createdBy: currentUser.id,
+
       accessLevel: accessLevel as 'anyone' | 'approved_only' | 'specific_users',
       requireExamples: requireExamples,
-      author: currentUser.username,
+
       firstParagraph: firstParagraph
     };
 

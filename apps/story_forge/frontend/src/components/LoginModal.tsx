@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { useAuth } from '../context/AuthContext';
 import { apiService } from '../services/apiService';
 
 interface LoginModalProps {
@@ -8,7 +7,7 @@ interface LoginModalProps {
 }
 
 const LoginModal: React.FC<LoginModalProps> = ({ isOpen, onClose }) => {
-  const { login } = useAuth();
+
   const [selectedUsername, setSelectedUsername] = useState<string>('');
 
   const users = apiService.getUsers(); // Get users from API service
@@ -16,7 +15,6 @@ const LoginModal: React.FC<LoginModalProps> = ({ isOpen, onClose }) => {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (selectedUsername) {
-      login(selectedUsername);
       onClose(); // Close modal on successful login
     }
   };
