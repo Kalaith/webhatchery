@@ -23,13 +23,25 @@ const gameData = {
     {"name": "Auto-Start", "emoji": "🚀", "baseCost": 500, "effect": 1, "description": "Automatically start next wave"}
   ],
   gameSettings: {
-    gridSize: window.gameMap.tileSize,
+    gridSize: 64,
     canvasWidth: 800,
     canvasHeight: 600,
     startingGold: 200,
     startingLives: 20,
     waveScaling: 1.15
-  }
+  },
+  map: [
+    ["free", "free", "free", "free", "free", "free", "free", "free", "free", "free"],
+    ["free", "free", "free", "free", "free", "free", "free", "free", "free", "free"],
+    ["road", "road", "road", "free", "road", "road", "road", "free", "road", "road"],
+    ["free", "free", "road", "free", "road", "free", "road", "free", "road", "free"],
+    ["free", "free", "road", "free", "road", "free", "road", "free", "road", "free"],
+    ["free", "free", "road", "road", "road", "free", "road", "road", "road", "free"],
+    ["free", "free", "free", "free", "free", "free", "free", "free", "free", "free"],
+    ["free", "free", "free", "free", "free", "free", "free", "free", "free", "free"],
+    ["free", "free", "free", "free", "free", "free", "free", "free", "free", "free"]
+  ],
+  tileSize: 64
 };
 
 // Game state
@@ -109,17 +121,21 @@ class Tower {
   }
 
   draw() {
+    ctx.save(); // Save the current context state
     ctx.font = '24px Arial';
     ctx.textAlign = 'center';
+    ctx.fillStyle = 'black';
     ctx.fillText(this.type.emoji, this.x, this.y + 8);
 
     // Draw range when selected
     if (gameState.selectedTowerType === this.type) {
       ctx.strokeStyle = 'rgba(33, 128, 141, 0.3)';
+      ctx.lineWidth = 2;
       ctx.beginPath();
       ctx.arc(this.x, this.y, this.range, 0, Math.PI * 2);
       ctx.stroke();
     }
+    ctx.restore(); // Restore the context state
   }
 }
 
@@ -131,8 +147,14 @@ class Enemy {
     this.speed = type.speed;
     this.pathIndex = 0;
     this.progress = 0;
-    this.x = enemyPath[0].x;
-    this.y = enemyPath[0].y;
+    // Start at the spawn point (outside the map)
+    if (enemyPath.length > 0) {
+      this.x = enemyPath[0].x;
+      this.y = enemyPath[0].y;
+    } else {
+      this.x = 0;
+      this.y = 0;
+    }
     this.slowEffect = 0;
   }
 
@@ -149,6 +171,8 @@ class Enemy {
   }
 
   update() {
+    if (enemyPath.length === 0) return false;
+    
     const currentSpeed = this.speed * (1 - this.slowEffect) * gameState.gameSpeed;
     this.progress += currentSpeed;
     
@@ -162,27 +186,63 @@ class Enemy {
       const next = enemyPath[this.pathIndex + 1];
       const segmentLength = Math.sqrt((next.x - current.x) ** 2 + (next.y - current.y) ** 2);
       
+      // Prevent division by zero
+      if (segmentLength === 0) {
+        this.pathIndex++;
+        return false;
+      }
+      
       if (this.progress >= segmentLength) {
         this.progress -= segmentLength;
         this.pathIndex++;
+        
         if (this.pathIndex >= enemyPath.length - 1) {
-          return true; // Reached end
+          // Move to final position
+          const finalPoint = enemyPath[enemyPath.length - 1];
+          this.x = finalPoint.x;
+          this.y = finalPoint.y;
+          return false; // Don't mark as reached end yet
         }
       }
       
-      const t = this.progress / segmentLength;
-      this.x = current.x + (next.x - current.x) * t;
-      this.y = current.y + (next.y - current.y) * t;
+      // Calculate position between current and next waypoint
+      if (this.pathIndex < enemyPath.length - 1) {
+        const currentPoint = enemyPath[this.pathIndex];
+        const nextPoint = enemyPath[this.pathIndex + 1];
+        const currentSegmentLength = Math.sqrt((nextPoint.x - currentPoint.x) ** 2 + (nextPoint.y - currentPoint.y) ** 2);
+        
+        if (currentSegmentLength > 0) {
+          const t = Math.min(this.progress / currentSegmentLength, 1);
+          this.x = currentPoint.x + (nextPoint.x - currentPoint.x) * t;
+          this.y = currentPoint.y + (nextPoint.y - currentPoint.y) * t;
+        }
+      }
+    } else {
+      // If we've reached the last path point, continue moving off the map
+      const lastPoint = enemyPath[enemyPath.length - 1];
+      this.x = lastPoint.x + this.progress;
+      
+      // Check if enemy has moved far enough off screen to be considered "reached end"
+      if (this.x > canvas.width + 50) {
+        return true;
+      }
     }
     
     return false;
   }
 
   draw() {
+    // Only draw if the enemy has valid coordinates
+    if (this.x === undefined || this.y === undefined || isNaN(this.x) || isNaN(this.y)) {
+      return;
+    }
+    
+    ctx.save(); // Save the current context state
+    
     // Draw health bar
     const barWidth = 30;
     const barHeight = 4;
-    const healthPercent = this.health / this.maxHealth;
+    const healthPercent = Math.max(0, Math.min(1, this.health / this.maxHealth));
     
     ctx.fillStyle = 'red';
     ctx.fillRect(this.x - barWidth/2, this.y - 20, barWidth, barHeight);
@@ -192,8 +252,11 @@ class Enemy {
     // Draw enemy
     ctx.font = '20px Arial';
     ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
     ctx.fillStyle = 'black';
-    ctx.fillText(this.type.emoji, this.x, this.y + 6);
+    ctx.fillText(this.type.emoji, this.x, this.y);
+    
+    ctx.restore(); // Restore the context state
   }
 }
 
@@ -254,10 +317,12 @@ class Projectile {
   }
 
   draw() {
+    ctx.save(); // Save the current context state
     ctx.fillStyle = '#FFD700';
     ctx.beginPath();
     ctx.arc(this.x, this.y, 3, 0, Math.PI * 2);
     ctx.fill();
+    ctx.restore(); // Restore the context state
   }
 }
 
@@ -287,26 +352,17 @@ function initializeGame() {
   if (savedState) {
     gameState = savedState;
   } else {
-    // Default values
     gameState.gold = gameData.gameSettings.startingGold;
     gameState.lives = gameData.gameSettings.startingLives;
-    gameState.wave = 1;
-    gameState.towers = [];
-    gameState.enemies = [];
-    gameState.projectiles = [];
-    gameState.waveInProgress = false;
-    gameState.gameOver = false;
-    gameState.upgradeLevels = {
-      "Tower Damage": 0,
-      "Tower Range": 0,
-      "Starting Gold": 0,
-      "XP Multiplier": 0,
-      "Wave Delay": 0,
-      "Auto-Start": 0
-    };
   }
 
-  generateEnemyPath(); // Generate path from map.json
+  // Use embedded map data from gameData
+  window.gameMap = {
+    map: gameData.map,
+    tileSize: gameData.tileSize
+  };
+
+  generateEnemyPath(); // Generate path from embedded map data
   updateUI();
   generateTowerButtons();
   generateUpgradeButtons();
@@ -314,32 +370,45 @@ function initializeGame() {
 
 function generateEnemyPath() {
   enemyPath = [];
+  
+  // Check if map data is loaded
+  if (!window.gameMap || !window.gameMap.map) {
+    console.error("Map data not loaded yet.");
+    return;
+  }
+  
   const map = window.gameMap.map;
   const tileSize = window.gameMap.tileSize;
 
+  // Find the start node (first row with a road in the first column)
   let startNode = null;
-  let endNode = null;
-
-  // Find start and end nodes
   for (let r = 0; r < map.length; r++) {
-    for (let c = 0; c < map[r].length; c++) {
-      if (map[r][c] === 'road') {
-        // Assuming start is the first 'road' cell on the left edge
-        if (c === 0) {
-          startNode = { r, c };
-        }
-        // Assuming end is the last 'road' cell on the right edge
-        if (c === map[r].length - 1) {
-          endNode = { r, c };
-        }
-      }
+    if (map[r][0] === "road") {
+      startNode = { r, c: 0 };
+      break;
     }
   }
 
-  if (!startNode || !endNode) {
-    console.error("Map must have a 'road' start and end point on the edges.");
+  if (!startNode) {
+    console.error("No valid start node found in the first column.");
     return;
   }
+
+  // Find the end node (last row with a road in the last column)
+  let endNode = null;
+  for (let r = map.length - 1; r >= 0; r--) {
+    if (map[r][map[0].length - 1] === "road") {
+      endNode = { r, c: map[0].length - 1 };
+      break;
+    }
+  }
+
+  if (!endNode) {
+    console.error("No valid end node found in the last column.");
+    return;
+  }
+
+  console.log("Start node:", startNode, "End node:", endNode);
 
   // Breadth-First Search (BFS) to find the shortest path
   const queue = [startNode];
@@ -349,10 +418,10 @@ function generateEnemyPath() {
   visited.add(`${startNode.r},${startNode.c}`);
 
   const directions = [
-    { dr: -1, dc: 0 }, // Up
-    { dr: 1, dc: 0 },  // Down
-    { dr: 0, dc: -1 }, // Left
-    { dr: 0, dc: 1 }   // Right
+    { dr: -1, dc: 0 },
+    { dr: 1, dc: 0 },
+    { dr: 0, dc: -1 },
+    { dr: 0, dc: 1 }
   ];
 
   let foundPath = false;
@@ -365,39 +434,44 @@ function generateEnemyPath() {
     }
 
     for (const dir of directions) {
-      const newR = current.r + dir.dr;
-      const newC = current.c + dir.dc;
+      const newRow = current.r + dir.dr;
+      const newCol = current.c + dir.dc;
 
-      // Check bounds and if it's a road and not visited
       if (
-        newR >= 0 && newR < map.length &&
-        newC >= 0 && newC < map[0].length &&
-        map[newR][newC] === 'road' &&
-        !visited.has(`${newR},${newC}`)
+        newRow >= 0 &&
+        newRow < map.length &&
+        newCol >= 0 &&
+        newCol < map[0].length &&
+        map[newRow][newCol] === "road" &&
+        !visited.has(`${newRow},${newCol}`)
       ) {
-        visited.add(`${newR},${newC}`);
-        queue.push({ r: newR, c: newC });
-        parent.set(`${newR},${newC}`, current);
+        queue.push({ r: newRow, c: newCol });
+        visited.add(`${newRow},${newCol}`);
+        parent.set(`${newRow},${newCol}`, current);
       }
     }
   }
 
   if (foundPath) {
-    // Reconstruct path
+    // First add the spawn point outside the map (to the left of the start node)
+    const spawnPoint = { 
+      x: -tileSize / 2, 
+      y: startNode.r * tileSize + tileSize / 2 
+    };
+    enemyPath.push(spawnPoint);
+    
+    // Then add the path from start to end
     let current = endNode;
-    const path = [];
+    const pathPoints = [];
     while (current) {
-      path.unshift(current);
+      pathPoints.unshift({ x: current.c * tileSize + tileSize / 2, y: current.r * tileSize + tileSize / 2 });
       current = parent.get(`${current.r},${current.c}`);
     }
-
-    // Convert grid coordinates to canvas coordinates
-    enemyPath = path.map(node => ({
-      x: node.c * tileSize + tileSize / 2,
-      y: node.r * tileSize + tileSize / 2
-    }));
+    enemyPath.push(...pathPoints);
+    
+    console.log("Generated enemy path with", enemyPath.length, "points");
   } else {
-    console.error("No path found from start to end road.");
+    console.error("No valid path found from start to end.");
   }
 }
 
@@ -483,6 +557,12 @@ function showTowerInfo(tower) {
 function placeTower(x, y) {
   if (!gameState.selectedTowerType || gameState.gold < gameState.selectedTowerType.cost) return;
 
+  // Check if map data is loaded
+  if (!window.gameMap || !window.gameMap.map) {
+    console.error("Map data not loaded yet.");
+    return;
+  }
+
   const map = window.gameMap.map;
   const tileSize = window.gameMap.tileSize;
 
@@ -492,24 +572,22 @@ function placeTower(x, y) {
 
   // Check if coordinates are within map bounds
   if (gridY < 0 || gridY >= map.length || gridX < 0 || gridX >= map[0].length) {
-    console.error(`Invalid placement: Coordinates out of map bounds (gridX: ${gridX}, gridY: ${gridY})`);
+    console.error("Invalid position: Out of bounds.");
     return;
   }
 
   const cellType = map[gridY][gridX];
 
   // Check if position is valid based on map.json
-  if (cellType === 'road' || cellType === 'obstacle') {
-    console.error(`Cannot place tower on ${cellType}`);
+  if (cellType !== "free") {
+    console.error("Invalid position: Towers can only be placed on free space.");
     return;
   }
 
   // Check if space is already occupied by another tower
   for (let tower of gameState.towers) {
-    const towerGridX = Math.floor(tower.x / tileSize);
-    const towerGridY = Math.floor(tower.y / tileSize);
-    if (towerGridX === gridX && towerGridY === gridY) {
-      console.error('Cannot place tower on an occupied space');
+    if (tower.x === gridX * tileSize + tileSize / 2 && tower.y === gridY * tileSize + tileSize / 2) {
+      console.error("Invalid position: Space already occupied.");
       return;
     }
   }
@@ -569,9 +647,16 @@ function updateGame() {
     }
   });
 
-  // Update enemies
+  // Update enemies - process from back to front to avoid index issues when removing
   for (let i = gameState.enemies.length - 1; i >= 0; i--) {
     const enemy = gameState.enemies[i];
+    
+    // Skip invalid enemies
+    if (!enemy || typeof enemy.update !== 'function') {
+      gameState.enemies.splice(i, 1);
+      continue;
+    }
+    
     const reachedEnd = enemy.update();
 
     if (reachedEnd) {
@@ -586,7 +671,12 @@ function updateGame() {
   }
   
   // Update projectiles
-  gameState.projectiles = gameState.projectiles.filter(projectile => !projectile.update());
+  gameState.projectiles = gameState.projectiles.filter(projectile => {
+    if (!projectile || typeof projectile.update !== 'function') {
+      return false;
+    }
+    return !projectile.update();
+  });
   
   // Check wave completion
   if (gameState.waveInProgress && gameState.enemies.length === 0) {
@@ -606,16 +696,30 @@ function drawGame() {
   // Clear canvas
   ctx.clearRect(0, 0, canvas.width, canvas.height);
   
+  // Check if map data is loaded
+  if (!window.gameMap || !window.gameMap.map) {
+    ctx.save();
+    ctx.fillStyle = '#f0d9b5';
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+    ctx.fillStyle = 'black';
+    ctx.font = '20px Arial';
+    ctx.textAlign = 'center';
+    ctx.fillText('Loading map...', canvas.width / 2, canvas.height / 2);
+    ctx.restore();
+    return;
+  }
+
   const map = window.gameMap.map;
   const tileSize = window.gameMap.tileSize;
 
   // Draw map tiles
+  ctx.save();
   for (let r = 0; r < map.length; r++) {
     for (let c = 0; c < map[r].length; c++) {
       const cellType = map[r][c];
       let color = '#f0d9b5'; // Default for free space
       if (cellType === 'road') {
-        color = '#a84b2f'; // Road color
+        color = '#8B4513'; // Brown road color
       } else if (cellType === 'obstacle') {
         color = '#5e5240'; // Obstacle color
       }
@@ -623,8 +727,10 @@ function drawGame() {
       ctx.fillRect(c * tileSize, r * tileSize, tileSize, tileSize);
     }
   }
+  ctx.restore();
 
   // Draw grid lines
+  ctx.save();
   ctx.strokeStyle = 'rgba(94, 82, 64, 0.1)';
   ctx.lineWidth = 1;
   for (let x = 0; x < canvas.width; x += tileSize) {
@@ -639,8 +745,10 @@ function drawGame() {
     ctx.lineTo(canvas.width, y);
     ctx.stroke();
   }
+  ctx.restore();
   
   // Draw path (for debugging/visualization)
+  ctx.save();
   ctx.strokeStyle = 'blue'; // Path color
   ctx.lineWidth = 2;
   ctx.beginPath();
@@ -651,11 +759,26 @@ function drawGame() {
     }
   }
   ctx.stroke();
+  ctx.restore();
   
-  // Draw game objects
-  gameState.towers.forEach(tower => tower.draw());
-  gameState.enemies.forEach(enemy => enemy.draw());
-  gameState.projectiles.forEach(projectile => projectile.draw());
+  // Draw game objects with validation
+  gameState.towers.forEach(tower => {
+    if (tower && typeof tower.draw === 'function') {
+      tower.draw();
+    }
+  });
+  
+  gameState.enemies.forEach(enemy => {
+    if (enemy && typeof enemy.draw === 'function') {
+      enemy.draw();
+    }
+  });
+  
+  gameState.projectiles.forEach(projectile => {
+    if (projectile && typeof projectile.draw === 'function') {
+      projectile.draw();
+    }
+  });
 }
 
 function updateUI() {
