@@ -3,9 +3,9 @@ import type { Story, User, WritingSample, Paragraph } from '../types';
 
 class ApiService {
   private users: User[] = data.users;
-  private stories: Story[] = data.stories;
+  private stories: Story[] = data.stories as Story[];
   private genres: string[] = data.genres;
-  private writingSamples: WritingSample[] = data.writingSamples;
+  private writingSamples: WritingSample[] = data.writingSamples as WritingSample[];
 
   getUsers(): User[] {
     return this.users;

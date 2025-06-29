@@ -132,13 +132,15 @@
           }
         },{
           "title": "Story Forge",
-          "path": "apps/story_forge/",
+          "path": "apps/story_forge/frontend/",
           "description": "Creative writing assistant tool that helps authors develop characters, plotlines, settings, and narrative arcs with an intuitive interface and visualization capabilities.",
           "deployment": {
-            "type": "Static",
+            "type": "React",
+            "outputDir": "dist",
             "deployAs": "story_forge",
-            "files": ["index.html", "style.css", "script.js"],
-            "preserveStructure": true
+            "requiresBuild": true,
+            "buildCommand": "npm run build -- --base=./",
+            "packageManager": "npm"
           }
         }
       ]

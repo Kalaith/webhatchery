@@ -6,14 +6,14 @@ import DashboardPage from './pages/DashboardPage';
 import CreateStoryPage from './pages/CreateStoryPage';
 import LoginModal from './components/LoginModal';
 import Toast from './components/Toast';
-import WritingPage from './pages/WritingPage'; // New import
-import StoryManagementPage from './pages/StoryManagementPage'; // New import
+import WritingPage from './pages/WritingPage';
+import StoryManagementPage from './pages/StoryManagementPage';
 
 const AppContent: React.FC = () => {
   const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
   const [toast, setToast] = useState<{ message: string; type: 'success' | 'error' | 'warning' } | null>(null);
 
-  const showAppToast = (message: string, type: 'success' | 'error' | 'warning' = 'success') => {
+  const showToast = (message: string, type: 'success' | 'error' | 'warning' = 'success') => {
     setToast({ message, type });
     setTimeout(() => setToast(null), 3000);
   };
@@ -36,12 +36,12 @@ const AppContent: React.FC = () => {
 
       <main className="main-container">
         <Routes>
-          <Route path="/" element={<HomePage showToast={showAppToast} />} />
-          <Route path="/story/:id" element={<StoryReadingPage showToast={showAppToast} />} />
-          <Route path="/create-story" element={<CreateStoryPage showToast={showAppToast} />} />
-          <Route path="/dashboard/*" element={<DashboardPage showToast={showAppToast} />} />
-          <Route path="/write/:id" element={<WritingPage showToast={showAppToast} />} /> {/* New Route */}
-          <Route path="/manage-story/:id" element={<StoryManagementPage showToast={showAppToast} />} /> {/* New Route */}
+          <Route path="/" element={<HomePage showToast={showToast} />} />
+          <Route path="/story/:id" element={<StoryReadingPage showToast={showToast} />} />
+          <Route path="/create" element={<CreateStoryPage showToast={showToast} />} />
+          <Route path="/dashboard" element={<DashboardPage showToast={showToast} />} />
+          <Route path="/write/:id" element={<WritingPage showToast={showToast} />} />
+          <Route path="/manage/:id" element={<StoryManagementPage showToast={showToast} />} />
         </Routes>
       </main>
 
@@ -52,7 +52,7 @@ const AppContent: React.FC = () => {
 };
 
 const App: React.FC = () => (
-  <Router>
+  <Router basename="/story_forge">
     <AppContent />
   </Router>
 );

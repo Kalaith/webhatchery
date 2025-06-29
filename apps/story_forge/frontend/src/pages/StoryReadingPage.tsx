@@ -42,31 +42,10 @@ const StoryReadingPage: React.FC<StoryReadingPageProps> = ({ showToast }) => {
     'specific_users': 'Restricted Access'
   }[story.accessLevel];
 
-  const canUserContribute = (userId: number, currentStory: Story) => {
-    if (currentStory.blockedUsers.includes(userId)) {
-      return false;
-    }
-
-    switch (currentStory.accessLevel) {
-      case 'anyone':
-        return true;
-      case 'approved_only':
-        return currentStory.approvedContributors.includes(userId) || 
-               apiService.getWritingSamplesForStory(currentStory.id).some(sample => 
-                sample.userId === userId && 
-                sample.status === 'approved'
-              );
-      case 'specific_users':
-        return currentStory.approvedContributors.includes(userId);
-      default:
-        return false;
-    }
-  };
+  
 
 
-  const handleManageStoryClick = () => {
-    navigate(`/manage-story/${story.id}`); // Assuming a story management page route
-  };
+  
 
   return (
     <div id="storyReadingView">

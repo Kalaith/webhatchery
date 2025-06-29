@@ -1,5 +1,4 @@
-import React, { useState, useEffect } from 'react';
-import { apiService } from '../services/apiService';
+import React, { useState } from 'react';
 import StoryCard from '../components/StoryCard';
 import type { Story, Paragraph } from '../types';
 import { useNavigate } from 'react-router-dom';
@@ -11,9 +10,9 @@ interface DashboardPageProps {
 const DashboardPage: React.FC<DashboardPageProps> = (/*{ showToast }*/) => {
   const navigate = useNavigate();
   const [activeTab, setActiveTab] = useState('myStories');
-  const [userStories, setUserStories] = useState<Story[]>([]);
-  const [userContributions, setUserContributions] = useState<{ story: Story; paragraph: Paragraph }[]>([]);
-  const [storiesToManage, setStoriesToManage] = useState<Story[]>([]);
+  const [userStories] = useState<Story[]>([]);
+  const [userContributions] = useState<{ story: Story; paragraph: Paragraph }[]>([]);
+  const [storiesToManage] = useState<Story[]>([]);
 
   
   const handleStoryClick = (story: Story) => {

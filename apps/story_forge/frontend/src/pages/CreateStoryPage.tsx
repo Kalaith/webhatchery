@@ -25,11 +25,11 @@ const CreateStoryPage: React.FC<CreateStoryPageProps> = ({ showToast }) => {
       title: storyTitle,
       genre: storyGenre,
       description: storyDescription,
-
+      createdBy: 1, // Hardcoded for now, will be dynamic with auth
       accessLevel: accessLevel as 'anyone' | 'approved_only' | 'specific_users',
       requireExamples: requireExamples,
-
-      firstParagraph: firstParagraph
+      firstParagraph: firstParagraph,
+      author: "placeholder_author" // Hardcoded for now
     };
 
     const newStory = apiService.createStory(newStoryData);
