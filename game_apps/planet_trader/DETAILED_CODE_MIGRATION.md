@@ -352,29 +352,6 @@ class ColorUtils {
         return sprintf("#%02x%02x%02x", $r, $g, $b);
     }
     
-    public static function getPlanetColor(Planet $planet): string {
-        $baseColor = $planet->color ?? $planet->type->color ?? '#808080';
-        
-        $rgb = self::hexToRgb($baseColor);
-        $hsl = self::rgbToHsl($rgb['r'], $rgb['g'], $rgb['b']);
-        
-        $gravity = $planet->gravity ?? 1;
-        $radiation = $planet->radiation ?? 0;
-        
-        $gravityHueShift = $gravity * 10;
-        $adjustedHue = fmod($hsl['h'] + $gravityHueShift, 360);
-        
-        $radiationBrightness = min(1, $radiation / 10);
-        $adjustedLightness = max(0, min(1, $hsl['l'] + $radiationBrightness));
-        
-        $newRgb = self::hslToRgb($adjustedHue, $hsl['s'], $adjustedLightness);
-        
-        return self::rgbToHex(
-            round($newRgb['r'] * 255),
-            round($newRgb['g'] * 255),
-            round($newRgb['b'] * 255)
-        );
-    }
 }
 ?>
 ```

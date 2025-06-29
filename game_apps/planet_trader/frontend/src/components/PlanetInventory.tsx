@@ -2,7 +2,7 @@ import React from 'react';
 import { useGameContext } from '../contexts/GameContext';
 
 const PlanetInventory: React.FC = () => {
-  const { planets, currentPlanet, getPlanetColor, showPlanetPurchaseModal, selectPlanet } = useGameContext();
+  const { planets, currentPlanet, showPlanetPurchaseModal, selectPlanet } = useGameContext();
 
   return (
     <section className="bg-gray-800 border border-gray-700 rounded-lg shadow-lg">
@@ -38,7 +38,7 @@ const PlanetInventory: React.FC = () => {
                   <div className="flex items-center gap-3">
                     <div 
                       className="w-6 h-6 sm:w-8 sm:h-8 rounded-full border-2 border-gray-500 flex-shrink-0"
-                      style={{ backgroundColor: getPlanetColor(planet) }}
+                      style={{ backgroundColor: planet.color }}
                     ></div>
                     <div className="flex-1 min-w-0">
                       <div className="font-semibold text-white text-sm truncate">{planet.name}</div>

@@ -1,6 +1,21 @@
-import React from 'react';
+interface Research {
+  id: string;
+  name: string;
+}
 
-const ResearchPanel = ({ researchPoints, researchList, onResearch, unlockedResearch = [] }) => (
+interface ResearchPanelProps {
+  researchPoints: number;
+  researchList: Research[];
+  onResearch: (research: Research) => void;
+  unlockedResearch?: string[];
+}
+
+const ResearchPanel: React.FC<ResearchPanelProps> = ({
+  researchPoints,
+  researchList,
+  onResearch,
+  unlockedResearch = [],
+}) => (
   <section className="research-panel">
     <div className="card">
       <div className="card__header">
@@ -12,7 +27,7 @@ const ResearchPanel = ({ researchPoints, researchList, onResearch, unlockedResea
           {researchList.length === 0 ? (
             <div>No research available.</div>
           ) : (
-            researchList.map(research => {
+            researchList.map((research) => {
               const unlocked = unlockedResearch.includes(research.name);
               return (
                 <div key={research.id || research.name} className={`research-item${unlocked ? ' unlocked' : ''}`}>

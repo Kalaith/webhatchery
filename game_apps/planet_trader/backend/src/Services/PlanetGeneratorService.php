@@ -143,9 +143,6 @@ class PlanetGeneratorService
             }
         }
         
-        // Recalculate color based on new properties
-        $planet->color = ColorUtils::getPlanetColor($planet);
-        
         return $planet;
     }
 

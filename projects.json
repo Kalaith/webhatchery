@@ -132,11 +132,11 @@
           }
         },{
           "title": "Story Forge",
-          "path": "apps/story_force/",
+          "path": "apps/story_forge/",
           "description": "Creative writing assistant tool that helps authors develop characters, plotlines, settings, and narrative arcs with an intuitive interface and visualization capabilities.",
           "deployment": {
             "type": "Static",
-            "deployAs": "story_force",
+            "deployAs": "story_forge",
             "files": ["index.html", "style.css", "script.js"],
             "preserveStructure": true
           }

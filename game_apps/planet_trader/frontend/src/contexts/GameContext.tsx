@@ -1,9 +1,7 @@
 import React, { createContext, useContext } from 'react';
 import type { ReactNode } from 'react';
 import { useGame } from '../game/useGame';
-
-// Create the context type based on what useGame returns
-type GameContextType = ReturnType<typeof useGame>;
+import type { GameContextType } from '../types/GameContextTypes';
 
 const GameContext = createContext<GameContextType | undefined>(undefined);
 

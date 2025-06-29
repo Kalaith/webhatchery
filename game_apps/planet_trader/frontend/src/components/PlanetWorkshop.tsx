@@ -12,7 +12,7 @@ const parsedStatList = statList.map(stat => ({
 
 // Update PlanetWorkshop to handle null planet internally
 const PlanetWorkshop: React.FC = () => {
-  const { currentPlanet, getPlanetColor } = useGameContext();
+  const { currentPlanet } = useGameContext();
 
   if (!currentPlanet) {
     return (
@@ -50,7 +50,7 @@ const PlanetWorkshop: React.FC = () => {
               >
                 <div 
                   className="absolute inset-0 rounded-full"
-                  style={{ backgroundColor: getPlanetColor(currentPlanet) }}
+                  style={{ backgroundColor: currentPlanet.color }}
                 ></div>
                 <div 
                   className="absolute inset-0 rounded-full"

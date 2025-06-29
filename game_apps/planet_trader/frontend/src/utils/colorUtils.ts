@@ -1,19 +1,19 @@
 // Utility functions for color manipulation
 
 export function hexToRgb(hex: string): { r: number; g: number; b: number } {
-  // Handle undefined, null, or invalid hex values
+  // Handle undefined, null, or empty hex values
   if (!hex || typeof hex !== 'string') {
-    console.warn('Invalid hex color provided to hexToRgb:', hex);
-    return { r: 128, g: 128, b: 128 }; // Default to gray
+    console.warn('hexToRgb received invalid hex value:', hex, 'using default gray color');
+    hex = '#808080'; // Default gray color
   }
   
   hex = hex.replace('#', '');
   if (hex.length === 3) hex = hex.split('').map(x => x + x).join('');
   
-  // Validate hex format
-  if (!/^[0-9A-Fa-f]{6}$/.test(hex)) {
-    console.warn('Invalid hex format provided to hexToRgb:', hex);
-    return { r: 128, g: 128, b: 128 }; // Default to gray
+  // Ensure we have a valid 6-character hex string
+  if (hex.length !== 6 || !/^[0-9a-fA-F]{6}$/.test(hex)) {
+    console.warn('hexToRgb received invalid hex format:', hex, 'using default gray color');
+    hex = '808080'; // Default gray without #
   }
   
   const num = parseInt(hex, 16);
@@ -25,22 +25,11 @@ export function hexToRgb(hex: string): { r: number; g: number; b: number } {
 }
 
 export function rgbToHex(r: number, g: number, b: number): string {
-  // Clamp values to valid range and handle NaN
-  r = Math.max(0, Math.min(255, Math.round(r) || 0));
-  g = Math.max(0, Math.min(255, Math.round(g) || 0));
-  b = Math.max(0, Math.min(255, Math.round(b) || 0));
-  
   return '#' + [r, g, b].map(x => x.toString(16).padStart(2, '0')).join('');
 }
 
 // Ensure h is always defined in rgbToHsl
 export function rgbToHsl(r: number, g: number, b: number): { h: number; s: number; l: number } {
-  // Handle invalid inputs
-  if (typeof r !== 'number' || typeof g !== 'number' || typeof b !== 'number') {
-    console.warn('Invalid RGB values provided to rgbToHsl:', { r, g, b });
-    return { h: 0, s: 0, l: 0.5 };
-  }
-  
   r /= 255; g /= 255; b /= 255;
   const max = Math.max(r, g, b), min = Math.min(r, g, b);
   let h = 0, s, l = (max + min) / 2;
@@ -60,17 +49,6 @@ export function rgbToHsl(r: number, g: number, b: number): { h: number; s: numbe
 }
 
 export function hslToRgb(h: number, s: number, l: number): { r: number; g: number; b: number } {
-  // Handle invalid inputs
-  if (typeof h !== 'number' || typeof s !== 'number' || typeof l !== 'number') {
-    console.warn('Invalid HSL values provided to hslToRgb:', { h, s, l });
-    return { r: 128, g: 128, b: 128 };
-  }
-  
-  // Ensure values are in valid ranges
-  h = ((h % 360) + 360) % 360; // Normalize h to 0-360
-  s = Math.max(0, Math.min(1, s));
-  l = Math.max(0, Math.min(1, l));
-  
   let r, g, b;
   h /= 360;
   if (s === 0) {

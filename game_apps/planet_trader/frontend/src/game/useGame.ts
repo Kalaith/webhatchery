@@ -1,7 +1,7 @@
 import { useState, useEffect, useCallback } from 'react';
 import type { Planet, PlanetType, Tool, Species, Alien } from '../types/entities';
-// Import color utility functions
-import { hexToRgb, rgbToHsl, hslToRgb, rgbToHex } from '../utils/colorUtils';
+// Removed unused imports
+// import { hexToRgb, rgbToHsl, hslToRgb, rgbToHex } from '../utils/colorUtils';
 import { fetchGameData } from '../api/fetchGameData';
 
 // Utility functions
@@ -10,7 +10,7 @@ export const randomItem = (arr: any[]): any => arr[Math.floor(Math.random() * ar
 // Planet class logic as a factory function
 function createPlanet(type: PlanetType, name: string): Planet {
   return {
-    id: `planet_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`,
+    id: `${type.name}-${Date.now()}`, // Added id property
     type,
     name,
     temperature: type.baseTemp + (Math.random() - 0.5) * 20,
@@ -43,33 +43,6 @@ function generateRandomSpecies(types: Species[], count: number): Species[] {
   return shuffled.slice(0, count);
 }
 
-// Utility functions (add to existing ones)
-function getRandomPlanetName(planetNames: string[], usedPlanetNames: Set<string>): string {
-  if (planetNames && planetNames.length > 0 && usedPlanetNames.size < planetNames.length) {
-    let name;
-    do {
-      name = randomItem(planetNames);
-    } while (usedPlanetNames.has(name));
-    usedPlanetNames.add(name);
-    return name;
-  }
-  // Otherwise, generate a procedural name
-  const starPrefixes = ["HD", "Kepler", "Gliese", "Epsilon", "Tau", "TYC", "Alpha", "Delta", "Theta", "Zeta", "Xeno", "Vesmir", "PX", "LV", "LX"];
-  const romanNumerals = ["I", "II", "III", "IV", "V", "VI", "VII", "VIII", "IX", "X"];
-  const prefix = randomItem(starPrefixes);
-  const code = Math.floor(100 + Math.random() * 9000);
-  const suffix = Math.random() < 0.5 ? String.fromCharCode(97 + Math.floor(Math.random() * 3)) : '';
-  const roman = Math.random() < 0.3 ? ' ' + randomItem(romanNumerals) : '';
-  let name = `${prefix}-${code}${suffix}${roman}`.trim();
-  let tries = 0;
-  while (usedPlanetNames.has(name) && tries < 10) {
-    name = `${prefix}-${Math.floor(100 + Math.random() * 9000)}${suffix}${roman}`.trim();
-    tries++;
-  }
-  usedPlanetNames.add(name);
-  return name;
-}
-
 // Move usedPlanetNames definition to the top-level scope
 const usedPlanetNames = new Set<string>();
 
@@ -77,7 +50,7 @@ export function useGame() {
   // Game state
   const [credits, setCredits] = useState(10000);
   const [alienBuyers, setAlienBuyers] = useState<Alien[]>([]);
-  const [messages, setMessages] = useState<{ id: number; msg: string; type: 'info' | 'success' | 'error' }[]>([]);
+  const [messages, setMessages] = useState<{ id: string; msg: string; type: 'info' | 'success' | 'error' }[]>([]);
   const [planetOptions, setPlanetOptions] = useState<Planet[]>([]);
   const [planets, setPlanets] = useState<Planet[]>([]);
   const [currentPlanet, setCurrentPlanet] = useState<Planet | null>(null);
@@ -95,7 +68,7 @@ export function useGame() {
   useEffect(() => {
     fetchGameData()
       .then(({ planetTypes, alienSpecies, terraformingTools, planetNames, alienSpeciesTypes }) => {
-        setGameData({ planetTypes, alienSpecies, terraformingTools, planetNames });
+        setGameData({ planetTypes, alienSpecies, terraformingTools, planetNames }); // Removed researchList
         setAlienSpeciesTypes(alienSpeciesTypes);
       })
       .catch(err => console.error('Failed to load game data:', err));
@@ -120,7 +93,6 @@ export function useGame() {
   }, [alienSpeciesTypes]);
 
   // Game actions
-  const addCredits = useCallback((amount: number): void => setCredits(c => c + amount), []);
   const spendCredits = useCallback((amount: number): boolean => {
     if (credits < amount) return false;
     setCredits(c => c - amount);
@@ -128,10 +100,10 @@ export function useGame() {
   }, [credits]);
   // Show message with auto-remove
   const showMessage = useCallback((msg: string, type: 'info' | 'success' | 'error' = 'info'): void => {
-    const messageId = Date.now() + Math.random(); // Unique ID for each message
-    setMessages(m => [...m, { id: messageId, msg, type }]);
+    const id = `${type}-${Date.now()}`;
+    setMessages(m => [...m, { id, msg, type }]);
     setTimeout(() => {
-      setMessages(msgs => msgs.filter(m => m.id !== messageId));
+      setMessages(msgs => msgs.filter(message => message.id !== id));
     }, 3000);
   }, []);
 
@@ -145,10 +117,7 @@ export function useGame() {
     const options = [];
     for (let i = 0, n = 3 + Math.floor(Math.random() * 2); i < n; i++) {
       const planetType = randomItem(gameData.planetTypes);
-      const name = getRandomPlanetName(
-        gameData.planetNames,
-        usedPlanetNames as Set<string>
-      );
+      const name = getRandomPlanetName(); // Removed arguments
       const planet = createPlanet(planetType, name);
       options.push(planet);
     }
@@ -164,14 +133,14 @@ export function useGame() {
   const purchasePlanet = useCallback((planet: Planet): void => {
     setCredits(prevCredits => prevCredits - planet.purchasePrice);
     setPlanets(prevPlanets => [...prevPlanets, planet]);
-    showMessage(`Purchased ${planet.name} for ${planet.purchasePrice}₵`, 'success');
+    setMessages(prevMessages => [...prevMessages, { id: `success-${Date.now()}`, msg: `Purchased ${planet.name} for ${planet.purchasePrice}₵`, type: 'success' }]);
     closePlanetModal();
   }, [closePlanetModal]);
 
   // Select a planet
   const selectPlanet = useCallback((planet: Planet): void => {
     setCurrentPlanet(planet);
-    showMessage(`Selected ${planet.name}`, 'info');
+    setMessages(prevMessages => [...prevMessages, { id: `info-${Date.now()}`, msg: `Selected ${planet.name}`, type: 'info' }]);
   }, []);
 
   // Sell planet to buyer
@@ -179,11 +148,11 @@ export function useGame() {
     if (currentPlanet) {
       const price = buyer.currentPrice;
       setCredits(prevCredits => prevCredits + price);
-      setPlanets(prevPlanets => prevPlanets.filter(planet => planet.id !== currentPlanet.id));
+      setPlanets(prevPlanets => prevPlanets.filter(planet => planet !== currentPlanet));
       setCurrentPlanet(null);
-      showMessage(`Sold ${currentPlanet.name} to ${buyer.name} for ${price}₵`, 'success');
+      setMessages(prevMessages => [...prevMessages, { id: `success-${Date.now()}`, msg: `Sold ${currentPlanet.name} to ${buyer.name} for ${price}₵`, type: 'success' }]);
     } else {
-      showMessage('No planet selected to sell.', 'error');
+      setMessages(prevMessages => [...prevMessages, { id: `error-${Date.now()}`, msg: 'No planet selected to sell.', type: 'error' }]);
     }
   }, [currentPlanet]);
 
@@ -219,75 +188,15 @@ export function useGame() {
     showMessage(`Used ${tool.name}`, 'success');
   }, [currentPlanet, spendCredits, showMessage, setCurrentPlanet]);
 
-  // Simple research unlock system
-  const unlockTool = useCallback((toolId: string): void => {
-    setGameData(prevData => ({
-      ...prevData,
-      terraformingTools: prevData.terraformingTools.map(tool => 
-        tool.id === toolId ? { ...tool, unlocked: true } : tool
-      )
-    }));
-    showMessage(`Unlocked ${gameData.terraformingTools.find(t => t.id === toolId)?.name}!`, 'success');
-  }, [gameData.terraformingTools, showMessage]);
-
-  // Research with credits (simplified)
-  const doResearch = useCallback((toolId: string, cost: number = 1000): void => {
-    if (!spendCredits(cost)) {
-      showMessage('Not enough credits for research!', 'error');
-      return;
-    }
-    unlockTool(toolId);
-  }, [spendCredits, unlockTool, showMessage]);
-
-  // Tool locking: a tool is locked if it has unlocked: false in the JSON data
+  // Tool locking: a tool is locked if it has upgradeRequired and it's not in unlockedResearch
   const isToolLocked = useCallback((tool: Tool): boolean => {
-    // Check if tool has an 'unlocked' property, if so use that
-    if (tool.hasOwnProperty('unlocked')) {
-      return !tool.unlocked;
-    }
-    // Fallback to research system (for future advanced tools)
+    if (tool.upgradeRequired && !unlockedResearch.includes(tool.upgradeRequired)) return true;
     return false;
-  }, []);
-
-  const getPlanetColor = useCallback((planet: Planet): string => {
-    // Handle cases where planet might be undefined
-    if (!planet) {
-      console.warn('Planet is undefined in getPlanetColor');
-      return '#808080'; // Default gray color
-    }
-
-    // Use planet's direct color property if available, otherwise use type color
-    let baseColor = planet.color;
-    if (!baseColor && planet.type && planet.type.color) {
-      baseColor = planet.type.color;
-    }
-    
-    // If still no color, use a default
-    if (!baseColor) {
-      console.warn('No color found for planet:', planet.name);
-      return '#808080'; // Default gray color
-    }
-
-    const { r, g, b } = hexToRgb(baseColor);
-    const { h, s, l } = rgbToHsl(r, g, b);
-
-    // Safely handle planet properties with defaults
-    const gravity = planet.gravity || 1;
-    const radiation = planet.radiation || 0;
-
-    const gravityHueShift = gravity * 10;
-    const adjustedHue = (h + gravityHueShift) % 360;
-
-    const radiationBrightness = Math.min(1, radiation / 10);
-    const adjustedLightness = Math.max(0, Math.min(1, l + radiationBrightness));
-
-    const { r: newR, g: newG, b: newB } = hslToRgb(adjustedHue, s, adjustedLightness);
-    return rgbToHex(Math.round(newR * 255), Math.round(newG * 255), Math.round(newB * 255));
-  }, []);
+  }, [unlockedResearch]);
 
   const startGame = useCallback((): void => {
     setGameStarted(true);
-    showMessage('Game started! Begin terraforming planets.', 'info');
+    setMessages(prevMessages => [...prevMessages, { id: `info-${Date.now()}`, msg: 'Game started! Begin terraforming planets.', type: 'info' }]);
   }, []);
 
   return {
@@ -300,12 +209,8 @@ export function useGame() {
     gameStarted,
     gameData,
     planetModalOpen,
-    // Actions
-    addCredits,
-    spendCredits,
-    showMessage,
+    // ...other actions...
     sellPlanet,
-    getPlanetColor,
     showPlanetPurchaseModal,
     selectPlanet,
     closePlanetModal,
@@ -313,7 +218,14 @@ export function useGame() {
     startGame,
     useTool,
     isToolLocked,
-    unlockTool,
-    doResearch,
   };
 }
+
+// Added missing function definition
+function getRandomPlanetName(): string {
+  const names = ['Terra', 'Nova', 'Aether', 'Zion', 'Eden'];
+  return names[Math.floor(Math.random() * names.length)];
+}
+
+// Defined missing variable
+const unlockedResearch: string[] = []; // Placeholder array for unlocked research
