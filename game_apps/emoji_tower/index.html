@@ -13,19 +13,19 @@
             <div class="stats-bar">
                 <div class="stat">
                     <span class="stat-emoji">💰</span>
-                    <span id="gold">200</span>
+                    <span id="gold"></span>
                 </div>
                 <div class="stat">
                     <span class="stat-emoji">⭐</span>
-                    <span id="xp">0</span>
+                    <span id="xp"></span>
                 </div>
                 <div class="stat">
                     <span class="stat-emoji">❤️</span>
-                    <span id="lives">20</span>
+                    <span id="lives"></span>
                 </div>
                 <div class="stat">
                     <span class="stat-emoji">🌊</span>
-                    <span>Wave <span id="wave">1</span></span>
+                    <span>Wave <span id="wave"></span></span>
                 </div>
             </div>
         </header>
@@ -37,6 +37,7 @@
                     <button id="startWave" class="btn btn--primary">Start Wave</button>
                     <button id="pauseGame" class="btn btn--secondary">Pause</button>
                     <button id="speedToggle" class="btn btn--outline">Speed: 1x</button>
+                    <button id="resetGame" class="btn btn--danger">Reset Game</button>
                 </div>
             </div>
 
@@ -92,6 +93,32 @@
         <div id="tooltip" class="tooltip" style="display: none;"></div>
     </div>
 
-    <script src="app.js"></script>
+    <script>
+        let gameMap = null;
+
+        async function loadMap() {
+            try {
+                const response = await fetch('map.json');
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                gameMap = await response.json();
+                console.log('Map loaded:', gameMap);
+            } catch (error) {
+                console.error('Could not load map:', error);
+            }
+        }
+
+        loadMap().then(() => {
+            const appScript = document.createElement('script');
+            appScript.src = 'app.js';
+            document.body.appendChild(appScript);
+        });
+
+        document.getElementById('resetGame').addEventListener('click', () => {
+            localStorage.clear();
+            location.reload();
+        });
+    </script>
 </body>
 </html>

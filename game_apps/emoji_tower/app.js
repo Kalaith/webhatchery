@@ -23,8 +23,7 @@ const gameData = {
     {"name": "Auto-Start", "emoji": "🚀", "baseCost": 500, "effect": 1, "description": "Automatically start next wave"}
   ],
   gameSettings: {
-    gridSize: 40,
-    pathY: 300,
+    gridSize: window.gameMap.tileSize,
     canvasWidth: 800,
     canvasHeight: 600,
     startingGold: 200,
@@ -61,16 +60,8 @@ let gameState = {
 const canvas = document.getElementById('gameCanvas');
 const ctx = canvas.getContext('2d');
 
-// Enemy path points
-const enemyPath = [
-  {x: -50, y: gameData.gameSettings.pathY},
-  {x: 100, y: gameData.gameSettings.pathY},
-  {x: 200, y: gameData.gameSettings.pathY - 100},
-  {x: 400, y: gameData.gameSettings.pathY - 100},
-  {x: 500, y: gameData.gameSettings.pathY + 100},
-  {x: 700, y: gameData.gameSettings.pathY + 100},
-  {x: gameData.gameSettings.canvasWidth + 50, y: gameData.gameSettings.pathY}
-];
+// Enemy path points (will be generated from map.json)
+let enemyPath = [];
 
 // Game classes
 class Tower {
@@ -121,7 +112,7 @@ class Tower {
     ctx.font = '24px Arial';
     ctx.textAlign = 'center';
     ctx.fillText(this.type.emoji, this.x, this.y + 8);
-    
+
     // Draw range when selected
     if (gameState.selectedTowerType === this.type) {
       ctx.strokeStyle = 'rgba(33, 128, 141, 0.3)';
@@ -270,21 +261,144 @@ class Projectile {
   }
 }
 
+// Utility functions for localStorage
+function saveGameState() {
+  localStorage.setItem('gameState', JSON.stringify(gameState));
+}
+
+function loadGameState() {
+  const savedState = localStorage.getItem('gameState');
+  if (!savedState) return null;
+
+  const parsedState = JSON.parse(savedState);
+
+  // Restore Tower objects
+  parsedState.towers = parsedState.towers.map(towerData => {
+    return new Tower(towerData.x, towerData.y, towerData.type);
+  });
+
+  return parsedState;
+}
+
 // Game functions
 function initializeGame() {
-  // Apply upgrades
-  gameState.gold = gameData.gameSettings.startingGold + gameState.upgradeLevels["Starting Gold"] * gameData.upgrades[2].effect;
-  gameState.lives = gameData.gameSettings.startingLives;
-  gameState.wave = 1;
-  gameState.towers = [];
-  gameState.enemies = [];
-  gameState.projectiles = [];
-  gameState.waveInProgress = false;
-  gameState.gameOver = false;
-  
+  const savedState = loadGameState();
+
+  if (savedState) {
+    gameState = savedState;
+  } else {
+    // Default values
+    gameState.gold = gameData.gameSettings.startingGold;
+    gameState.lives = gameData.gameSettings.startingLives;
+    gameState.wave = 1;
+    gameState.towers = [];
+    gameState.enemies = [];
+    gameState.projectiles = [];
+    gameState.waveInProgress = false;
+    gameState.gameOver = false;
+    gameState.upgradeLevels = {
+      "Tower Damage": 0,
+      "Tower Range": 0,
+      "Starting Gold": 0,
+      "XP Multiplier": 0,
+      "Wave Delay": 0,
+      "Auto-Start": 0
+    };
+  }
+
+  generateEnemyPath(); // Generate path from map.json
   updateUI();
   generateTowerButtons();
   generateUpgradeButtons();
+}
+
+function generateEnemyPath() {
+  enemyPath = [];
+  const map = window.gameMap.map;
+  const tileSize = window.gameMap.tileSize;
+
+  let startNode = null;
+  let endNode = null;
+
+  // Find start and end nodes
+  for (let r = 0; r < map.length; r++) {
+    for (let c = 0; c < map[r].length; c++) {
+      if (map[r][c] === 'road') {
+        // Assuming start is the first 'road' cell on the left edge
+        if (c === 0) {
+          startNode = { r, c };
+        }
+        // Assuming end is the last 'road' cell on the right edge
+        if (c === map[r].length - 1) {
+          endNode = { r, c };
+        }
+      }
+    }
+  }
+
+  if (!startNode || !endNode) {
+    console.error("Map must have a 'road' start and end point on the edges.");
+    return;
+  }
+
+  // Breadth-First Search (BFS) to find the shortest path
+  const queue = [startNode];
+  const visited = new Set();
+  const parent = new Map(); // To reconstruct the path
+
+  visited.add(`${startNode.r},${startNode.c}`);
+
+  const directions = [
+    { dr: -1, dc: 0 }, // Up
+    { dr: 1, dc: 0 },  // Down
+    { dr: 0, dc: -1 }, // Left
+    { dr: 0, dc: 1 }   // Right
+  ];
+
+  let foundPath = false;
+  while (queue.length > 0) {
+    const current = queue.shift();
+
+    if (current.r === endNode.r && current.c === endNode.c) {
+      foundPath = true;
+      break;
+    }
+
+    for (const dir of directions) {
+      const newR = current.r + dir.dr;
+      const newC = current.c + dir.dc;
+
+      // Check bounds and if it's a road and not visited
+      if (
+        newR >= 0 && newR < map.length &&
+        newC >= 0 && newC < map[0].length &&
+        map[newR][newC] === 'road' &&
+        !visited.has(`${newR},${newC}`)
+      ) {
+        visited.add(`${newR},${newC}`);
+        queue.push({ r: newR, c: newC });
+        parent.set(`${newR},${newC}`, current);
+      }
+    }
+  }
+
+  if (foundPath) {
+    // Reconstruct path
+    let current = endNode;
+    const path = [];
+    while (current) {
+      path.unshift(current);
+      current = parent.get(`${current.r},${current.c}`);
+    }
+
+    // Convert grid coordinates to canvas coordinates
+    enemyPath = path.map(node => ({
+      x: node.c * tileSize + tileSize / 2,
+      y: node.r * tileSize + tileSize / 2
+    }));
+  } else {
+    console.error("No path found from start to end road.");
+  }
 }
 
 function generateTowerButtons() {
@@ -368,23 +482,44 @@ function showTowerInfo(tower) {
 
 function placeTower(x, y) {
   if (!gameState.selectedTowerType || gameState.gold < gameState.selectedTowerType.cost) return;
-  
-  // Check if position is valid (not on path, not occupied)
-  const gridX = Math.floor(x / gameData.gameSettings.gridSize) * gameData.gameSettings.gridSize + gameData.gameSettings.gridSize / 2;
-  const gridY = Math.floor(y / gameData.gameSettings.gridSize) * gameData.gameSettings.gridSize + gameData.gameSettings.gridSize / 2;
-  
-  // Check if on path
-  if (Math.abs(gridY - gameData.gameSettings.pathY) < 50) return;
-  
-  // Check if occupied
-  for (let tower of gameState.towers) {
-    if (Math.abs(tower.x - gridX) < 20 && Math.abs(tower.y - gridY) < 20) return;
+
+  const map = window.gameMap.map;
+  const tileSize = window.gameMap.tileSize;
+
+  // Align position to grid
+  const gridX = Math.floor(x / tileSize);
+  const gridY = Math.floor(y / tileSize);
+
+  // Check if coordinates are within map bounds
+  if (gridY < 0 || gridY >= map.length || gridX < 0 || gridX >= map[0].length) {
+    console.error(`Invalid placement: Coordinates out of map bounds (gridX: ${gridX}, gridY: ${gridY})`);
+    return;
   }
-  
-  const tower = new Tower(gridX, gridY, gameState.selectedTowerType);
+
+  const cellType = map[gridY][gridX];
+
+  // Check if position is valid based on map.json
+  if (cellType === 'road' || cellType === 'obstacle') {
+    console.error(`Cannot place tower on ${cellType}`);
+    return;
+  }
+
+  // Check if space is already occupied by another tower
+  for (let tower of gameState.towers) {
+    const towerGridX = Math.floor(tower.x / tileSize);
+    const towerGridY = Math.floor(tower.y / tileSize);
+    if (towerGridX === gridX && towerGridY === gridY) {
+      console.error('Cannot place tower on an occupied space');
+      return;
+    }
+  }
+
+  // Place the tower and deduct gold
+  const tower = new Tower(gridX * tileSize + tileSize / 2, gridY * tileSize + tileSize / 2, gameState.selectedTowerType);
   gameState.towers.push(tower);
   gameState.gold -= gameState.selectedTowerType.cost;
-  
+
+  saveGameState();
   updateUI();
 }
 
@@ -393,6 +528,7 @@ function startWave() {
   
   gameState.waveInProgress = true;
   spawnWave();
+  saveGameState();
   updateUI();
 }
 
@@ -423,19 +559,25 @@ function spawnWave() {
 
 function updateGame() {
   if (gameState.isPaused || gameState.gameOver) return;
-  
+
   // Update towers
-  gameState.towers.forEach(tower => tower.update());
-  
+  gameState.towers.forEach(tower => {
+    if (tower instanceof Tower) {
+      tower.update();
+    } else {
+      console.error('Invalid tower object detected:', tower);
+    }
+  });
+
   // Update enemies
   for (let i = gameState.enemies.length - 1; i >= 0; i--) {
     const enemy = gameState.enemies[i];
     const reachedEnd = enemy.update();
-    
+
     if (reachedEnd) {
       gameState.lives--;
       gameState.enemies.splice(i, 1);
-      
+
       if (gameState.lives <= 0) {
         gameOver();
         return;
@@ -464,30 +606,47 @@ function drawGame() {
   // Clear canvas
   ctx.clearRect(0, 0, canvas.width, canvas.height);
   
-  // Draw grid
+  const map = window.gameMap.map;
+  const tileSize = window.gameMap.tileSize;
+
+  // Draw map tiles
+  for (let r = 0; r < map.length; r++) {
+    for (let c = 0; c < map[r].length; c++) {
+      const cellType = map[r][c];
+      let color = '#f0d9b5'; // Default for free space
+      if (cellType === 'road') {
+        color = '#a84b2f'; // Road color
+      } else if (cellType === 'obstacle') {
+        color = '#5e5240'; // Obstacle color
+      }
+      ctx.fillStyle = color;
+      ctx.fillRect(c * tileSize, r * tileSize, tileSize, tileSize);
+    }
+  }
+
+  // Draw grid lines
   ctx.strokeStyle = 'rgba(94, 82, 64, 0.1)';
   ctx.lineWidth = 1;
-  for (let x = 0; x < canvas.width; x += gameData.gameSettings.gridSize) {
+  for (let x = 0; x < canvas.width; x += tileSize) {
     ctx.beginPath();
     ctx.moveTo(x, 0);
     ctx.lineTo(x, canvas.height);
     ctx.stroke();
   }
-  for (let y = 0; y < canvas.height; y += gameData.gameSettings.gridSize) {
+  for (let y = 0; y < canvas.height; y += tileSize) {
     ctx.beginPath();
     ctx.moveTo(0, y);
     ctx.lineTo(canvas.width, y);
     ctx.stroke();
   }
   
-  // Draw path
-  ctx.strokeStyle = 'rgba(168, 75, 47, 0.3)';
-  ctx.lineWidth = 40;
+  // Draw path (for debugging/visualization)
+  ctx.strokeStyle = 'blue'; // Path color
+  ctx.lineWidth = 2;
   ctx.beginPath();
-  for (let i = 0; i < enemyPath.length; i++) {
-    if (i === 0) {
-      ctx.moveTo(enemyPath[i].x, enemyPath[i].y);
-    } else {
+  if (enemyPath.length > 0) {
+    ctx.moveTo(enemyPath[0].x, enemyPath[0].y);
+    for (let i = 1; i < enemyPath.length; i++) {
       ctx.lineTo(enemyPath[i].x, enemyPath[i].y);
     }
   }
@@ -523,11 +682,12 @@ function updateUI() {
 
 function gameOver() {
   gameState.gameOver = true;
-  
+  saveGameState();
+
   document.getElementById('finalWave').textContent = gameState.wave;
   document.getElementById('earnedXP').textContent = gameState.xp;
   document.getElementById('totalXP').textContent = gameState.xp;
-  
+
   generateUpgradeButtons();
   document.getElementById('upgradeModal').style.display = 'flex';
 }
@@ -541,8 +701,16 @@ function gameLoop() {
 // Event listeners
 canvas.addEventListener('click', (e) => {
   const rect = canvas.getBoundingClientRect();
-  const x = e.clientX - rect.left;
-  const y = e.clientY - rect.top;
+  const scaleX = canvas.width / rect.width;
+  const scaleY = canvas.height / rect.height;
+  const x = (e.clientX - rect.left) * scaleX;
+  const y = (e.clientY - rect.top) * scaleY;
+
+  const gridX = Math.floor(x / gameData.gameSettings.gridSize);
+  const gridY = Math.floor(y / gameData.gameSettings.gridSize);
+  console.log(`Clicked grid cell ID: [${gridX}][${gridY}]`);
+
+  console.debug(`Mouse click at canvas-relative coordinates (x: ${x}, y: ${y})`);
   placeTower(x, y);
 });
 
