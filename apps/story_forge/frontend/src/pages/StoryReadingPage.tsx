@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { apiService } from '../services/apiService';
 import type { Story, Paragraph } from '../types';
-import { useAuth } from '../context/AuthContext';
+import { useAuth } from '../hooks/useAuth';
 
 interface StoryReadingPageProps {
   showToast: (message: string, type?: 'success' | 'error' | 'warning') => void;

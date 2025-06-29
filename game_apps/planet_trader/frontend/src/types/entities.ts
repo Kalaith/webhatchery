@@ -77,7 +77,7 @@ export interface Research {
   cost: number;
 }
 
-export const TOOL_CATEGORIES = [
+export const tool_categories = [
   { label: '🌡️ Temperature', id: 'temperature', icon: '🌡️', colorClass: 'text-orange-400' },
   { label: '🌫️ Atmosphere', id: 'atmosphere', icon: '🌫️', colorClass: 'text-blue-400' },
   { label: '💧 Water', id: 'water', icon: '💧', colorClass: 'text-blue-300' },

@@ -101,11 +101,30 @@ export function useGame() {
   // Show message with auto-remove
   const showMessage = useCallback((msg: string, type: 'info' | 'success' | 'error' = 'info'): void => {
     const id = `${type}-${Date.now()}`;
-    setMessages(m => [...m, { id, msg, type }]);
-    setTimeout(() => {
-      setMessages(msgs => msgs.filter(message => message.id !== id));
-    }, 3000);
+    console.log(`Adding message with id: ${id}`); // Log when message is added
+    setMessages(prevMessages => [...prevMessages, { id, msg, type }]);
   }, []);
+
+  useEffect(() => {
+    const timeoutIds: number[] = []; // Changed type to number for browser compatibility
+
+    messages.forEach((message) => {
+      const timeoutId = setTimeout(() => {
+        console.log(`Attempting to remove message with id: ${message.id}`); // Log before attempting removal
+        setMessages((prevMessages) => {
+          const updatedMessages = prevMessages.filter((msg) => msg.id !== message.id);
+          console.log('Updated messages after removal:', updatedMessages); // Log updated state
+          return updatedMessages;
+        });
+      }, 3000);
+
+      timeoutIds.push(timeoutId);
+    });
+
+    return () => {
+      timeoutIds.forEach((timeoutId) => clearTimeout(timeoutId));
+    };
+  }, [messages]);
 
   // Planet purchase modal logic
   const showPlanetPurchaseModal = useCallback(() => {

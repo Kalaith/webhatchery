@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import { apiService } from '../services/apiService';
 import StoryCard from '../components/StoryCard';
-import { Story } from '../types';
+import type { Story } from '../types';
 import { useNavigate } from 'react-router-dom';
 
 interface HomePageProps {
   showToast: (message: string, type?: 'success' | 'error' | 'warning') => void;
 }
 
-const HomePage: React.FC<HomePageProps> = ({ showToast }) => {
+const HomePage: React.FC<HomePageProps> = (/*{ showToast }*/) => {
   const [stories, setStories] = useState<Story[]>([]);
   const [filteredStories, setFilteredStories] = useState<Story[]>([]);
   const [searchTerm, setSearchTerm] = useState<string>('');

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useAuth } from '../context/AuthContext';
+import { useAuth } from '../hooks/useAuth';
 import { apiService } from '../services/apiService';
 import StoryCard from '../components/StoryCard';
 import type { Story, Paragraph } from '../types';
@@ -9,7 +9,7 @@ interface DashboardPageProps {
   showToast: (message: string, type?: 'success' | 'error' | 'warning') => void;
 }
 
-const DashboardPage: React.FC<DashboardPageProps> = ({ showToast }) => {
+const DashboardPage: React.FC<DashboardPageProps> = (/*{ showToast }*/) => {
   const { currentUser } = useAuth();
   const navigate = useNavigate();
   const [activeTab, setActiveTab] = useState('myStories');

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
-import { AuthProvider, useAuth } from './context/AuthContext';
+import { AuthProvider } from './context/AuthProvider';
+import { useAuth } from './hooks/useAuth';
 import HomePage from './pages/HomePage';
 import StoryReadingPage from './pages/StoryReadingPage';
 import DashboardPage from './pages/DashboardPage';

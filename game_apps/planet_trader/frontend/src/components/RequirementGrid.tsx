@@ -1,5 +1,5 @@
 import React from 'react';
-import { TOOL_CATEGORIES } from '../types/entities';
+import { tool_categories } from '../types/entities';
 
 interface RequirementGridProps {
   buyer: any;
@@ -10,7 +10,7 @@ const RequirementGrid: React.FC<RequirementGridProps> = ({ buyer, currentPlanet 
   <div className="grid grid-cols-2 gap-2 text-xs">
     {currentPlanet ? (
       <>
-        {TOOL_CATEGORIES.map(cat => {
+        {tool_categories.map(cat => {
           let stat = '';
           let range: [number, number] = [0, 0];
           let value = 0;
@@ -77,7 +77,7 @@ const RequirementGrid: React.FC<RequirementGridProps> = ({ buyer, currentPlanet 
       </>
     ) : (
       <>
-        {TOOL_CATEGORIES.map(cat => {
+        {tool_categories.map(cat => {
           let stat = '';
           let range: [number, number] = [0, 0];
           let display = '';

@@ -1,8 +1,12 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useGameContext } from '../contexts/GameContext';
 
 const GameMessages: React.FC = () => {
   const { messages } = useGameContext();
+
+  useEffect(() => {
+    console.log('Updated messages:', messages);
+  }, [messages]);
 
   return (
     <div className="fixed top-2 sm:top-4 right-2 sm:right-4 space-y-2 z-40 max-w-xs sm:max-w-sm">

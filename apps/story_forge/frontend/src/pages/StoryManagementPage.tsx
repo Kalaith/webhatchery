@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { apiService } from '../services/apiService';
-import { useAuth } from '../context/AuthContext';
-import type { Story, User, WritingSample } from '../types';
+import { useAuth } from '../hooks/useAuth';
+import type { Story, User } from '../types';
 
 interface StoryManagementPageProps {
   showToast: (message: string, type?: 'success' | 'error' | 'warning') => void;

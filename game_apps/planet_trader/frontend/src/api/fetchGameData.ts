@@ -1,13 +1,15 @@
 import { randomItem } from '../game/useGame';
 
+const BASE_URL = 'mocks'; // Updated to remove leading slash
+
 export const fetchGameData = async () => {
   try {
     const [planetTypes, alienSpecies, terraformingTools, planetNames, alienSpeciesTypes] = await Promise.all([
-      fetch('/mocks/planet_types.json').then(r => r.json()),
-      fetch('/mocks/alien_species.json').then(r => r.json()),
-      fetch('/mocks/terraforming_tools.json').then(r => r.json()),
-      fetch('/mocks/planet_names.json').then(r => r.json()),
-      fetch('/mocks/alien_species_types.json').then(r => r.json()),
+      fetch(`${BASE_URL}/planet_types.json`).then(r => r.json()),
+      fetch(`${BASE_URL}/alien_species.json`).then(r => r.json()),
+      fetch(`${BASE_URL}/terraforming_tools.json`).then(r => r.json()),
+      fetch(`${BASE_URL}/planet_names.json`).then(r => r.json()),
+      fetch(`${BASE_URL}/alien_species_types.json`).then(r => r.json()),
     ]);
 
     const mappedAlienSpeciesTypes = alienSpeciesTypes.map((species: any) => ({
