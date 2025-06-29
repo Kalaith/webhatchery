@@ -1,0 +1,15 @@
+{
+  "image_prompts": [
+{
+      "id": 1,
+      "title": "Aurora Fox",
+      "description": "A single majestic Fox with a sleek, galaxy-filled fur coat and glowing eyes, standing on all fours in a proud pose. The fox is positioned on a rocky asteroid drifting in space under a vivid, colorful nebula sky. Distant stars and glowing celestial clouds fill the background. Anime-style lighting with high contrast and deep cosmic colors.",
+      "negative_prompt": "extra limbs, extra heads, distorted anatomy, disjointed body parts, surreal shapes, blurry textures, missing features, duplicated elements, glitch effects, malformed faces",
+      "tags": [
+        "animals",
+        "space",
+        "fantasy"
+      ]
+    }
+  ]
+}

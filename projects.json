@@ -130,6 +130,16 @@
             "type": "Static",
             "deployAs": "name_generator"
           }
+        },{
+          "title": "Story Forge",
+          "path": "apps/story_force/",
+          "description": "Creative writing assistant tool that helps authors develop characters, plotlines, settings, and narrative arcs with an intuitive interface and visualization capabilities.",
+          "deployment": {
+            "type": "Static",
+            "deployAs": "story_force",
+            "files": ["index.html", "style.css", "script.js"],
+            "preserveStructure": true
+          }
         }
       ]
     },
@@ -187,6 +197,28 @@
             "buildCommand": "npm run build -- --base=./",
             "packageManager": "npm"
           }
+        },{
+          "title": "Emoji Tower",
+          "path": "game_apps/emoji_tower/",
+          "description": "Casual tower-building puzzle game featuring emoji-based construction elements with physics simulation, progressive difficulty levels, and unlockable special emoji blocks with unique properties.",
+          "deployment": {
+            "type": "Static",
+            "deployAs": "emoji_tower",
+            "files": ["index.html", "style.css", "script.js"],
+            "preserveStructure": true
+          }
+        },{
+          "title": "Planet Trader",
+          "path": "game_apps/planet_trader/frontend/",
+          "description": "Sci-fi trading and exploration game where players manage resources, trade between planets, and upgrade their ship in a dynamic universe. Built with a modern React frontend.",
+          "deployment": {
+            "type": "React",
+            "outputDir": "dist",
+            "deployAs": "planet_trader",
+            "requiresBuild": true,
+            "buildCommand": "npm run build -- --base=./",
+            "packageManager": "npm"
+          }
         }
       ]
     },
@@ -240,26 +272,6 @@
             "type": "Static",
             "deployAs": "tactics_game",
             "preserveStructure": true
-          }
-        }
-      ]
-    },
-    "tools": {
-      "name": "AI & Development Tools",
-      "projects": [        {
-          "title": "ComfyUI Integration",
-          "path": "utils/comfyui/",
-          "description": "AI image generation tool with web interface and downloadable PowerShell scripts for batch processing.",
-          "deployment": {
-            "type": "Static",
-            "deployAs": "comfyui",
-            "files": ["index.html", "comfiui.php", "comfyui-generate.ps1", "comfyui-gen.bat"],
-            "production": {
-              "environmentUpdates": {
-                "COMFYUI_API_URL": "http://127.0.0.1:7860",
-                "NGROK_URL": "https://your-ngrok-url.ngrok.io"
-              }
-            }
           }
         }
       ]

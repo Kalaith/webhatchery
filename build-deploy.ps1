@@ -55,73 +55,24 @@ function Main {
     }    # Get projects to process
     $projects = @()
     
-    # Collect projects from apps folder
-    if (Test-Path (Join-Path $SOURCE_PATH "apps")) {
-        $appProjects = Get-ChildItem -Path (Join-Path $SOURCE_PATH "apps") -Directory | Where-Object { 
-            $_.Name -like $ProjectFilter -and $_.Name -notmatch "^\."
+    # Only deploy projects listed in projects.json
+    $projects = @()
+    foreach ($key in $PROJECT_CONFIGS.Keys) {
+        if ($key -eq "rootFiles" -or $key -eq "global") { continue }
+        $config = $PROJECT_CONFIGS[$key]
+        if ($config.path) {
+            $fullPath = Join-Path $SOURCE_PATH $config.path
+        } else {
+            $fullPath = $SOURCE_PATH
         }
-        $appProjects | ForEach-Object {
+        if ($key -like $ProjectFilter) {
             $projects += New-Object PSObject -Property @{
-                Name = $_.Name
-                FullName = $_.FullName
-                SourceFolder = "apps"
+                Name = $key
+                FullName = $fullPath
+                SourceFolder = $config.path
             }
         }
     }
-    
-    # Collect projects from game_apps folder
-    if (Test-Path (Join-Path $SOURCE_PATH "game_apps")) {
-        $gameProjects = Get-ChildItem -Path (Join-Path $SOURCE_PATH "game_apps") -Directory | Where-Object { 
-            $_.Name -like $ProjectFilter -and $_.Name -notmatch "^\."
-        }
-        $gameProjects | ForEach-Object {
-            $projects += New-Object PSObject -Property @{
-                Name = $_.Name
-                FullName = $_.FullName
-                SourceFolder = "game_apps"
-            }
-        }
-    }
-    
-    # Collect projects from gdd folder
-    if (Test-Path (Join-Path $SOURCE_PATH "gdd")) {
-        $gddProjects = Get-ChildItem -Path (Join-Path $SOURCE_PATH "gdd") -Directory | Where-Object { 
-            $_.Name -like $ProjectFilter -and $_.Name -notmatch "^\."
-        }
-        $gddProjects | ForEach-Object {
-            $projects += New-Object PSObject -Property @{
-                Name = $_.Name
-                FullName = $_.FullName
-                SourceFolder = "gdd"
-            }
-        }
-    }
-    
-    # Collect top-level projects (legacy support)
-    $topLevelProjects = Get-ChildItem -Path $SOURCE_PATH -Directory | Where-Object { 
-        $_.Name -like $ProjectFilter -and 
-        $_.Name -notmatch "^\." -and
-        $_.Name -notin @("utils", "cgi-bin", "apps", "game_apps", "gdd", "stories", "storiesx", "anime")
-    }
-    $topLevelProjects | ForEach-Object {
-        $projects += New-Object PSObject -Property @{
-            Name = $_.Name
-            FullName = $_.FullName
-            SourceFolder = "root"
-        }
-    }
-    
-    # Add special folders if they match the filter
-    @("stories", "storiesx", "anime") | ForEach-Object {
-        if ($_ -like $ProjectFilter -and (Test-Path (Join-Path $SOURCE_PATH $_))) {
-            $projects += New-Object PSObject -Property @{
-                Name = $_
-                FullName = (Join-Path $SOURCE_PATH $_)
-                SourceFolder = "root"
-            }
-        }
-    }
-    
     # Add rootFiles as a special project if it matches the filter
     if ("rootFiles" -like $ProjectFilter -and $PROJECT_CONFIGS["rootFiles"]) {
         $rootFileProject = New-Object PSObject -Property @{
@@ -131,12 +82,12 @@ function Main {
         }
         $projects = @($rootFileProject) + $projects
     }
-    
+
     if (-not $projects) {
         Write-Log "No projects found matching filter: $ProjectFilter" "WARN"
         exit 0
     }
-    
+
     Write-Log "Processing $($projects.Count) projects"
     $results = @()    # Process each project
     foreach ($project in $projects) {

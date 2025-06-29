@@ -1,0 +1,334 @@
+{
+  "image_prompts": [
+    {
+      "id": 1,
+      "title": "Nebula Storm",
+      "description": "A massive cosmic storm with swirling purple, blue, and pink nebula clouds, crackling with electric lightning arcs. Distant stars pierce through the colorful gas clouds. Dark space backdrop with brilliant cosmic energy. Ultra-wide panoramic view, cinematic lighting, high contrast.",
+      "negative_prompt": "people, characters, animals, buildings, text, logos, watermarks, low quality, blurry",
+      "tags": [
+        "space",
+        "nebula",
+        "cosmic"
+      ]
+    },
+    {
+      "id": 2,
+      "title": "Binary Star System",
+      "description": "Two massive stars orbiting each other, one blue-white and one red giant, with streams of plasma flowing between them. Surrounding asteroid field with debris catching the stellar light. Deep space background with distant galaxies. Epic scale, dramatic lighting.",
+      "negative_prompt": "people, characters, animals, buildings, text, logos, watermarks, low quality, blurry",
+      "tags": [
+        "space",
+        "stars",
+        "cosmic"
+      ]
+    },
+    {
+      "id": 3,
+      "title": "Spiral Galaxy Edge",
+      "description": "View from the edge of a massive spiral galaxy showing the galactic disk, spiral arms glowing with star formation regions, and the central bulge. Dark matter halo visible as subtle distortion. Deep field of distant galaxies in background. Astronomical photography style.",
+      "negative_prompt": "people, characters, animals, buildings, text, logos, watermarks, low quality, blurry",
+      "tags": [
+        "space",
+        "galaxy",
+        "cosmic"
+      ]
+    },
+    {
+      "id": 4,
+      "title": "Supernova Explosion",
+      "description": "A dying star in its final moments, exploding in a brilliant supernova with expanding shockwaves of light and energy. Colorful gases and stellar material being ejected. Nearby planets silhouetted against the explosion. Intense bright core with radiating energy beams.",
+      "negative_prompt": "people, characters, animals, buildings, text, logos, watermarks, low quality, blurry",
+      "tags": [
+        "space",
+        "explosion",
+        "cosmic"
+      ]
+    },
+    {
+      "id": 5,
+      "title": "Black Hole Accretion Disk",
+      "description": "A supermassive black hole with a glowing accretion disk of superheated matter spiraling inward. Gravitational lensing effect bending light around the event horizon. Jets of plasma shooting from the poles. Warped spacetime visualization with Einstein ring effects.",
+      "negative_prompt": "people, characters, animals, buildings, text, logos, watermarks, low quality, blurry",
+      "tags": [
+        "space",
+        "blackhole",
+        "cosmic"
+      ]
+    },
+    {
+      "id": 6,
+      "title": "Asteroid Belt Mining",
+      "description": "A vast asteroid belt with thousands of rocky bodies of various sizes, some with exposed metallic cores gleaming in starlight. Mining drones and automated facilities attached to larger asteroids. Distant sun providing dramatic backlighting. Industrial space aesthetic.",
+      "negative_prompt": "people, characters, animals, buildings, text, logos, watermarks, low quality, blurry",
+      "tags": [
+        "space",
+        "asteroids",
+        "industrial"
+      ]
+    },
+    {
+      "id": 7,
+      "title": "Wormhole Portal",
+      "description": "A massive wormhole portal in space with swirling spacetime distortions, showing glimpses of another galaxy on the far side. Energy crackling around the edges, gravitational lensing effects. Ships approaching the portal entrance. Exotic matter stabilization rings.",
+      "negative_prompt": "people, characters, animals, buildings, text, logos, watermarks, low quality, blurry",
+      "tags": [
+        "space",
+        "portal",
+        "scifi"
+      ]
+    },
+    {
+      "id": 8,
+      "title": "Planetary Rings System",
+      "description": "A gas giant with spectacular ring system composed of ice and rock particles, creating beautiful patterns and gaps. Multiple moons visible, some with atmospheric hazes. Saturn-like but more elaborate and colorful. Stunning cosmic jewelry effect.",
+      "negative_prompt": "people, characters, animals, buildings, text, logos, watermarks, low quality, blurry",
+      "tags": [
+        "space",
+        "planets",
+        "rings"
+      ]
+    },
+    {
+      "id": 9,
+      "title": "Solar Corona Eclipse",
+      "description": "A total solar eclipse viewed from space, showing the sun's brilliant corona extending in dramatic streamers. Solar flares and prominences visible. The blocking planet creating a perfect silhouette. Ethereal beauty of the solar atmosphere revealed.",
+      "negative_prompt": "people, characters, animals, buildings, text, logos, watermarks, low quality, blurry",
+      "tags": [
+        "space",
+        "sun",
+        "eclipse"
+      ]
+    },
+    {
+      "id": 10,
+      "title": "Cosmic Web Structure",
+      "description": "The large-scale structure of the universe showing the cosmic web of dark matter filaments connecting galaxy clusters. Vast voids of empty space between bright nodes of galactic superclusters. Deep field view spanning billions of light years.",
+      "negative_prompt": "people, characters, animals, buildings, text, logos, watermarks, low quality, blurry",
+      "tags": [
+        "space",
+        "cosmic",
+        "structure"
+      ]
+    },
+    {
+      "id": 11,
+      "title": "Magnetar Pulse",
+      "description": "A highly magnetized neutron star emitting powerful beams of radiation that sweep across space like a lighthouse. Intense magnetic field lines visible as glowing plasma streams. Nearby matter being torn apart by extreme gravitational forces.",
+      "negative_prompt": "people, characters, animals, buildings, text, logos, watermarks, low quality, blurry",
+      "tags": [
+        "space",
+        "neutronstar",
+        "cosmic"
+      ]
+    },
+    {
+      "id": 12,
+      "title": "Exoplanet System",
+      "description": "A distant star system with multiple colorful exoplanets in various orbits. Some planets showing unique features like cloud bands, ice caps, or volcanic activity. Diverse planetary types from rocky worlds to gas giants. Alien sunset lighting.",
+      "negative_prompt": "people, characters, animals, buildings, text, logos, watermarks, low quality, blurry",
+      "tags": [
+        "space",
+        "exoplanets",
+        "system"
+      ]
+    },
+    {
+      "id": 13,
+      "title": "Galactic Collision",
+      "description": "Two spiral galaxies in the process of merging, with stellar streams and tidal tails of stars being torn from their original positions. New star formation triggered by the gravitational interaction. Cosmic dance of destruction and creation.",
+      "negative_prompt": "people, characters, animals, buildings, text, logos, watermarks, low quality, blurry",
+      "tags": [
+        "space",
+        "galaxies",
+        "collision"
+      ]
+    },
+    {
+      "id": 14,
+      "title": "Comet Approach",
+      "description": "A massive comet approaching the inner solar system with a brilliant glowing coma and twin tails - one of dust and one of ionized gas. Solar wind effects visible. Rocky nucleus partially visible through the bright atmosphere.",
+      "negative_prompt": "people, characters, animals, buildings, text, logos, watermarks, low quality, blurry",
+      "tags": [
+        "space",
+        "comet",
+        "solar"
+      ]
+    },
+    {
+      "id": 15,
+      "title": "Dark Matter Halo",
+      "description": "Visualization of a dark matter halo surrounding a galaxy, shown as subtle gravitational lensing effects and invisible mass distribution. Galaxy clusters connected by dark matter bridges. Abstract representation of unseen cosmic architecture.",
+      "negative_prompt": "people, characters, animals, buildings, text, logos, watermarks, low quality, blurry",
+      "tags": [
+        "space",
+        "darkmatter",
+        "cosmic"
+      ]
+    },
+    {
+      "id": 16,
+      "title": "Star Formation Region",
+      "description": "A stellar nursery where new stars are being born from collapsing gas clouds. Bright blue young stars illuminating surrounding nebula material in brilliant colors. Protostars still embedded in dusty cocoons. Hubble telescope aesthetic.",
+      "negative_prompt": "people, characters, animals, buildings, text, logos, watermarks, low quality, blurry",
+      "tags": [
+        "space",
+        "stars",
+        "nebula"
+      ]
+    },
+    {
+      "id": 17,
+      "title": "Pulsar Wind Nebula",
+      "description": "A rapidly spinning neutron star creating a nebula of high-energy particles and magnetic fields. Bow shock waves as the pulsar moves through space. Intricate patterns of charged particles following magnetic field lines.",
+      "negative_prompt": "people, characters, animals, buildings, text, logos, watermarks, low quality, blurry",
+      "tags": [
+        "space",
+        "pulsar",
+        "nebula"
+      ]
+    },
+    {
+      "id": 18,
+      "title": "Cosmic Ray Shower",
+      "description": "High-energy cosmic rays from deep space interacting with planetary magnetospheres, creating spectacular aurora displays and particle cascades. Invisible radiation made visible through its effects on matter and magnetic fields.",
+      "negative_prompt": "people, characters, animals, buildings, text, logos, watermarks, low quality, blurry",
+      "tags": [
+        "space",
+        "cosmic",
+        "radiation"
+      ]
+    },
+    {
+      "id": 19,
+      "title": "Void Between Galaxies",
+      "description": "The vast emptiness of intergalactic space with only the faintest traces of matter and energy. Cosmic microwave background radiation subtly visible. The profound loneliness and scale of the universe. Minimalist cosmic zen.",
+      "negative_prompt": "people, characters, animals, buildings, text, logos, watermarks, low quality, blurry",
+      "tags": [
+        "space",
+        "void",
+        "minimal"
+      ]
+    },
+    {
+      "id": 20,
+      "title": "Quasar Jet",
+      "description": "A supermassive black hole launching a relativistic jet of plasma across thousands of light years. The jet moving at near light speed, creating shock waves and heating surrounding gas. Most energetic phenomenon in the universe.",
+      "negative_prompt": "people, characters, animals, buildings, text, logos, watermarks, low quality, blurry",
+      "tags": [
+        "space",
+        "quasar",
+        "jet"
+      ]
+    },
+    {
+      "id": 21,
+      "title": "Planetary Nebula",
+      "description": "A dying star shedding its outer layers in a beautiful symmetrical pattern. Complex structure with knots, jets, and shells of glowing gas. Central white dwarf star visible. Death of a star creating cosmic art.",
+      "negative_prompt": "people, characters, animals, buildings, text, logos, watermarks, low quality, blurry",
+      "tags": [
+        "space",
+        "nebula",
+        "stellar"
+      ]
+    },
+    {
+      "id": 22,
+      "title": "Globular Cluster",
+      "description": "Ancient stellar cluster containing hundreds of thousands of old stars in a spherical distribution. Dense core with stars so close they occasionally interact. Remnant from the early universe, orbiting a galaxy.",
+      "negative_prompt": "people, characters, animals, buildings, text, logos, watermarks, low quality, blurry",
+      "tags": [
+        "space",
+        "stars",
+        "cluster"
+      ]
+    },
+    {
+      "id": 23,
+      "title": "Gamma Ray Burst",
+      "description": "The most powerful explosion in the universe as a massive star collapses into a black hole, shooting beams of gamma radiation across cosmic distances. Energy equivalent to the sun's entire lifetime in seconds.",
+      "negative_prompt": "people, characters, animals, buildings, text, logos, watermarks, low quality, blurry",
+      "tags": [
+        "space",
+        "explosion",
+        "gamma"
+      ]
+    },
+    {
+      "id": 24,
+      "title": "Protoplanetary Disk",
+      "description": "A young star surrounded by a disk of gas and dust where planets are forming. Gaps in the disk showing where planets have already cleared their orbits. The birth of a new solar system captured in cosmic detail.",
+      "negative_prompt": "people, characters, animals, buildings, text, logos, watermarks, low quality, blurry",
+      "tags": [
+        "space",
+        "planets",
+        "formation"
+      ]
+    },
+    {
+      "id": 25,
+      "title": "Cosmic Microwave Background",
+      "description": "Artistic visualization of the cosmic microwave background radiation showing the afterglow of the Big Bang. Temperature fluctuations that became the seeds of all cosmic structure. The baby picture of the universe.",
+      "negative_prompt": "people, characters, animals, buildings, text, logos, watermarks, low quality, blurry",
+      "tags": [
+        "space",
+        "cosmic",
+        "background"
+      ]
+    },
+    {
+      "id": 26,
+      "title": "Wolf-Rayet Star",
+      "description": "A massive, hot star blowing away its outer layers in powerful stellar winds, creating intricate bubble-like structures in surrounding space. Preparing for its eventual supernova explosion. Extreme stellar evolution.",
+      "negative_prompt": "people, characters, animals, buildings, text, logos, watermarks, low quality, blurry",
+      "tags": [
+        "space",
+        "star",
+        "wind"
+      ]
+    },
+    {
+      "id": 27,
+      "title": "Horsehead Nebula",
+      "description": "The iconic dark nebula silhouetted against bright emission nebula background. Dense cloud of dust and gas blocking background light. One of the most recognizable objects in the night sky, rendered in spectacular detail.",
+      "negative_prompt": "people, characters, animals, buildings, text, logos, watermarks, low quality, blurry",
+      "tags": [
+        "space",
+        "nebula",
+        "dark"
+      ]
+    },
+    {
+      "id": 28,
+      "title": "Lenticular Galaxy",
+      "description": "A massive lens-shaped galaxy with a prominent central bulge and disk but no spiral arms. Smooth distribution of older stars with subtle dust lanes. Intermediate type between spiral and elliptical galaxies.",
+      "negative_prompt": "people, characters, animals, buildings, text, logos, watermarks, low quality, blurry",
+      "tags": [
+        "space",
+        "galaxy",
+        "lenticular"
+      ]
+    },
+    {
+      "id": 29,
+      "title": "Oort Cloud",
+      "description": "The theoretical spherical cloud of icy objects at the edge of the solar system, source of long-period comets. Vast and sparse, extending nearly halfway to the nearest star. The solar system's cosmic boundary.",
+      "negative_prompt": "people, characters, animals, buildings, text, logos, watermarks, low quality, blurry",
+      "tags": [
+        "space",
+        "solar",
+        "comets"
+      ]
+    },
+    {
+      "id": 30,
+      "title": "Red Giant Comparison",
+      "description": "A massive red giant star showing its enormous size compared to smaller stars and planets. The star's outer atmosphere extending far into space, with solar prominences and coronal mass ejections. Stellar gigantism.",
+      "negative_prompt": "people, characters, animals, buildings, text, logos, watermarks, low quality, blurry",
+      "tags": [
+        "space",
+        "star",
+        "giant"
+      ]
+    }
+  ]
+}

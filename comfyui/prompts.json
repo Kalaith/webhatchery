@@ -1,0 +1,322 @@
+{
+  "image_prompts": [
+    {
+      "id": 1,
+      "title": "Cosmic Wolf",
+      "description": "A single majestic wolf with a sleek, galaxy-filled fur coat and glowing eyes, standing on all fours in a proud pose. The wolf is positioned on a rocky asteroid drifting in space under a vivid, colorful nebula sky. Distant stars and glowing celestial clouds fill the background. Anime-style lighting with high contrast and deep cosmic colors.",
+      "negative_prompt": "extra limbs, extra heads, distorted anatomy, disjointed body parts, surreal shapes, blurry textures, missing features, duplicated elements, glitch effects, malformed faces",
+      "tags": [
+        "animals",
+        "space",
+        "fantasy"
+      ]
+    },
+    {
+      "id": 2,
+      "title": "Dragon in Orbit",
+      "description": "A colossal, anime-style dragon with strong limbs, detailed scales, and leathery wings, coiled tightly around a sleek, futuristic space station. The dragon breathes bright blue fire into the void. Below it, Earths curve glows with sunlight. The station features solar panels, metallic structures, and antenna arrays. Outer space lit by Earthlight and scattered stars, cinematic view.",
+      "negative_prompt": "extra limbs, extra heads, distorted anatomy, disjointed body parts, surreal shapes, blurry textures, missing features, duplicated elements, glitch effects, malformed faces",
+      "tags": [
+        "fantasy",
+        "space",
+        "scifi"
+      ]
+    },
+    {
+      "id": 3,
+      "title": "Robotic Safari",
+      "description": "A mechanical elephant, lion, and giraffe roam together, each with realistic animal anatomy and robotic plating, glowing joints, and visible servos. They traverse a golden sci-fi savannah under two suns, with distant jungle foliage and flying drones. Clean anime linework, bright tones, slight lens flare from twin suns.",
+      "negative_prompt": "extra limbs, extra heads, distorted anatomy, disjointed body parts, surreal shapes, blurry textures, missing features, duplicated elements, glitch effects, malformed faces",
+      "tags": [
+        "animals",
+        "scifi"
+      ]
+    },
+    {
+      "id": 4,
+      "title": "Wizard's Observatory",
+      "description": "An ancient wizard casting spells from a floating observatory while comets streak past nearby planets.  Anime aesthetic, clear subject focus, vibrant colors.",
+      "negative_prompt": "extra limbs, extra heads, distorted anatomy, disjointed body parts, surreal shapes, blurry textures, missing features, duplicated elements, glitch effects, malformed faces",
+      "tags": [
+        "fantasy",
+        "space"
+      ]
+    },
+    {
+      "id": 5,
+      "title": "Neon Jungle",
+      "description": "Bio-luminescent tigers and birds in a dense jungle with hovering drones documenting them.  Anime aesthetic, clear subject focus, vibrant colors.",
+      "negative_prompt": "extra limbs, extra heads, distorted anatomy, disjointed body parts, surreal shapes, blurry textures, missing features, duplicated elements, glitch effects, malformed faces",
+      "tags": [
+        "animals",
+        "scifi"
+      ]
+    },
+    {
+      "id": 6,
+      "title": "Space Kraken",
+      "description": "A gigantic cosmic squid with star-filled tentacles emerging from a wormhole near a spaceship fleet.  Anime aesthetic, clear subject focus, vibrant colors.",
+      "negative_prompt": "extra limbs, extra heads, distorted anatomy, disjointed body parts, surreal shapes, blurry textures, missing features, duplicated elements, glitch effects, malformed faces",
+      "tags": [
+        "fantasy",
+        "space",
+        "scifi"
+      ]
+    },
+    {
+      "id": 7,
+      "title": "Cyber Phoenix",
+      "description": "A legendary phoenix with metallic feathers reborn from a dying star's supernova.  Anime aesthetic, clear subject focus, vibrant colors.",
+      "negative_prompt": "extra limbs, extra heads, distorted anatomy, disjointed body parts, surreal shapes, blurry textures, missing features, duplicated elements, glitch effects, malformed faces",
+      "tags": [
+        "animals",
+        "fantasy",
+        "scifi"
+      ]
+    },
+    {
+      "id": 8,
+      "title": "Alpine Space Station",
+      "description": "A futuristic research base on a snow-covered mountain peak with auroras and visible ringed planets above.  Anime aesthetic, clear subject focus, vibrant colors.",
+      "negative_prompt": "extra limbs, extra heads, distorted anatomy, disjointed body parts, surreal shapes, blurry textures, missing features, duplicated elements, glitch effects, malformed faces",
+      "tags": [
+        "space",
+        "scifi"
+      ]
+    },
+    {
+      "id": 9,
+      "title": "Dinosaur Explorers",
+      "description": "A team of armored triceratops with mounted laser cannons exploring an alien jungle planet.  Anime aesthetic, clear subject focus, vibrant colors.",
+      "negative_prompt": "extra limbs, extra heads, distorted anatomy, disjointed body parts, surreal shapes, blurry textures, missing features, duplicated elements, glitch effects, malformed faces",
+      "tags": [
+        "animals",
+        "scifi"
+      ]
+    },
+    {
+      "id": 10,
+      "title": "Nebula Unicorn",
+      "description": "A graceful unicorn galloping across a star bridge between two spiral galaxies.  Anime aesthetic, clear subject focus, vibrant colors.",
+      "negative_prompt": "extra limbs, extra heads, distorted anatomy, disjointed body parts, surreal shapes, blurry textures, missing features, duplicated elements, glitch effects, malformed faces",
+      "tags": [
+        "animals",
+        "fantasy",
+        "space"
+      ]
+    },
+    {
+      "id": 11,
+      "title": "Holographic Ocean",
+      "description": "A futuristic city built above an ocean where whales project holographic histories of ancient civilizations.  Anime aesthetic, clear subject focus, vibrant colors.",
+      "negative_prompt": "extra limbs, extra heads, distorted anatomy, disjointed body parts, surreal shapes, blurry textures, missing features, duplicated elements, glitch effects, malformed faces",
+      "tags": [
+        "animals",
+        "scifi"
+      ]
+    },
+    {
+      "id": 12,
+      "title": "Mecha Griffin",
+      "description": "A giant robotic griffin with jet wings patrolling the skies of a cyberpunk metropolis.  Anime aesthetic, clear subject focus, vibrant colors.",
+      "negative_prompt": "extra limbs, extra heads, distorted anatomy, disjointed body parts, surreal shapes, blurry textures, missing features, duplicated elements, glitch effects, malformed faces",
+      "tags": [
+        "animals",
+        "fantasy",
+        "scifi"
+      ]
+    },
+    {
+      "id": 13,
+      "title": "Exoplanet Dragons",
+      "description": "A colony of small, colorful dragons nesting in the crystalline trees of an exoplanet with three moons.  Anime aesthetic, clear subject focus, vibrant colors.",
+      "negative_prompt": "extra limbs, extra heads, distorted anatomy, disjointed body parts, surreal shapes, blurry textures, missing features, duplicated elements, glitch effects, malformed faces",
+      "tags": [
+        "animals",
+        "fantasy",
+        "space"
+      ]
+    },
+    {
+      "id": 14,
+      "title": "Time-Traveling Owls",
+      "description": "A parliament of wise owls with clockwork eyes observing historical events through temporal windows.  Anime aesthetic, clear subject focus, vibrant colors.",
+      "negative_prompt": "extra limbs, extra heads, distorted anatomy, disjointed body parts, surreal shapes, blurry textures, missing features, duplicated elements, glitch effects, malformed faces",
+      "tags": [
+        "animals",
+        "fantasy",
+        "scifi"
+      ]
+    },
+    {
+      "id": 15,
+      "title": "Floating Islands Ecosystem",
+      "description": "Gigantic floating landmasses in a gas giant's atmosphere, home to unique flying creatures and ancient ruins.  Anime aesthetic, clear subject focus, vibrant colors.",
+      "negative_prompt": "extra limbs, extra heads, distorted anatomy, disjointed body parts, surreal shapes, blurry textures, missing features, duplicated elements, glitch effects, malformed faces",
+      "tags": [
+        "space",
+        "fantasy"
+      ]
+    },
+    {
+      "id": 16,
+      "title": "Stellar Serpent",
+      "description": "A colossal cosmic serpent slithering through asteroid belts, its scales reflecting distant supernovae.  Anime aesthetic, clear subject focus, vibrant colors.",
+      "negative_prompt": "extra limbs, extra heads, distorted anatomy, disjointed body parts, surreal shapes, blurry textures, missing features, duplicated elements, glitch effects, malformed faces",
+      "tags": [
+        "animals",
+        "space",
+        "fantasy"
+      ]
+    },
+    {
+      "id": 17,
+      "title": "Neon Megalodon",
+      "description": "A glowing cybernetic shark patrolling the depths of an ocean city on a distant water-covered exoplanet.  Anime aesthetic, clear subject focus, vibrant colors.",
+      "negative_prompt": "extra limbs, extra heads, distorted anatomy, disjointed body parts, surreal shapes, blurry textures, missing features, duplicated elements, glitch effects, malformed faces",
+      "tags": [
+        "animals",
+        "scifi"
+      ]
+    },
+    {
+      "id": 18,
+      "title": "Clockwork Phoenix",
+      "description": "A mechanical phoenix with gears and steam vents, reborn from a dying clocktower in a steampunk metropolis.  Anime aesthetic, clear subject focus, vibrant colors.",
+      "negative_prompt": "extra limbs, extra heads, distorted anatomy, disjointed body parts, surreal shapes, blurry textures, missing features, duplicated elements, glitch effects, malformed faces",
+      "tags": [
+        "animals",
+        "fantasy",
+        "scifi"
+      ]
+    },
+    {
+      "id": 19,
+      "title": "Celestial Fox",
+      "description": "A mystical fox with a tail made of swirling constellations, standing atop a floating shrine in the cosmos.  Anime aesthetic, clear subject focus, vibrant colors.",
+      "negative_prompt": "extra limbs, extra heads, distorted anatomy, disjointed body parts, surreal shapes, blurry textures, missing features, duplicated elements, glitch effects, malformed faces",
+      "tags": [
+        "animals",
+        "fantasy",
+        "space"
+      ]
+    },
+    {
+      "id": 20,
+      "title": "AI Wildlife Sanctuary",
+      "description": "A futuristic nature reserve where robotic rangers care for genetically engineered extinct animals under a dome on Mars.  Anime aesthetic, clear subject focus, vibrant colors.",
+      "negative_prompt": "extra limbs, extra heads, distorted anatomy, disjointed body parts, surreal shapes, blurry textures, missing features, duplicated elements, glitch effects, malformed faces",
+      "tags": [
+        "animals",
+        "scifi",
+        "space"
+      ]
+    },
+    {
+      "id": 21,
+      "title": "Dwarven Space Colony",
+      "description": "A massive asteroid mined by dwarves in powered exosuits, forging starships deep inside its metallic core.  Anime aesthetic, clear subject focus, vibrant colors.",
+      "negative_prompt": "extra limbs, extra heads, distorted anatomy, disjointed body parts, surreal shapes, blurry textures, missing features, duplicated elements, glitch effects, malformed faces",
+      "tags": [
+        "fantasy",
+        "scifi",
+        "space"
+      ]
+    },
+    {
+      "id": 22,
+      "title": "Quantum Butterflies",
+      "description": "A swarm of butterflies whose wings shift between dimensions, leaving trails of stardust in a zero-gravity garden.  Anime aesthetic, clear subject focus, vibrant colors.",
+      "negative_prompt": "extra limbs, extra heads, distorted anatomy, disjointed body parts, surreal shapes, blurry textures, missing features, duplicated elements, glitch effects, malformed faces",
+      "tags": [
+        "animals",
+        "scifi",
+        "space"
+      ]
+    },
+    {
+      "id": 23,
+      "title": "Eldritch Space Whale",
+      "description": "A gargantuan, bioluminescent whale drifting through the void, its body covered in ancient alien runes.  Anime aesthetic, clear subject focus, vibrant colors.",
+      "negative_prompt": "extra limbs, extra heads, distorted anatomy, disjointed body parts, surreal shapes, blurry textures, missing features, duplicated elements, glitch effects, malformed faces",
+      "tags": [
+        "animals",
+        "fantasy",
+        "space"
+      ]
+    },
+    {
+      "id": 24,
+      "title": "Cyborg Druid",
+      "description": "A half-machine forest guardian with vine-like cables, communing with robotic animals in a neon-lit jungle.  Anime aesthetic, clear subject focus, vibrant colors.",
+      "negative_prompt": "extra limbs, extra heads, distorted anatomy, disjointed body parts, surreal shapes, blurry textures, missing features, duplicated elements, glitch effects, malformed faces",
+      "tags": [
+        "fantasy",
+        "scifi"
+      ]
+    },
+    {
+      "id": 25,
+      "title": "Lunar Dragon Nest",
+      "description": "A pack of crystalline dragons nesting in the ruins of an abandoned moon base, their wings refracting Earths light.  Anime aesthetic, clear subject focus, vibrant colors.",
+      "negative_prompt": "extra limbs, extra heads, distorted anatomy, disjointed body parts, surreal shapes, blurry textures, missing features, duplicated elements, glitch effects, malformed faces",
+      "tags": [
+        "animals",
+        "fantasy",
+        "space"
+      ]
+    },
+    {
+      "id": 26,
+      "title": "Holographic Atlantis",
+      "description": "A lost city rebuilt in holograms by deep-sea AI, inhabited by cybernetically enhanced merfolk and robotic leviathans.  Anime aesthetic, clear subject focus, vibrant colors.",
+      "negative_prompt": "extra limbs, extra heads, distorted anatomy, disjointed body parts, surreal shapes, blurry textures, missing features, duplicated elements, glitch effects, malformed faces",
+      "tags": [
+        "fantasy",
+        "scifi"
+      ]
+    },
+    {
+      "id": 27,
+      "title": "Nano-Swarm Ravens",
+      "description": "A murder of ravens that can dissolve into a cloud of nanobots, serving as spies for a futuristic secret order.  Anime aesthetic, clear subject focus, vibrant colors.",
+      "negative_prompt": "extra limbs, extra heads, distorted anatomy, disjointed body parts, surreal shapes, blurry textures, missing features, duplicated elements, glitch effects, malformed faces",
+      "tags": [
+        "animals",
+        "scifi"
+      ]
+    },
+    {
+      "id": 28,
+      "title": "Gravity-Defying Bison",
+      "description": "A herd of massive bison grazing on floating earth chunks above a shattered planets surface.  Anime aesthetic, clear subject focus, vibrant colors.",
+      "negative_prompt": "extra limbs, extra heads, distorted anatomy, disjointed body parts, surreal shapes, blurry textures, missing features, duplicated elements, glitch effects, malformed faces",
+      "tags": [
+        "animals",
+        "space",
+        "fantasy"
+      ]
+    },
+    {
+      "id": 29,
+      "title": "Singularity Sphinx",
+      "description": "A sphinx with a black hole for a third eye, guarding a portal to alternate realities in a desert of shifting sands.  Anime aesthetic, clear subject focus, vibrant colors.",
+      "negative_prompt": "extra limbs, extra heads, distorted anatomy, disjointed body parts, surreal shapes, blurry textures, missing features, duplicated elements, glitch effects, malformed faces",
+      "tags": [
+        "animals",
+        "fantasy",
+        "scifi"
+      ]
+    },
+    {
+      "id": 30,
+      "title": "Bio-Mechanical Coral Reef",
+      "description": "A deep-sea ecosystem where living machinery and genetically modified sea creatures coexist in neon harmony.  Anime aesthetic, clear subject focus, vibrant colors.",
+      "negative_prompt": "extra limbs, extra heads, distorted anatomy, disjointed body parts, surreal shapes, blurry textures, missing features, duplicated elements, glitch effects, malformed faces",
+      "tags": [
+        "animals",
+        "scifi"
+      ]
+    }
+  ]
+}

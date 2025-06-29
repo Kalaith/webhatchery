@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>StoryForge - Collaborative Storytelling Portal</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container flex items-center justify-between">
+            <div class="navbar__brand">
+                <h1 class="brand-title">StoryForge</h1>
+            </div>
+            <div class="navbar__actions">
+                <button class="btn btn--secondary btn--sm" id="searchBtn">Search</button>
+                <div class="user-menu" id="userMenu">
+                    <button class="btn btn--primary btn--sm" id="loginBtn">Sign In</button>
+                    <div class="user-profile hidden" id="userProfile">
+                        <span class="user-name" id="currentUserName"></span>
+                        <button class="btn btn--secondary btn--sm" id="dashboardBtn">Dashboard</button>
+                        <button class="btn btn--outline btn--sm" id="logoutBtn">Sign Out</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Container -->
+    <main class="main-container">
+        <!-- Homepage View -->
+        <div class="view" id="homepageView">
+            <div class="container">
+                <section class="hero-section">
+                    <h1>Collaborative Storytelling</h1>
+                    <p class="hero-description">Join writers from around the world to create amazing stories, one paragraph at a time.</p>
+                </section>
+
+                <!-- Filters -->
+                <section class="filters-section">
+                    <div class="filters flex items-center gap-16">
+                        <select class="form-control filter-select" id="genreFilter">
+                            <option value="">All Genres</option>
+                        </select>
+                        <select class="form-control filter-select" id="accessFilter">
+                            <option value="">All Access Levels</option>
+                            <option value="anyone">Open to Anyone</option>
+                            <option value="approved_only">Approved Contributors</option>
+                            <option value="specific_users">Specific Users Only</option>
+                        </select>
+                        <div class="search-container">
+                            <input type="text" class="form-control" id="searchInput" placeholder="Search stories...">
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Stories Grid -->
+                <section class="stories-section">
+                    <div class="section-header flex items-center justify-between">
+                        <h2>Featured Stories</h2>
+                        <button class="btn btn--primary" id="createStoryBtn">Create New Story</button>
+                    </div>
+                    <div class="stories-grid" id="storiesGrid">
+                        <!-- Stories will be populated by JavaScript -->
+                    </div>
+                </section>
+            </div>
+        </div>
+
+        <!-- Story Reading View -->
+        <div class="view hidden" id="storyReadingView">
+            <div class="container">
+                <div class="story-header">
+                    <button class="btn btn--outline btn--sm back-btn" id="backToHomeBtn">← Back to Stories</button>
+                    <div class="story-meta">
+                        <h1 class="story-title" id="currentStoryTitle"></h1>
+                        <div class="story-info">
+                            <span class="story-genre" id="currentStoryGenre"></span>
+                            <span class="story-author">by <span id="currentStoryAuthor"></span></span>
+                            <span class="access-level-badge" id="currentAccessLevel"></span>
+                        </div>
+                        <p class="story-description" id="currentStoryDescription"></p>
+                    </div>
+                    <div class="story-actions">
+                        <button class="btn btn--primary" id="contributeBtn">Contribute</button>
+                        <button class="btn btn--secondary hidden" id="manageStoryBtn">Manage Story</button>
+                    </div>
+                </div>
+                
+                <div class="story-content">
+                    <div class="paragraphs-container" id="paragraphsContainer">
+                        <!-- Paragraphs will be populated by JavaScript -->
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Story Creation View -->
+        <div class="view hidden" id="storyCreationView">
+            <div class="container">
+                <div class="form-container">
+                    <h2>Create New Story</h2>
+                    <form id="storyCreationForm">
+                        <div class="form-group">
+                            <label class="form-label" for="storyTitle">Story Title</label>
+                            <input type="text" class="form-control" id="storyTitle" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label" for="storyGenre">Genre</label>
+                            <select class="form-control" id="storyGenre" required>
+                                <option value="">Select a genre</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label" for="storyDescription">Description</label>
+                            <textarea class="form-control" id="storyDescription" rows="3" required></textarea>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label" for="accessLevel">Access Level</label>
+                            <select class="form-control" id="accessLevel" required>
+                                <option value="anyone">Anyone can contribute</option>
+                                <option value="approved_only">Require approval</option>
+                                <option value="specific_users">Specific users only</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="checkbox-label">
+                                <input type="checkbox" id="requireExamples">
+                                Require writing examples before contributing
+                            </label>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label" for="firstParagraph">Opening Paragraph</label>
+                            <textarea class="form-control" id="firstParagraph" rows="5" required placeholder="Start your story here..."></textarea>
+                        </div>
+                        
+                        <div class="form-actions">
+                            <button type="button" class="btn btn--outline" id="cancelStoryCreation">Cancel</button>
+                            <button type="submit" class="btn btn--primary">Create Story</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <!-- Writing View -->
+        <div class="view hidden" id="writingView">
+            <div class="container">
+                <div class="writing-interface">
+                    <h2>Add to: <span id="writingStoryTitle"></span></h2>
+                    
+                    <!-- Last few paragraphs for context -->
+                    <div class="context-paragraphs">
+                        <h3>Recent Paragraphs</h3>
+                        <div id="contextParagraphs"></div>
+                    </div>
+                    
+                    <!-- Writing sample requirement -->
+                    <div class="writing-sample-section hidden" id="writingSampleSection">
+                        <h3>Writing Sample Required</h3>
+                        <p>This story requires you to submit a writing sample before contributing. Please provide a short paragraph demonstrating your writing style:</p>
+                        <textarea class="form-control" id="writingSample" rows="4" placeholder="Write a sample paragraph here..."></textarea>
+                        <button class="btn btn--primary" id="submitSampleBtn">Submit Sample</button>
+                    </div>
+                    
+                    <!-- Paragraph writing -->
+                    <div class="paragraph-writing hidden" id="paragraphWriting">
+                        <h3>Your Paragraph</h3>
+                        <textarea class="form-control" id="newParagraph" rows="6" placeholder="Continue the story..."></textarea>
+                        <div class="writing-actions">
+                            <button class="btn btn--outline" id="cancelWriting">Cancel</button>
+                            <button class="btn btn--primary" id="submitParagraph">Submit Paragraph</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- User Dashboard -->
+        <div class="view hidden" id="dashboardView">
+            <div class="container">
+                <h2>Dashboard</h2>
+                
+                <div class="dashboard-tabs">
+                    <button class="tab-btn active" data-tab="myStories">My Stories</button>
+                    <button class="tab-btn" data-tab="myContributions">My Contributions</button>
+                    <button class="tab-btn" data-tab="managementPanel">Story Management</button>
+                </div>
+                
+                <div class="tab-content">
+                    <div class="tab-panel active" id="myStoriesTab">
+                        <div id="userStoriesGrid"></div>
+                    </div>
+                    
+                    <div class="tab-panel hidden" id="myContributionsTab">
+                        <div id="userContributionsGrid"></div>
+                    </div>
+                    
+                    <div class="tab-panel hidden" id="managementPanelTab">
+                        <div id="storyManagementPanel"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Story Management View -->
+        <div class="view hidden" id="storyManagementView">
+            <div class="container">
+                <div class="management-header">
+                    <button class="btn btn--outline btn--sm" id="backToDashboardBtn">← Back to Dashboard</button>
+                    <h2>Manage: <span id="managementStoryTitle"></span></h2>
+                </div>
+                
+                <div class="management-tabs">
+                    <button class="tab-btn active" data-tab="contributors">Contributors</button>
+                    <button class="tab-btn" data-tab="writingSamples">Writing Samples</button>
+                    <button class="tab-btn" data-tab="settings">Settings</button>
+                </div>
+                
+                <div class="tab-content">
+                    <div class="tab-panel active" id="contributorsTab">
+                        <div id="contributorsManagement"></div>
+                    </div>
+                    
+                    <div class="tab-panel hidden" id="writingSamplesTab">
+                        <div id="writingSamplesManagement"></div>
+                    </div>
+                    
+                    <div class="tab-panel hidden" id="settingsTab">
+                        <div id="storySettingsPanel"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Login Modal -->
+    <div class="modal hidden" id="loginModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Sign In</h3>
+                <button class="modal-close" id="closeLoginModal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="loginForm">
+                    <div class="form-group">
+                        <label class="form-label" for="username">Username</label>
+                        <select class="form-control" id="username" required>
+                            <option value="">Select a user</option>
+                            <option value="storyteller_jane">storyteller_jane</option>
+                            <option value="creative_alex">creative_alex</option>
+                            <option value="narrative_sam">narrative_sam</option>
+                        </select>
+                    </div>
+                    <div class="form-actions">
+                        <button type="submit" class="btn btn--primary btn--full-width">Sign In</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Notification Toast -->
+    <div class="toast hidden" id="toast">
+        <div class="toast-content">
+            <span id="toastMessage"></span>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
