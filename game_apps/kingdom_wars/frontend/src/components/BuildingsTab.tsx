@@ -73,17 +73,17 @@ const BuildingsTab: React.FC = () => {
   }, {} as Record<string, Array<{ key: string; building: any }>>);
 
   return (
-    <div className="tab-content bg-gray-50 p-6">
+    <div className="bg-gray-50 p-6 min-h-screen">
       <div className="max-w-7xl mx-auto">
-        <h3 className="text-2xl font-bold text-gray-800 mb-6">Buildings</h3>
+        <h3 className="text-3xl font-bold text-slate-800 mb-6 font-fantasy">Buildings</h3>
         
         {Object.entries(buildingsByCategory).map(([category, categoryBuildings]) => (
           <div key={category} className="mb-8">
-            <h4 className="text-lg font-semibold text-gray-700 mb-4 border-b-2 border-gray-200 pb-2">
+            <h4 className="text-xl font-semibold text-slate-700 mb-4 border-b-2 border-slate-200 pb-2">
               {category}
             </h4>
             
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
               {categoryBuildings.map(({ key, building }) => {
                 const upgradeCost = getBuildingUpgradeCost(key);
                 const canUpgrade = canUpgradeBuilding(key);
@@ -93,7 +93,7 @@ const BuildingsTab: React.FC = () => {
                 return (
                   <div
                     key={key}
-                    className={`building-card bg-white rounded-lg shadow-lg p-4 transition-all duration-200 hover:shadow-xl ${
+                    className={`building-card ${
                       building.level === 0 ? 'opacity-75' : ''
                     }`}
                   >
@@ -101,13 +101,13 @@ const BuildingsTab: React.FC = () => {
                       <div className="flex items-center space-x-2">
                         <span className="text-2xl">{getBuildingIcon(key)}</span>
                         <div>
-                          <h5 className="font-bold text-gray-800 text-sm">{building.name}</h5>
+                          <h5 className="font-bold text-slate-800 text-sm">{building.name}</h5>
                           <div className="flex items-center space-x-1">
-                            <span className="text-xs text-gray-500">Level</span>
+                            <span className="text-xs text-slate-500">Level</span>
                             <span className="text-sm font-semibold text-blue-600">
                               {building.level}
                             </span>
-                            <span className="text-xs text-gray-400">/ {building.maxLevel}</span>
+                            <span className="text-xs text-slate-400">/ {building.maxLevel}</span>
                           </div>
                         </div>
                       </div>
@@ -126,7 +126,7 @@ const BuildingsTab: React.FC = () => {
                         </div>
                       )}
                       {building.effect && (
-                        <div className="text-xs text-gray-600">
+                        <div className="text-xs text-slate-600">
                           {building.effect}
                         </div>
                       )}
@@ -134,11 +134,11 @@ const BuildingsTab: React.FC = () => {
 
                     {/* Upgrade Section */}
                     {!isMaxLevel && (
-                      <div className="border-t pt-3">
+                      <div className="border-t border-slate-200 pt-3">
                         {upgradeCost && (
                           <div className="mb-2">
-                            <div className="text-xs text-gray-500 mb-1">Upgrade Cost:</div>
-                            <div className="text-xs text-gray-700">
+                            <div className="text-xs text-slate-500 mb-1">Upgrade Cost:</div>
+                            <div className="text-xs text-slate-700">
                               {formatCost(upgradeCost)}
                             </div>
                           </div>
@@ -147,10 +147,10 @@ const BuildingsTab: React.FC = () => {
                         <button
                           onClick={() => handleUpgrade(key)}
                           disabled={!canUpgrade || !canAffordUpgrade}
-                          className={`w-full px-3 py-2 rounded text-sm font-medium transition-all duration-200 ${
+                          className={`btn w-full ${
                             canUpgrade && canAffordUpgrade
-                              ? 'bg-blue-600 text-white hover:bg-blue-700 transform hover:scale-105'
-                              : 'bg-gray-300 text-gray-500 cursor-not-allowed'
+                              ? 'btn-primary hover:scale-105'
+                              : 'bg-slate-300 text-slate-500 cursor-not-allowed'
                           }`}
                         >
                           {building.level === 0 ? 'Build' : 'Upgrade'}
@@ -160,7 +160,7 @@ const BuildingsTab: React.FC = () => {
                     )}
 
                     {isMaxLevel && (
-                      <div className="border-t pt-3">
+                      <div className="border-t border-slate-200 pt-3">
                         <div className="text-center text-sm text-green-600 font-medium">
                           ✓ Max Level
                         </div>
@@ -174,7 +174,7 @@ const BuildingsTab: React.FC = () => {
         ))}
         
         {/* Building Tips */}
-        <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mt-6">
+        <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mt-8">
           <h5 className="font-semibold text-blue-800 mb-2 flex items-center">
             <span className="mr-2">💡</span>
             Building Tips

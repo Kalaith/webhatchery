@@ -12,11 +12,11 @@ param(
 
     # Width = 3840
     [Parameter(Mandatory=$false)]
-    [int]$Width = 3840,
+    [int]$Width = 1024,
 
     # Height = 2160
     [Parameter(Mandatory=$false)]
-    [int]$Height = 2160,
+    [int]$Height = 1024,
 
     [Parameter(Mandatory=$false)]
     [string]$NegativePrompt = "bad hands, blurry, low quality",
@@ -40,7 +40,7 @@ param(
     # juggernautXL_v8Rundiffusion.safetensors
     # ponyDiffusionV6XL_v6StartWithThisOne.safetensors
     [Parameter(Mandatory=$false)]
-    [string]$Model = "juggernautXL_v8Rundiffusion.safetensors",
+    [string]$Model = "plantMilkModelSuite_walnut.safetensors",
 
     [Parameter(Mandatory=$false)]
     [string]$Sampler = "euler",
@@ -64,7 +64,7 @@ param(
     [switch]$LowRes = $false,
 
     [Parameter(Mandatory=$false)]
-    [int]$DelaySeconds = 60
+    [int]$DelaySeconds = 0
 )
 
 # ...existing code for helper functions (Get-ScreenResolution, Set-Wallpaper, Queue-Prompt, Wait-ForCompletion, Download-GeneratedImage, Test-ComfyUIConnection)...

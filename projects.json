@@ -37,6 +37,18 @@
             "preserveStructure": true,
             "files": ["index.php", "**/*.html", "**/*.php", "**/*.css", "**/*.js", "**/*.md", "**/*.jpg", "**/*.png", "**/*.gif", "**/*.webp"]
           }
+        },
+        {
+          "title": "AI Portrait Gallery",
+          "path": "gallery/",
+          "description": "Beautiful AI-generated anime character portrait gallery featuring various animal-themed characters with interactive viewing and modal display capabilities.",
+          "deployment": {
+            "type": "Static",
+            "deployAs": "gallery",
+            "recursive": true,
+            "preserveStructure": true,
+            "files": ["index.html", "portraits/*.png", "portraits/*.jpg", "portraits/*.webp"]
+          }
         }
       ]
     },
@@ -209,7 +221,7 @@
             "files": ["index.html", "style.css", "script.js"],
             "preserveStructure": true
           }
-        },{
+        },        {
           "title": "Planet Trader",
           "path": "game_apps/planet_trader/frontend/",
           "description": "Sci-fi trading and exploration game where players manage resources, trade between planets, and upgrade their ship in a dynamic universe. Built with a modern React frontend.",
@@ -217,6 +229,19 @@
             "type": "React",
             "outputDir": "dist",
             "deployAs": "planet_trader",
+            "requiresBuild": true,
+            "buildCommand": "npm run build -- --base=./",
+            "packageManager": "npm"
+          }
+        },
+        {
+          "title": "Kingdom Wars",
+          "path": "game_apps/kingdom_wars/frontend/",
+          "description": "A comprehensive text-based war game featuring kingdom management, military strategy, resource allocation, and tactical combat with dynamic events and progression systems.",
+          "deployment": {
+            "type": "React",
+            "outputDir": "dist",
+            "deployAs": "kingdom_wars",
             "requiresBuild": true,
             "buildCommand": "npm run build -- --base=./",
             "packageManager": "npm"

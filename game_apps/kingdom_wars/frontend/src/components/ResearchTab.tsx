@@ -61,9 +61,9 @@ const ResearchTab: React.FC = () => {
   }, {} as Record<string, Array<{ key: string; tech: any }>>);
 
   return (
-    <div className="tab-content bg-gray-50 p-6">
+    <div className="bg-gray-50 p-6 min-h-screen">
       <div className="max-w-6xl mx-auto">
-        <h3 className="text-2xl font-bold text-gray-800 mb-6">Technology Research</h3>
+        <h3 className="text-3xl font-bold text-slate-800 mb-6 font-fantasy">Technology Research</h3>
         
         {/* Research Status */}
         {research.inProgress && (

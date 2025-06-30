@@ -1,0 +1,53 @@
+{
+  "image_prompts": [
+    {
+      "id": 201,
+      "title": "Hebimimi Girl 1",
+      "description": "Anime-style portrait of a serpent girl with sleek black hair, slitted eyes, and faint snake scale patterns along her neck. She wears a simple dark green dress. Light gradient background.",
+      "negative_prompt": "snakes instead of hair, full body snake tail, fantasy background, ornate clothing, glitch effects, malformed anatomy",
+      "tags": ["animals", "portrait", "anime"]
+    },
+    {
+      "id": 202,
+      "title": "Shikamimi Girl 1",
+      "description": "Deer-eared anime girl with soft brown hair and small antlers. She wears a light tan short-sleeve dress, appearing gentle and shy. Clean background.",
+      "negative_prompt": "deer legs, fantasy setting, elaborate clothing, glitch effects, malformed anatomy",
+      "tags": ["animals", "portrait", "anime"]
+    },
+    {
+      "id": 203,
+      "title": "Koumori Girl 1",
+      "description": "Bat-themed anime girl with short black hair, wide eyes, and pointed bat ears. Wearing a simple black t-shirt. Pale skin and a faint smirk. Light neutral background.",
+      "negative_prompt": "bat wings, oversized ears, full fantasy costume, glitch effects, malformed anatomy",
+      "tags": ["animals", "portrait", "anime"]
+    },
+    {
+      "id": 204,
+      "title": "Umamimi Girl 1",
+      "description": "Horse-eared anime girl with long brown hair and upright ears. She wears a plain grey dress and carries a calm, steady expression. Simple portrait framing.",
+      "negative_prompt": "horse nose, tail in frame, racing outfit, glitch effects, malformed anatomy",
+      "tags": ["animals", "portrait", "anime"]
+    },
+    {
+      "id": 205,
+      "title": "Ryūjin Girl 4",
+      "description": "Dragon girl portrait with short white hair, small horns, and golden eyes. She wears a minimalist black shirt. Slightly mysterious look, anime style, neutral backdrop.",
+      "negative_prompt": "wings, tail, fantasy armor, glowing effects, glitch effects, malformed anatomy",
+      "tags": ["animals", "portrait", "anime"]
+    },
+    {
+      "id": 206,
+      "title": "Kitsunemimi Girl 4",
+      "description": "Fox-eared anime girl with red hair and intelligent eyes. Wearing a basic white dress with no accessories. Calm pose, clean background, polished rendering.",
+      "negative_prompt": "multiple tails, kimono, fantasy effects, ornate style, glitch effects, malformed anatomy",
+      "tags": ["animals", "portrait", "anime"]
+    },
+    {
+      "id": 207,
+      "title": "Inumimi Girl 4",
+      "description": "Dog-eared anime girl with shoulder-length sandy blonde hair and loyal brown eyes. She wears a light blue short-sleeve shirt. Neutral expression, soft lighting.",
+      "negative_prompt": "armor, tail in frame, fantasy clothes, glitch effects, malformed anatomy",
+      "tags": ["animals", "portrait", "anime"]
+    }
+  ]
+}

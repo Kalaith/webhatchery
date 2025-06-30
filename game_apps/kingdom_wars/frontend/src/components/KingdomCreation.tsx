@@ -57,15 +57,15 @@ const KingdomCreation: React.FC = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-purple-900 via-blue-900 to-indigo-900 flex items-center justify-center p-4">
-      <div className="bg-white rounded-xl shadow-2xl p-8 max-w-md w-full">
+      <div className="card p-8 max-w-md w-full shadow-2xl">
         <div className="text-center mb-8">
-          <h2 className="text-3xl font-bold text-gray-800 mb-2">Create Your Kingdom</h2>
-          <p className="text-gray-600">Begin your journey to conquest and glory</p>
+          <h2 className="text-3xl font-bold text-slate-800 mb-2 font-fantasy">Create Your Kingdom</h2>
+          <p className="text-slate-600">Begin your journey to conquest and glory</p>
         </div>
         
         <div className="space-y-6">
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2" htmlFor="kingdomNameInput">
+            <label className="block text-sm font-medium text-slate-700 mb-2" htmlFor="kingdomNameInput">
               Kingdom Name
             </label>
             <input
@@ -78,7 +78,7 @@ const KingdomCreation: React.FC = () => {
               }}
               onKeyPress={handleKeyPress}
               className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all ${
-                errors.name ? 'border-red-500' : 'border-gray-300'
+                errors.name ? 'border-red-500' : 'border-slate-300'
               }`}
               placeholder="Enter your kingdom name"
               maxLength={20}
@@ -89,19 +89,19 @@ const KingdomCreation: React.FC = () => {
           </div>
           
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2" htmlFor="flagUpload">
+            <label className="block text-sm font-medium text-slate-700 mb-2" htmlFor="flagUpload">
               Kingdom Flag (Optional)
             </label>
             <input
               type="file"
               id="flagUpload"
               onChange={handleFlagUpload}
-              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+              className="w-full px-4 py-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
               accept="image/*"
             />
             {flagPreview && (
               <div className="mt-4 flex justify-center">
-                <div className="flag-preview border-2 border-gray-300 rounded-lg p-2">
+                <div className="border-2 border-slate-300 rounded-lg p-2">
                   <img 
                     src={flagPreview} 
                     alt="Kingdom Flag Preview" 
@@ -115,13 +115,13 @@ const KingdomCreation: React.FC = () => {
           <button
             onClick={handleCreateKingdom}
             disabled={!kingdomName.trim()}
-            className="w-full bg-gradient-to-r from-blue-600 to-purple-600 text-white py-4 px-6 rounded-lg font-bold text-lg hover:from-blue-700 hover:to-purple-700 transform hover:scale-105 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none shadow-lg"
+            className="btn btn-primary w-full py-4 text-lg font-bold bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 transform hover:scale-105 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none"
           >
             Create Kingdom
           </button>
         </div>
         
-        <div className="mt-8 text-center text-sm text-gray-500">
+        <div className="mt-8 text-center text-sm text-slate-500">
           <p>Your kingdom will be the foundation of your empire</p>
         </div>
       </div>

@@ -1,11 +1,10 @@
 import React from 'react';
-import NavigationTabs from './NavigationTabs';
 import KingdomTab from './KingdomTab';
 import BuildingsTab from './BuildingsTab';
-// import MilitaryTab from './MilitaryTab';
-// import AttackTab from './AttackTab';
-// import ResearchTab from './ResearchTab';
-// import AlliancesTab from './AlliancesTab';
+import MilitaryTab from './MilitaryTab';
+import AttackTab from './AttackTab';
+import ResearchTab from './ResearchTab';
+import AlliancesTab from './AlliancesTab';
 import { useGameStore } from '../stores/gameStore';
 
 const GameInterface: React.FC = () => {
@@ -17,14 +16,13 @@ const GameInterface: React.FC = () => {
 
   return (
     <div className="game-interface min-h-screen bg-gray-50">
-      <NavigationTabs />
       <div className="tab-content-container">
         <KingdomTab />
         <BuildingsTab />
-        {/* <MilitaryTab />
+        <MilitaryTab />
         <AttackTab />
         <ResearchTab />
-        <AlliancesTab /> */}
+        <AlliancesTab />
       </div>
     </div>
   );

@@ -97,19 +97,19 @@ const AlliancesTab: React.FC = () => {
   };
 
   return (
-    <div className="tab-content bg-gray-50 p-6">
+    <div className="bg-gray-50 p-6 min-h-screen">
       <div className="max-w-6xl mx-auto">
-        <h3 className="text-2xl font-bold text-gray-800 mb-6">Alliances</h3>
+        <h3 className="text-3xl font-bold text-slate-800 mb-6 font-fantasy">Alliances</h3>
         
         {/* Current Alliance Status */}
-        <div className="bg-white rounded-lg shadow-lg p-6 mb-6">
-          <h4 className="text-lg font-bold text-gray-800 mb-4 flex items-center">
+        <div className="card p-6 mb-6">
+          <h4 className="text-xl font-bold text-slate-800 mb-4 flex items-center">
             <span className="mr-2">🤝</span>
             Your Alliance Status
           </h4>
           
           {!alliance ? (
-            <div className="text-center py-8 text-gray-500">
+            <div className="text-center py-8 text-slate-500">
               <div className="text-4xl mb-2">🏴</div>
               <p className="text-lg font-medium">No Alliance</p>
               <p className="text-sm">Join an alliance for mutual protection and benefits!</p>
@@ -127,7 +127,7 @@ const AlliancesTab: React.FC = () => {
                 </div>
                 <button
                   onClick={handleLeaveAlliance}
-                  className="px-4 py-2 bg-red-600 text-white rounded hover:bg-red-700 transition-colors"
+                  className="btn bg-red-600 text-white hover:bg-red-700 focus:ring-red-500"
                 >
                   Leave Alliance
                 </button>

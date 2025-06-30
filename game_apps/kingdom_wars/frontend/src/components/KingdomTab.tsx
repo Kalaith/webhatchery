@@ -21,20 +21,20 @@ const KingdomTab: React.FC = () => {
   };
 
   return (
-    <div className="tab-content bg-gray-50 p-6">
+    <div className="bg-gray-50 p-6 min-h-screen">
       <div className="max-w-6xl mx-auto">
-        <h3 className="text-2xl font-bold text-gray-800 mb-6">Kingdom Overview</h3>
+        <h3 className="text-3xl font-bold text-slate-800 mb-6 font-fantasy">Kingdom Overview</h3>
         
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
           {/* Kingdom Overview */}
-          <div className="bg-white rounded-lg shadow-lg p-6">
+          <div className="card p-6">
             <div className="flex items-center space-x-4 mb-4">
-              <div className="kingdom-flag">
+              <div>
                 {kingdom.flag ? (
                   <img 
                     src={kingdom.flag} 
                     alt="Kingdom Flag" 
-                    className="w-16 h-12 object-cover rounded border-2 border-gray-300"
+                    className="w-16 h-12 object-cover rounded border-2 border-slate-300"
                   />
                 ) : (
                   <div className="w-16 h-12 bg-gradient-to-br from-purple-500 to-blue-500 rounded flex items-center justify-center text-2xl">
@@ -43,25 +43,25 @@ const KingdomTab: React.FC = () => {
                 )}
               </div>
               <div>
-                <h3 className="text-xl font-bold text-gray-800">{kingdom.name || 'Your Kingdom'}</h3>
-                <p className="text-gray-600">Level 1 Kingdom</p>
+                <h3 className="text-xl font-bold text-slate-800">{kingdom.name || 'Your Kingdom'}</h3>
+                <p className="text-slate-600">Level 1 Kingdom</p>
               </div>
             </div>
             
             <div className="grid grid-cols-2 gap-4">
-              <div className="stat-item bg-gray-50 p-4 rounded-lg">
+              <div className="bg-gray-50 p-4 rounded-lg hover:bg-slate-100 transition-colors">
                 <div className="flex items-center justify-between">
-                  <span className="text-gray-600">Population</span>
+                  <span className="text-slate-600">Population</span>
                   <span className="text-2xl">👥</span>
                 </div>
-                <div className="text-2xl font-bold text-gray-800 mt-2">
+                <div className="text-2xl font-bold text-slate-800 mt-2">
                   {formatNumber(kingdom.population)}
                 </div>
               </div>
               
-              <div className="stat-item bg-gray-50 p-4 rounded-lg">
+              <div className="bg-gray-50 p-4 rounded-lg hover:bg-slate-100 transition-colors">
                 <div className="flex items-center justify-between">
-                  <span className="text-gray-600">Happiness</span>
+                  <span className="text-slate-600">Happiness</span>
                   <span className="text-2xl">😊</span>
                 </div>
                 <div className="text-2xl font-bold text-green-600 mt-2">
@@ -69,9 +69,9 @@ const KingdomTab: React.FC = () => {
                 </div>
               </div>
               
-              <div className="stat-item bg-gray-50 p-4 rounded-lg">
+              <div className="bg-gray-50 p-4 rounded-lg hover:bg-slate-100 transition-colors">
                 <div className="flex items-center justify-between">
-                  <span className="text-gray-600">Total Power</span>
+                  <span className="text-slate-600">Total Power</span>
                   <span className="text-2xl">⚡</span>
                 </div>
                 <div className="text-2xl font-bold text-purple-600 mt-2">
@@ -79,9 +79,9 @@ const KingdomTab: React.FC = () => {
                 </div>
               </div>
               
-              <div className="stat-item bg-gray-50 p-4 rounded-lg">
+              <div className="bg-gray-50 p-4 rounded-lg hover:bg-slate-100 transition-colors">
                 <div className="flex items-center justify-between">
-                  <span className="text-gray-600">Army Power</span>
+                  <span className="text-slate-600">Army Power</span>
                   <span className="text-2xl">⚔️</span>
                 </div>
                 <div className="text-2xl font-bold text-red-600 mt-2">
@@ -92,8 +92,8 @@ const KingdomTab: React.FC = () => {
           </div>
           
           {/* Resource Production */}
-          <div className="bg-white rounded-lg shadow-lg p-6">
-            <h4 className="text-lg font-bold text-gray-800 mb-4 flex items-center">
+          <div className="card p-6">
+            <h4 className="text-xl font-bold text-slate-800 mb-4 flex items-center">
               <span className="mr-2">📈</span>
               Resource Production
             </h4>

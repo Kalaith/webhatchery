@@ -88,14 +88,14 @@ const MilitaryTab: React.FC = () => {
   };
 
   return (
-    <div className="tab-content bg-gray-50 p-6">
+    <div className="bg-gray-50 p-6 min-h-screen">
       <div className="max-w-7xl mx-auto">
-        <h3 className="text-2xl font-bold text-gray-800 mb-6">Military Forces</h3>
+        <h3 className="text-3xl font-bold text-slate-800 mb-6 font-fantasy">Military Forces</h3>
         
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
           {/* Train Units */}
-          <div className="bg-white rounded-lg shadow-lg p-6">
-            <h4 className="text-lg font-bold text-gray-800 mb-4 flex items-center">
+          <div className="card p-6">
+            <h4 className="text-xl font-bold text-slate-800 mb-4 flex items-center">
               <span className="mr-2">🏋️</span>
               Train Units
             </h4>
@@ -110,22 +110,22 @@ const MilitaryTab: React.FC = () => {
                 return (
                   <div
                     key={unitType}
-                    className={`unit-training-item border rounded-lg p-4 ${
-                      canTrain ? 'border-gray-200' : 'border-red-200 bg-red-50'
+                    className={`unit-card ${
+                      canTrain ? 'border-slate-200' : 'border-red-200 bg-red-50'
                     }`}
                   >
                     <div className="flex items-center justify-between mb-2">
                       <div className="flex items-center space-x-2">
                         <span className="text-xl">{getUnitIcon(unitType)}</span>
                         <div>
-                          <h5 className="font-semibold text-gray-800">{unit.name}</h5>
-                          <div className="text-xs text-gray-500">
+                          <h5 className="font-semibold text-slate-800">{unit.name}</h5>
+                          <div className="text-xs text-slate-500">
                             ATK: {unit.attack} | DEF: {unit.defense} | HP: {unit.health}
                           </div>
                         </div>
                       </div>
                       <div className="text-right">
-                        <div className="text-sm text-gray-600">
+                        <div className="text-sm text-slate-600">
                           {unit.trainingTime}s each
                         </div>
                       </div>
@@ -145,18 +145,18 @@ const MilitaryTab: React.FC = () => {
                           max="100"
                           value={quantity}
                           onChange={(e) => handleQuantityChange(unitType, parseInt(e.target.value) || 1)}
-                          className="w-16 px-2 py-1 border border-gray-300 rounded text-sm"
+                          className="w-16 px-2 py-1 border border-slate-300 rounded text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
                         />
-                        <div className="flex-1 text-xs text-gray-600">
+                        <div className="flex-1 text-xs text-slate-600">
                           Cost: {formatCost(totalCost)}
                         </div>
                         <button
                           onClick={() => handleTrainUnit(unitType)}
                           disabled={!canAffordTraining}
-                          className={`px-3 py-1 rounded text-sm font-medium transition-all ${
+                          className={`btn btn-sm ${
                             canAffordTraining
-                              ? 'bg-green-600 text-white hover:bg-green-700'
-                              : 'bg-gray-300 text-gray-500 cursor-not-allowed'
+                              ? 'bg-green-600 text-white hover:bg-green-700 focus:ring-green-500'
+                              : 'bg-slate-300 text-slate-500 cursor-not-allowed'
                           }`}
                         >
                           Train
@@ -170,14 +170,14 @@ const MilitaryTab: React.FC = () => {
           </div>
 
           {/* Your Army */}
-          <div className="bg-white rounded-lg shadow-lg p-6">
-            <h4 className="text-lg font-bold text-gray-800 mb-4 flex items-center">
+          <div className="card p-6">
+            <h4 className="text-xl font-bold text-slate-800 mb-4 flex items-center">
               <span className="mr-2">⚔️</span>
               Your Army
             </h4>
             
             {Object.keys(army).length === 0 ? (
-              <div className="text-center py-8 text-gray-500">
+              <div className="text-center py-8 text-slate-500">
                 <div className="text-4xl mb-2">🏴</div>
                 <p>No units trained yet</p>
                 <p className="text-sm">Train some units to build your army!</p>
@@ -189,19 +189,19 @@ const MilitaryTab: React.FC = () => {
                   if (!unit || count === 0) return null;
                   
                   return (
-                    <div key={unitType} className="army-unit flex items-center justify-between p-3 bg-gray-50 rounded-lg">
+                    <div key={unitType} className="flex items-center justify-between p-3 bg-gray-50 rounded-lg hover:bg-slate-100 transition-colors">
                       <div className="flex items-center space-x-3">
                         <span className="text-xl">{getUnitIcon(unitType)}</span>
                         <div>
-                          <div className="font-semibold text-gray-800">{unit.name}</div>
-                          <div className="text-xs text-gray-500">
+                          <div className="font-semibold text-slate-800">{unit.name}</div>
+                          <div className="text-xs text-slate-500">
                             ATK: {unit.attack} | DEF: {unit.defense} | HP: {unit.health}
                           </div>
                         </div>
                       </div>
                       <div className="text-right">
-                        <div className="text-lg font-bold text-gray-800">{formatNumber(count)}</div>
-                        <div className="text-xs text-gray-500">units</div>
+                        <div className="text-lg font-bold text-slate-800">{formatNumber(count)}</div>
+                        <div className="text-xs text-slate-500">units</div>
                       </div>
                     </div>
                   );
@@ -213,8 +213,8 @@ const MilitaryTab: React.FC = () => {
 
         {/* Training Queue */}
         {trainingQueue.length > 0 && (
-          <div className="bg-white rounded-lg shadow-lg p-6">
-            <h4 className="text-lg font-bold text-gray-800 mb-4 flex items-center">
+          <div className="card p-6">
+            <h4 className="text-xl font-bold text-slate-800 mb-4 flex items-center">
               <span className="mr-2">⏱️</span>
               Training Queue
             </h4>
@@ -225,14 +225,14 @@ const MilitaryTab: React.FC = () => {
                 if (!unit) return null;
                 
                 return (
-                  <div key={item.id} className="training-item flex items-center justify-between p-3 bg-blue-50 rounded-lg">
+                  <div key={item.id} className="flex items-center justify-between p-3 bg-blue-50 rounded-lg border border-blue-200">
                     <div className="flex items-center space-x-3">
                       <span className="text-xl">{getUnitIcon(item.unitType)}</span>
                       <div>
-                        <div className="font-semibold text-gray-800">
+                        <div className="font-semibold text-slate-800">
                           {item.quantity}x {unit.name}
                         </div>
-                        <div className="text-xs text-gray-500">
+                        <div className="text-xs text-slate-500">
                           Training in {gameData.buildings[item.building]?.name}
                         </div>
                       </div>
@@ -241,7 +241,7 @@ const MilitaryTab: React.FC = () => {
                       <div className="font-bold text-blue-600">
                         {getTimeRemaining(item.completionTime)}
                       </div>
-                      <div className="text-xs text-gray-500">remaining</div>
+                      <div className="text-xs text-slate-500">remaining</div>
                     </div>
                   </div>
                 );
@@ -251,7 +251,7 @@ const MilitaryTab: React.FC = () => {
         )}
 
         {/* Military Tips */}
-        <div className="bg-red-50 border border-red-200 rounded-lg p-4 mt-6">
+        <div className="bg-red-50 border border-red-200 rounded-lg p-4 mt-8">
           <h5 className="font-semibold text-red-800 mb-2 flex items-center">
             <span className="mr-2">💡</span>
             Military Tips

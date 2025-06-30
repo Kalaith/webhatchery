@@ -1,0 +1,135 @@
+{
+  "image_prompts": [
+    {
+      "id": 1,
+      "title": "Nekomimi Girl 1",
+      "description": "Anime-style portrait of a humanoid cat girl with short brown hair and feline ears. She wears a plain short-sleeve shirt and a beige utility vest. Neutral expression, light gradient background, clean and polished style.",
+      "negative_prompt": "extra limbs, extra heads, distorted anatomy, disjointed body parts, surreal shapes, blurry textures, missing features, duplicated elements, glitch effects, malformed faces, overly ornate clothing",
+      "tags": ["animals", "portrait", "anime"]
+    },
+    {
+      "id": 2,
+      "title": "Nekomimi Girl 2",
+      "description": "Anime-style portrait of a humanoid cat girl with blonde twin-tails and furry ears. Dressed in a plain shirt with a utility vest, she has a curious gaze. Light neutral background, consistent game portrait style.",
+      "negative_prompt": "extra limbs, extra heads, distorted anatomy, disjointed body parts, surreal shapes, blurry textures, missing features, duplicated elements, glitch effects, malformed faces, overly ornate clothing",
+      "tags": ["animals", "portrait", "anime"]
+    },
+    {
+      "id": 3,
+      "title": "Nekomimi Girl 3",
+      "description": "Anime portrait of a cat girl with short black hair and green eyes. She wears a neutral utility vest over a simple shirt, shown from the waist up on a light gradient background.",
+      "negative_prompt": "extra limbs, extra heads, distorted anatomy, disjointed body parts, surreal shapes, blurry textures, missing features, duplicated elements, glitch effects, malformed faces, overly ornate clothing",
+      "tags": ["animals", "portrait", "anime"]
+    },
+
+    {
+      "id": 4,
+      "title": "Inumimi Girl 1",
+      "description": "Anime-style portrait of a dog-eared girl with chestnut hair and loyal eyes. She wears a short-sleeve shirt and a beige utility vest. Upper body only, consistent background and art style.",
+      "negative_prompt": "extra limbs, extra heads, distorted anatomy, disjointed body parts, surreal shapes, blurry textures, missing features, duplicated elements, glitch effects, malformed faces, overly ornate clothing",
+      "tags": ["animals", "portrait", "anime"]
+    },
+    {
+      "id": 5,
+      "title": "Inumimi Girl 2",
+      "description": "Anime-style portrait of a silver-haired dog girl with floppy ears, wearing the same plain shirt and vest combo. Her pose is calm, eyes focused. Simple, polished design.",
+      "negative_prompt": "extra limbs, extra heads, distorted anatomy, disjointed body parts, surreal shapes, blurry textures, missing features, duplicated elements, glitch effects, malformed faces, overly ornate clothing",
+      "tags": ["animals", "portrait", "anime"]
+    },
+    {
+      "id": 6,
+      "title": "Inumimi Girl 3",
+      "description": "Humanoid dog girl with light brown hair, athletic build, and floppy ears. She wears a uniform short-sleeve shirt with utility vest. Clean anime-style portrait on light background.",
+      "negative_prompt": "extra limbs, extra heads, distorted anatomy, disjointed body parts, surreal shapes, blurry textures, missing features, duplicated elements, glitch effects, malformed faces, overly ornate clothing",
+      "tags": ["animals", "portrait", "anime"]
+    },
+
+    {
+      "id": 7,
+      "title": "Kitsunemimi Girl 1",
+      "description": "Anime portrait of a humanoid fox girl with orange hair and fox ears, wearing the shared outfit of short-sleeve shirt and utility vest. Intelligent expression, consistent lighting and framing.",
+      "negative_prompt": "extra limbs, extra heads, distorted anatomy, disjointed body parts, surreal shapes, blurry textures, missing features, duplicated elements, glitch effects, malformed faces, overly ornate clothing",
+      "tags": ["animals", "portrait", "anime"]
+    },
+    {
+      "id": 8,
+      "title": "Kitsunemimi Girl 2",
+      "description": "Portrait of a fox-eared girl with pale blonde hair, anime-style, wearing a beige vest over a simple shirt. Scholarly look, neutral backdrop and tidy lines.",
+      "negative_prompt": "extra limbs, extra heads, distorted anatomy, disjointed body parts, surreal shapes, blurry textures, missing features, duplicated elements, glitch effects, malformed faces, overly ornate clothing",
+      "tags": ["animals", "portrait", "anime"]
+    },
+    {
+      "id": 9,
+      "title": "Kitsunemimi Girl 3",
+      "description": "Anime character portrait of a red-haired fox girl with upright ears. Outfit is plain and matches the standard short-sleeve and vest combo. Clean style, light background.",
+      "negative_prompt": "extra limbs, extra heads, distorted anatomy, disjointed body parts, surreal shapes, blurry textures, missing features, duplicated elements, glitch effects, malformed faces, overly ornate clothing",
+      "tags": ["animals", "portrait", "anime"]
+    },
+
+    {
+      "id": 10,
+      "title": "Usagimimi Girl 1",
+      "description": "Anime-style rabbit girl with white hair and long ears, wearing the same short-sleeve shirt and utility vest as the others. Alert expression, clean portrait background.",
+      "negative_prompt": "extra limbs, extra heads, distorted anatomy, disjointed body parts, surreal shapes, blurry textures, missing features, duplicated elements, glitch effects, malformed faces, overly ornate clothing",
+      "tags": ["animals", "portrait", "anime"]
+    },
+    {
+      "id": 11,
+      "title": "Usagimimi Girl 2",
+      "description": "Rabbit-eared girl with soft grey hair, anime-style, wearing a basic utility vest over short-sleeve shirt. Upper body view on a clean neutral backdrop.",
+      "negative_prompt": "extra limbs, extra heads, distorted anatomy, disjointed body parts, surreal shapes, blurry textures, missing features, duplicated elements, glitch effects, malformed faces, overly ornate clothing",
+      "tags": ["animals", "portrait", "anime"]
+    },
+    {
+      "id": 12,
+      "title": "Usagimimi Girl 3",
+      "description": "Portrait of a brown-haired bunny girl in a simple beige vest and t-shirt combo. Long rabbit ears, shy smile, anime-style framing and color balance.",
+      "negative_prompt": "extra limbs, extra heads, distorted anatomy, disjointed body parts, surreal shapes, blurry textures, missing features, duplicated elements, glitch effects, malformed faces, overly ornate clothing",
+      "tags": ["animals", "portrait", "anime"]
+    },
+
+    {
+      "id": 13,
+      "title": "Ookami Girl 1",
+      "description": "Anime portrait of a strong-looking wolf girl with silver hair and wolf ears, wearing the standardized outfit. Calm expression, game-like UI-friendly framing.",
+      "negative_prompt": "extra limbs, extra heads, distorted anatomy, disjointed body parts, surreal shapes, blurry textures, missing features, duplicated elements, glitch effects, malformed faces, overly ornate clothing",
+      "tags": ["animals", "portrait", "anime"]
+    },
+    {
+      "id": 14,
+      "title": "Ookami Girl 2",
+      "description": "Dark-haired wolf girl with a determined look, anime style, wearing the same utility outfit. Neutral background and upper body focus.",
+      "negative_prompt": "extra limbs, extra heads, distorted anatomy, disjointed body parts, surreal shapes, blurry textures, missing features, duplicated elements, glitch effects, malformed faces, overly ornate clothing",
+      "tags": ["animals", "portrait", "anime"]
+    },
+    {
+      "id": 15,
+      "title": "Ookami Girl 3",
+      "description": "Ash-blonde wolf girl character portrait in anime style. Wears utility vest and shirt, expression suggests leadership. Background and colors remain soft and minimal.",
+      "negative_prompt": "extra limbs, extra heads, distorted anatomy, disjointed body parts, surreal shapes, blurry textures, missing features, duplicated elements, glitch effects, malformed faces, overly ornate clothing",
+      "tags": ["animals", "portrait", "anime"]
+    },
+
+    {
+      "id": 16,
+      "title": "Nezumimi Girl 1",
+      "description": "Anime-style portrait of a small mouse girl with grey hair and big round ears. Dressed in the same short-sleeve shirt and beige vest. Slight smirk, clean background.",
+      "negative_prompt": "extra limbs, extra heads, distorted anatomy, disjointed body parts, surreal shapes, blurry textures, missing features, duplicated elements, glitch effects, malformed faces, overly ornate clothing",
+      "tags": ["animals", "portrait", "anime"]
+    },
+    {
+      "id": 17,
+      "title": "Nezumimi Girl 2",
+      "description": "Dark-haired mouse girl, small frame, anime style. Wears simple clothing matching the rest — vest and shirt. Light background, consistent character style.",
+      "negative_prompt": "extra limbs, extra heads, distorted anatomy, disjointed body parts, surreal shapes, blurry textures, missing features, duplicated elements, glitch effects, malformed faces, overly ornate clothing",
+      "tags": ["animals", "portrait", "anime"]
+    },
+    {
+      "id": 18,
+      "title": "Nezumimi Girl 3",
+      "description": "Mouse-eared anime girl with pale hair and cautious eyes. She wears the shared plain utility outfit. Clean portrait framing, minimal distractions.",
+      "negative_prompt": "extra limbs, extra heads, distorted anatomy, disjointed body parts, surreal shapes, blurry textures, missing features, duplicated elements, glitch effects, malformed faces, overly ornate clothing",
+      "tags": ["animals", "portrait", "anime"]
+    }
+  ]
+}

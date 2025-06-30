@@ -1,0 +1,135 @@
+{
+  "image_prompts": [
+    {
+      "id": 1,
+      "title": "Nekomimi Girl 1",
+      "description": "A humanoid cat girl with short brown hair and feline ears, wearing a simple black top. She looks curious and agile, standing against a neutral background in a character portrait style.",
+      "negative_prompt": "extra limbs, extra heads, distorted anatomy, disjointed body parts, surreal shapes, blurry textures, missing features, duplicated elements, glitch effects, malformed faces",
+      "tags": ["animals", "portrait"]
+    },
+    {
+      "id": 2,
+      "title": "Nekomimi Girl 2",
+      "description": "A portrait of a humanoid nekomimi with blonde twin-tails and fluffy ears, dressed in a basic hoodie. She has a playful smirk and wide curious eyes.",
+      "negative_prompt": "extra limbs, extra heads, distorted anatomy, disjointed body parts, surreal shapes, blurry textures, missing features, duplicated elements, glitch effects, malformed faces",
+      "tags": ["animals", "portrait"]
+    },
+    {
+      "id": 3,
+      "title": "Nekomimi Girl 3",
+      "description": "Cat girl character portrait with short black hair, green eyes, and subtle whiskers. She wears a basic tank top and carries an agile posture.",
+      "negative_prompt": "extra limbs, extra heads, distorted anatomy, disjointed body parts, surreal shapes, blurry textures, missing features, duplicated elements, glitch effects, malformed faces",
+      "tags": ["animals", "portrait"]
+    },
+    
+    {
+      "id": 4,
+      "title": "Inumimi Girl 1",
+      "description": "A humanoid dog girl with short chestnut hair, floppy ears, and a loyal expression. Wearing a simple t-shirt, posed confidently in a portrait frame.",
+      "negative_prompt": "extra limbs, extra heads, distorted anatomy, disjointed body parts, surreal shapes, blurry textures, missing features, duplicated elements, glitch effects, malformed faces",
+      "tags": ["animals", "portrait"]
+    },
+    {
+      "id": 5,
+      "title": "Inumimi Girl 2",
+      "description": "Portrait of a dog-eared girl with short silver hair and soft eyes, wearing an athletic jacket. She appears brave and dependable.",
+      "negative_prompt": "extra limbs, extra heads, distorted anatomy, disjointed body parts, surreal shapes, blurry textures, missing features, duplicated elements, glitch effects, malformed faces",
+      "tags": ["animals", "portrait"]
+    },
+    {
+      "id": 6,
+      "title": "Inumimi Girl 3",
+      "description": "Dog girl with light brown ears and shoulder-length hair, a confident smile, and a basic uniform top, shown in a neutral pose for a game portrait.",
+      "negative_prompt": "extra limbs, extra heads, distorted anatomy, disjointed body parts, surreal shapes, blurry textures, missing features, duplicated elements, glitch effects, malformed faces",
+      "tags": ["animals", "portrait"]
+    },
+
+    {
+      "id": 7,
+      "title": "Kitsunemimi Girl 1",
+      "description": "Fox-eared humanoid girl with orange hair and a calm expression, wearing a plain robe-like top in a scholarly pose. Background is minimal.",
+      "negative_prompt": "extra limbs, extra heads, distorted anatomy, disjointed body parts, surreal shapes, blurry textures, missing features, duplicated elements, glitch effects, malformed faces",
+      "tags": ["animals", "portrait"]
+    },
+    {
+      "id": 8,
+      "title": "Kitsunemimi Girl 2",
+      "description": "Intelligent-looking fox girl portrait with pale blonde hair, sharp eyes, and modest magical robes. Her ears are perked and pose is composed.",
+      "negative_prompt": "extra limbs, extra heads, distorted anatomy, disjointed body parts, surreal shapes, blurry textures, missing features, duplicated elements, glitch effects, malformed faces",
+      "tags": ["animals", "portrait"]
+    },
+    {
+      "id": 9,
+      "title": "Kitsunemimi Girl 3",
+      "description": "Cunning-looking kitsune girl with red hair and a thoughtful pose. She wears a plain tunic and her fox ears tilt slightly back.",
+      "negative_prompt": "extra limbs, extra heads, distorted anatomy, disjointed body parts, surreal shapes, blurry textures, missing features, duplicated elements, glitch effects, malformed faces",
+      "tags": ["animals", "portrait"]
+    },
+
+    {
+      "id": 10,
+      "title": "Usagimimi Girl 1",
+      "description": "A rabbit-eared girl with short white hair and large, cautious eyes. Wears a simple delivery jacket and is posed in a quick, alert posture.",
+      "negative_prompt": "extra limbs, extra heads, distorted anatomy, disjointed body parts, surreal shapes, blurry textures, missing features, duplicated elements, glitch effects, malformed faces",
+      "tags": ["animals", "portrait"]
+    },
+    {
+      "id": 11,
+      "title": "Usagimimi Girl 2",
+      "description": "Portrait of a humanoid rabbit girl with soft grey hair, oversized ears, and a basic white tank top. Her expression is timid but focused.",
+      "negative_prompt": "extra limbs, extra heads, distorted anatomy, disjointed body parts, surreal shapes, blurry textures, missing features, duplicated elements, glitch effects, malformed faces",
+      "tags": ["animals", "portrait"]
+    },
+    {
+      "id": 12,
+      "title": "Usagimimi Girl 3",
+      "description": "Quick-footed bunny girl with brown hair tied in a short ponytail and tall ears, wearing a casual shirt suited for running or delivery tasks.",
+      "negative_prompt": "extra limbs, extra heads, distorted anatomy, disjointed body parts, surreal shapes, blurry textures, missing features, duplicated elements, glitch effects, malformed faces",
+      "tags": ["animals", "portrait"]
+    },
+
+    {
+      "id": 13,
+      "title": "Ookami Girl 1",
+      "description": "Wolf-eared girl with long grey hair and a strong jawline, wearing a sleeveless work shirt. Her eyes look confident and assertive in the portrait.",
+      "negative_prompt": "extra limbs, extra heads, distorted anatomy, disjointed body parts, surreal shapes, blurry textures, missing features, duplicated elements, glitch effects, malformed faces",
+      "tags": ["animals", "portrait"]
+    },
+    {
+      "id": 14,
+      "title": "Ookami Girl 2",
+      "description": "Strong-willed wolf girl with dark hair and silver ears, wearing a simple military-style shirt. She stares forward with a focused expression.",
+      "negative_prompt": "extra limbs, extra heads, distorted anatomy, disjointed body parts, surreal shapes, blurry textures, missing features, duplicated elements, glitch effects, malformed faces",
+      "tags": ["animals", "portrait"]
+    },
+    {
+      "id": 15,
+      "title": "Ookami Girl 3",
+      "description": "Wolf humanoid girl portrait with a bold gaze, messy ash-blonde hair, and rugged tank top. Her body language hints at leadership.",
+      "negative_prompt": "extra limbs, extra heads, distorted anatomy, disjointed body parts, surreal shapes, blurry textures, missing features, duplicated elements, glitch effects, malformed faces",
+      "tags": ["animals", "portrait"]
+    },
+
+    {
+      "id": 16,
+      "title": "Nezumimi Girl 1",
+      "description": "A small mouse-eared girl with short grey hair and a soft smile. Wearing a plain jacket with sleeves too long, she looks resourceful.",
+      "negative_prompt": "extra limbs, extra heads, distorted anatomy, disjointed body parts, surreal shapes, blurry textures, missing features, duplicated elements, glitch effects, malformed faces",
+      "tags": ["animals", "portrait"]
+    },
+    {
+      "id": 17,
+      "title": "Nezumimi Girl 2",
+      "description": "Humanoid mouse girl with cropped dark hair and large ears, wearing a basic hoodie. She has a sly expression and a faint smudge on her cheek.",
+      "negative_prompt": "extra limbs, extra heads, distorted anatomy, disjointed body parts, surreal shapes, blurry textures, missing features, duplicated elements, glitch effects, malformed faces",
+      "tags": ["animals", "portrait"]
+    },
+    {
+      "id": 18,
+      "title": "Nezumimi Girl 3",
+      "description": "Mouse girl with pale hair, round ears, and a serious expression. She's wearing a patched shirt and looks like she could vanish in a crowd.",
+      "negative_prompt": "extra limbs, extra heads, distorted anatomy, disjointed body parts, surreal shapes, blurry textures, missing features, duplicated elements, glitch effects, malformed faces",
+      "tags": ["animals", "portrait"]
+    }
+  ]
+}

@@ -99,42 +99,42 @@ const AttackTab: React.FC = () => {
   };
 
   return (
-    <div className="tab-content bg-gray-50 p-6">
+    <div className="bg-gray-50 p-6 min-h-screen">
       <div className="max-w-6xl mx-auto">
-        <h3 className="text-2xl font-bold text-gray-800 mb-6">Attack Other Kingdoms</h3>
+        <h3 className="text-3xl font-bold text-slate-800 mb-6 font-fantasy">Attack Other Kingdoms</h3>
         
         {/* Army Status */}
-        <div className="bg-white rounded-lg shadow-lg p-6 mb-6">
-          <h4 className="text-lg font-bold text-gray-800 mb-4 flex items-center">
+        <div className="card p-6 mb-6">
+          <h4 className="text-xl font-bold text-slate-800 mb-4 flex items-center">
             <span className="mr-2">⚔️</span>
             Your Army Status
           </h4>
           
           {!hasArmy ? (
-            <div className="text-center py-8 text-gray-500">
+            <div className="text-center py-8 text-slate-500">
               <div className="text-4xl mb-2">⚔️</div>
               <p className="text-lg font-medium">No Army Available</p>
               <p className="text-sm">Train some units in the Military tab before attacking!</p>
             </div>
           ) : (
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-              <div className="text-center p-4 bg-red-50 rounded-lg">
+              <div className="text-center p-4 bg-red-50 rounded-lg border border-red-200">
                 <div className="text-2xl mb-2">💪</div>
-                <div className="font-semibold text-gray-700">Total Power</div>
+                <div className="font-semibold text-slate-700">Total Power</div>
                 <div className="text-xl font-bold text-red-600">{formatNumber(armyPower)}</div>
               </div>
               
-              <div className="text-center p-4 bg-blue-50 rounded-lg">
+              <div className="text-center p-4 bg-blue-50 rounded-lg border border-blue-200">
                 <div className="text-2xl mb-2">👥</div>
-                <div className="font-semibold text-gray-700">Total Units</div>
+                <div className="font-semibold text-slate-700">Total Units</div>
                 <div className="text-xl font-bold text-blue-600">
                   {formatNumber(Object.values(army).reduce((sum, count) => sum + count, 0))}
                 </div>
               </div>
               
-              <div className="text-center p-4 bg-green-50 rounded-lg">
+              <div className="text-center p-4 bg-green-50 rounded-lg border border-green-200">
                 <div className="text-2xl mb-2">⚡</div>
-                <div className="font-semibold text-gray-700">Battle Ready</div>
+                <div className="font-semibold text-slate-700">Battle Ready</div>
                 <div className="text-xl font-bold text-green-600">Yes</div>
               </div>
             </div>
@@ -143,8 +143,8 @@ const AttackTab: React.FC = () => {
 
         {/* Enemy Kingdoms */}
         {hasArmy && (
-          <div className="bg-white rounded-lg shadow-lg p-6">
-            <h4 className="text-lg font-bold text-gray-800 mb-4 flex items-center">
+          <div className="card p-6">
+            <h4 className="text-xl font-bold text-slate-800 mb-4 flex items-center">
               <span className="mr-2">🏰</span>
               Enemy Kingdoms
             </h4>

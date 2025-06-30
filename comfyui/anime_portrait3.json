@@ -1,0 +1,135 @@
+{
+  "image_prompts": [
+    {
+      "id": 101,
+      "title": "Ryūjin Girl 1",
+      "description": "Anime portrait of a dragon girl with short red hair and small horns. She has faint scales on her cheeks and wears a plain shirt with a beige utility vest. Calm gaze and light background.",
+      "negative_prompt": "extra limbs, wings, tails, surreal features, blurry textures, ornate armor, fantasy background, glitch effects, malformed faces",
+      "tags": ["animals", "portrait", "anime"]
+    },
+    {
+      "id": 102,
+      "title": "Ryūjin Girl 2",
+      "description": "Dragon humanoid girl in anime style with emerald hair, light horns, and slightly glowing eyes. Wears a simple vest and shirt, shown in a calm pose with clean lighting.",
+      "negative_prompt": "extra limbs, wings, tails, surreal features, blurry textures, ornate armor, fantasy background, glitch effects, malformed faces",
+      "tags": ["animals", "portrait", "anime"]
+    },
+    {
+      "id": 103,
+      "title": "Ryūjin Girl 3",
+      "description": "Anime-style portrait of a dragon girl with blue scales along her jawline, black hair, and horns peeking through. Dressed in a neutral utility vest and t-shirt.",
+      "negative_prompt": "extra limbs, wings, tails, surreal features, blurry textures, ornate armor, fantasy background, glitch effects, malformed faces",
+      "tags": ["animals", "portrait", "anime"]
+    },
+
+    {
+      "id": 104,
+      "title": "Tanukimimi Girl 1",
+      "description": "Anime-style tanuki girl with soft brown hair, rounded ears, and a small playful smile. Wearing a beige utility vest and short-sleeve shirt. Clean background.",
+      "negative_prompt": "extra limbs, exaggerated tail, ornate clothing, fantasy elements, glitch effects, malformed faces",
+      "tags": ["animals", "portrait", "anime"]
+    },
+    {
+      "id": 105,
+      "title": "Tanukimimi Girl 2",
+      "description": "Tanuki-eared anime girl with dark fluffy hair and mischievous eyes, dressed in the standard plain vest and shirt. Portrait-focused composition.",
+      "negative_prompt": "extra limbs, exaggerated tail, ornate clothing, fantasy elements, glitch effects, malformed faces",
+      "tags": ["animals", "portrait", "anime"]
+    },
+    {
+      "id": 106,
+      "title": "Tanukimimi Girl 3",
+      "description": "Short-haired tanuki girl with soft features and small rounded ears. Simple clothing matches the rest of the portraits. Background is plain and light.",
+      "negative_prompt": "extra limbs, exaggerated tail, ornate clothing, fantasy elements, glitch effects, malformed faces",
+      "tags": ["animals", "portrait", "anime"]
+    },
+
+    {
+      "id": 107,
+      "title": "Torimimi Girl 1",
+      "description": "Bird girl in anime style with feathery ear tufts and a sharp gaze. Short silver hair, utility vest over a plain shirt. Clean portrait setup.",
+      "negative_prompt": "wings, flying pose, feathers on arms, fantasy background, glitch effects, malformed faces",
+      "tags": ["animals", "portrait", "anime"]
+    },
+    {
+      "id": 108,
+      "title": "Torimimi Girl 2",
+      "description": "Anime-style humanoid bird girl with yellow eyes, feathered bangs, and small downy tufts instead of ears. Wears the standard vest and shirt combo. Neutral expression.",
+      "negative_prompt": "wings, flying pose, feathers on arms, fantasy background, glitch effects, malformed faces",
+      "tags": ["animals", "portrait", "anime"]
+    },
+    {
+      "id": 109,
+      "title": "Torimimi Girl 3",
+      "description": "Bird-eared anime girl with black hair and piercing eyes, feathers forming subtle crests near her ears. She wears a beige vest and plain shirt. Minimalist background.",
+      "negative_prompt": "wings, flying pose, feathers on arms, fantasy background, glitch effects, malformed faces",
+      "tags": ["animals", "portrait", "anime"]
+    },
+
+    {
+      "id": 110,
+      "title": "Kumamimi Girl 1",
+      "description": "Bear girl portrait with strong jawline, anime style. Short, fluffy brown ears and medium-length hair. Wearing the plain utility shirt and vest combo.",
+      "negative_prompt": "hulking build, bear paws, fur coat, fantasy setting, glitch effects, malformed faces",
+      "tags": ["animals", "portrait", "anime"]
+    },
+    {
+      "id": 111,
+      "title": "Kumamimi Girl 2",
+      "description": "Anime-style portrait of a bear-eared girl with sleepy eyes and dark shoulder-length hair. She wears a beige vest and looks reliable and calm.",
+      "negative_prompt": "hulking build, bear paws, fur coat, fantasy setting, glitch effects, malformed faces",
+      "tags": ["animals", "portrait", "anime"]
+    },
+    {
+      "id": 112,
+      "title": "Kumamimi Girl 3",
+      "description": "Bear-themed anime girl with light chestnut hair and small round ears. Standard outfit like other characters. Soft, neutral tone and background.",
+      "negative_prompt": "hulking build, bear paws, fur coat, fantasy setting, glitch effects, malformed faces",
+      "tags": ["animals", "portrait", "anime"]
+    },
+
+    {
+      "id": 113,
+      "title": "Caprimimi Girl 1",
+      "description": "Goat-eared anime girl with short curled horns and calm, clever expression. Wearing plain short-sleeve shirt and utility vest like others. Neutral tone and framing.",
+      "negative_prompt": "extra limbs, ornate horn patterns, fantasy background, glitch effects, malformed faces",
+      "tags": ["animals", "portrait", "anime"]
+    },
+    {
+      "id": 114,
+      "title": "Caprimimi Girl 2",
+      "description": "Humanoid goat girl with silver hair and short spiraling horns. Plain outfit and anime-style portrait with soft light. Neutral background.",
+      "negative_prompt": "extra limbs, ornate horn patterns, fantasy background, glitch effects, malformed faces",
+      "tags": ["animals", "portrait", "anime"]
+    },
+    {
+      "id": 115,
+      "title": "Caprimimi Girl 3",
+      "description": "Anime portrait of a goat-eared girl with shaggy bangs and a shy smile. She wears the standard plain vest over shirt outfit. Framing matches the rest.",
+      "negative_prompt": "extra limbs, ornate horn patterns, fantasy background, glitch effects, malformed faces",
+      "tags": ["animals", "portrait", "anime"]
+    },
+
+    {
+      "id": 116,
+      "title": "Ushimimi Girl 1",
+      "description": "Cow-eared anime girl with short horns and brown hair tied back. Calm and steady expression. Wearing the same plain vest and shirt as others, soft gradient background.",
+      "negative_prompt": "udder, tail, cow spots on skin, fantasy setting, glitch effects, malformed faces",
+      "tags": ["animals", "portrait", "anime"]
+    },
+    {
+      "id": 117,
+      "title": "Ushimimi Girl 2",
+      "description": "Anime-style portrait of a cow girl with black and white hair, small curved horns, and subtle freckles. Simple clothing and upper body focus.",
+      "negative_prompt": "udder, tail, cow spots on skin, fantasy setting, glitch effects, malformed faces",
+      "tags": ["animals", "portrait", "anime"]
+    },
+    {
+      "id": 118,
+      "title": "Ushimimi Girl 3",
+      "description": "Cow-themed anime girl with relaxed eyes, soft voice look, and short hair with tiny horns. Wearing the shared simple vest and shirt outfit, light background.",
+      "negative_prompt": "udder, tail, cow spots on skin, fantasy setting, glitch effects, malformed faces",
+      "tags": ["animals", "portrait", "anime"]
+    }
+  ]
+}
