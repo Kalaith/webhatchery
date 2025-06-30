@@ -1,6 +1,6 @@
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
-import type { GameState, DungeonFloor, Room, LogEntry, AdventurerParty, Monster } from '../types/game';
+import type { GameState, DungeonFloor, Room, LogEntry, AdventurerParty, Monster, MonsterType } from '../types/game';
 import { fetchGameConstantsData } from '../api/gameApi';
 import { getMonsterManaCost, getScaledMonsterStats, getRoomCost } from '../api/gameApi';
 
@@ -15,7 +15,7 @@ import { placeMonster, unlockMonsterSpecies, gainMonsterExperience, getAvailable
 interface GameStore extends GameState {
   floors: DungeonFloor[];
   setFloors: (floors: DungeonFloor[]) => void;
-  addRoom: (floorNumber?: number) => boolean;
+  addRoom: (floorNumber?: number) => Promise<boolean>;
   selectRoom: (roomIndex: number | null) => void;
   selectMonster: (monsterName: string | null) => void; // Changed to monsterName
   
@@ -23,11 +23,12 @@ interface GameStore extends GameState {
   spendGold: (amount: number) => boolean;
   gainGold: (amount: number) => void;
   gainSouls: (amount: number) => void;
-  placeMonster: (floorNumber: number, roomPosition: number, monsterName: string) => boolean; // Changed to monsterName
+  placeMonster: (floorNumber: number, roomPosition: number, monsterName: string) => Promise<boolean>; // Changed to monsterName
   advanceTime: () => void;
   setStatus: (status: 'Open' | 'Closing' | 'Closed' | 'Maintenance') => void;
   setSpeed: (speed: number) => void;
   closeModal: () => void;
+  addLog: (entry: LogEntry | string) => void;
   addAdventurerParty: (party: AdventurerParty) => void;
   updateAdventurerParty: (partyId: number, updates: Partial<AdventurerParty>) => void;
   removeAdventurerParty: (partyId: number) => void;
@@ -39,7 +40,7 @@ interface GameStore extends GameState {
   // New monster progression actions
   unlockMonsterSpecies: (speciesName: string) => void;
   gainMonsterExperience: (monsterName: string, exp: number) => void;
-  getAvailableMonsters: () => MonsterType[];
+  getAvailableMonsters: () => Promise<MonsterType[]>;
 }
 
 export const useGameStore = create<GameStore>()(
@@ -90,7 +91,7 @@ export const useGameStore = create<GameStore>()(
             manaRegen: newManaRegen
           });
           
-          addLog(`Deep Core Bonus updated: +${Math.round(newBonus * 100)}% mana regeneration`);
+          get().addLog(`Deep Core Bonus updated: +${Math.round(newBonus * 100)}% mana regeneration`);
         },
 
         selectRoom: (roomIndex) => set({ selectedRoom: roomIndex, selectedMonster: null }),
@@ -146,13 +147,13 @@ export const useGameStore = create<GameStore>()(
           if (status === 'Closed' && state.adventurerParties.length > 0) {
             // If there are parties in the dungeon, set to Closing instead
             set({ status: 'Closing' });
-            addLog("Dungeon is closing... waiting for current adventurers to finish.");
+            get().addLog("Dungeon is closing... waiting for current adventurers to finish.");
           } else {
             set({ status });
             if (status === 'Closed') {
-              addLog("Dungeon is now closed to new adventurers.");
+              get().addLog("Dungeon is now closed to new adventurers.");
             } else if (status === 'Open') {
-              addLog("Dungeon is now open to adventurers!");
+              get().addLog("Dungeon is now open to adventurers!");
             }
           }
         },
@@ -164,10 +165,26 @@ export const useGameStore = create<GameStore>()(
           if (typeof window !== 'undefined') {
             sessionStorage.setItem("dungeoncore_modal_seen", "1");
           }
-        },      addAdventurerParty: (party) => set((state) => {
+        },
+
+        addLog: (entry: LogEntry | string) => set((state) => {
+          const logEntry: LogEntry = typeof entry === 'string' 
+            ? { message: entry, type: 'system', timestamp: Date.now() }
+            : entry;
+          
+          const newLog = [...state.log, logEntry];
+          const gameConstants = { MAX_LOG_ENTRIES: 50 }; // Default value
+          
+          // Keep only recent entries
+          if (newLog.length > gameConstants.MAX_LOG_ENTRIES) {
+            newLog.splice(0, newLog.length - gameConstants.MAX_LOG_ENTRIES);
+          }
+          
+          return { log: newLog };
+        }),      addAdventurerParty: (party) => set((state) => {
           // Safety check: only allow one party at a time
           if (state.adventurerParties.length > 0) {
-            addLog(`Cannot add party - ${state.adventurerParties.length} parties already in dungeon`);
+            get().addLog(`Cannot add party - ${state.adventurerParties.length} parties already in dungeon`);
             return state;
           }
           
@@ -200,7 +217,7 @@ export const useGameStore = create<GameStore>()(
               }))
             }));
 
-            addLog("Monsters have respawned throughout the dungeon!");
+            get().addLog("Monsters have respawned throughout the dungeon!");
             return { floors: updatedFloors };
           }),      resetGame: () => {
             // Clear localStorage and sessionStorage
@@ -212,10 +229,11 @@ export const useGameStore = create<GameStore>()(
             // Reset to initial state with a new floor
             set({
               ...initialState,
-              floors: [createInitialFloor()],          log: [
-                "Game reset successfully!",
-                "Welcome to Dungeon Core Simulator v1.2!",
-                "Your dungeon starts with an entrance and core room. Add more rooms to expand!",
+              floors: [createInitialFloor()],          
+              log: [
+                { message: "Game reset successfully!", type: "system", timestamp: Date.now() },
+                { message: "Welcome to Dungeon Core Simulator v1.2!", type: "system", timestamp: Date.now() },
+                { message: "Your dungeon starts with an entrance and core room. Add more rooms to expand!", type: "system", timestamp: Date.now() },
               ],
             });
             
@@ -236,7 +254,7 @@ export const useGameStore = create<GameStore>()(
               const coreRoom: Room = {
                 id: Date.now(),
                 type: 'core',
-                position: gameConstants.MAX_ROOMS_PER_FLOOR + 1,
+                position: 6, // Core room position (after 5 main rooms)
                 floorNumber: deepestFloor.number,
                 monsters: [],
                 roomUpgrade: null,
@@ -256,7 +274,7 @@ export const useGameStore = create<GameStore>()(
 
               set({ floors: updatedFloors });
               
-              addLog(`Core room added to floor ${deepestFloor.number}.`);
+              get().addLog(`Core room added to floor ${deepestFloor.number}.`);
             }
           },
         };

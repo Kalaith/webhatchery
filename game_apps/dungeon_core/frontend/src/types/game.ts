@@ -1,5 +1,11 @@
 // Game types for Dungeon Core Simulator v1.2 - Floor-based system
 
+export interface LogEntry {
+  message: string;
+  type: 'system' | 'combat' | 'adventure' | 'building';
+  timestamp: number;
+}
+
 export interface GameState {
   mana: number;
   maxMana: number;
@@ -11,14 +17,16 @@ export interface GameState {
   status: 'Open' | 'Closing' | 'Closed' | 'Maintenance';
   speed: number;
   selectedRoom: number | null;
-  selectedMonster: number | null;
-  log: string[];
+  selectedMonster: string | null;
+  log: LogEntry[];
   modalOpen: boolean;
   dungeonLevel: number;
   adventurerParties: AdventurerParty[];
   nextPartySpawn: number; // Hour when next party will spawn
   totalFloors: number;
   deepCoreBonus: number; // Percentage mana regen bonus
+  unlockedMonsterSpecies: string[];
+  monsterExperience: Record<string, number>;
 }
 
 export interface DungeonFloor {

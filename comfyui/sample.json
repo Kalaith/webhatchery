@@ -1,0 +1,37 @@
+{
+  "image_prompts": [
+    {
+      "id": 1001,
+      "title": "Nekomimi Girl 1",
+      "description": "Anime-style portrait of a humanoid cat girl with short brown hair and feline ears. She wears a plain short-sleeve shirt and a beige utility vest. Curious expression with playful cat-like eyes, light gradient background, clean and polished style.",
+      "negative_prompt": "extra limbs, extra heads, distorted anatomy, disjointed body parts, surreal shapes, blurry textures, missing features, duplicated elements, glitch effects, malformed faces",
+      "tags": [
+        "animals",
+        "portrait",
+        "anime"
+      ]
+    },
+    {
+      "id": 1002,
+      "title": "Ryūjin Girl 1",
+      "description": "Anime portrait of a dragon girl with short silver hair and small horns. She has faint scales on her cheeks and wears a simple black shirt. Calm and mysterious gaze, light neutral background.",
+      "negative_prompt": "extra limbs, wings, tails, surreal features, blurry textures, ornate armor, fantasy background, glitch effects, malformed faces",
+      "tags": [
+        "animals",
+        "portrait",
+        "anime"
+      ]
+    },
+    {
+      "id": 1003,
+      "title": "Kitsunemimi Girl 1",
+      "description": "Anime-style portrait of a fox-eared girl with orange hair and intelligent amber eyes. She wears a plain tunic with scholarly appearance. Thoughtful expression, fox ears perked attentively, clean background.",
+      "negative_prompt": "multiple tails, kimono, fantasy effects, ornate style, glitch effects, malformed anatomy",
+      "tags": [
+        "animals",
+        "portrait",
+        "anime"
+      ]
+    }
+  ]
+}

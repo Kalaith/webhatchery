@@ -166,6 +166,7 @@
         <div class="header">
             <h1>🎨 Anime Portrait Gallery</h1>
             <p>AI-Generated Character Portraits Collection</p>
+            <button onclick="loadGallery()" style="margin-top: 15px; padding: 8px 16px; background: rgba(255,255,255,0.2); color: white; border: none; border-radius: 20px; cursor: pointer; backdrop-filter: blur(10px);">🔄 Refresh Gallery</button>
         </div>
 
         <div class="gallery" id="gallery">
@@ -186,68 +187,85 @@
     </div>
 
     <script>
-        // List of all portrait images (you can update this list when new images are added)
-        const images = [
-            'caprimimi_girl_1_1024x1024_20250630-233612.png',
-            'caprimimi_girl_2_1024x1024_20250630-233618.png',
-            'caprimimi_girl_3_1024x1024_20250630-233623.png',
-            'hebimimi_girl_1_1024x1024_20250630-234042.png',
-            'inumimi_girl_1_1024x1024_20250630-232716.png',
-            'inumimi_girl_1_1024x1024_20250630-233206.png',
-            'inumimi_girl_2_1024x1024_20250630-232722.png',
-            'inumimi_girl_2_1024x1024_20250630-233212.png',
-            'inumimi_girl_3_1024x1024_20250630-232727.png',
-            'inumimi_girl_3_1024x1024_20250630-233217.png',
-            'inumimi_girl_4_1024x1024_20250630-234115.png',
-            'kitsunemimi_girl_1_1024x1024_20250630-232733.png',
-            'kitsunemimi_girl_1_1024x1024_20250630-233222.png',
-            'kitsunemimi_girl_2_1024x1024_20250630-232738.png',
-            'kitsunemimi_girl_2_1024x1024_20250630-233228.png',
-            'kitsunemimi_girl_3_1024x1024_20250630-232744.png',
-            'kitsunemimi_girl_3_1024x1024_20250630-233233.png',
-            'kitsunemimi_girl_4_1024x1024_20250630-234109.png',
-            'koumori_girl_1_1024x1024_20250630-234053.png',
-            'kumamimi_girl_1_1024x1024_20250630-233556.png',
-            'kumamimi_girl_2_1024x1024_20250630-233602.png',
-            'kumamimi_girl_3_1024x1024_20250630-233607.png',
-            'nekomimi_girl_1_1024x1024_20250630-232700.png',
-            'nekomimi_girl_1_1024x1024_20250630-233150.png',
-            'nekomimi_girl_2_1024x1024_20250630-232705.png',
-            'nekomimi_girl_2_1024x1024_20250630-233156.png',
-            'nekomimi_girl_3_1024x1024_20250630-232711.png',
-            'nekomimi_girl_3_1024x1024_20250630-233201.png',
-            'nezumimi_girl_1_1024x1024_20250630-232822.png',
-            'nezumimi_girl_1_1024x1024_20250630-233311.png',
-            'nezumimi_girl_2_1024x1024_20250630-232827.png',
-            'nezumimi_girl_3_1024x1024_20250630-232832.png',
-            'nezumimi_girl_3_1024x1024_20250630-233317.png',
-            'ookami_girl_1_1024x1024_20250630-232805.png',
-            'ookami_girl_1_1024x1024_20250630-233255.png',
-            'ookami_girl_2_1024x1024_20250630-232811.png',
-            'ookami_girl_2_1024x1024_20250630-233300.png',
-            'ookami_girl_3_1024x1024_20250630-232816.png',
-            'ookami_girl_3_1024x1024_20250630-233306.png',
-            'ry_jin_girl_1_1024x1024_20250630-233507.png',
-            'ry_jin_girl_2_1024x1024_20250630-233513.png',
-            'ry_jin_girl_3_1024x1024_20250630-233519.png',
-            'ry_jin_girl_4_1024x1024_20250630-234104.png',
-            'shikamimi_girl_1_1024x1024_20250630-234048.png',
-            'tanukimimi_girl_1_1024x1024_20250630-233524.png',
-            'tanukimimi_girl_2_1024x1024_20250630-233529.png',
-            'tanukimimi_girl_3_1024x1024_20250630-233535.png',
-            'torimimi_girl_1_1024x1024_20250630-233540.png',
-            'torimimi_girl_2_1024x1024_20250630-233545.png',
-            'torimimi_girl_3_1024x1024_20250630-233551.png',
-            'umamimi_girl_1_1024x1024_20250630-234058.png',
-            'usagimimi_girl_1_1024x1024_20250630-232749.png',
-            'usagimimi_girl_1_1024x1024_20250630-233239.png',
-            'usagimimi_girl_2_1024x1024_20250630-232755.png',
-            'usagimimi_girl_2_1024x1024_20250630-233244.png',
-            'usagimimi_girl_3_1024x1024_20250630-233250.png',
-            'ushimimi_girl_1_1024x1024_20250630-233629.png',
-            'ushimimi_girl_2_1024x1024_20250630-233634.png',
-            'ushimimi_girl_3_1024x1024_20250630-233640.png'
-        ];
+        // Global variable to store the fetched images
+        let images = [];
+
+        // Function to fetch image list from portraits directory
+        async function fetchImageList() {
+            try {
+                // First, try the PHP script (if PHP is available)
+                const response = await fetch('get_images.php');
+                if (response.ok) {
+                    const imageFiles = await response.json();
+                    if (Array.isArray(imageFiles) && imageFiles.length > 0) {
+                        return imageFiles;
+                    }
+                }
+            } catch (error) {
+                console.log('PHP script not available, trying alternative methods...');
+            }
+
+            try {
+                // Fallback: try to parse directory listing HTML
+                const response = await fetch('portraits/');
+                const html = await response.text();
+                
+                // Parse HTML to extract image filenames
+                const parser = new DOMParser();
+                const doc = parser.parseFromString(html, 'text/html');
+                const links = doc.querySelectorAll('a[href]');
+                
+                const imageFiles = [];
+                links.forEach(link => {
+                    const href = link.getAttribute('href');
+                    // Filter for image files (png, jpg, jpeg, gif, webp)
+                    if (href && /\.(png|jpg|jpeg|gif|webp)$/i.test(href)) {
+                        imageFiles.push(href);
+                    }
+                });
+                
+                if (imageFiles.length > 0) {
+                    return imageFiles.sort(); // Sort alphabetically
+                }
+            } catch (error) {
+                console.log('Directory listing not available, trying detection method...');
+            }
+
+            // Final fallback: try to detect images by common patterns
+            return await fetchImageListFallback();
+        }
+
+        // Fallback method that tries to detect existing images
+        async function fetchImageListFallback() {
+            const commonPatterns = [
+                'caprimimi', 'hebimimi', 'inumimi', 'kitsunemimi', 'koumori',
+                'kumamimi', 'nekomimi', 'nezumimi', 'ookami', 'ry_jin',
+                'shikamimi', 'tanukimimi', 'torimimi', 'umamimi', 'usagimimi', 'ushimimi'
+            ];
+            
+            const imageFiles = [];
+            const timestamps = ['232700', '232800', '232900', '233000', '233100', '233200', '233300', '233400', '233500', '233600', '234000', '234100'];
+            
+            // Try to detect existing images by attempting to load them
+            for (const pattern of commonPatterns) {
+                for (let i = 1; i <= 5; i++) { // Check up to 5 variations per type
+                    for (const timestamp of timestamps) {
+                        const filename = `${pattern}_girl_${i}_1024x1024_20250630-${timestamp}.png`;
+                        
+                        try {
+                            const response = await fetch(`portraits/${filename}`, { method: 'HEAD' });
+                            if (response.ok) {
+                                imageFiles.push(filename);
+                            }
+                        } catch (e) {
+                            // Image doesn't exist, continue
+                        }
+                    }
+                }
+            }
+            
+            return imageFiles.sort();
+        }
 
         // Function to format filename into a readable title
         function formatTitle(filename) {
@@ -287,9 +305,35 @@
         }
 
         // Load and display images
-        function loadGallery() {
+        async function loadGallery() {
             const gallery = document.getElementById('gallery');
             const stats = document.getElementById('stats');
+            
+            // Show loading message
+            gallery.innerHTML = '<div style="text-align: center; color: white; grid-column: 1/-1; padding: 40px;"><h3>🔄 Loading images...</h3></div>';
+            
+            // Fetch the image list
+            images = await fetchImageList();
+            
+            // Clear loading message
+            gallery.innerHTML = '';
+            
+            if (images.length === 0) {
+                gallery.innerHTML = `
+                    <div style="text-align: center; color: white; grid-column: 1/-1; padding: 40px;">
+                        <h3>📁 No images found</h3>
+                        <p>No portrait images were found in the portraits/ directory.</p>
+                        <p>Please add some portrait images (.png, .jpg, .jpeg, .gif, .webp) to the portraits/ folder.</p>
+                        <button onclick="loadGallery()" style="margin-top: 20px; padding: 10px 20px; background: rgba(255,255,255,0.2); color: white; border: none; border-radius: 5px; cursor: pointer;">🔄 Refresh</button>
+                    </div>
+                `;
+                stats.innerHTML = `
+                    <h3>📊 Gallery Statistics</h3>
+                    <p><strong>0</strong> images found</p>
+                    <p>Directory: ./portraits/</p>
+                `;
+                return;
+            }
             
             // Group images by character type
             const groupedImages = {};
@@ -329,10 +373,15 @@
 
             // Update stats
             const uniqueTypes = Object.keys(groupedImages).length;
+            const currentDate = new Date().toLocaleDateString('en-US', { 
+                year: 'numeric', 
+                month: 'long', 
+                day: 'numeric' 
+            });
             stats.innerHTML = `
                 <h3>📊 Gallery Statistics</h3>
                 <p><strong>${images.length}</strong> total portraits across <strong>${uniqueTypes}</strong> character types</p>
-                <p>Generated on: June 30, 2025</p>
+                <p>Last updated: ${currentDate}</p>
             `;
         }
 

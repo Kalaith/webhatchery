@@ -1,0 +1,114 @@
+{
+  "image_prompts": [
+    {
+      "id": 1000,
+      "title": "Ryūjin Girl 1",
+      "description": "An anime-style portrait of a powerful ryūjin girl with orange messy hair and yellow eyes. She has small horns and dragon features, faint scales, scales on cheeks. She's wearing a tunic against a neutral background. The art style is clean and modern anime with soft lighting and detailed character design.",
+      "negative_prompt": "extra limbs, wings, tails, surreal features, blurry textures, ornate armor, fantasy background, glitch effects, malformed faces",
+      "tags": [
+        "animals",
+        "portrait",
+        "anime"
+      ]
+    },
+    {
+      "id": 1001,
+      "title": "Ryūjin Girl 2",
+      "description": "An anime-style portrait of a calm and mysterious ryūjin girl with orange messy hair and brown eyes. She has small horns and dragon features, faint scales, scales on cheeks. She's wearing a hoodie against a soft background. The art style is clean and modern anime with soft lighting and detailed character design.",
+      "negative_prompt": "extra limbs, wings, tails, surreal features, blurry textures, ornate armor, fantasy background, glitch effects, malformed faces",
+      "tags": [
+        "animals",
+        "portrait",
+        "anime"
+      ]
+    },
+    {
+      "id": 1002,
+      "title": "Ryūjin Girl 3",
+      "description": "An anime-style portrait of a calm and mysterious ryūjin girl with ash-blonde cropped hair and golden eyes. She has small horns and scales on cheeks, faint scales. She's wearing a short-sleeve shirt against a soft background. The art style is clean and modern anime with soft lighting and detailed character design.",
+      "negative_prompt": "extra limbs, wings, tails, surreal features, blurry textures, ornate armor, fantasy background, glitch effects, malformed faces",
+      "tags": [
+        "animals",
+        "portrait",
+        "anime"
+      ]
+    },
+    {
+      "id": 1003,
+      "title": "Ryūjin Girl 4",
+      "description": "An anime-style portrait of a powerful ryūjin girl with silver short hair and green eyes. She has small horns and faint scales. She's wearing a t-shirt against a neutral background. The art style is clean and modern anime with soft lighting and detailed character design.",
+      "negative_prompt": "extra limbs, wings, tails, surreal features, blurry textures, ornate armor, fantasy background, glitch effects, malformed faces",
+      "tags": [
+        "animals",
+        "portrait",
+        "anime"
+      ]
+    },
+    {
+      "id": 1004,
+      "title": "Ryūjin Girl 5",
+      "description": "An anime-style portrait of a calm and powerful ryūjin girl with chestnut long hair and golden eyes. She has small horns and faint scales, dragon features, scales on cheeks. She's wearing a simple dress against a neutral background. The art style is clean and modern anime with soft lighting and detailed character design.",
+      "negative_prompt": "extra limbs, wings, tails, surreal features, blurry textures, ornate armor, fantasy background, glitch effects, malformed faces",
+      "tags": [
+        "animals",
+        "portrait",
+        "anime"
+      ]
+    },
+    {
+      "id": 1005,
+      "title": "Ryūjin Girl 6",
+      "description": "An anime-style portrait of a powerful ryūjin girl with chestnut fluffy hair and yellow eyes. She has small horns and scales on cheeks, dragon features. She's wearing a plain shirt against a light gradient background. The art style is clean and modern anime with soft lighting and detailed character design.",
+      "negative_prompt": "extra limbs, wings, tails, surreal features, blurry textures, ornate armor, fantasy background, glitch effects, malformed faces",
+      "tags": [
+        "animals",
+        "portrait",
+        "anime"
+      ]
+    },
+    {
+      "id": 1006,
+      "title": "Ryūjin Girl 7",
+      "description": "An anime-style portrait of a calm and powerful ryūjin girl with red cropped hair and green eyes. She has small horns and faint scales, scales on cheeks, dragon features. She's wearing a simple dress against a minimal background. The art style is clean and modern anime with soft lighting and detailed character design.",
+      "negative_prompt": "extra limbs, wings, tails, surreal features, blurry textures, ornate armor, fantasy background, glitch effects, malformed faces",
+      "tags": [
+        "animals",
+        "portrait",
+        "anime"
+      ]
+    },
+    {
+      "id": 1007,
+      "title": "Ryūjin Girl 8",
+      "description": "An anime-style portrait of a mysterious ryūjin girl with green short hair and blue eyes. She has small horns and scales on cheeks, dragon features, faint scales. She's wearing a t-shirt against a soft background. The art style is clean and modern anime with soft lighting and detailed character design.",
+      "negative_prompt": "extra limbs, wings, tails, surreal features, blurry textures, ornate armor, fantasy background, glitch effects, malformed faces",
+      "tags": [
+        "animals",
+        "portrait",
+        "anime"
+      ]
+    },
+    {
+      "id": 1008,
+      "title": "Ryūjin Girl 9",
+      "description": "An anime-style portrait of a calm and mysterious ryūjin girl with grey fluffy hair and blue eyes. She has small horns and scales on cheeks, dragon features. She's wearing a plain shirt against a soft background. The art style is clean and modern anime with soft lighting and detailed character design.",
+      "negative_prompt": "extra limbs, wings, tails, surreal features, blurry textures, ornate armor, fantasy background, glitch effects, malformed faces",
+      "tags": [
+        "animals",
+        "portrait",
+        "anime"
+      ]
+    },
+    {
+      "id": 1009,
+      "title": "Ryūjin Girl 10",
+      "description": "An anime-style portrait of a calm and mysterious ryūjin girl with red medium-length hair and golden eyes. She has small horns and scales on cheeks, dragon features. She's wearing a utility vest against a soft background. The art style is clean and modern anime with soft lighting and detailed character design.",
+      "negative_prompt": "extra limbs, wings, tails, surreal features, blurry textures, ornate armor, fantasy background, glitch effects, malformed faces",
+      "tags": [
+        "animals",
+        "portrait",
+        "anime"
+      ]
+    }
+  ]
+}
