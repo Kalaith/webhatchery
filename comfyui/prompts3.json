@@ -1,0 +1,114 @@
+{
+  "image_prompts": [
+    {
+      "id": 1020,
+      "title": "Ookami Girl 21",
+      "description": "An anime-style portrait of a bold ookami girl with black ponytail hair and golden eyes. She has wolf ears and strong jawline. She's wearing a t-shirt against a soft background. The art style is clean and modern anime with soft lighting and detailed character design.",
+      "negative_prompt": "extra limbs, extra heads, distorted anatomy, disjointed body parts, surreal shapes, blurry textures, missing features, duplicated elements, glitch effects, malformed faces",
+      "tags": [
+        "animals",
+        "portrait",
+        "anime"
+      ]
+    },
+    {
+      "id": 1021,
+      "title": "Torimimi Girl 22",
+      "description": "An anime-style portrait of a focused and alert torimimi girl with yellow short hair and brown eyes. She has feathered ear tufts and bird-like features, feathery bangs. She's wearing a hoodie against a minimal background. The art style is clean and modern anime with soft lighting and detailed character design.",
+      "negative_prompt": "wings, flying pose, feathers on arms, fantasy background, glitch effects, malformed faces",
+      "tags": [
+        "animals",
+        "portrait",
+        "anime"
+      ]
+    },
+    {
+      "id": 1022,
+      "title": "Tanukimimi Girl 23",
+      "description": "An anime-style portrait of a playful and mischievous tanukimimi girl with blue tied back hair and silver eyes. She has rounded tanuki ears and fluffy features, tanuki-like traits. She's wearing a utility vest against a soft background. The art style is clean and modern anime with soft lighting and detailed character design.",
+      "negative_prompt": "extra limbs, exaggerated tail, ornate clothing, fantasy elements, glitch effects, malformed faces",
+      "tags": [
+        "animals",
+        "portrait",
+        "anime"
+      ]
+    },
+    {
+      "id": 1023,
+      "title": "Shikamimi Girl 24",
+      "description": "An anime-style portrait of a gentle shikamimi girl with red long hair and brown eyes. She has small antlers and gentle eyes, deer-like features. She's wearing a t-shirt against a minimal background. The art style is clean and modern anime with soft lighting and detailed character design.",
+      "negative_prompt": "deer legs, fantasy setting, elaborate clothing, glitch effects, malformed anatomy",
+      "tags": [
+        "animals",
+        "portrait",
+        "anime"
+      ]
+    },
+    {
+      "id": 1024,
+      "title": "Umamimi Girl 25",
+      "description": "An anime-style portrait of a calm umamimi girl with emerald messy hair and glowing eyes. She has upright horse ears and horse-like features. She's wearing a tunic against a soft background. The art style is clean and modern anime with soft lighting and detailed character design.",
+      "negative_prompt": "horse nose, tail in frame, racing outfit, glitch effects, malformed anatomy",
+      "tags": [
+        "animals",
+        "portrait",
+        "anime"
+      ]
+    },
+    {
+      "id": 1025,
+      "title": "Hebimimi Girl 26",
+      "description": "An anime-style portrait of a elegant hebimimi girl with silver shoulder-length hair and blue eyes. She has no visible ears and slitted eyes, snake scale patterns, serpentine features. She's wearing a hoodie against a light gradient background. The art style is clean and modern anime with soft lighting and detailed character design.",
+      "negative_prompt": "snakes instead of hair, full body snake tail, fantasy background, ornate clothing, glitch effects, malformed anatomy",
+      "tags": [
+        "animals",
+        "portrait",
+        "anime"
+      ]
+    },
+    {
+      "id": 1026,
+      "title": "Inumimi Girl 27",
+      "description": "An anime-style portrait of a confident and dependable inumimi girl with silver long hair and golden eyes. She has floppy ears and loyal eyes. She's wearing a tank top against a neutral background. The art style is clean and modern anime with soft lighting and detailed character design.",
+      "negative_prompt": "extra limbs, extra heads, distorted anatomy, disjointed body parts, surreal shapes, blurry textures, missing features, duplicated elements, glitch effects, malformed faces",
+      "tags": [
+        "animals",
+        "portrait",
+        "anime"
+      ]
+    },
+    {
+      "id": 1027,
+      "title": "Usagimimi Girl 28",
+      "description": "An anime-style portrait of a cautious and alert usagimimi girl with orange long hair and brown eyes. She has long rabbit ears and large eyes. She's wearing a hoodie against a soft background. The art style is clean and modern anime with soft lighting and detailed character design.",
+      "negative_prompt": "extra limbs, extra heads, distorted anatomy, disjointed body parts, surreal shapes, blurry textures, missing features, duplicated elements, glitch effects, malformed faces",
+      "tags": [
+        "animals",
+        "portrait",
+        "anime"
+      ]
+    },
+    {
+      "id": 1028,
+      "title": "Ookami Girl 29",
+      "description": "An anime-style portrait of a strong ookami girl with red tied back hair and golden eyes. She has wolf ears and strong jawline, wolf-like features. She's wearing a tank top against a soft background. The art style is clean and modern anime with soft lighting and detailed character design.",
+      "negative_prompt": "extra limbs, extra heads, distorted anatomy, disjointed body parts, surreal shapes, blurry textures, missing features, duplicated elements, glitch effects, malformed faces",
+      "tags": [
+        "animals",
+        "portrait",
+        "anime"
+      ]
+    },
+    {
+      "id": 1029,
+      "title": "Caprimimi Girl 30",
+      "description": "An anime-style portrait of a clever and calm caprimimi girl with brown short hair and yellow eyes. She has small curved horns and spiraling horns, goat-like features. She's wearing a utility vest against a clean background. The art style is clean and modern anime with soft lighting and detailed character design.",
+      "negative_prompt": "extra limbs, ornate horn patterns, fantasy background, glitch effects, malformed faces",
+      "tags": [
+        "animals",
+        "portrait",
+        "anime"
+      ]
+    }
+  ]
+}

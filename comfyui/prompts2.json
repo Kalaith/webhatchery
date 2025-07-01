@@ -1,0 +1,114 @@
+{
+  "image_prompts": [
+    {
+      "id": 1000,
+      "title": "Ryūjin Girl 1",
+      "description": "An anime-style portrait of a calm and mysterious ryūjin girl with grey cropped hair and blue eyes. She has small horns and faint scales, dragon features, scales on cheeks. She's wearing a plain shirt against a clean background. The art style is clean and modern anime with soft lighting and detailed character design.",
+      "negative_prompt": "extra limbs, wings, tails, surreal features, blurry textures, ornate armor, fantasy background, glitch effects, malformed faces",
+      "tags": [
+        "animals",
+        "portrait",
+        "anime"
+      ]
+    },
+    {
+      "id": 1001,
+      "title": "Ryūjin Girl 2",
+      "description": "An anime-style portrait of a powerful and mysterious ryūjin girl with yellow long hair and yellow eyes. She has small horns and scales on cheeks. She's wearing a hoodie against a minimal background. The art style is clean and modern anime with soft lighting and detailed character design.",
+      "negative_prompt": "extra limbs, wings, tails, surreal features, blurry textures, ornate armor, fantasy background, glitch effects, malformed faces",
+      "tags": [
+        "animals",
+        "portrait",
+        "anime"
+      ]
+    },
+    {
+      "id": 1002,
+      "title": "Torimimi Girl 3",
+      "description": "An anime-style portrait of a alert and sharp torimimi girl with white messy hair and yellow eyes. She has feathered ear tufts and sharp eyes, feathery bangs. She's wearing a t-shirt against a minimal background. The art style is clean and modern anime with soft lighting and detailed character design.",
+      "negative_prompt": "wings, flying pose, feathers on arms, fantasy background, glitch effects, malformed faces",
+      "tags": [
+        "animals",
+        "portrait",
+        "anime"
+      ]
+    },
+    {
+      "id": 1003,
+      "title": "Umamimi Girl 4",
+      "description": "An anime-style portrait of a steady and calm umamimi girl with blonde ponytail hair and blue eyes. She has upright horse ears and steady eyes, horse-like features. She's wearing a t-shirt against a minimal background. The art style is clean and modern anime with soft lighting and detailed character design.",
+      "negative_prompt": "horse nose, tail in frame, racing outfit, glitch effects, malformed anatomy",
+      "tags": [
+        "animals",
+        "portrait",
+        "anime"
+      ]
+    },
+    {
+      "id": 1004,
+      "title": "Umamimi Girl 5",
+      "description": "An anime-style portrait of a calm umamimi girl with green tied back hair and brown eyes. She has upright horse ears and horse-like features, steady eyes. She's wearing a t-shirt against a minimal background. The art style is clean and modern anime with soft lighting and detailed character design.",
+      "negative_prompt": "horse nose, tail in frame, racing outfit, glitch effects, malformed anatomy",
+      "tags": [
+        "animals",
+        "portrait",
+        "anime"
+      ]
+    },
+    {
+      "id": 1005,
+      "title": "Ryūjin Girl 6",
+      "description": "An anime-style portrait of a calm and mysterious ryūjin girl with ash-blonde short hair and brown eyes. She has small horns and scales on cheeks. She's wearing a utility vest against a soft background. The art style is clean and modern anime with soft lighting and detailed character design.",
+      "negative_prompt": "extra limbs, wings, tails, surreal features, blurry textures, ornate armor, fantasy background, glitch effects, malformed faces",
+      "tags": [
+        "animals",
+        "portrait",
+        "anime"
+      ]
+    },
+    {
+      "id": 1006,
+      "title": "Inumimi Girl 7",
+      "description": "An anime-style portrait of a confident and brave inumimi girl with blue messy hair and glowing eyes. She has floppy ears and loyal eyes. She's wearing a tank top against a clean background. The art style is clean and modern anime with soft lighting and detailed character design.",
+      "negative_prompt": "extra limbs, extra heads, distorted anatomy, disjointed body parts, surreal shapes, blurry textures, missing features, duplicated elements, glitch effects, malformed faces",
+      "tags": [
+        "animals",
+        "portrait",
+        "anime"
+      ]
+    },
+    {
+      "id": 1007,
+      "title": "Kitsunemimi Girl 8",
+      "description": "An anime-style portrait of a cunning and thoughtful kitsunemimi girl with red fluffy hair and silver eyes. She has fox ears and intelligent eyes, fox-like features. She's wearing a tunic against a clean background. The art style is clean and modern anime with soft lighting and detailed character design.",
+      "negative_prompt": "multiple tails, kimono, fantasy effects, ornate style, glitch effects, malformed anatomy",
+      "tags": [
+        "animals",
+        "portrait",
+        "anime"
+      ]
+    },
+    {
+      "id": 1008,
+      "title": "Koumori Girl 9",
+      "description": "An anime-style portrait of a mysterious and nocturnal koumori girl with green medium-length hair and brown eyes. She has pointed bat ears and bat-like features, wide eyes. She's wearing a tunic against a minimal background. The art style is clean and modern anime with soft lighting and detailed character design.",
+      "negative_prompt": "bat wings, oversized ears, full fantasy costume, glitch effects, malformed anatomy",
+      "tags": [
+        "animals",
+        "portrait",
+        "anime"
+      ]
+    },
+    {
+      "id": 1009,
+      "title": "Koumori Girl 10",
+      "description": "An anime-style portrait of a mysterious and alert koumori girl with red shoulder-length hair and brown eyes. She has pointed bat ears and wide eyes. She's wearing a short-sleeve shirt against a minimal background. The art style is clean and modern anime with soft lighting and detailed character design.",
+      "negative_prompt": "bat wings, oversized ears, full fantasy costume, glitch effects, malformed anatomy",
+      "tags": [
+        "animals",
+        "portrait",
+        "anime"
+      ]
+    }
+  ]
+}

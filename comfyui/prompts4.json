@@ -1,0 +1,114 @@
+{
+  "image_prompts": [
+    {
+      "id": 1030,
+      "title": "Ryūjin Girl 31",
+      "description": "An anime-style portrait of a calm and mysterious ryūjin girl with red shaggy hair and glowing eyes. She has small horns and scales on cheeks, dragon features. She's wearing a t-shirt against a light gradient background. The art style is clean and modern anime with soft lighting and detailed character design.",
+      "negative_prompt": "extra limbs, wings, tails, surreal features, blurry textures, ornate armor, fantasy background, glitch effects, malformed faces",
+      "tags": [
+        "animals",
+        "portrait",
+        "anime"
+      ]
+    },
+    {
+      "id": 1031,
+      "title": "Tanukimimi Girl 32",
+      "description": "An anime-style portrait of a playful tanukimimi girl with blue medium-length hair and yellow eyes. She has rounded tanuki ears and tanuki-like traits. She's wearing a hoodie against a clean background. The art style is clean and modern anime with soft lighting and detailed character design.",
+      "negative_prompt": "extra limbs, exaggerated tail, ornate clothing, fantasy elements, glitch effects, malformed faces",
+      "tags": [
+        "animals",
+        "portrait",
+        "anime"
+      ]
+    },
+    {
+      "id": 1032,
+      "title": "Ryūjin Girl 33",
+      "description": "An anime-style portrait of a powerful ryūjin girl with blonde tied back hair and green eyes. She has small horns and scales on cheeks, dragon features. She's wearing a plain shirt against a neutral background. The art style is clean and modern anime with soft lighting and detailed character design.",
+      "negative_prompt": "extra limbs, wings, tails, surreal features, blurry textures, ornate armor, fantasy background, glitch effects, malformed faces",
+      "tags": [
+        "animals",
+        "portrait",
+        "anime"
+      ]
+    },
+    {
+      "id": 1033,
+      "title": "Nekomimi Girl 34",
+      "description": "An anime-style portrait of a agile and playful nekomimi girl with grey shoulder-length hair and brown eyes. She has feline ears and whiskers, cat-like eyes. She's wearing a utility vest against a light gradient background. The art style is clean and modern anime with soft lighting and detailed character design.",
+      "negative_prompt": "extra limbs, extra heads, distorted anatomy, disjointed body parts, surreal shapes, blurry textures, missing features, duplicated elements, glitch effects, malformed faces",
+      "tags": [
+        "animals",
+        "portrait",
+        "anime"
+      ]
+    },
+    {
+      "id": 1034,
+      "title": "Tanukimimi Girl 35",
+      "description": "An anime-style portrait of a playful and cheerful tanukimimi girl with blue twin-tails hair and blue eyes. She has rounded tanuki ears and fluffy features, tanuki-like traits. She's wearing a simple dress against a light gradient background. The art style is clean and modern anime with soft lighting and detailed character design.",
+      "negative_prompt": "extra limbs, exaggerated tail, ornate clothing, fantasy elements, glitch effects, malformed faces",
+      "tags": [
+        "animals",
+        "portrait",
+        "anime"
+      ]
+    },
+    {
+      "id": 1035,
+      "title": "Nekomimi Girl 36",
+      "description": "An anime-style portrait of a curious nekomimi girl with red short hair and yellow eyes. She has feline ears and cat-like eyes, whiskers. She's wearing a sleeveless top against a clean background. The art style is clean and modern anime with soft lighting and detailed character design.",
+      "negative_prompt": "extra limbs, extra heads, distorted anatomy, disjointed body parts, surreal shapes, blurry textures, missing features, duplicated elements, glitch effects, malformed faces",
+      "tags": [
+        "animals",
+        "portrait",
+        "anime"
+      ]
+    },
+    {
+      "id": 1036,
+      "title": "Kitsunemimi Girl 37",
+      "description": "An anime-style portrait of a thoughtful kitsunemimi girl with black twin-tails hair and glowing eyes. She has fox ears and fox-like features, intelligent eyes. She's wearing a hoodie against a light gradient background. The art style is clean and modern anime with soft lighting and detailed character design.",
+      "negative_prompt": "multiple tails, kimono, fantasy effects, ornate style, glitch effects, malformed anatomy",
+      "tags": [
+        "animals",
+        "portrait",
+        "anime"
+      ]
+    },
+    {
+      "id": 1037,
+      "title": "Ookami Girl 38",
+      "description": "An anime-style portrait of a determined and bold ookami girl with green fluffy hair and glowing eyes. She has wolf ears and strong jawline, wolf-like features. She's wearing a tank top against a soft background. The art style is clean and modern anime with soft lighting and detailed character design.",
+      "negative_prompt": "extra limbs, extra heads, distorted anatomy, disjointed body parts, surreal shapes, blurry textures, missing features, duplicated elements, glitch effects, malformed faces",
+      "tags": [
+        "animals",
+        "portrait",
+        "anime"
+      ]
+    },
+    {
+      "id": 1038,
+      "title": "Usagimimi Girl 39",
+      "description": "An anime-style portrait of a timid and cautious usagimimi girl with brown twin-tails hair and green eyes. She has long rabbit ears and rabbit-like features, large eyes. She's wearing a simple dress against a minimal background. The art style is clean and modern anime with soft lighting and detailed character design.",
+      "negative_prompt": "extra limbs, extra heads, distorted anatomy, disjointed body parts, surreal shapes, blurry textures, missing features, duplicated elements, glitch effects, malformed faces",
+      "tags": [
+        "animals",
+        "portrait",
+        "anime"
+      ]
+    },
+    {
+      "id": 1039,
+      "title": "Hebimimi Girl 40",
+      "description": "An anime-style portrait of a elegant and calm hebimimi girl with yellow fluffy hair and blue eyes. She has no visible ears and serpentine features, slitted eyes. She's wearing a tunic against a neutral background. The art style is clean and modern anime with soft lighting and detailed character design.",
+      "negative_prompt": "snakes instead of hair, full body snake tail, fantasy background, ornate clothing, glitch effects, malformed anatomy",
+      "tags": [
+        "animals",
+        "portrait",
+        "anime"
+      ]
+    }
+  ]
+}
