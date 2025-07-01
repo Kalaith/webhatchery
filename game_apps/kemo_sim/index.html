@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kemonomimi Breeding Simulator</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header class="game-header">
+            <h1>Kemonomimi Breeding Simulator</h1>
+            <div class="header-stats">
+                <div class="stat-item">
+                    <span class="stat-label">Coins:</span>
+                    <span id="coins-display">1000</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-label">Day:</span>
+                    <span id="day-display">1</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-label">Collection:</span>
+                    <span id="collection-count">1</span>
+                </div>
+            </div>
+        </header>
+
+        <!-- Navigation Tabs -->
+        <nav class="tab-navigation">
+            <button class="tab-btn active" data-tab="collection">Collection</button>
+            <button class="tab-btn" data-tab="breeding">Breeding</button>
+            <button class="tab-btn" data-tab="training">Training</button>
+            <button class="tab-btn" data-tab="marketplace">Marketplace</button>
+            <button class="tab-btn" data-tab="family-tree">Family Tree</button>
+        </nav>
+
+        <!-- Tab Content -->
+        <main class="tab-content">
+            <!-- Collection Tab -->
+            <div id="collection-tab" class="tab-panel active">
+                <h2>Your Kemonomimi Collection</h2>
+                <div id="collection-grid" class="kemono-grid">
+                    <!-- Kemonomimi cards will be populated here -->
+                </div>
+            </div>
+
+            <!-- Breeding Tab -->
+            <div id="breeding-tab" class="tab-panel">
+                <h2>Breeding Center</h2>
+                <div class="breeding-section">
+                    <div class="parent-selection">
+                        <div class="parent-slot">
+                            <h3>Parent 1</h3>
+                            <div id="parent1-slot" class="selection-slot">
+                                <p>Select a kemonomimi</p>
+                            </div>
+                        </div>
+                        <div class="breeding-controls">
+                            <button id="breed-btn" class="btn btn--primary" disabled>Start Breeding</button>
+                            <p class="breeding-cost">Cost: 200 coins</p>
+                        </div>
+                        <div class="parent-slot">
+                            <h3>Parent 2</h3>
+                            <div id="parent2-slot" class="selection-slot">
+                                <p>Select a kemonomimi</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="breeding-queue" class="breeding-queue">
+                        <h3>Breeding Queue</h3>
+                        <div id="queue-list">
+                            <p>No active breeding projects</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Training Tab -->
+            <div id="training-tab" class="tab-panel">
+                <h2>Training Center</h2>
+                <div class="training-section">
+                    <div class="job-categories">
+                        <h3>Available Jobs</h3>
+                        <div id="job-list" class="job-grid">
+                            <!-- Job cards will be populated here -->
+                        </div>
+                    </div>
+                    <div class="training-queue">
+                        <h3>Training Progress</h3>
+                        <div id="training-progress">
+                            <p>No kemonomimi currently training</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Marketplace Tab -->
+            <div id="marketplace-tab" class="tab-panel">
+                <h2>Marketplace</h2>
+                <div class="marketplace-section">
+                    <div class="market-actions">
+                        <button id="refresh-market-btn" class="btn btn--secondary">Refresh Market</button>
+                        <div class="market-filter">
+                            <select id="type-filter" class="form-control">
+                                <option value="">All Types</option>
+                                <option value="Nekomimi">Nekomimi (Cat)</option>
+                                <option value="Inumimi">Inumimi (Dog)</option>
+                                <option value="Kitsunemimi">Kitsunemimi (Fox)</option>
+                                <option value="Usagimimi">Usagimimi (Rabbit)</option>
+                                <option value="Ookami">Ookami (Wolf)</option>
+                                <option value="Nezumimi">Nezumimi (Mouse)</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="market-tabs">
+                        <button id="buy-tab-btn" class="btn btn--outline active">Buy</button>
+                        <button id="sell-tab-btn" class="btn btn--outline">Sell</button>
+                    </div>
+                    <div id="buy-market" class="market-grid">
+                        <!-- Available kemonomimi for purchase -->
+                    </div>
+                    <div id="sell-market" class="market-grid hidden">
+                        <!-- Player's kemonomimi for sale -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- Family Tree Tab -->
+            <div id="family-tree-tab" class="tab-panel">
+                <h2>Family Tree</h2>
+                <div class="family-tree-section">
+                    <div id="family-tree-display">
+                        <p>Your kemonomimi family lineages will appear here as you breed them.</p>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <!-- Modals -->
+        <div id="kemono-modal" class="modal hidden">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 id="modal-title">Kemonomimi Details</h3>
+                    <button id="close-modal" class="btn btn--outline btn--sm">×</button>
+                </div>
+                <div class="modal-body" id="modal-body">
+                    <!-- Kemonomimi details will be populated here -->
+                </div>
+                <div class="modal-footer" id="modal-footer">
+                    <!-- Action buttons will be populated here -->
+                </div>
+            </div>
+        </div>
+
+        <!-- Job Selection Modal -->
+        <div id="job-modal" class="modal hidden">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3>Select Training Job</h3>
+                    <button id="close-job-modal" class="btn btn--outline btn--sm">×</button>
+                </div>
+                <div class="modal-body">
+                    <div id="job-selection">
+                        <!-- Job options will be populated here -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>

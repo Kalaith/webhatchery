@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Anime Animal Girl Prompt Generator</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <h1>Anime Animal Girl Prompt Generator</h1>
+            <p class="header__description">Generate random JSON prompts for anime animal girl characters based on 16 different species</p>
+        </header>
+
+        <main class="main">
+            <div class="generator-panel card">
+                <div class="card__body">
+                    <div class="controls">
+                        <div class="form-group">
+                            <label for="species-select" class="form-label">Select Species</label>
+                            <select id="species-select" class="form-control">
+                                <option value="random">Random Species</option>
+                                <option value="Nekomimi">Nekomimi (Cat Girls)</option>
+                                <option value="Inumimi">Inumimi (Dog Girls)</option>
+                                <option value="Kitsunemimi">Kitsunemimi (Fox Girls)</option>
+                                <option value="Usagimimi">Usagimimi (Rabbit Girls)</option>
+                                <option value="Ookami">Ookami (Wolf Girls)</option>
+                                <option value="Nezumimi">Nezumimi (Mouse Girls)</option>
+                                <option value="Ryūjin">Ryūjin (Dragon Girls)</option>
+                                <option value="Tanukimimi">Tanukimimi (Tanuki Girls)</option>
+                                <option value="Torimimi">Torimimi (Bird Girls)</option>
+                                <option value="Kumamimi">Kumamimi (Bear Girls)</option>
+                                <option value="Caprimimi">Caprimimi (Goat Girls)</option>
+                                <option value="Ushimimi">Ushimimi (Cow Girls)</option>
+                                <option value="Hebimimi">Hebimimi (Snake Girls)</option>
+                                <option value="Shikamimi">Shikamimi (Deer Girls)</option>
+                                <option value="Koumori">Koumori (Bat Girls)</option>
+                                <option value="Umamimi">Umamimi (Horse Girls)</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="prompt-count" class="form-label">Number of Prompts</label>
+                            <select id="prompt-count" class="form-control">
+                                <option value="1">1 Prompt</option>
+                                <option value="2">2 Prompts</option>
+                                <option value="3">3 Prompts</option>
+                                <option value="4">4 Prompts</option>
+                                <option value="5">5 Prompts</option>
+                                <option value="6">6 Prompts</option>
+                                <option value="7">7 Prompts</option>
+                                <option value="8">8 Prompts</option>
+                                <option value="9">9 Prompts</option>
+                                <option value="10">10 Prompts</option>
+                            </select>
+                        </div>
+
+                        <div class="button-group">
+                            <button id="generate-btn" class="btn btn--primary">
+                                <span id="btn-text">Generate Prompts</span>
+                                <span id="loading-spinner" class="spinner hidden">Generating...</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="output-panel card">
+                <div class="card__body">
+                    <div class="output-header">
+                        <h3>Generated JSON</h3>
+                        <div class="output-controls">
+                            <button id="copy-btn" class="btn btn--outline btn--sm" disabled>Copy to Clipboard</button>
+                            <button id="clear-btn" class="btn btn--secondary btn--sm" disabled>Clear</button>
+                        </div>
+                    </div>
+                    <textarea id="json-output" class="json-output" placeholder="Generated JSON will appear here..." readonly></textarea>
+                    <div id="copy-feedback" class="copy-feedback hidden">Copied to clipboard!</div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
