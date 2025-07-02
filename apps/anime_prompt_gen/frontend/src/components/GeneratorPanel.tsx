@@ -11,7 +11,7 @@ const dataSources: Record<string, Record<string, SpeciesData>> = {
   monsterGirl: monsterGirlData,
 };
 
-const GeneratorPanel: React.FC<{ updatePrompts: (prompts: any[]) => void }> = ({ updatePrompts }) => {
+const GeneratorPanel: React.FC<{ updatePrompts: (prompts: { image_prompts: { id: number; title: string; description: string; negative_prompt: string; tags: string[]; }[]; }) => void }> = ({ updatePrompts }) => {
   const [type, setType] = useState<string>('animalGirl');
   const [species, setSpecies] = useState<string>('random');
   const [promptCount, setPromptCount] = useState<number>(1);
@@ -31,13 +31,13 @@ const GeneratorPanel: React.FC<{ updatePrompts: (prompts: any[]) => void }> = ({
     }
   }, [type, species]);
 
-  const handleGenerate = () => {
+    const handleGenerate = () => {
     console.log('Generating prompts with type:', type);
     console.log('Selected species:', species);
     console.log('Prompt count:', promptCount);
     const prompts = generatePrompts(promptCount, type, species);
-    updatePrompts(prompts);
-  };
+    updatePrompts(prompts); // Pass the full object
+    };
 
   return (
     <div className="p-4 bg-gray-100 rounded-md shadow-md">

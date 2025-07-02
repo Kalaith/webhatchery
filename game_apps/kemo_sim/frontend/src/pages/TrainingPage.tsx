@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { useGameStore } from '../hooks/useGameStore';
 import { JOB_CATEGORIES } from '../utils/gameData';
 import JobModal from '../components/JobModal';
@@ -10,7 +10,6 @@ export default function TrainingPage() {
   const setCoins = useGameStore((s) => s.setCoins);
   const trainingQueue = useGameStore((s) => s.trainingQueue);
   const setTrainingQueue = useGameStore((s) => s.setTrainingQueue);
-  const addKemonomimi = useGameStore((s) => s.addKemonomimi);
 
   const [selectedKemono, setSelectedKemono] = useState<Kemonomimi | null>(null);
 
@@ -107,11 +106,11 @@ export default function TrainingPage() {
       </div>
       {selectedKemono && (
         <JobModal
-          kemono={selectedKemono}
+          kemono={selectedKemono as Kemonomimi}
           onSelect={(jobName) => handleStartTraining(selectedKemono, jobName)}
           onClose={() => setSelectedKemono(null)}
         />
       )}
     </section>
   );
-} 
+}

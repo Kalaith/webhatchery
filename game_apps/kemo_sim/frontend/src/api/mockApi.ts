@@ -1,4 +1,4 @@
-import type { Kemonomimi, KemonomimiType, JobCategory, MarketKemonomimi } from '../types/game';
+import type { Kemonomimi, JobCategory, MarketKemonomimi } from '../types/game';
 import { KEMONOMIMI_TYPES, JOB_CATEGORIES } from '../utils/gameData';
 
 // Generate mock kemonomimi
@@ -74,4 +74,4 @@ export async function fetchMarket(): Promise<MarketKemonomimi[]> {
       price: 220,
     },
   ];
-} 
+}

@@ -1,4 +1,4 @@
-import type { KemonomimiType, JobCategory, Stat } from '../types/game';
+import type { KemonomimiType, JobCategory } from '../types/game';
 
 export const KEMONOMIMI_TYPES: KemonomimiType[] = [
   {
@@ -120,4 +120,4 @@ export const EYE_COLORS = [
 
 export const PERSONALITY_TRAITS = [
   'Playful', 'Serious', 'Shy', 'Outgoing', 'Calm', 'Energetic', 'Mischievous', 'Gentle', 'Bold', 'Wise',
-]; 
+];

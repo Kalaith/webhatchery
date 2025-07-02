@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { useGameStore } from '../hooks/useGameStore';
 import KemonoModal from '../components/KemonoModal';
 import { getKemonoImage } from '../utils/imageMap';
@@ -11,7 +11,6 @@ export default function CollectionPage() {
   const selectedParent1 = useGameStore((s) => s.selectedParent1);
   const selectedParent2 = useGameStore((s) => s.selectedParent2);
   const [selected, setSelected] = useState<number | null>(null);
-  const [jobModalKemono, setJobModalKemono] = useState<Kemonomimi | null>(null);
 
   // Handler for selecting for breeding
   const handleBreed = (kemono: Kemonomimi) => {
@@ -28,8 +27,7 @@ export default function CollectionPage() {
 
   // Handler for selecting for training
   const handleTrain = (kemono: Kemonomimi) => {
-    setJobModalKemono(kemono);
-    setSelected(null);
+    setSelected(kemono.id);
   };
 
   return (
@@ -58,7 +56,7 @@ export default function CollectionPage() {
                   {Object.entries(k.stats).map(([stat, value]) => (
                     <div key={stat} className="flex flex-col items-center">
                       <span className="text-gray-400">{stat}</span>
-                      <span className="font-semibold">{value}</span>
+                      <span className="font-semibold">{String(value)}</span>
                     </div>
                   ))}
                 </div>
@@ -79,4 +77,4 @@ export default function CollectionPage() {
       {/* JobModal will be integrated in TrainingPage for job selection */}
     </section>
   );
-} 
+}

@@ -1,4 +1,3 @@
-import React from 'react';
 import { useGameStore } from '../hooks/useGameStore';
 
 export default function Header() {
@@ -25,4 +24,4 @@ export default function Header() {
       </div>
     </header>
   );
-} 
+}

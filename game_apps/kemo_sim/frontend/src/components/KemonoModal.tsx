@@ -1,4 +1,3 @@
-import React from 'react';
 import { useGameStore } from '../hooks/useGameStore';
 import type { Kemonomimi } from '../types/game';
 
@@ -33,7 +32,7 @@ export default function KemonoModal({ kemonoId, onClose, onBreed, onTrain }: Kem
             <div className="info-section mb-2">
               <h4 className="font-semibold">Natural Traits</h4>
               <div className="trait-list flex flex-wrap gap-2">
-                {kemono.type.traits.map((trait) => (
+                {kemono.type.traits.map((trait: string) => (
                   <span key={trait} className="trait-tag bg-blue-100 text-blue-700 px-2 py-1 rounded text-xs">{trait}</span>
                 ))}
               </div>
@@ -44,7 +43,7 @@ export default function KemonoModal({ kemonoId, onClose, onBreed, onTrain }: Kem
                 {Object.entries(kemono.stats).map(([stat, value]) => (
                   <div key={stat} className="detailed-stat flex justify-between">
                     <div className="detailed-stat-name text-gray-500">{stat}</div>
-                    <div className="detailed-stat-value font-semibold">{value}</div>
+                    <div className="detailed-stat-value font-semibold">{String(value)}</div>
                   </div>
                 ))}
               </div>
@@ -53,7 +52,7 @@ export default function KemonoModal({ kemonoId, onClose, onBreed, onTrain }: Kem
               <div className="info-section mb-2">
                 <h4 className="font-semibold">Trained Jobs</h4>
                 <div className="trait-list flex flex-wrap gap-2">
-                  {kemono.trainedJobs.map((job) => (
+                  {kemono.trainedJobs.map((job: string) => (
                     <span key={job} className="trait-tag bg-green-100 text-green-700 px-2 py-1 rounded text-xs">{job}</span>
                   ))}
                 </div>
@@ -73,4 +72,4 @@ export default function KemonoModal({ kemonoId, onClose, onBreed, onTrain }: Kem
       </div>
     </div>
   );
-} 
+}

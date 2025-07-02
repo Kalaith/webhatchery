@@ -28,6 +28,7 @@ export interface Quest {
     minLevel: number;
     preferredClasses: string[];
   };
+  difficulty: string; // Added missing property
   assignedAdventurers?: string[];
 }
 

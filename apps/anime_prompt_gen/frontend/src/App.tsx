@@ -8,9 +8,9 @@ const App: React.FC = () => {
   const [generatedJSON, setGeneratedJSON] = useState<string>('');
   const [prompts, setPrompts] = useState<any[]>([]);
 
-  const updatePrompts = (newPrompts: any[]) => {
-    setPrompts(newPrompts);
-    setGeneratedJSON(JSON.stringify(newPrompts, null, 2));
+  const updatePrompts = (prompts: { image_prompts: { id: number; title: string; description: string; negative_prompt: string; tags: string[]; }[]; }) => {
+    setPrompts(prompts.image_prompts);
+    setGeneratedJSON(JSON.stringify(prompts.image_prompts, null, 2));
   };
 
   return (

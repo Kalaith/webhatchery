@@ -154,6 +154,19 @@
             "buildCommand": "npm run build -- --base=./",
             "packageManager": "npm"
           }
+        },
+        {
+          "title": "Anime Prompt Generator",
+          "path": "apps/anime_prompt_gen/frontend/",
+          "description": "React-based anime prompt generator with modular extensibility for animal girls, monster girls, and monsters.",
+          "deployment": {
+            "type": "React",
+            "outputDir": "dist",
+            "deployAs": "anime_prompt_gen",
+            "requiresBuild": true,
+            "buildCommand": "npm run build -- --base=./",
+            "packageManager": "npm"
+          }
         }
       ]
     },
@@ -242,6 +255,32 @@
             "type": "React",
             "outputDir": "dist",
             "deployAs": "kingdom_wars",
+            "requiresBuild": true,
+            "buildCommand": "npm run build -- --base=./",
+            "packageManager": "npm"
+          }
+        },
+        {
+          "title": "Adventurer Guild",
+          "path": "game_apps/adventurer_guild/frontend/",
+          "description": "React-based adventurer guild management app with quest tracking and character progression.",
+          "deployment": {
+            "type": "React",
+            "outputDir": "dist",
+            "deployAs": "adventurer_guild",
+            "requiresBuild": true,
+            "buildCommand": "npm run build -- --base=./",
+            "packageManager": "npm"
+          }
+        },
+        {
+          "title": "Kemo Simulator",
+          "path": "game_apps/kemo_sim/frontend/",
+          "description": "React-based simulation game featuring animal-themed characters and dynamic interactions.",
+          "deployment": {
+            "type": "React",
+            "outputDir": "dist",
+            "deployAs": "kemo_sim",
             "requiresBuild": true,
             "buildCommand": "npm run build -- --base=./",
             "packageManager": "npm"

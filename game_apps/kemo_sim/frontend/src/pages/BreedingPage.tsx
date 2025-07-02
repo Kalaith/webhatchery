@@ -1,4 +1,3 @@
-import React from 'react';
 import { useGameStore } from '../hooks/useGameStore';
 import type { Kemonomimi } from '../types/game';
 
@@ -158,4 +157,4 @@ export default function BreedingPage() {
       </div>
     </section>
   );
-} 
+}

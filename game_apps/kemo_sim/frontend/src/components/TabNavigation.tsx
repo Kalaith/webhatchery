@@ -1,5 +1,3 @@
-import React from 'react';
-
 interface Tab {
   key: string;
   label: string;
@@ -30,4 +28,4 @@ export default function TabNavigation({ tabs, activeTab, onTabChange }: TabNavig
       ))}
     </nav>
   );
-} 
+}

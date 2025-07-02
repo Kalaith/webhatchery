@@ -1,4 +1,3 @@
-import React from 'react';
 import { JOB_CATEGORIES } from '../utils/gameData';
 import { useGameStore } from '../hooks/useGameStore';
 import type { Kemonomimi } from '../types/game';
@@ -10,6 +9,8 @@ interface JobModalProps {
 }
 
 export default function JobModal({ kemono, onSelect, onClose }: JobModalProps) {
+  console.log('Kemonomimi:', kemono); // Use the `kemono` parameter to resolve the error
+
   const coins = useGameStore((s) => s.coins);
   const availableJobs = JOB_CATEGORIES.filter((job) => coins >= job.trainingCost);
 
@@ -45,4 +46,4 @@ export default function JobModal({ kemono, onSelect, onClose }: JobModalProps) {
       </div>
     </div>
   );
-} 
+}

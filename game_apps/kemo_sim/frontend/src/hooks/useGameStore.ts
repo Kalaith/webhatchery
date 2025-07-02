@@ -1,8 +1,7 @@
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
-import type { Kemonomimi, BreedingQueueItem, TrainingQueueItem, MarketKemonomimi } from '../types/game';
-import { KEMONOMIMI_TYPES, JOB_CATEGORIES, HAIR_COLORS, EYE_COLORS, PERSONALITY_TRAITS } from '../utils/gameData';
 import * as mockApi from '../api/mockApi';
+import type { Kemonomimi, BreedingQueueItem, TrainingQueueItem, MarketKemonomimi } from '../types/game';
 
 interface GameState {
   coins: number;
@@ -34,13 +33,13 @@ export const useGameStore = create<GameState>()(
     (set, get) => ({
       coins: 1000,
       day: 1,
-      kemonomimi: [],
+      kemonomimi: [] as Kemonomimi[],
       setKemonomimi: (kemono) => set(() => ({ kemonomimi: kemono })),
-      breedingQueue: [],
+      breedingQueue: [] as BreedingQueueItem[],
       setBreedingQueue: (queue) => set(() => ({ breedingQueue: queue })),
-      trainingQueue: [],
+      trainingQueue: [] as TrainingQueueItem[],
       setTrainingQueue: (queue) => set(() => ({ trainingQueue: queue })),
-      marketStock: [],
+      marketStock: [] as MarketKemonomimi[],
       setMarketStock: (stock) => set(() => ({ marketStock: stock })),
       nextId: 1,
       setNextId: (id) => set(() => ({ nextId: id })),
@@ -79,4 +78,4 @@ export const useGameStore = create<GameState>()(
       }),
     }
   )
-); 
+);

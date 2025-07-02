@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { useGameStore } from '../hooks/useGameStore';
 import type { MarketKemonomimi, Kemonomimi } from '../types/game';
 
@@ -153,4 +153,4 @@ export default function MarketplacePage() {
       </div>
     </section>
   );
-} 
+}

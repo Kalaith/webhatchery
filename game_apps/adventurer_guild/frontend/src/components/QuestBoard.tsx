@@ -39,6 +39,7 @@ const QuestBoard: React.FC<QuestBoardProps> = ({ onQuestSelect }) => {
             <h3>{quest.name}</h3>
             <p>{quest.description}</p>
             <p>Reward: {quest.reward}</p>
+            <p>Difficulty: {quest.difficulty}</p> {/* Display difficulty */}
           </div>
         ))}
       </div>
