@@ -71,7 +71,7 @@ export const generatePrompts = (count: number, type: string, species: string | n
       title: `${selectedSpecies} Character ${i + 1}`,
       description,      
       negative_prompt: speciesInfo.negative_prompt,
-      tags: [selectedSpecies, ...speciesInfo.personality],
+      tags: [selectedSpecies, ...personality],
     };
     image_prompts.push(prompt);
   }

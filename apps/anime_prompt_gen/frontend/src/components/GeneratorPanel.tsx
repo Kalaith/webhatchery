@@ -22,7 +22,9 @@ const GeneratorPanel: React.FC<{ updatePrompts: (prompts: any[]) => void }> = ({
     console.log('Type changed:', type);
     console.log('Data:', data);
     console.log('Current species:', species);
-    if (!species || !data[species]) {
+    if (species === 'random') {
+      setSpecies('random');
+    } else if (!species || !data[species]) {
       const defaultSpecies = Object.keys(data)[0];
       console.log('Default species selected:', defaultSpecies);
       setSpecies(defaultSpecies);
@@ -67,6 +69,9 @@ const GeneratorPanel: React.FC<{ updatePrompts: (prompts: any[]) => void }> = ({
           onChange={(e) => setSpecies(e.target.value)}
           className="w-full p-2 border border-gray-300 rounded-md"
         >
+          <option key="random" value="random">
+            Random
+          </option>
           {Object.keys(data).map((key) => (
             <option key={key} value={key}>
               {`${key} - ${data[key].species.charAt(0).toUpperCase() + data[key].species.slice(1)}`}
