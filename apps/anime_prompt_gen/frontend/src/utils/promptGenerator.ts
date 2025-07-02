@@ -1,40 +1,81 @@
-import { speciesData } from '../utils/speciesData';
+import { hairColors, hairStyles, eyeColors, backgrounds, clothingItems } from './sharedAttributes';
+import { animalGirlData } from './animalGirlData';
+import { monsterData } from './monsterData';
+import { monsterGirlData } from './monsterGirlData';
+import { SpeciesData } from '../types/SpeciesData';
 
-const hairColors = ["black", "brown", "blonde", "red", "silver", "grey", "white", "orange", "blue", "green", "yellow", "emerald", "chestnut", "ash-blonde"];
-const hairStyles = ["short", "long", "shoulder-length", "medium-length", "twin-tails", "ponytail", "tied back", "cropped", "fluffy", "messy", "shaggy"];
-const eyeColors = ["brown", "blue", "green", "yellow", "golden", "silver", "glowing"];
-const clothingItems = ["plain shirt", "simple dress", "hoodie", "tank top", "tunic", "utility vest", "t-shirt", "short-sleeve shirt", "sleeveless top"];
-const backgrounds = ["neutral background", "light gradient background", "clean background", "minimal background", "soft background"];
+type DataSource = Record<string, SpeciesData>; // Define the correct type for data sources
 
-export const generatePrompts = (count: number, species: string | null) => {
-  const prompts = [];
+const getDataSource = (type: string): DataSource => {
+  switch (type) {
+    case 'animalGirl':
+      return animalGirlData as DataSource;
+    case 'monster':
+      return monsterData as DataSource;
+    case 'monsterGirl':
+      return monsterGirlData as DataSource;
+    default:
+      throw new Error(`Unknown type: ${type}`);
+  }
+};
+
+const getRandomSpecies = (data: DataSource): string => {
+  const speciesKeys = Object.keys(data);
+  return speciesKeys[Math.floor(Math.random() * speciesKeys.length)];
+};
+
+export const generatePrompts = (count: number, type: string, species: string | null) => {
+  const data = getDataSource(type);
+  console.log('Generating prompts with type:', type);
+  console.log('Data:', data);
+  console.log('Selected species:', species);
+
+  const image_prompts = [];
   for (let i = 0; i < count; i++) {
-    const selectedSpecies = species === 'random' ? getRandomSpecies() : species;
+    const selectedSpecies = species === 'random' ? getRandomSpecies(data) : species;
 
     if (!selectedSpecies) {
       throw new Error('Selected species is null or undefined');
     }
 
-    const speciesInfo = speciesData[selectedSpecies as keyof typeof speciesData];
+    const speciesInfo = data[selectedSpecies];
+    console.log('Species info:', speciesInfo);
+
+    if (!speciesInfo) {
+      throw new Error(`Species "${selectedSpecies}" not found in data`);
+    }
 
     const hairColor = getRandomElement(hairColors);
-    const hairStyle = getRandomElement(hairStyles);
     const eyeColor = getRandomElement(eyeColors);
-    const clothing = getRandomElement(clothingItems);
     const background = getRandomElement(backgrounds);
-    const personality = getRandomElements(speciesInfo.personality, Math.floor(Math.random() * 2) + 1);
     const features = getRandomElements(speciesInfo.features, Math.floor(Math.random() * speciesInfo.features.length) + 1);
+    const personality = getRandomElements(speciesInfo.personality, Math.floor(Math.random() * 2) + 1);
+    const clothing = type === 'animalGirl' ? getRandomElement(clothingItems) : ''; // Only include clothing for animal girls
+    const hairStyle = getRandomElement(hairStyles);
+
+    const description = speciesInfo.descriptionTemplate
+      ?.replace('{personality}', personality.join(' and ') || '')
+      .replace('{species}', selectedSpecies || '')
+      .replace('{features}', features.join(', ') || '')
+      .replace('{ears}', speciesInfo.ears || '')
+      .replace('{wings}', speciesInfo.wings || '') // Include wings if available
+      .replace('{tail}', speciesInfo.tail || '') // Include tail if available
+      .replace('{hairColor}', hairColor || '')
+      .replace('{hairStyle}', hairStyle || '') // Ensure hairStyle is replaced
+      .replace('{eyeColor}', eyeColor || '')
+      .replace('{background}', background || '')
+      .replace('{clothing}', clothing || '') || '';
 
     const prompt = {
       id: generateUniqueId(),
-      title: `${selectedSpecies} Character`,
-      description: `An anime-style portrait of a ${personality.join(' and ')} ${selectedSpecies.toLowerCase()} girl with ${hairColor} ${hairStyle} hair and ${eyeColor} eyes. She has ${speciesInfo.ears} and ${features.join(', ')}. She's wearing a ${clothing} against a ${background}. The art style is clean and modern anime with soft lighting and detailed character design.`,
+      title: `${selectedSpecies} Character ${i + 1}`,
+      description,      
       negative_prompt: speciesInfo.negative_prompt,
       tags: [selectedSpecies, ...speciesInfo.personality],
     };
-    prompts.push(prompt);
+    image_prompts.push(prompt);
   }
-  return prompts;
+  return { image_prompts };
 };
 
 const getRandomElement = (array: string[]) => {
@@ -44,11 +85,6 @@ const getRandomElement = (array: string[]) => {
 const getRandomElements = (array: string[], count: number) => {
   const shuffled = [...array].sort(() => 0.5 - Math.random());
   return shuffled.slice(0, count);
-};
-
-const getRandomSpecies = () => {
-  const speciesKeys = Object.keys(speciesData);
-  return speciesKeys[Math.floor(Math.random() * speciesKeys.length)];
 };
 
 let promptIdCounter = 1000;
