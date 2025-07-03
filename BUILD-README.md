@@ -77,7 +77,7 @@ composer --version
 ## 📁 Directory Structure
 
 ```
-E:\WebHatchery\          # Source directory
+H:\WebHatchery\          # Source directory
 ├── build-deploy.ps1     # Main build script
 ├── build-config.json    # Project configurations
 ├── build-deploy.log     # Build logs
@@ -304,7 +304,7 @@ Select-String -Path .\build-deploy.log -Pattern "ERROR"
 ### Scheduled Deployment
 ```powershell
 # Windows Task Scheduler compatible
-powershell.exe -ExecutionPolicy Bypass -File "E:\WebHatchery\build-deploy.ps1" -Production
+powershell.exe -ExecutionPolicy Bypass -File "H:\WebHatchery\build-deploy.ps1" -Production
 ```
 
 ## 📈 Performance Tips

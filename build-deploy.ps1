@@ -1,5 +1,5 @@
 # WebHatchery Build and Deploy Script
-# Streamlined deployment solution for E:\WebHatchery to F:\WebHatchery
+# Streamlined deployment solution for H:\WebHatchery to F:\WebHatchery
 
 param(
     [string]$ProjectFilter = "*",
@@ -20,7 +20,7 @@ param(
 . "$PSScriptRoot\utils\deploy\Helpers.ps1"
 
 # Configuration
-$SOURCE_PATH = "E:\WebHatchery"
+$SOURCE_PATH = "H:\WebHatchery"
 $DEPLOY_PATH = "F:\WebHatchery"
 $LOG_FILE = "$SOURCE_PATH\build-deploy.log"
 

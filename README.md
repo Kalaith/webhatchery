@@ -251,7 +251,7 @@ The build script automatically loads configuration from `projects.json` and main
 ## 🌐 Deployment Targets
 
 ### Development
-- **Source**: `E:\WebHatchery\`
+- **Source**: `H:\WebHatchery\`
 - **Target**: `F:\WebHatchery\`
 - **Purpose**: Local testing and development
 
@@ -298,13 +298,13 @@ The build script automatically loads configuration from `projects.json` and main
 ### 1. Create Project Directory
 ```powershell
 # For web applications
-mkdir E:\WebHatchery\apps\new_project
+mkdir H:\WebHatchery\apps\new_project
 
 # For game projects  
-mkdir E:\WebHatchery\game_apps\new_game
+mkdir H:\WebHatchery\game_apps\new_game
 
 # For game design documents
-mkdir E:\WebHatchery\gdd\new_design
+mkdir H:\WebHatchery\gdd\new_design
 ```
 
 ### 2. Add to projects.json

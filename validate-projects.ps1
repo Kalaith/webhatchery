@@ -12,7 +12,7 @@ param(
     [switch]$VerboseOutput = $false
 )
 
-$SOURCE_PATH = "E:\WebHatchery"
+$SOURCE_PATH = "H:\WebHatchery"
 $CONFIG_FILE = "$SOURCE_PATH\build-config.json"
 
 function Write-ValidationLog {
