@@ -1,4 +1,4 @@
-import { hairColors, hairStyles, eyeColors, backgrounds, clothingItems } from './sharedAttributes';
+import { hairColors, hairStyles, eyeColors, backgrounds, clothingItems, poses, eyeExpressions, accessories } from './sharedAttributes';
 import { animalGirlData } from './animalGirlData';
 import { monsterData } from './monsterData';
 import { monsterGirlData } from './monsterGirlData';
@@ -52,6 +52,9 @@ export const generatePrompts = (count: number, type: string, species: string | n
     const personality = getRandomElements(speciesInfo.personality, Math.floor(Math.random() * 2) + 1);
     const clothing = type === 'animalGirl' ? getRandomElement(clothingItems) : ''; // Only include clothing for animal girls
     const hairStyle = getRandomElement(hairStyles);
+    const pose = getRandomElement(poses);
+    const eyeExpression = getRandomElement(eyeExpressions);
+    const accessory = Math.random() < 0.5 ? getRandomElement(accessories) : ''; // Optional accessory
 
     const description = speciesInfo.descriptionTemplate
       ?.replace('{personality}', personality.join(' and ') || '')
@@ -64,7 +67,10 @@ export const generatePrompts = (count: number, type: string, species: string | n
       .replace('{hairStyle}', hairStyle || '') // Ensure hairStyle is replaced
       .replace('{eyeColor}', eyeColor || '')
       .replace('{background}', background || '')
-      .replace('{clothing}', clothing || '') || '';
+      .replace('{clothing}', clothing || '')
+      .replace('{pose}', pose || '')
+      .replace('{eyeExpression}', eyeExpression || '')
+      .replace('{accessories}', accessory ? ' while wearing ' + accessory : '') || '';
 
     const prompt = {
       id: generateUniqueId(),

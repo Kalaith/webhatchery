@@ -147,11 +147,46 @@ class NameGeneratorApp {
         };
 
         this.showLoading('people-results');
-        setTimeout(() => {
-            const results = this.generatePeopleNames(params);
-            this.displayPeopleResults(results);
-            this.updateStatistics(results.length, params.method);
-        }, 500);
+        // Map UI method to API method
+        const methodMap = {
+            'markov_chain': 'markov_chain',
+            'syllable_based': 'syllable',
+            'phonetic_pattern': 'phonetic',
+            'historical_pattern': 'historical',
+            'fantasy_generated': 'fantasy'
+        };
+        const apiMethod = methodMap[params.method] || 'markov_chain';
+        // Only use API for supported methods
+        if (["markov_chain","syllable_based","phonetic_pattern","historical_pattern","fantasy_generated"].includes(params.method)) {
+            // Build API URL
+            const url = `api/generate_name.php?culture=${encodeURIComponent(params.culture)}&gender=${encodeURIComponent(params.gender)}&count=${params.count}&method=${apiMethod}&period=${encodeURIComponent(params.period)}`;
+            fetch(url)
+                .then(res => res.json())
+                .then(data => {
+                    if (data.names) {
+                        this.displayPeopleResults(data.names);
+                        this.updateStatistics(data.names.length, params.method);
+                    } else {
+                        // fallback to mock data
+                        const results = this.generatePeopleNames(params);
+                        this.displayPeopleResults(results);
+                        this.updateStatistics(results.length, params.method);
+                    }
+                })
+                .catch(() => {
+                    // fallback to mock data
+                    const results = this.generatePeopleNames(params);
+                    this.displayPeopleResults(results);
+                    this.updateStatistics(results.length, params.method);
+                });
+        } else {
+            // fallback to mock data for other methods
+            setTimeout(() => {
+                const results = this.generatePeopleNames(params);
+                this.displayPeopleResults(results);
+                this.updateStatistics(results.length, params.method);
+            }, 500);
+        }
     }
 
     handlePlacesForm(e) {

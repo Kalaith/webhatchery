@@ -3,10 +3,12 @@ import React, { useState } from 'react';
 import Header from './components/Header';
 import GeneratorPanel from './components/GeneratorPanel';
 import OutputPanel from './components/OutputPanel';
+import AdventurerGeneratorPanel from './components/AdventurerGeneratorPanel';
 
 const App: React.FC = () => {
   const [generatedJSON, setGeneratedJSON] = useState<string>('');
   const [prompts, setPrompts] = useState<any[]>([]);
+  const [activePanel, setActivePanel] = useState<'generator' | 'adventurer'>('generator');
 
   const updatePrompts = (prompts: { image_prompts: { id: number; title: string; description: string; negative_prompt: string; tags: string[]; }[]; }) => {
     setPrompts(prompts.image_prompts);
@@ -15,9 +17,13 @@ const App: React.FC = () => {
 
   return (
     <div className="min-h-screen bg-amber-50 text-slate-800">
-      <Header />
+      <Header setActivePanel={setActivePanel} />
       <main className="main-content">
-        <GeneratorPanel updatePrompts={updatePrompts} />
+        {activePanel === 'generator' ? (
+          <GeneratorPanel updatePrompts={updatePrompts} />
+        ) : (
+          <AdventurerGeneratorPanel updatePrompts={updatePrompts} />
+        )}
         <OutputPanel generatedJSON={generatedJSON} />
       </main>
     </div>

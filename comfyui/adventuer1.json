@@ -1,0 +1,1303 @@
+{
+  "image_prompts": [
+  {
+    "id": 1751425233490,
+    "title": "High Human Monk",
+    "description": "An artistic anime-style depiction of a high human monk warrior. She has twin-tails ash-blonde hair and striking violet eyes.  Her transcendent clothing, pure ki, perfect balance gleams as she adopts a fighting stance, her face showing glowing mark, all framed by a soft background.",
+    "negative_prompt": "malformed anatomy, extra limbs, cartoon faces, low quality, blurry, sci-fi elements, modern clothing, contemporary items, technology, realistic photography, 3D render, western cartoon style, nsfw, inappropriate content, violence, gore",
+    "tags": [
+      "human",
+      "monk",
+      "high",
+      "ash-blonde",
+      "violet"
+    ]
+  },
+  {
+    "id": 1751425233490,
+    "title": "Mid Human Mage",
+    "description": "A beautiful anime portrait featuring a human mage with mid training. Her violet, cropped hair contrasts with her emerald eyes that twinkle with humor.  She's equipped with mage vestments, carved staff, spell component belt and meditates peacefully, displaying crooked nose against a tavern interior background.",
+    "negative_prompt": "malformed anatomy, extra limbs, cartoon faces, low quality, blurry, sci-fi elements, modern clothing, contemporary items, technology, realistic photography, 3D render, western cartoon style, nsfw, inappropriate content, violence, gore",
+    "tags": [
+      "human",
+      "mage",
+      "mid",
+      "violet",
+      "emerald"
+    ]
+  },
+  {
+    "id": 1751425233490,
+    "title": "Mid Human Monk",
+    "description": "A detailed anime portrait showing a human monk of mid experience. Her platinum hair is curly and her glowing eyes gleam with determination.  Equipped with disciplined attire, martial weapons, martial arts training, she strikes a dynamic pose with thick eyebrows, sly grin, painted face visible, set against a tavern interior background.",
+    "negative_prompt": "malformed anatomy, extra limbs, cartoon faces, low quality, blurry, sci-fi elements, modern clothing, contemporary items, technology, realistic photography, 3D render, western cartoon style, nsfw, inappropriate content, violence, gore",
+    "tags": [
+      "human",
+      "monk",
+      "mid",
+      "platinum",
+      "glowing"
+    ]
+  },
+  {
+    "id": 1751425233490,
+    "title": "Mid Human Mage",
+    "description": "An artistic anime-style depiction of a mid human mage warrior. She has fluffy brown hair and striking emerald eyes.  Her runed robe, enchanted focus, levitating tome gleams as she leans casually, her face showing long eyelashes, snarling face, all framed by a magical library background.",
+    "negative_prompt": "malformed anatomy, extra limbs, cartoon faces, low quality, blurry, sci-fi elements, modern clothing, contemporary items, technology, realistic photography, 3D render, western cartoon style, nsfw, inappropriate content, violence, gore",
+    "tags": [
+      "human",
+      "mage",
+      "mid",
+      "brown",
+      "emerald"
+    ]
+  },
+  {
+    "id": 1751425233490,
+    "title": "Mid Human Mage",
+    "description": "An artistic anime-style depiction of a mid human mage warrior. She has fluffy silver hair and striking silver eyes.  Her runed robe, orb of power, floating candles gleams as she stands confidently, her face showing beauty mark, all framed by a light gradient background.",
+    "negative_prompt": "malformed anatomy, extra limbs, cartoon faces, low quality, blurry, sci-fi elements, modern clothing, contemporary items, technology, realistic photography, 3D render, western cartoon style, nsfw, inappropriate content, violence, gore",
+    "tags": [
+      "human",
+      "mage",
+      "mid",
+      "silver",
+      "silver"
+    ]
+  },
+  {
+    "id": 1751425233490,
+    "title": "High Human Ranger",
+    "description": "A detailed anime portrait showing a human ranger of high experience. Her platinum hair is wild and her crimson eyes burn with inner fire.  Equipped with nature's blessing, legendary traps, dimensional quiver, she leans casually with snarling face, glowing mark, painted face visible, set against a tavern interior background.",
+    "negative_prompt": "malformed anatomy, extra limbs, cartoon faces, low quality, blurry, sci-fi elements, modern clothing, contemporary items, technology, realistic photography, 3D render, western cartoon style, nsfw, inappropriate content, violence, gore",
+    "tags": [
+      "human",
+      "ranger",
+      "high",
+      "platinum",
+      "crimson"
+    ]
+  },
+  {
+    "id": 1751425233490,
+    "title": "Low Human Cleric",
+    "description": "A detailed anime portrait showing a human cleric of low experience. Her copper hair is straight and her emerald eyes shine with wisdom.  Equipped with simple vestments, wooden holy symbol, offering bowl, she prepares for battle with scar visible, set against a desert landscape background.",
+    "negative_prompt": "malformed anatomy, extra limbs, cartoon faces, low quality, blurry, sci-fi elements, modern clothing, contemporary items, technology, realistic photography, 3D render, western cartoon style, nsfw, inappropriate content, violence, gore",
+    "tags": [
+      "human",
+      "cleric",
+      "low",
+      "copper",
+      "emerald"
+    ]
+  },
+  {
+    "id": 1751425233490,
+    "title": "High Human Warrior",
+    "description": "A beautiful anime portrait featuring a human warrior with high training. Her pink, short hair contrasts with her green eyes that glow with magic.  She's equipped with dragon scale armor, tower shield, royal crest and prepares for battle, displaying mole, piercing, defined jawline against a ancient temple background.",
+    "negative_prompt": "malformed anatomy, extra limbs, cartoon faces, low quality, blurry, sci-fi elements, modern clothing, contemporary items, technology, realistic photography, 3D render, western cartoon style, nsfw, inappropriate content, violence, gore",
+    "tags": [
+      "human",
+      "warrior",
+      "high",
+      "pink",
+      "green"
+    ]
+  },
+  {
+    "id": 1751425233490,
+    "title": "Low Human Bard",
+    "description": "A detailed anime portrait showing a human bard of low experience. Her blue hair is curly and her brown eyes burn with inner fire.  Equipped with traveling clothes, sling, song collection, she leans casually with sly grin visible, set against a mystical forest background.",
+    "negative_prompt": "malformed anatomy, extra limbs, cartoon faces, low quality, blurry, sci-fi elements, modern clothing, contemporary items, technology, realistic photography, 3D render, western cartoon style, nsfw, inappropriate content, violence, gore",
+    "tags": [
+      "human",
+      "bard",
+      "low",
+      "blue",
+      "brown"
+    ]
+  },
+  {
+    "id": 1751425233491,
+    "title": "High Human Monk",
+    "description": "A beautiful anime portrait featuring a human monk with high training. Her blonde, braided hair contrasts with her glowing eyes that hold ancient secrets.  She's equipped with enlightened form, transcendent techniques, enlightenment and stands at attention, displaying scar, wrinkles, theatrical eyes against a mystical forest background.",
+    "negative_prompt": "malformed anatomy, extra limbs, cartoon faces, low quality, blurry, sci-fi elements, modern clothing, contemporary items, technology, realistic photography, 3D render, western cartoon style, nsfw, inappropriate content, violence, gore",
+    "tags": [
+      "human",
+      "monk",
+      "high",
+      "blonde",
+      "glowing"
+    ]
+  },
+  {
+    "id": 1751425233491,
+    "title": "High Human Mage",
+    "description": "A detailed anime portrait showing a human mage of high experience. Her green hair is straight and her violet eyes show fierce resolve.  Equipped with archmage robes, legendary focus, dimensional storage, she looks over her shoulder with blush, dimples visible, set against a desert landscape background.",
+    "negative_prompt": "malformed anatomy, extra limbs, cartoon faces, low quality, blurry, sci-fi elements, modern clothing, contemporary items, technology, realistic photography, 3D render, western cartoon style, nsfw, inappropriate content, violence, gore",
+    "tags": [
+      "human",
+      "mage",
+      "high",
+      "green",
+      "violet"
+    ]
+  },
+  {
+    "id": 1751425233491,
+    "title": "High Human Barbarian",
+    "description": "An anime-style portrait of a high-level human barbarian with blue top knot hair and silver eyes.  She wears chieftain regalia, legendary greataxe, legendary scars and has beauty mark, scar, prepares for battle against a desert landscape background.",
+    "negative_prompt": "malformed anatomy, extra limbs, cartoon faces, low quality, blurry, sci-fi elements, modern clothing, contemporary items, technology, realistic photography, 3D render, western cartoon style, nsfw, inappropriate content, violence, gore",
+    "tags": [
+      "human",
+      "barbarian",
+      "high",
+      "blue",
+      "silver"
+    ]
+  },
+  {
+    "id": 1751425233491,
+    "title": "Low Human Paladin",
+    "description": "An artistic anime-style depiction of a low human paladin warrior. She has messy ash-blonde hair and striking violet eyes.  Her novice gear, training sword, simple faith gleams as she leans casually, her face showing crooked nose, painted face, beauty mark, all framed by a tavern interior background.",
+    "negative_prompt": "malformed anatomy, extra limbs, cartoon faces, low quality, blurry, sci-fi elements, modern clothing, contemporary items, technology, realistic photography, 3D render, western cartoon style, nsfw, inappropriate content, violence, gore",
+    "tags": [
+      "human",
+      "paladin",
+      "low",
+      "ash-blonde",
+      "violet"
+    ]
+  },
+  {
+    "id": 1751425233491,
+    "title": "Low Human Ranger",
+    "description": "An anime-style portrait of a low-level human ranger with brown straight hair and crimson eyes.  She wears leather armor, hunting knife, rope and has blush, leans casually against a minimal background.",
+    "negative_prompt": "malformed anatomy, extra limbs, cartoon faces, low quality, blurry, sci-fi elements, modern clothing, contemporary items, technology, realistic photography, 3D render, western cartoon style, nsfw, inappropriate content, violence, gore",
+    "tags": [
+      "human",
+      "ranger",
+      "low",
+      "brown",
+      "crimson"
+    ]
+  },
+  {
+    "id": 1751425233491,
+    "title": "High Human Monk",
+    "description": "A beautiful anime portrait featuring a human monk with high training. Her emerald, fluffy hair contrasts with her crimson eyes that reflect deep thought.  She's equipped with transcendent clothing, transcendent techniques, enlightenment and meditates peacefully, displaying defined jawline against a magical library background.",
+    "negative_prompt": "malformed anatomy, extra limbs, cartoon faces, low quality, blurry, sci-fi elements, modern clothing, contemporary items, technology, realistic photography, 3D render, western cartoon style, nsfw, inappropriate content, violence, gore",
+    "tags": [
+      "human",
+      "monk",
+      "high",
+      "emerald",
+      "crimson"
+    ]
+  },
+  {
+    "id": 1751425233491,
+    "title": "Mid Human Ranger",
+    "description": "A detailed anime portrait showing a human ranger of mid experience. Her white hair is shoulder-length and her violet eyes reflect deep thought.  Equipped with forest cloak, twin blades, wayfinder compass, she looks over her shoulder with piercing, beauty mark visible, set against a ancient temple background.",
+    "negative_prompt": "malformed anatomy, extra limbs, cartoon faces, low quality, blurry, sci-fi elements, modern clothing, contemporary items, technology, realistic photography, 3D render, western cartoon style, nsfw, inappropriate content, violence, gore",
+    "tags": [
+      "human",
+      "ranger",
+      "mid",
+      "white",
+      "violet"
+    ]
+  },
+  {
+    "id": 1751425233491,
+    "title": "High Human Monk",
+    "description": "An artistic anime-style depiction of a high human monk warrior. She has wavy yellow hair and striking sapphire eyes.  Her enlightened form, pure ki, enlightenment gleams as she gazes into the distance, her face showing piercing, beauty mark, all framed by a tavern interior background.",
+    "negative_prompt": "malformed anatomy, extra limbs, cartoon faces, low quality, blurry, sci-fi elements, modern clothing, contemporary items, technology, realistic photography, 3D render, western cartoon style, nsfw, inappropriate content, violence, gore",
+    "tags": [
+      "human",
+      "monk",
+      "high",
+      "yellow",
+      "sapphire"
+    ]
+  },
+  {
+    "id": 1751425233491,
+    "title": "High Human Mage",
+    "description": "A beautiful anime portrait featuring a human mage with high training. Her emerald, messy hair contrasts with her sapphire eyes that glow with magic.  She's equipped with archmage robes, artifact orb, dimensional storage and meditates peacefully, displaying freckles, snarling face, jeweled forehead against a mountain peak background.",
+    "negative_prompt": "malformed anatomy, extra limbs, cartoon faces, low quality, blurry, sci-fi elements, modern clothing, contemporary items, technology, realistic photography, 3D render, western cartoon style, nsfw, inappropriate content, violence, gore",
+    "tags": [
+      "human",
+      "mage",
+      "high",
+      "emerald",
+      "sapphire"
+    ]
+  },
+  {
+    "id": 1751425233491,
+    "title": "High Human Warrior",
+    "description": "A detailed anime portrait showing a human warrior of high experience. Her white hair is short and her glowing eyes gleam with determination.  Equipped with enchanted plate, masterwork greatsword, ceremonial cloak, she strikes a dynamic pose with blush visible, set against a minimal background.",
+    "negative_prompt": "malformed anatomy, extra limbs, cartoon faces, low quality, blurry, sci-fi elements, modern clothing, contemporary items, technology, realistic photography, 3D render, western cartoon style, nsfw, inappropriate content, violence, gore",
+    "tags": [
+      "human",
+      "warrior",
+      "high",
+      "white",
+      "glowing"
+    ]
+  },
+  {
+    "id": 1751425233491,
+    "title": "Mid Human Monk",
+    "description": "A beautiful anime portrait featuring a human monk with mid training. Her ash-blonde, side-swept hair contrasts with her golden eyes that burn with inner fire.  She's equipped with monk robes, chi focus, temple connection and poses heroically, displaying piercing against a castle courtyard background.",
+    "negative_prompt": "malformed anatomy, extra limbs, cartoon faces, low quality, blurry, sci-fi elements, modern clothing, contemporary items, technology, realistic photography, 3D render, western cartoon style, nsfw, inappropriate content, violence, gore",
+    "tags": [
+      "human",
+      "monk",
+      "mid",
+      "ash-blonde",
+      "golden"
+    ]
+  },
+  {
+    "id": 1751425233491,
+    "title": "Mid Human Monk",
+    "description": "A beautiful anime portrait featuring a human monk with mid training. Her red, elegant updo hair contrasts with her sapphire eyes that show fierce resolve.  She's equipped with disciplined attire, chi focus, martial arts training and stands at attention, displaying sharp eyes against a desert landscape background.",
+    "negative_prompt": "malformed anatomy, extra limbs, cartoon faces, low quality, blurry, sci-fi elements, modern clothing, contemporary items, technology, realistic photography, 3D render, western cartoon style, nsfw, inappropriate content, violence, gore",
+    "tags": [
+      "human",
+      "monk",
+      "mid",
+      "red",
+      "sapphire"
+    ]
+  },
+  {
+    "id": 1751425233491,
+    "title": "High Human Warrior",
+    "description": "A beautiful anime portrait featuring a human warrior with high training. Her platinum, cropped hair contrasts with her hazel eyes that shine with wisdom.  She's equipped with full plate armor, masterwork greatsword, royal crest and leans casually, displaying calm expression, scar against a mountain peak background.",
+    "negative_prompt": "malformed anatomy, extra limbs, cartoon faces, low quality, blurry, sci-fi elements, modern clothing, contemporary items, technology, realistic photography, 3D render, western cartoon style, nsfw, inappropriate content, violence, gore",
+    "tags": [
+      "human",
+      "warrior",
+      "high",
+      "platinum",
+      "hazel"
+    ]
+  },
+  {
+    "id": 1751425233491,
+    "title": "Low Human Barbarian",
+    "description": "A beautiful anime portrait featuring a human barbarian with low training. Her yellow, wavy hair contrasts with her ice blue eyes that radiate confidence.  She's equipped with fur wraps, stone axe, bone necklace and poses heroically, displaying tattooed, jeweled forehead, smiling face against a mountain peak background.",
+    "negative_prompt": "malformed anatomy, extra limbs, cartoon faces, low quality, blurry, sci-fi elements, modern clothing, contemporary items, technology, realistic photography, 3D render, western cartoon style, nsfw, inappropriate content, violence, gore",
+    "tags": [
+      "human",
+      "barbarian",
+      "low",
+      "yellow",
+      "ice blue"
+    ]
+  },
+  {
+    "id": 1751425233491,
+    "title": "Low Human Barbarian",
+    "description": "A detailed anime portrait showing a human barbarian of low experience. Her emerald hair is wild and her golden eyes gleam with determination.  Equipped with bone jewelry, wooden club, bone necklace, she adopts a fighting stance with battle scars, stern gaze visible, set against a tavern interior background.",
+    "negative_prompt": "malformed anatomy, extra limbs, cartoon faces, low quality, blurry, sci-fi elements, modern clothing, contemporary items, technology, realistic photography, 3D render, western cartoon style, nsfw, inappropriate content, violence, gore",
+    "tags": [
+      "human",
+      "barbarian",
+      "low",
+      "emerald",
+      "golden"
+    ]
+  },
+  {
+    "id": 1751425233491,
+    "title": "Low Human Cleric",
+    "description": "A detailed anime portrait showing a human cleric of low experience. Her yellow hair is wavy and her violet eyes radiate confidence.  Equipped with simple vestments, simple mace, candles, she leans casually with runes on skin visible, set against a neutral background.",
+    "negative_prompt": "malformed anatomy, extra limbs, cartoon faces, low quality, blurry, sci-fi elements, modern clothing, contemporary items, technology, realistic photography, 3D render, western cartoon style, nsfw, inappropriate content, violence, gore",
+    "tags": [
+      "human",
+      "cleric",
+      "low",
+      "yellow",
+      "violet"
+    ]
+  },
+  {
+    "id": 1751425233491,
+    "title": "Mid Human Warrior",
+    "description": "A beautiful anime portrait featuring a human warrior with mid training. Her white, ponytail hair contrasts with her hazel eyes that gleam with determination.  She's equipped with chainmail armor, steel longsword, leather boots and strikes a dynamic pose, displaying mole, battle scars, sly grin against a tavern interior background.",
+    "negative_prompt": "malformed anatomy, extra limbs, cartoon faces, low quality, blurry, sci-fi elements, modern clothing, contemporary items, technology, realistic photography, 3D render, western cartoon style, nsfw, inappropriate content, violence, gore",
+    "tags": [
+      "human",
+      "warrior",
+      "mid",
+      "white",
+      "hazel"
+    ]
+  },
+  {
+    "id": 1751425233491,
+    "title": "High Human Warrior",
+    "description": "A detailed anime portrait showing a human warrior of high experience. Her blue hair is side-swept and her golden eyes radiate confidence.  Equipped with enchanted plate, flaming blade, royal crest, she leans casually with tattooed visible, set against a tavern interior background.",
+    "negative_prompt": "malformed anatomy, extra limbs, cartoon faces, low quality, blurry, sci-fi elements, modern clothing, contemporary items, technology, realistic photography, 3D render, western cartoon style, nsfw, inappropriate content, violence, gore",
+    "tags": [
+      "human",
+      "warrior",
+      "high",
+      "blue",
+      "golden"
+    ]
+  },
+  {
+    "id": 1751425233491,
+    "title": "Mid Human Warrior",
+    "description": "A detailed anime portrait showing a human warrior of mid experience. Her grey hair is ponytail and her crimson eyes reflect deep thought.  Equipped with chainmail armor, battle axe, sturdy belt, she stands at attention with calm expression, glowing fingers, tribal markings visible, set against a castle courtyard background.",
+    "negative_prompt": "malformed anatomy, extra limbs, cartoon faces, low quality, blurry, sci-fi elements, modern clothing, contemporary items, technology, realistic photography, 3D render, western cartoon style, nsfw, inappropriate content, violence, gore",
+    "tags": [
+      "human",
+      "warrior",
+      "mid",
+      "grey",
+      "crimson"
+    ]
+  },
+  {
+    "id": 1751425233491,
+    "title": "High Human Rogue",
+    "description": "An artistic anime-style depiction of a high human rogue warrior. She has cropped pink hair and striking green eyes.  Her boots of silence, legendary poisons, ring of invisibility gleams as she gazes into the distance, her face showing thick eyebrows, runes on skin, all framed by a clean background.",
+    "negative_prompt": "malformed anatomy, extra limbs, cartoon faces, low quality, blurry, sci-fi elements, modern clothing, contemporary items, technology, realistic photography, 3D render, western cartoon style, nsfw, inappropriate content, violence, gore",
+    "tags": [
+      "human",
+      "rogue",
+      "high",
+      "pink",
+      "green"
+    ]
+  },
+  {
+    "id": 1751425233491,
+    "title": "High Human Warrior",
+    "description": "A detailed anime portrait showing a human warrior of high experience. Her blue hair is cropped and her sapphire eyes gleam with determination.  Equipped with dragon scale armor, tower shield, enchanted gauntlets, she looks over her shoulder with mole, beauty mark, wrinkles visible, set against a castle courtyard background.",
+    "negative_prompt": "malformed anatomy, extra limbs, cartoon faces, low quality, blurry, sci-fi elements, modern clothing, contemporary items, technology, realistic photography, 3D render, western cartoon style, nsfw, inappropriate content, violence, gore",
+    "tags": [
+      "human",
+      "warrior",
+      "high",
+      "blue",
+      "sapphire"
+    ]
+  },
+  {
+    "id": 1751425233491,
+    "title": "Low Human Rogue",
+    "description": "A beautiful anime portrait featuring a human rogue with low training. Her white, tied back hair contrasts with her silver eyes that sparkle with mischief.  She's equipped with dark tunic, worn shortsword, shadowy cloak and adopts a fighting stance, displaying beauty mark, thoughtful eyes, tribal markings against a mountain peak background.",
+    "negative_prompt": "malformed anatomy, extra limbs, cartoon faces, low quality, blurry, sci-fi elements, modern clothing, contemporary items, technology, realistic photography, 3D render, western cartoon style, nsfw, inappropriate content, violence, gore",
+    "tags": [
+      "human",
+      "rogue",
+      "low",
+      "white",
+      "silver"
+    ]
+  },
+  {
+    "id": 1751425233491,
+    "title": "High Human Monk",
+    "description": "A detailed anime portrait showing a human monk of high experience. Her orange hair is straight and her sapphire eyes show fierce resolve.  Equipped with robes of perfection, pure ki, perfect balance, she looks over her shoulder with scar, radiant face visible, set against a light gradient background.",
+    "negative_prompt": "malformed anatomy, extra limbs, cartoon faces, low quality, blurry, sci-fi elements, modern clothing, contemporary items, technology, realistic photography, 3D render, western cartoon style, nsfw, inappropriate content, violence, gore",
+    "tags": [
+      "human",
+      "monk",
+      "high",
+      "orange",
+      "sapphire"
+    ]
+  },
+  {
+    "id": 1751425233491,
+    "title": "Mid Human Bard",
+    "description": "An artistic anime-style depiction of a mid human bard warrior. She has braided ash-blonde hair and striking brown eyes.  Her enchanted outfit, magic focus, performance venues gleams as she poses heroically, her face showing tribal markings, freckles, jeweled forehead, all framed by a tavern interior background.",
+    "negative_prompt": "malformed anatomy, extra limbs, cartoon faces, low quality, blurry, sci-fi elements, modern clothing, contemporary items, technology, realistic photography, 3D render, western cartoon style, nsfw, inappropriate content, violence, gore",
+    "tags": [
+      "human",
+      "bard",
+      "mid",
+      "ash-blonde",
+      "brown"
+    ]
+  },
+  {
+    "id": 1751425233491,
+    "title": "High Human Monk",
+    "description": "An anime-style portrait of a high-level human monk with chestnut cropped hair and silver eyes.  She wears spiritual vestments, transcendent techniques, spiritual transcendence and has tattooed, battle scars, strikes a dynamic pose against a tavern interior background.",
+    "negative_prompt": "malformed anatomy, extra limbs, cartoon faces, low quality, blurry, sci-fi elements, modern clothing, contemporary items, technology, realistic photography, 3D render, western cartoon style, nsfw, inappropriate content, violence, gore",
+    "tags": [
+      "human",
+      "monk",
+      "high",
+      "chestnut",
+      "silver"
+    ]
+  },
+  {
+    "id": 1751425233491,
+    "title": "Low Human Cleric",
+    "description": "An artistic anime-style depiction of a low human cleric warrior. She has cropped platinum hair and striking sapphire eyes.  Her wooden sandals, healing herbs, candles gleams as she gazes into the distance, her face showing crooked nose, all framed by a mystical forest background.",
+    "negative_prompt": "malformed anatomy, extra limbs, cartoon faces, low quality, blurry, sci-fi elements, modern clothing, contemporary items, technology, realistic photography, 3D render, western cartoon style, nsfw, inappropriate content, violence, gore",
+    "tags": [
+      "human",
+      "cleric",
+      "low",
+      "platinum",
+      "sapphire"
+    ]
+  },
+  {
+    "id": 1751425233491,
+    "title": "Low Human Bard",
+    "description": "A detailed anime portrait showing a human bard of low experience. Her blonde hair is cropped and her blue eyes shine with wisdom.  Equipped with traveling clothes, sling, coin purse, she leans casually with freckles, dimples, glowing fingers visible, set against a neutral background.",
+    "negative_prompt": "malformed anatomy, extra limbs, cartoon faces, low quality, blurry, sci-fi elements, modern clothing, contemporary items, technology, realistic photography, 3D render, western cartoon style, nsfw, inappropriate content, violence, gore",
+    "tags": [
+      "human",
+      "bard",
+      "low",
+      "blonde",
+      "blue"
+    ]
+  },
+  {
+    "id": 1751425233491,
+    "title": "Mid Human Monk",
+    "description": "An anime-style portrait of a mid-level human monk with emerald medium-length hair and ice blue eyes.  She wears disciplined attire, inner power, spiritual discipline and has mole, prepares for battle against a mystical forest background.",
+    "negative_prompt": "malformed anatomy, extra limbs, cartoon faces, low quality, blurry, sci-fi elements, modern clothing, contemporary items, technology, realistic photography, 3D render, western cartoon style, nsfw, inappropriate content, violence, gore",
+    "tags": [
+      "human",
+      "monk",
+      "mid",
+      "emerald",
+      "ice blue"
+    ]
+  },
+  {
+    "id": 1751425233491,
+    "title": "High Human Warrior",
+    "description": "An artistic anime-style depiction of a high human warrior warrior. She has wavy white hair and striking silver eyes.  Her enchanted plate, legendary weapon, enchanted gauntlets gleams as she stands at attention, her face showing tattoo, thoughtful eyes, theatrical eyes, all framed by a mystical forest background.",
+    "negative_prompt": "malformed anatomy, extra limbs, cartoon faces, low quality, blurry, sci-fi elements, modern clothing, contemporary items, technology, realistic photography, 3D render, western cartoon style, nsfw, inappropriate content, violence, gore",
+    "tags": [
+      "human",
+      "warrior",
+      "high",
+      "white",
+      "silver"
+    ]
+  },
+  {
+    "id": 1751425233491,
+    "title": "Mid Human Bard",
+    "description": "A beautiful anime portrait featuring a human bard with mid training. Her pink, ponytail hair contrasts with her glowing eyes that reflect deep thought.  She's equipped with enchanted outfit, magic focus, contacts and stands confidently, displaying piercing against a magical library background.",
+    "negative_prompt": "malformed anatomy, extra limbs, cartoon faces, low quality, blurry, sci-fi elements, modern clothing, contemporary items, technology, realistic photography, 3D render, western cartoon style, nsfw, inappropriate content, violence, gore",
+    "tags": [
+      "human",
+      "bard",
+      "mid",
+      "pink",
+      "glowing"
+    ]
+  },
+  {
+    "id": 1751425233491,
+    "title": "High Human Mage",
+    "description": "A beautiful anime portrait featuring a human mage with high training. Her brown, wavy hair contrasts with her copper eyes that glow with magic.  She's equipped with archmage robes, legendary focus, dimensional storage and poses heroically, displaying weathered face against a neutral background.",
+    "negative_prompt": "malformed anatomy, extra limbs, cartoon faces, low quality, blurry, sci-fi elements, modern clothing, contemporary items, technology, realistic photography, 3D render, western cartoon style, nsfw, inappropriate content, violence, gore",
+    "tags": [
+      "human",
+      "mage",
+      "high",
+      "brown",
+      "copper"
+    ]
+  },
+  {
+    "id": 1751425233491,
+    "title": "Mid Human Cleric",
+    "description": "An anime-style portrait of a mid-level human cleric with green messy hair and blue eyes.  She wears chain shirt, blessed mace, holy water and has piercing, stern gaze, tribal markings, stands at attention against a tavern interior background.",
+    "negative_prompt": "malformed anatomy, extra limbs, cartoon faces, low quality, blurry, sci-fi elements, modern clothing, contemporary items, technology, realistic photography, 3D render, western cartoon style, nsfw, inappropriate content, violence, gore",
+    "tags": [
+      "human",
+      "cleric",
+      "mid",
+      "green",
+      "blue"
+    ]
+  },
+  {
+    "id": 1751425233491,
+    "title": "Low Human Ranger",
+    "description": "An artistic anime-style depiction of a low human ranger warrior. She has shoulder-length chestnut hair and striking ice blue eyes.  Her worn boots, simple trap, survival kit gleams as she meditates peacefully, her face showing jeweled forehead, all framed by a minimal background.",
+    "negative_prompt": "malformed anatomy, extra limbs, cartoon faces, low quality, blurry, sci-fi elements, modern clothing, contemporary items, technology, realistic photography, 3D render, western cartoon style, nsfw, inappropriate content, violence, gore",
+    "tags": [
+      "human",
+      "ranger",
+      "low",
+      "chestnut",
+      "ice blue"
+    ]
+  },
+  {
+    "id": 1751425233491,
+    "title": "High Human Warrior",
+    "description": "A beautiful anime portrait featuring a human warrior with high training. Her white, twin-tails hair contrasts with her yellow eyes that reflect deep thought.  She's equipped with full plate armor, tower shield, magic amulet and adopts a fighting stance, displaying tattoo, tattooed against a magical library background.",
+    "negative_prompt": "malformed anatomy, extra limbs, cartoon faces, low quality, blurry, sci-fi elements, modern clothing, contemporary items, technology, realistic photography, 3D render, western cartoon style, nsfw, inappropriate content, violence, gore",
+    "tags": [
+      "human",
+      "warrior",
+      "high",
+      "white",
+      "yellow"
+    ]
+  },
+  {
+    "id": 1751425233491,
+    "title": "High Human Mage",
+    "description": "An anime-style portrait of a high-level human mage with black fluffy hair and crimson eyes.  She wears cosmic robes, staff of power, time-warped accessories and has smiling face, meditates peacefully against a soft background.",
+    "negative_prompt": "malformed anatomy, extra limbs, cartoon faces, low quality, blurry, sci-fi elements, modern clothing, contemporary items, technology, realistic photography, 3D render, western cartoon style, nsfw, inappropriate content, violence, gore",
+    "tags": [
+      "human",
+      "mage",
+      "high",
+      "black",
+      "crimson"
+    ]
+  },
+  {
+    "id": 1751425233491,
+    "title": "Low Human Ranger",
+    "description": "An artistic anime-style depiction of a low human ranger warrior. She has twin-tails emerald hair and striking ice blue eyes.  Her leather armor, wooden arrows, survival kit gleams as she poses heroically, her face showing wrinkles, weathered face, calm expression, all framed by a mountain peak background.",
+    "negative_prompt": "malformed anatomy, extra limbs, cartoon faces, low quality, blurry, sci-fi elements, modern clothing, contemporary items, technology, realistic photography, 3D render, western cartoon style, nsfw, inappropriate content, violence, gore",
+    "tags": [
+      "human",
+      "ranger",
+      "low",
+      "emerald",
+      "ice blue"
+    ]
+  },
+  {
+    "id": 1751425233491,
+    "title": "Low Human Barbarian",
+    "description": "An anime-style portrait of a low-level human barbarian with green shoulder-length hair and sapphire eyes.  She wears tribal clothes, stone axe, war paint and has piercing, poses heroically against a clean background.",
+    "negative_prompt": "malformed anatomy, extra limbs, cartoon faces, low quality, blurry, sci-fi elements, modern clothing, contemporary items, technology, realistic photography, 3D render, western cartoon style, nsfw, inappropriate content, violence, gore",
+    "tags": [
+      "human",
+      "barbarian",
+      "low",
+      "green",
+      "sapphire"
+    ]
+  },
+  {
+    "id": 1751425233491,
+    "title": "Low Human Rogue",
+    "description": "A beautiful anime portrait featuring a human rogue with low training. Her emerald, long hair contrasts with her hazel eyes that gleam with determination.  She's equipped with leather vest, rusty dagger, worn boots and meditates peacefully, displaying radiant face against a tavern interior background.",
+    "negative_prompt": "malformed anatomy, extra limbs, cartoon faces, low quality, blurry, sci-fi elements, modern clothing, contemporary items, technology, realistic photography, 3D render, western cartoon style, nsfw, inappropriate content, violence, gore",
+    "tags": [
+      "human",
+      "rogue",
+      "low",
+      "emerald",
+      "hazel"
+    ]
+  },
+  {
+    "id": 1751425233491,
+    "title": "High Human Rogue",
+    "description": "An anime-style portrait of a high-level human rogue with platinum straight hair and hazel eyes.  She wears glamered armor, enchanted crossbow, dimensional lockpicks and has dimples, strikes a dynamic pose against a clean background.",
+    "negative_prompt": "malformed anatomy, extra limbs, cartoon faces, low quality, blurry, sci-fi elements, modern clothing, contemporary items, technology, realistic photography, 3D render, western cartoon style, nsfw, inappropriate content, violence, gore",
+    "tags": [
+      "human",
+      "rogue",
+      "high",
+      "platinum",
+      "hazel"
+    ]
+  },
+  {
+    "id": 1751425233491,
+    "title": "Low Human Paladin",
+    "description": "A detailed anime portrait showing a human paladin of low experience. Her green hair is short and her copper eyes gleam with determination.  Equipped with simple armor, holy symbol, code of conduct, she prepares for battle with calm expression, radiant face visible, set against a neutral background.",
+    "negative_prompt": "malformed anatomy, extra limbs, cartoon faces, low quality, blurry, sci-fi elements, modern clothing, contemporary items, technology, realistic photography, 3D render, western cartoon style, nsfw, inappropriate content, violence, gore",
+    "tags": [
+      "human",
+      "paladin",
+      "low",
+      "green",
+      "copper"
+    ]
+  },
+  {
+    "id": 1751425233491,
+    "title": "Mid Human Monk",
+    "description": "A beautiful anime portrait featuring a human monk with mid training. Her blue, top knot hair contrasts with her golden eyes that shine with wisdom.  She's equipped with focused clothing, inner power, spiritual discipline and leans casually, displaying wrinkles against a magical library background.",
+    "negative_prompt": "malformed anatomy, extra limbs, cartoon faces, low quality, blurry, sci-fi elements, modern clothing, contemporary items, technology, realistic photography, 3D render, western cartoon style, nsfw, inappropriate content, violence, gore",
+    "tags": [
+      "human",
+      "monk",
+      "mid",
+      "blue",
+      "golden"
+    ]
+  },
+  {
+    "id": 1751425233491,
+    "title": "High Human Cleric",
+    "description": "An anime-style portrait of a high-level human cleric with red fluffy hair and violet eyes.  She wears wings of light, staff of healing, direct divine connection and has freckles, dimples, sharp eyes, adopts a fighting stance against a soft background.",
+    "negative_prompt": "malformed anatomy, extra limbs, cartoon faces, low quality, blurry, sci-fi elements, modern clothing, contemporary items, technology, realistic photography, 3D render, western cartoon style, nsfw, inappropriate content, violence, gore",
+    "tags": [
+      "human",
+      "cleric",
+      "high",
+      "red",
+      "violet"
+    ]
+  },
+  {
+    "id": 1751425233491,
+    "title": "Low Human Mage",
+    "description": "An artistic anime-style depiction of a low human mage warrior. She has wild platinum hair and striking violet eyes.  Her apprentice robes, basic wand, ink-stained fingers gleams as she meditates peacefully, her face showing sharp eyes, peaceful expression, all framed by a mountain peak background.",
+    "negative_prompt": "malformed anatomy, extra limbs, cartoon faces, low quality, blurry, sci-fi elements, modern clothing, contemporary items, technology, realistic photography, 3D render, western cartoon style, nsfw, inappropriate content, violence, gore",
+    "tags": [
+      "human",
+      "mage",
+      "low",
+      "platinum",
+      "violet"
+    ]
+  },
+  {
+    "id": 1751425233491,
+    "title": "Mid Human Bard",
+    "description": "A detailed anime portrait showing a human bard of mid experience. Her green hair is messy and her sapphire eyes glow with magic.  Equipped with bardic costume, spell component, reputation, she poses heroically with freckles, theatrical eyes visible, set against a magical library background.",
+    "negative_prompt": "malformed anatomy, extra limbs, cartoon faces, low quality, blurry, sci-fi elements, modern clothing, contemporary items, technology, realistic photography, 3D render, western cartoon style, nsfw, inappropriate content, violence, gore",
+    "tags": [
+      "human",
+      "bard",
+      "mid",
+      "green",
+      "sapphire"
+    ]
+  },
+  {
+    "id": 1751425233491,
+    "title": "Mid Human Bard",
+    "description": "A detailed anime portrait showing a human bard of mid experience. Her silver hair is twin-tails and her golden eyes burn with inner fire.  Equipped with fine clothes, rapier, reputation, she looks over her shoulder with long eyelashes visible, set against a light gradient background.",
+    "negative_prompt": "malformed anatomy, extra limbs, cartoon faces, low quality, blurry, sci-fi elements, modern clothing, contemporary items, technology, realistic photography, 3D render, western cartoon style, nsfw, inappropriate content, violence, gore",
+    "tags": [
+      "human",
+      "bard",
+      "mid",
+      "silver",
+      "golden"
+    ]
+  },
+  {
+    "id": 1751425233491,
+    "title": "Mid Human Paladin",
+    "description": "A beautiful anime portrait featuring a human paladin with mid training. Her violet, top knot hair contrasts with her hazel eyes that shine with wisdom.  She's equipped with divine protection, divine focus, divine blessing and strikes a dynamic pose, displaying tattoo, tribal markings, smiling face against a desert landscape background.",
+    "negative_prompt": "malformed anatomy, extra limbs, cartoon faces, low quality, blurry, sci-fi elements, modern clothing, contemporary items, technology, realistic photography, 3D render, western cartoon style, nsfw, inappropriate content, violence, gore",
+    "tags": [
+      "human",
+      "paladin",
+      "mid",
+      "violet",
+      "hazel"
+    ]
+  },
+  {
+    "id": 1751425233491,
+    "title": "High Human Paladin",
+    "description": "An artistic anime-style depiction of a high human paladin warrior. She has tied back black hair and striking yellow eyes.  Her divine protection, holy avenger, celestial connection gleams as she adopts a fighting stance, her face showing beauty mark, tattoo, peaceful expression, all framed by a minimal background.",
+    "negative_prompt": "malformed anatomy, extra limbs, cartoon faces, low quality, blurry, sci-fi elements, modern clothing, contemporary items, technology, realistic photography, 3D render, western cartoon style, nsfw, inappropriate content, violence, gore",
+    "tags": [
+      "human",
+      "paladin",
+      "high",
+      "black",
+      "yellow"
+    ]
+  },
+  {
+    "id": 1751425233491,
+    "title": "Mid Human Ranger",
+    "description": "An anime-style portrait of a mid-level human ranger with grey fluffy hair and blue eyes.  She wears forest cloak, twin blades, wayfinder compass and has runes on skin, battle scars, defined jawline, stands at attention against a minimal background.",
+    "negative_prompt": "malformed anatomy, extra limbs, cartoon faces, low quality, blurry, sci-fi elements, modern clothing, contemporary items, technology, realistic photography, 3D render, western cartoon style, nsfw, inappropriate content, violence, gore",
+    "tags": [
+      "human",
+      "ranger",
+      "mid",
+      "grey",
+      "blue"
+    ]
+  },
+  {
+    "id": 1751425233491,
+    "title": "Low Human Cleric",
+    "description": "A beautiful anime portrait featuring a human cleric with low training. Her platinum, long hair contrasts with her emerald eyes that radiate confidence.  She's equipped with cloth armor, prayer beads, sacred texts and poses heroically, displaying peaceful expression, freckles against a castle courtyard background.",
+    "negative_prompt": "malformed anatomy, extra limbs, cartoon faces, low quality, blurry, sci-fi elements, modern clothing, contemporary items, technology, realistic photography, 3D render, western cartoon style, nsfw, inappropriate content, violence, gore",
+    "tags": [
+      "human",
+      "cleric",
+      "low",
+      "platinum",
+      "emerald"
+    ]
+  },
+  {
+    "id": 1751425233491,
+    "title": "Mid Human Bard",
+    "description": "A detailed anime portrait showing a human bard of mid experience. Her blonde hair is tied back and her crimson eyes glow with magic.  Equipped with performance gear, spell component, fan following, she strikes a dynamic pose with tattoo visible, set against a neutral background.",
+    "negative_prompt": "malformed anatomy, extra limbs, cartoon faces, low quality, blurry, sci-fi elements, modern clothing, contemporary items, technology, realistic photography, 3D render, western cartoon style, nsfw, inappropriate content, violence, gore",
+    "tags": [
+      "human",
+      "bard",
+      "mid",
+      "blonde",
+      "crimson"
+    ]
+  },
+  {
+    "id": 1751425233491,
+    "title": "Mid Human Mage",
+    "description": "An anime-style portrait of a mid-level human mage with ash-blonde shoulder-length hair and ice blue eyes.  She wears enchanted cloak, carved staff, magical amulet and has glowing fingers, tribal markings, sly grin, adopts a fighting stance against a ancient temple background.",
+    "negative_prompt": "malformed anatomy, extra limbs, cartoon faces, low quality, blurry, sci-fi elements, modern clothing, contemporary items, technology, realistic photography, 3D render, western cartoon style, nsfw, inappropriate content, violence, gore",
+    "tags": [
+      "human",
+      "mage",
+      "mid",
+      "ash-blonde",
+      "ice blue"
+    ]
+  },
+  {
+    "id": 1751425233491,
+    "title": "Mid Human Ranger",
+    "description": "A detailed anime portrait showing a human ranger of mid experience. Her blonde hair is cropped and her silver eyes twinkle with humor.  Equipped with camouflage gear, twin blades, wayfinder compass, she adopts a fighting stance with freckles, serious brow, glowing mark visible, set against a minimal background.",
+    "negative_prompt": "malformed anatomy, extra limbs, cartoon faces, low quality, blurry, sci-fi elements, modern clothing, contemporary items, technology, realistic photography, 3D render, western cartoon style, nsfw, inappropriate content, violence, gore",
+    "tags": [
+      "human",
+      "ranger",
+      "mid",
+      "blonde",
+      "silver"
+    ]
+  },
+  {
+    "id": 1751425233491,
+    "title": "High Human Paladin",
+    "description": "A beautiful anime portrait featuring a human paladin with high training. Her yellow, straight hair contrasts with her copper eyes that glow with magic.  She's equipped with holy radiance, holy avenger, avatar status and looks over her shoulder, displaying runes on skin against a neutral background.",
+    "negative_prompt": "malformed anatomy, extra limbs, cartoon faces, low quality, blurry, sci-fi elements, modern clothing, contemporary items, technology, realistic photography, 3D render, western cartoon style, nsfw, inappropriate content, violence, gore",
+    "tags": [
+      "human",
+      "paladin",
+      "high",
+      "yellow",
+      "copper"
+    ]
+  },
+  {
+    "id": 1751425233491,
+    "title": "Low Human Ranger",
+    "description": "A detailed anime portrait showing a human ranger of low experience. Her grey hair is shoulder-length and her hazel eyes sparkle with mischief.  Equipped with travel clothes, simple trap, rope, she prepares for battle with sharp eyes, glowing mark visible, set against a soft background.",
+    "negative_prompt": "malformed anatomy, extra limbs, cartoon faces, low quality, blurry, sci-fi elements, modern clothing, contemporary items, technology, realistic photography, 3D render, western cartoon style, nsfw, inappropriate content, violence, gore",
+    "tags": [
+      "human",
+      "ranger",
+      "low",
+      "grey",
+      "hazel"
+    ]
+  },
+  {
+    "id": 1751425233491,
+    "title": "High Human Ranger",
+    "description": "A detailed anime portrait showing a human ranger of high experience. Her platinum hair is curly and her violet eyes hold ancient secrets.  Equipped with nature's blessing, quiver of endless arrows, animal companion (large), she strikes a dynamic pose with smiling face visible, set against a mountain peak background.",
+    "negative_prompt": "malformed anatomy, extra limbs, cartoon faces, low quality, blurry, sci-fi elements, modern clothing, contemporary items, technology, realistic photography, 3D render, western cartoon style, nsfw, inappropriate content, violence, gore",
+    "tags": [
+      "human",
+      "ranger",
+      "high",
+      "platinum",
+      "violet"
+    ]
+  },
+  {
+    "id": 1751425233491,
+    "title": "Low Human Monk",
+    "description": "A beautiful anime portrait featuring a human monk with low training. Her grey, curly hair contrasts with her amber eyes that show fierce resolve.  She's equipped with training clothes, inner discipline, spiritual texts and meditates peacefully, displaying piercing, beauty mark against a desert landscape background.",
+    "negative_prompt": "malformed anatomy, extra limbs, cartoon faces, low quality, blurry, sci-fi elements, modern clothing, contemporary items, technology, realistic photography, 3D render, western cartoon style, nsfw, inappropriate content, violence, gore",
+    "tags": [
+      "human",
+      "monk",
+      "low",
+      "grey",
+      "amber"
+    ]
+  },
+  {
+    "id": 1751425233491,
+    "title": "High Human Rogue",
+    "description": "A detailed anime portrait showing a human rogue of high experience. Her yellow hair is braided and her yellow eyes twinkle with humor.  Equipped with glamered armor, vorpal dagger, dimensional lockpicks, she adopts a fighting stance with wrinkles, jeweled forehead, tattoo visible, set against a neutral background.",
+    "negative_prompt": "malformed anatomy, extra limbs, cartoon faces, low quality, blurry, sci-fi elements, modern clothing, contemporary items, technology, realistic photography, 3D render, western cartoon style, nsfw, inappropriate content, violence, gore",
+    "tags": [
+      "human",
+      "rogue",
+      "high",
+      "yellow",
+      "yellow"
+    ]
+  },
+  {
+    "id": 1751425233491,
+    "title": "Low Human Mage",
+    "description": "A detailed anime portrait showing a human mage of low experience. Her grey hair is braided and her emerald eyes twinkle with humor.  Equipped with simple dress, crystal focus, ink-stained fingers, she gazes into the distance with calm expression, sharp eyes, thick eyebrows visible, set against a neutral background.",
+    "negative_prompt": "malformed anatomy, extra limbs, cartoon faces, low quality, blurry, sci-fi elements, modern clothing, contemporary items, technology, realistic photography, 3D render, western cartoon style, nsfw, inappropriate content, violence, gore",
+    "tags": [
+      "human",
+      "mage",
+      "low",
+      "grey",
+      "emerald"
+    ]
+  },
+  {
+    "id": 1751425233491,
+    "title": "High Human Ranger",
+    "description": "An artistic anime-style depiction of a high human ranger warrior. She has ponytail silver hair and striking brown eyes.  Her dragon hide armor, oathbow, nature's voice gleams as she prepares for battle, her face showing beauty mark, weathered face, all framed by a castle courtyard background.",
+    "negative_prompt": "malformed anatomy, extra limbs, cartoon faces, low quality, blurry, sci-fi elements, modern clothing, contemporary items, technology, realistic photography, 3D render, western cartoon style, nsfw, inappropriate content, violence, gore",
+    "tags": [
+      "human",
+      "ranger",
+      "high",
+      "silver",
+      "brown"
+    ]
+  },
+  {
+    "id": 1751425233491,
+    "title": "High Human Mage",
+    "description": "An anime-style portrait of a high-level human mage with orange top knot hair and ice blue eyes.  She wears archmage robes, staff of power, dimensional storage and has stern gaze, tattoo, looks over her shoulder against a minimal background.",
+    "negative_prompt": "malformed anatomy, extra limbs, cartoon faces, low quality, blurry, sci-fi elements, modern clothing, contemporary items, technology, realistic photography, 3D render, western cartoon style, nsfw, inappropriate content, violence, gore",
+    "tags": [
+      "human",
+      "mage",
+      "high",
+      "orange",
+      "ice blue"
+    ]
+  },
+  {
+    "id": 1751425233491,
+    "title": "Low Human Ranger",
+    "description": "An artistic anime-style depiction of a low human ranger warrior. She has straight platinum hair and striking glowing eyes.  Her patched cloak, simple trap, survival kit gleams as she looks over her shoulder, her face showing thoughtful eyes, wrinkles, thick eyebrows, all framed by a neutral background.",
+    "negative_prompt": "malformed anatomy, extra limbs, cartoon faces, low quality, blurry, sci-fi elements, modern clothing, contemporary items, technology, realistic photography, 3D render, western cartoon style, nsfw, inappropriate content, violence, gore",
+    "tags": [
+      "human",
+      "ranger",
+      "low",
+      "platinum",
+      "glowing"
+    ]
+  },
+  {
+    "id": 1751425233491,
+    "title": "High Human Mage",
+    "description": "An anime-style portrait of a high-level human mage with silver long hair and ice blue eyes.  She wears starweave cloak, legendary focus, floating spellbooks and has wrinkles, beauty mark, poses heroically against a magical library background.",
+    "negative_prompt": "malformed anatomy, extra limbs, cartoon faces, low quality, blurry, sci-fi elements, modern clothing, contemporary items, technology, realistic photography, 3D render, western cartoon style, nsfw, inappropriate content, violence, gore",
+    "tags": [
+      "human",
+      "mage",
+      "high",
+      "silver",
+      "ice blue"
+    ]
+  },
+  {
+    "id": 1751425233491,
+    "title": "Mid Human Paladin",
+    "description": "An anime-style portrait of a mid-level human paladin with grey shaggy hair and amber eyes.  She wears divine protection, holy shield, divine connection and has mole, painted face, adopts a fighting stance against a soft background.",
+    "negative_prompt": "malformed anatomy, extra limbs, cartoon faces, low quality, blurry, sci-fi elements, modern clothing, contemporary items, technology, realistic photography, 3D render, western cartoon style, nsfw, inappropriate content, violence, gore",
+    "tags": [
+      "human",
+      "paladin",
+      "mid",
+      "grey",
+      "amber"
+    ]
+  },
+  {
+    "id": 1751425233491,
+    "title": "Mid Human Cleric",
+    "description": "A beautiful anime portrait featuring a human cleric with mid training. Her red, cropped hair contrasts with her silver eyes that glow with magic.  She's equipped with chain shirt, silver holy symbol, censer and looks over her shoulder, displaying peaceful expression against a light gradient background.",
+    "negative_prompt": "malformed anatomy, extra limbs, cartoon faces, low quality, blurry, sci-fi elements, modern clothing, contemporary items, technology, realistic photography, 3D render, western cartoon style, nsfw, inappropriate content, violence, gore",
+    "tags": [
+      "human",
+      "cleric",
+      "mid",
+      "red",
+      "silver"
+    ]
+  },
+  {
+    "id": 1751425233491,
+    "title": "High Human Mage",
+    "description": "An anime-style portrait of a high-level human mage with copper wavy hair and brown eyes.  She wears cosmic robes, artifact orb, crown of intellect and has crooked nose, thick eyebrows, glowing mark, looks over her shoulder against a soft background.",
+    "negative_prompt": "malformed anatomy, extra limbs, cartoon faces, low quality, blurry, sci-fi elements, modern clothing, contemporary items, technology, realistic photography, 3D render, western cartoon style, nsfw, inappropriate content, violence, gore",
+    "tags": [
+      "human",
+      "mage",
+      "high",
+      "copper",
+      "brown"
+    ]
+  },
+  {
+    "id": 1751425233491,
+    "title": "High Human Barbarian",
+    "description": "An anime-style portrait of a high-level human barbarian with midnight blue wild hair and yellow eyes.  She wears primal essence, primal weapon, legendary scars and has weathered face, looks over her shoulder against a neutral background.",
+    "negative_prompt": "malformed anatomy, extra limbs, cartoon faces, low quality, blurry, sci-fi elements, modern clothing, contemporary items, technology, realistic photography, 3D render, western cartoon style, nsfw, inappropriate content, violence, gore",
+    "tags": [
+      "human",
+      "barbarian",
+      "high",
+      "midnight blue",
+      "yellow"
+    ]
+  },
+  {
+    "id": 1751425233491,
+    "title": "High Human Barbarian",
+    "description": "A beautiful anime portrait featuring a human barbarian with high training. Her silver, ponytail hair contrasts with her violet eyes that radiate confidence.  She's equipped with primal essence, artifact club, legendary scars and looks over her shoulder, displaying battle scars, glowing fingers, sly grin against a tavern interior background.",
+    "negative_prompt": "malformed anatomy, extra limbs, cartoon faces, low quality, blurry, sci-fi elements, modern clothing, contemporary items, technology, realistic photography, 3D render, western cartoon style, nsfw, inappropriate content, violence, gore",
+    "tags": [
+      "human",
+      "barbarian",
+      "high",
+      "silver",
+      "violet"
+    ]
+  },
+  {
+    "id": 1751425233491,
+    "title": "Low Human Barbarian",
+    "description": "An artistic anime-style depiction of a low human barbarian warrior. She has long ash-blonde hair and striking yellow eyes.  Her animal pelts, stone axe, war paint gleams as she prepares for battle, her face showing glowing fingers, all framed by a tavern interior background.",
+    "negative_prompt": "malformed anatomy, extra limbs, cartoon faces, low quality, blurry, sci-fi elements, modern clothing, contemporary items, technology, realistic photography, 3D render, western cartoon style, nsfw, inappropriate content, violence, gore",
+    "tags": [
+      "human",
+      "barbarian",
+      "low",
+      "ash-blonde",
+      "yellow"
+    ]
+  },
+  {
+    "id": 1751425233491,
+    "title": "Low Human Bard",
+    "description": "A beautiful anime portrait featuring a human bard with low training. Her ash-blonde, twin-tails hair contrasts with her emerald eyes that shine with wisdom.  She's equipped with colorful clothes, small dagger, song collection and meditates peacefully, displaying tattooed against a magical library background.",
+    "negative_prompt": "malformed anatomy, extra limbs, cartoon faces, low quality, blurry, sci-fi elements, modern clothing, contemporary items, technology, realistic photography, 3D render, western cartoon style, nsfw, inappropriate content, violence, gore",
+    "tags": [
+      "human",
+      "bard",
+      "low",
+      "ash-blonde",
+      "emerald"
+    ]
+  },
+  {
+    "id": 1751425233491,
+    "title": "Mid Human Mage",
+    "description": "An anime-style portrait of a mid-level human mage with midnight blue straight hair and hazel eyes.  She wears wizard robes, carved staff, spell component belt and has freckles, meditates peacefully against a castle courtyard background.",
+    "negative_prompt": "malformed anatomy, extra limbs, cartoon faces, low quality, blurry, sci-fi elements, modern clothing, contemporary items, technology, realistic photography, 3D render, western cartoon style, nsfw, inappropriate content, violence, gore",
+    "tags": [
+      "human",
+      "mage",
+      "mid",
+      "midnight blue",
+      "hazel"
+    ]
+  },
+  {
+    "id": 1751425233491,
+    "title": "Mid Human Barbarian",
+    "description": "A beautiful anime portrait featuring a human barbarian with mid training. Her grey, medium-length hair contrasts with her blue eyes that burn with inner fire.  She's equipped with reinforced pelts, throwing spears, trophy belt and prepares for battle, displaying jeweled forehead, freckles against a light gradient background.",
+    "negative_prompt": "malformed anatomy, extra limbs, cartoon faces, low quality, blurry, sci-fi elements, modern clothing, contemporary items, technology, realistic photography, 3D render, western cartoon style, nsfw, inappropriate content, violence, gore",
+    "tags": [
+      "human",
+      "barbarian",
+      "mid",
+      "grey",
+      "blue"
+    ]
+  },
+  {
+    "id": 1751425233491,
+    "title": "High Human Monk",
+    "description": "An anime-style portrait of a high-level human monk with copper side-swept hair and silver eyes.  She wears transcendent clothing, spiritual weapon, spiritual transcendence and has freckles, dimples, glowing fingers, gazes into the distance against a mountain peak background.",
+    "negative_prompt": "malformed anatomy, extra limbs, cartoon faces, low quality, blurry, sci-fi elements, modern clothing, contemporary items, technology, realistic photography, 3D render, western cartoon style, nsfw, inappropriate content, violence, gore",
+    "tags": [
+      "human",
+      "monk",
+      "high",
+      "copper",
+      "silver"
+    ]
+  },
+  {
+    "id": 1751425233491,
+    "title": "High Human Monk",
+    "description": "An anime-style portrait of a high-level human monk with yellow braided hair and blue eyes.  She wears robes of perfection, transcendent techniques, inner peace and has serious brow, looks over her shoulder against a desert landscape background.",
+    "negative_prompt": "malformed anatomy, extra limbs, cartoon faces, low quality, blurry, sci-fi elements, modern clothing, contemporary items, technology, realistic photography, 3D render, western cartoon style, nsfw, inappropriate content, violence, gore",
+    "tags": [
+      "human",
+      "monk",
+      "high",
+      "yellow",
+      "blue"
+    ]
+  },
+  {
+    "id": 1751425233491,
+    "title": "Mid Human Mage",
+    "description": "A detailed anime portrait showing a human mage of mid experience. Her copper hair is medium-length and her silver eyes sparkle with mischief.  Equipped with runed robe, orb of power, magical amulet, she stands at attention with wrinkles, sly grin visible, set against a neutral background.",
+    "negative_prompt": "malformed anatomy, extra limbs, cartoon faces, low quality, blurry, sci-fi elements, modern clothing, contemporary items, technology, realistic photography, 3D render, western cartoon style, nsfw, inappropriate content, violence, gore",
+    "tags": [
+      "human",
+      "mage",
+      "mid",
+      "copper",
+      "silver"
+    ]
+  },
+  {
+    "id": 1751425233491,
+    "title": "Mid Human Cleric",
+    "description": "A detailed anime portrait showing a human cleric of mid experience. Her brown hair is tied back and her copper eyes gleam with determination.  Equipped with holy vestments, divine focus, censer, she looks over her shoulder with beauty mark, glowing mark, serious brow visible, set against a clean background.",
+    "negative_prompt": "malformed anatomy, extra limbs, cartoon faces, low quality, blurry, sci-fi elements, modern clothing, contemporary items, technology, realistic photography, 3D render, western cartoon style, nsfw, inappropriate content, violence, gore",
+    "tags": [
+      "human",
+      "cleric",
+      "mid",
+      "brown",
+      "copper"
+    ]
+  },
+  {
+    "id": 1751425233491,
+    "title": "High Human Cleric",
+    "description": "An anime-style portrait of a high-level human cleric with white short hair and sapphire eyes.  She wears celestial armor, miracle focus, divine blessing and has radiant face, freckles, blush, gazes into the distance against a neutral background.",
+    "negative_prompt": "malformed anatomy, extra limbs, cartoon faces, low quality, blurry, sci-fi elements, modern clothing, contemporary items, technology, realistic photography, 3D render, western cartoon style, nsfw, inappropriate content, violence, gore",
+    "tags": [
+      "human",
+      "cleric",
+      "high",
+      "white",
+      "sapphire"
+    ]
+  },
+  {
+    "id": 1751425233491,
+    "title": "High Human Mage",
+    "description": "An artistic anime-style depiction of a high human mage warrior. She has fluffy emerald hair and striking brown eyes.  Her archmage robes, staff of power, floating spellbooks gleams as she strikes a dynamic pose, her face showing battle scars, long eyelashes, theatrical eyes, all framed by a neutral background.",
+    "negative_prompt": "malformed anatomy, extra limbs, cartoon faces, low quality, blurry, sci-fi elements, modern clothing, contemporary items, technology, realistic photography, 3D render, western cartoon style, nsfw, inappropriate content, violence, gore",
+    "tags": [
+      "human",
+      "mage",
+      "high",
+      "emerald",
+      "brown"
+    ]
+  },
+  {
+    "id": 1751425233491,
+    "title": "Mid Human Ranger",
+    "description": "A detailed anime portrait showing a human ranger of mid experience. Her brown hair is elegant updo and her copper eyes burn with inner fire.  Equipped with tracker boots, longbow, tracking kit, she meditates peacefully with wrinkles, glowing mark visible, set against a magical library background.",
+    "negative_prompt": "malformed anatomy, extra limbs, cartoon faces, low quality, blurry, sci-fi elements, modern clothing, contemporary items, technology, realistic photography, 3D render, western cartoon style, nsfw, inappropriate content, violence, gore",
+    "tags": [
+      "human",
+      "ranger",
+      "mid",
+      "brown",
+      "copper"
+    ]
+  },
+  {
+    "id": 1751425233491,
+    "title": "Mid Human Rogue",
+    "description": "A detailed anime portrait showing a human rogue of mid experience. Her yellow hair is shaggy and her yellow eyes sparkle with mischief.  Equipped with silent boots, poisoned blade, master lockpicks, she looks over her shoulder with theatrical eyes, freckles visible, set against a clean background.",
+    "negative_prompt": "malformed anatomy, extra limbs, cartoon faces, low quality, blurry, sci-fi elements, modern clothing, contemporary items, technology, realistic photography, 3D render, western cartoon style, nsfw, inappropriate content, violence, gore",
+    "tags": [
+      "human",
+      "rogue",
+      "mid",
+      "yellow",
+      "yellow"
+    ]
+  },
+  {
+    "id": 1751425233491,
+    "title": "High Human Ranger",
+    "description": "An anime-style portrait of a high-level human ranger with orange cropped hair and golden eyes.  She wears dragon hide armor, beast slayer blade, nature's voice and has peaceful expression, snarling face, looks over her shoulder against a mountain peak background.",
+    "negative_prompt": "malformed anatomy, extra limbs, cartoon faces, low quality, blurry, sci-fi elements, modern clothing, contemporary items, technology, realistic photography, 3D render, western cartoon style, nsfw, inappropriate content, violence, gore",
+    "tags": [
+      "human",
+      "ranger",
+      "high",
+      "orange",
+      "golden"
+    ]
+  },
+  {
+    "id": 1751425233491,
+    "title": "High Human Paladin",
+    "description": "A detailed anime portrait showing a human paladin of high experience. Her midnight blue hair is braided and her crimson eyes show fierce resolve.  Equipped with legendary gear, artifact of good, divine mandate, she meditates peacefully with battle scars, thoughtful eyes, thick eyebrows visible, set against a soft background.",
+    "negative_prompt": "malformed anatomy, extra limbs, cartoon faces, low quality, blurry, sci-fi elements, modern clothing, contemporary items, technology, realistic photography, 3D render, western cartoon style, nsfw, inappropriate content, violence, gore",
+    "tags": [
+      "human",
+      "paladin",
+      "high",
+      "midnight blue",
+      "crimson"
+    ]
+  },
+  {
+    "id": 1751425233491,
+    "title": "High Human Mage",
+    "description": "A beautiful anime portrait featuring a human mage with high training. Her chestnut, cropped hair contrasts with her crimson eyes that gleam with determination.  She's equipped with archmage robes, reality-shaping wand, floating spellbooks and adopts a fighting stance, displaying freckles, theatrical eyes against a mountain peak background.",
+    "negative_prompt": "malformed anatomy, extra limbs, cartoon faces, low quality, blurry, sci-fi elements, modern clothing, contemporary items, technology, realistic photography, 3D render, western cartoon style, nsfw, inappropriate content, violence, gore",
+    "tags": [
+      "human",
+      "mage",
+      "high",
+      "chestnut",
+      "crimson"
+    ]
+  },
+  {
+    "id": 1751425233491,
+    "title": "High Human Cleric",
+    "description": "A beautiful anime portrait featuring a human cleric with high training. Her pink, straight hair contrasts with her brown eyes that show fierce resolve.  She's equipped with vestments of divinity, staff of healing, angelic companion and meditates peacefully, displaying battle scars against a minimal background.",
+    "negative_prompt": "malformed anatomy, extra limbs, cartoon faces, low quality, blurry, sci-fi elements, modern clothing, contemporary items, technology, realistic photography, 3D render, western cartoon style, nsfw, inappropriate content, violence, gore",
+    "tags": [
+      "human",
+      "cleric",
+      "high",
+      "pink",
+      "brown"
+    ]
+  },
+  {
+    "id": 1751425233491,
+    "title": "Low Human Barbarian",
+    "description": "An artistic anime-style depiction of a low human barbarian warrior. She has twin-tails yellow hair and striking crimson eyes.  Her fur wraps, wooden club, trophy teeth gleams as she looks over her shoulder, her face showing weathered face, piercing, beauty mark, all framed by a magical library background.",
+    "negative_prompt": "malformed anatomy, extra limbs, cartoon faces, low quality, blurry, sci-fi elements, modern clothing, contemporary items, technology, realistic photography, 3D render, western cartoon style, nsfw, inappropriate content, violence, gore",
+    "tags": [
+      "human",
+      "barbarian",
+      "low",
+      "yellow",
+      "crimson"
+    ]
+  },
+  {
+    "id": 1751425233491,
+    "title": "Mid Human Paladin",
+    "description": "A beautiful anime portrait featuring a human paladin with mid training. Her blonde, side-swept hair contrasts with her silver eyes that sparkle with mischief.  She's equipped with righteous gear, righteous weapon, divine connection and stands at attention, displaying defined jawline, stern gaze against a magical library background.",
+    "negative_prompt": "malformed anatomy, extra limbs, cartoon faces, low quality, blurry, sci-fi elements, modern clothing, contemporary items, technology, realistic photography, 3D render, western cartoon style, nsfw, inappropriate content, violence, gore",
+    "tags": [
+      "human",
+      "paladin",
+      "mid",
+      "blonde",
+      "silver"
+    ]
+  },
+  {
+    "id": 1751425233491,
+    "title": "Low Human Warrior",
+    "description": "A detailed anime portrait showing a human warrior of low experience. Her emerald hair is fluffy and her ice blue eyes burn with inner fire.  Equipped with chain shirt, wooden club, torn cloak, she stands confidently with crooked nose, glowing mark, freckles visible, set against a soft background.",
+    "negative_prompt": "malformed anatomy, extra limbs, cartoon faces, low quality, blurry, sci-fi elements, modern clothing, contemporary items, technology, realistic photography, 3D render, western cartoon style, nsfw, inappropriate content, violence, gore",
+    "tags": [
+      "human",
+      "warrior",
+      "low",
+      "emerald",
+      "ice blue"
+    ]
+  },
+  {
+    "id": 1751425233491,
+    "title": "Mid Human Warrior",
+    "description": "An artistic anime-style depiction of a mid human warrior warrior. She has shaggy pink hair and striking amber eyes.  Her chainmail armor, steel longsword, travel pack gleams as she prepares for battle, her face showing beauty mark, all framed by a mountain peak background.",
+    "negative_prompt": "malformed anatomy, extra limbs, cartoon faces, low quality, blurry, sci-fi elements, modern clothing, contemporary items, technology, realistic photography, 3D render, western cartoon style, nsfw, inappropriate content, violence, gore",
+    "tags": [
+      "human",
+      "warrior",
+      "mid",
+      "pink",
+      "amber"
+    ]
+  },
+  {
+    "id": 1751425233491,
+    "title": "Mid Human Barbarian",
+    "description": "An artistic anime-style depiction of a mid human barbarian warrior. She has ponytail yellow hair and striking brown eyes.  Her bone plates, war club, war scars gleams as she stands confidently, her face showing sly grin, peaceful expression, glowing fingers, all framed by a clean background.",
+    "negative_prompt": "malformed anatomy, extra limbs, cartoon faces, low quality, blurry, sci-fi elements, modern clothing, contemporary items, technology, realistic photography, 3D render, western cartoon style, nsfw, inappropriate content, violence, gore",
+    "tags": [
+      "human",
+      "barbarian",
+      "mid",
+      "yellow",
+      "brown"
+    ]
+  },
+  {
+    "id": 1751425233491,
+    "title": "High Human Bard",
+    "description": "A beautiful anime portrait featuring a human bard with high training. Her green, shaggy hair contrasts with her glowing eyes that radiate confidence.  She's equipped with legendary costume, legendary instrument, reality-changing songs and gazes into the distance, displaying piercing against a minimal background.",
+    "negative_prompt": "malformed anatomy, extra limbs, cartoon faces, low quality, blurry, sci-fi elements, modern clothing, contemporary items, technology, realistic photography, 3D render, western cartoon style, nsfw, inappropriate content, violence, gore",
+    "tags": [
+      "human",
+      "bard",
+      "high",
+      "green",
+      "glowing"
+    ]
+  },
+  {
+    "id": 1751425233491,
+    "title": "Low Human Barbarian",
+    "description": "A beautiful anime portrait featuring a human barbarian with low training. Her red, shoulder-length hair contrasts with her crimson eyes that gleam with determination.  She's equipped with fur wraps, wooden club, trophy teeth and stands at attention, displaying freckles, wrinkles, stern gaze against a magical library background.",
+    "negative_prompt": "malformed anatomy, extra limbs, cartoon faces, low quality, blurry, sci-fi elements, modern clothing, contemporary items, technology, realistic photography, 3D render, western cartoon style, nsfw, inappropriate content, violence, gore",
+    "tags": [
+      "human",
+      "barbarian",
+      "low",
+      "red",
+      "crimson"
+    ]
+  },
+  {
+    "id": 1751425233492,
+    "title": "Low Human Rogue",
+    "description": "A beautiful anime portrait featuring a human rogue with low training. Her red, straight hair contrasts with her hazel eyes that hold ancient secrets.  She's equipped with simple pants, sling, lockpicks and gazes into the distance, displaying crooked nose, tattoo against a ancient temple background.",
+    "negative_prompt": "malformed anatomy, extra limbs, cartoon faces, low quality, blurry, sci-fi elements, modern clothing, contemporary items, technology, realistic photography, 3D render, western cartoon style, nsfw, inappropriate content, violence, gore",
+    "tags": [
+      "human",
+      "rogue",
+      "low",
+      "red",
+      "hazel"
+    ]
+  }
+]}

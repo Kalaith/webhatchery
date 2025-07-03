@@ -160,5 +160,57 @@ function Main {
     exit $failedCount
 }
 
+function Rename-ImagesWithGeneratedNames {
+    param (
+        [string]$ImageDirectory,
+        [string]$ApiUrl
+    )
+
+    $mappingFile = Join-Path $ImageDirectory "image-name-map.json"
+    $imageFiles = Get-ChildItem -Path $ImageDirectory -Filter "*.png" -File
+
+    # Load existing mapping if available
+    # Convert nameMap to a hashtable for ContainsKey and indexing
+    $nameMap = @{
+    }
+    if (Test-Path $mappingFile) {
+        $nameMap = @{} + (Get-Content -Path $mappingFile | ConvertFrom-Json)
+    }
+
+    foreach ($image in $imageFiles) {
+        $originalName = $image.Name
+
+        # Skip if name already exists in the mapping
+        if ($nameMap.ContainsKey($originalName)) {
+            Write-Host "Name already exists" -ForegroundColor Green
+            continue
+        }
+
+        # Fetch name from API
+        $response = Invoke-RestMethod -Uri "https://webhatchery.au/name_generator/api/generate_name.php?method=fantasy&count=1" -Method Get
+        $generatedName = $response.names[0]
+
+        if (-not $generatedName) {
+            Write-Host "Failed to fetch name for $originalName" -ForegroundColor Red
+            continue
+        }
+
+        # Rename file
+        $newName = "$generatedName$($image.Extension)"
+        $newPath = Join-Path $ImageDirectory $newName
+        Rename-Item -Path $image.FullName -NewName $newPath
+
+        # Update mapping
+        $nameMap[$originalName] = $generatedName
+        Write-Host "Renamed $originalName to $newName" -ForegroundColor Yellow
+    }
+
+    # Save updated mapping
+    $nameMap | ConvertTo-Json | Set-Content -Path $mappingFile
+}
+
+# Example usage in the deploy process
+Rename-ImagesWithGeneratedNames -ImageDirectory "E:\WebHatchery\gallery\portraits" -ApiUrl "https://webhatchery.au/name_generator/api/generate_name.php"
+
 # Run the script
 Main

@@ -5,7 +5,7 @@ export const monsterGirlData = {
     features: ['draconic eyes', 'faint scales', 'a slender tail'],
     personality: ['mysterious', 'powerful', 'regal'],
     negative_prompt: 'multiple tails, full-body wings, oversized horns, ornate fantasy armor, glitch effects, malformed anatomy, blurry textures, distorted anatomy, missing features',
-    descriptionTemplate: 'An anime-style portrait of a {personality} {species} with {features}. She has {ears}, {hairColor} {hairStyle} hair, {eyeColor} eyes, wearing {clothing}, and a {background}.',
+    descriptionTemplate: 'An anime-style portrait of a {personality} {species} with {features}. She has {ears}, {hairColor} {hairStyle} hair, and {eyeColor} eyes that {eyeExpression}. She {pose}{accessories} set against {background}.',
   },
   Slime: {
     species: 'slime girl',
@@ -13,7 +13,7 @@ export const monsterGirlData = {
     features: ['semi-transparent body', 'amorphous shape', 'glowing core inside'],
     personality: ['playful', 'curious', 'adaptable'],
     negative_prompt: 'excessive dripping, multiple heads, hard surfaces, human skin texture, malformed anatomy, glitch effects, surreal layering',
-    descriptionTemplate: 'An anime-style portrait of a {personality} {species} with {features}. She has {ears}, {hairColor} gel-like hair, {eyeColor} glowing eyes, wearing {clothing}, and a {background}.',
+    descriptionTemplate: 'An anime-style portrait of a {personality} {species} with {features}. She has {ears}, {hairColor} gel-like hair, and {eyeColor} eyes that {eyeExpression}. She {pose}{accessories} set against {background}.',
   },
   Lamia: {
     species: 'lamia girl',
@@ -21,7 +21,7 @@ export const monsterGirlData = {
     features: ['long snake tail', 'slitted pupils', 'scale-covered lower body'],
     personality: ['seductive', 'cunning', 'calm'],
     negative_prompt: 'full-body frame, serpentine coils everywhere, fantasy throne, ornate jewelry, malformed anatomy, glitch effects, surreal shapes',
-    descriptionTemplate: 'An anime-style portrait of a {personality} {species} with {features}. She has {ears}, {hairColor} {hairStyle} hair, {eyeColor} eyes, wearing {clothing}, and a {background}.',
+    descriptionTemplate: 'An anime-style portrait of a {personality} {species} with {features}. She has {ears}, {hairColor} {hairStyle} hair, and {eyeColor} eyes that {eyeExpression}. She {pose}{accessories} set against {background}.',
   },
   Harpy: {
     species: 'harpy girl',
@@ -29,7 +29,7 @@ export const monsterGirlData = {
     features: ['avian eyes', 'feathered shoulders', 'small wings behind her'],
     personality: ['spirited', 'loud', 'mischievous'],
     negative_prompt: 'full wings in frame, bird legs, full-body pose, distorted feathers, malformed arms, glitch effects, extra limbs',
-    descriptionTemplate: 'An anime-style portrait of a {personality} {species} with {features}. She has {ears}, {hairColor} feather-like hair, {eyeColor} eyes, wearing {clothing}, and a {background}.',
+    descriptionTemplate: 'An anime-style portrait of a {personality} {species} with {features}. She has {ears}, {hairColor} feather-like hair, and {eyeColor} eyes that {eyeExpression}. She {pose}{accessories} set against {background}.',
   },
   Oni: {
     species: 'oni girl',
@@ -37,7 +37,7 @@ export const monsterGirlData = {
     features: ['small sharp horns', 'fang-like teeth', 'slightly red-tinted skin'],
     personality: ['boisterous', 'bold', 'battle-hardened'],
     negative_prompt: 'oversized horns, giant club weapon, heavy armor, glitch effects, distorted proportions, fantasy setting background',
-    descriptionTemplate: 'An anime-style portrait of a {personality} {species} with {features}. She has {ears}, {hairColor} hair, {eyeColor} eyes, wearing {clothing}, and a {background}.',
+    descriptionTemplate: 'An anime-style portrait of a {personality} {species} with {features}. She has {ears}, {hairColor} hair, and {eyeColor} eyes that {eyeExpression}. She {pose}{accessories} set against {background}.',
   },
   Insectoid: {
     species: 'insectoid girl',
@@ -45,6 +45,6 @@ export const monsterGirlData = {
     features: ['chitinous shoulder plating', 'faceted eyes', 'small wings on her back'],
     personality: ['quiet', 'precise', 'detached'],
     negative_prompt: 'multiple compound limbs, full bug body, glowing egg sacs, surreal insect armor, malformed eyes, glitch effects',
-    descriptionTemplate: 'An anime-style portrait of a {personality} {species} with {features}. She has {ears}, {hairColor} hair (thin or segmented), {eyeColor} eyes, wearing {clothing}, and a {background}.',
+    descriptionTemplate: 'An anime-style portrait of a {personality} {species} with {features}. She has {ears}, {hairColor} hair (thin or segmented), and {eyeColor} eyes that {eyeExpression}. She {pose}{accessories} set against {background}.',
   }
 }

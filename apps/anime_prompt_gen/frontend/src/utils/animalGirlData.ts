@@ -5,7 +5,7 @@ export const animalGirlData = {
     features: ['whiskers', 'cat-like eyes'],
     personality: ['curious', 'playful', 'agile'],
     negative_prompt: 'extra limbs, extra heads, distorted anatomy, disjointed body parts, surreal shapes, blurry textures, missing features, duplicated elements, glitch effects, malformed faces',
-    descriptionTemplate: 'An anime-style portrait of a {personality} {species} with {features}. She has {ears}, {hairColor} {hairStyle} hair, and {eyeColor} eyes against a {background}.',
+    descriptionTemplate: 'An anime-style portrait of a {personality} {species} with {features}. She has {ears}, {hairColor} {hairStyle} hair, and {eyeColor} eyes that {eyeExpression}. She {pose}{accessories},{background}.',
     tail: 'a sleek feline tail',
   },
   Inumimi: {
@@ -14,7 +14,7 @@ export const animalGirlData = {
     features: ['loyal eyes', 'dog-like features'],
     personality: ['loyal', 'dependable', 'brave', 'confident'],
     negative_prompt: 'extra limbs, extra heads, distorted anatomy, disjointed body parts, surreal shapes, blurry textures, missing features, duplicated elements, glitch effects, malformed faces',
-    descriptionTemplate: 'An anime-style portrait of a {personality} {species} with {features}. She has {ears}, {hairColor} {hairStyle} hair, and {eyeColor} eyes against a {background}.',
+    descriptionTemplate: 'An anime-style portrait of a {personality} {species} with {features}. She has {ears}, {hairColor} {hairStyle} hair, and {eyeColor} eyes that {eyeExpression}. She {pose}{accessories},{background}.',
     tail: 'a wagging dog tail',
   },
   Kitsunemimi: {
@@ -23,7 +23,7 @@ export const animalGirlData = {
     features: ['intelligent eyes', 'fox-like features'],
     personality: ['intelligent', 'cunning', 'scholarly', 'thoughtful'],
     negative_prompt: 'multiple tails, kimono, fantasy effects, ornate style, glitch effects, malformed anatomy',
-    descriptionTemplate: 'An anime-style portrait of a {personality} {species} with {features}. She has {ears}, {hairColor} {hairStyle} hair, and {eyeColor} eyes against a {background}.',
+    descriptionTemplate: 'An anime-style portrait of a {personality} {species} with {features}. She has {ears}, {hairColor} {hairStyle} hair, and {eyeColor} eyes that {eyeExpression}. She {pose}{accessories},{background}.',
     tail: 'a bushy fox tail',
   },
   Usagimimi: {
@@ -32,7 +32,7 @@ export const animalGirlData = {
     features: ['large eyes', 'rabbit-like features'],
     personality: ['shy', 'alert', 'cautious', 'timid', 'focused'],
     negative_prompt: 'extra limbs, extra heads, distorted anatomy, disjointed body parts, surreal shapes, blurry textures, missing features, duplicated elements, glitch effects, malformed faces',
-    descriptionTemplate: 'An anime-style portrait of a {personality} {species} with {features}. She has {ears}, {hairColor} {hairStyle} hair, and {eyeColor} eyes against a {background}.',
+    descriptionTemplate: 'An anime-style portrait of a {personality} {species} with {features}. She has {ears}, {hairColor} {hairStyle} hair, and {eyeColor} eyes that {eyeExpression}. She {pose}{accessories},{background}.',
     tail: 'a small fluffy tail',
   },
   Ookami: {
@@ -41,7 +41,7 @@ export const animalGirlData = {
     features: ['strong jawline', 'wolf-like features'],
     personality: ['strong', 'confident', 'assertive', 'bold', 'determined'],
     negative_prompt: 'extra limbs, extra heads, distorted anatomy, disjointed body parts, surreal shapes, blurry textures, missing features, duplicated elements, glitch effects, malformed faces',
-    descriptionTemplate: 'An anime-style portrait of a {personality} {species} with {features}. She has {ears}, {hairColor} {hairStyle} hair, and {eyeColor} eyes against a {background}.',
+    descriptionTemplate: 'An anime-style portrait of a {personality} {species} with {features}. She has {ears}, {hairColor} {hairStyle} hair, and {eyeColor} eyes that {eyeExpression}. She {pose}{accessories},{background}.',
     tail: 'a bushy wolf tail',
   },
   Nezumimi: {
@@ -50,7 +50,7 @@ export const animalGirlData = {
     features: ['small frame', 'mouse-like features'],
     personality: ['resourceful', 'sly', 'serious', 'clever'],
     negative_prompt: 'extra limbs, extra heads, distorted anatomy, disjointed body parts, surreal shapes, blurry textures, missing features, duplicated elements, glitch effects, malformed faces',
-    descriptionTemplate: 'An anime-style portrait of a {personality} {species} with {features}. She has {ears}, {hairColor} {hairStyle} hair, and {eyeColor} eyes against a {background}.',
+    descriptionTemplate: 'An anime-style portrait of a {personality} {species} with {features}. She has {ears}, {hairColor} {hairStyle} hair, and {eyeColor} eyes that {eyeExpression}. She {pose}{accessories},{background}.',
     tail: 'a thin mouse tail',
   },
   Ryūjin: {
@@ -59,7 +59,7 @@ export const animalGirlData = {
     features: ['scales on cheeks', 'dragon features', 'faint scales'],
     personality: ['calm', 'mysterious', 'powerful'],
     negative_prompt: 'extra limbs, wings, tails, surreal features, blurry textures, ornate armor, fantasy background, glitch effects, malformed faces',
-    descriptionTemplate: 'An anime-style portrait of a {personality} {species} with {features}. She has {ears}, {hairColor} {hairStyle} hair, and {eyeColor} eyes against a {background}.',
+    descriptionTemplate: 'An anime-style portrait of a {personality} {species} with {features}. She has {ears}, {hairColor} {hairStyle} hair, and {eyeColor} eyes that {eyeExpression}. She {pose}{accessories},{background}.',
     wings: 'small dragon wings',
     tail: 'a slender dragon tail',
   },
@@ -69,7 +69,7 @@ export const animalGirlData = {
     features: ['fluffy features', 'tanuki-like traits'],
     personality: ['playful', 'mischievous', 'cheerful'],
     negative_prompt: 'extra limbs, exaggerated tail, ornate clothing, fantasy elements, glitch effects, malformed faces',
-    descriptionTemplate: 'An anime-style portrait of a {personality} {species} with {features}. She has {ears}, {hairColor} {hairStyle} hair, and {eyeColor} eyes against a {background}.',
+    descriptionTemplate: 'An anime-style portrait of a {personality} {species} with {features}. She has {ears}, {hairColor} {hairStyle} hair, and {eyeColor} eyes that {eyeExpression}. She {pose}{accessories},{background}.',
     tail: 'a fluffy tanuki tail',
   },
   Torimimi: {
@@ -78,7 +78,7 @@ export const animalGirlData = {
     features: ['sharp eyes', 'feathery bangs', 'bird-like features'],
     personality: ['sharp', 'alert', 'focused'],
     negative_prompt: 'wings, flying pose, feathers on arms, fantasy background, glitch effects, malformed faces',
-    descriptionTemplate: 'An anime-style portrait of a {personality} {species} with {features}. She has {ears}, {hairColor} {hairStyle} hair, and {eyeColor} eyes against a {background}.',
+    descriptionTemplate: 'An anime-style portrait of a {personality} {species} with {features}. She has {ears}, {hairColor} {hairStyle} hair, and {eyeColor} eyes that {eyeExpression}. She {pose}{accessories},{background}.',
     wings: 'small bird wings',
   },
   Kumamimi: {
@@ -87,7 +87,7 @@ export const animalGirlData = {
     features: ['strong build', 'bear-like features'],
     personality: ['reliable', 'calm', 'strong', 'steady'],
     negative_prompt: 'hulking build, bear paws, fur coat, fantasy setting, glitch effects, malformed faces',
-    descriptionTemplate: 'An anime-style portrait of a {personality} {species} with {features}. She has {ears}, {hairColor} {hairStyle} hair, and {eyeColor} eyes against a {background}.',
+    descriptionTemplate: 'An anime-style portrait of a {personality} {species} with {features}. She has {ears}, {hairColor} {hairStyle} hair, and {eyeColor} eyes that {eyeExpression}. She {pose}{accessories},{background}.',
   },
   Insectomimi: {
     species: 'insect girl',
@@ -95,7 +95,7 @@ export const animalGirlData = {
     features: ['compound eyes', 'chitinous accents', 'insect-like features'],
     personality: ['quiet', 'analytical', 'precise'],
     negative_prompt: 'oversized mandibles, full insect body, multiple limbs, glitch effects, malformed anatomy, cartoon features',
-    descriptionTemplate: 'An anime-style portrait of a {personality} {species} with {features}. She has {ears}, {hairColor} {hairStyle} hair, and {eyeColor} eyes against a {background}.',
+    descriptionTemplate: 'An anime-style portrait of a {personality} {species} with {features}. She has {ears}, {hairColor} {hairStyle} hair, and {eyeColor} eyes that {eyeExpression}. She {pose}{accessories},{background}.',
     wings: 'transparent insect wings',
   },
   Caprimimi: {
@@ -104,7 +104,7 @@ export const animalGirlData = {
     features: ['small horns', 'slit pupils', 'goat-like features'],
     personality: ['stubborn', 'independent', 'clever'],
     negative_prompt: 'full goat body, hooves, surreal horns, glitch effects, malformed faces',
-    descriptionTemplate: 'An anime-style portrait of a {personality} {species} with {features}. She has {ears}, {hairColor} {hairStyle} hair, and {eyeColor} eyes against a {background}.',
+    descriptionTemplate: 'An anime-style portrait of a {personality} {species} with {features}. She has {ears}, {hairColor} {hairStyle} hair, and {eyeColor} eyes that {eyeExpression}. She {pose}{accessories},{background}.',
     tail: 'a small goat tail',
   },
   Ushimimi: {
@@ -113,7 +113,7 @@ export const animalGirlData = {
     features: ['small horns', 'broad eyes', 'cow-like features'],
     personality: ['gentle', 'patient', 'loyal'],
     negative_prompt: 'udder, hooves, full cow body, fantasy armor, glitch effects, malformed anatomy',
-    descriptionTemplate: 'An anime-style portrait of a {personality} {species} with {features}. She has {ears}, {hairColor} {hairStyle} hair, and {eyeColor} eyes against a {background}.',
+    descriptionTemplate: 'An anime-style portrait of a {personality} {species} with {features}. She has {ears}, {hairColor} {hairStyle} hair, and {eyeColor} eyes that {eyeExpression}. She {pose}{accessories},{background}.',
     tail: 'a short cow tail',
   },
   Shikamimi: {
@@ -122,7 +122,7 @@ export const animalGirlData = {
     features: ['small antlers', 'graceful posture', 'deer-like features'],
     personality: ['graceful', 'reserved', 'alert'],
     negative_prompt: 'deer legs, large antlers, hooves, fantasy ornaments, glitch effects, malformed anatomy',
-    descriptionTemplate: 'An anime-style portrait of a {personality} {species} with {features}. She has {ears}, {hairColor} {hairStyle} hair, and {eyeColor} eyes against a {background}.',
+    descriptionTemplate: 'An anime-style portrait of a {personality} {species} with {features}. She has {ears}, {hairColor} {hairStyle} hair, and {eyeColor} eyes that {eyeExpression}. She {pose}{accessories},{background}.',
     tail: 'a short deer tail',
   },
   Hebimimi: {
@@ -131,7 +131,7 @@ export const animalGirlData = {
     features: ['slitted pupils', 'forked tongue', 'reptilian features'],
     personality: ['mysterious', 'cool-headed', 'seductive'],
     negative_prompt: 'full snake tail body, extra limbs, snake mouth, surreal anatomy, glitch effects',
-    descriptionTemplate: 'An anime-style portrait of a {personality} {species} with {features}. She has {ears}, {hairColor} {hairStyle} hair, and {eyeColor} eyes against a {background}.',
+    descriptionTemplate: 'An anime-style portrait of a {personality} {species} with {features}. She has {ears}, {hairColor} {hairStyle} hair, and {eyeColor} eyes that {eyeExpression}. She {pose}{accessories},{background}.',
     tail: 'a long slender snake tail',
   },
   Koumorimimi: {
@@ -140,7 +140,7 @@ export const animalGirlData = {
     features: ['sharp fangs', 'nocturnal eyes', 'bat-like features'],
     personality: ['noisy', 'energetic', 'curious'],
     negative_prompt: 'full bat wingspan, rodent muzzle, fantasy costume, glitch effects, malformed anatomy',
-    descriptionTemplate: 'An anime-style portrait of a {personality} {species} with {features}. She has {ears}, {hairColor} {hairStyle} hair, and {eyeColor} eyes against a {background}.',
+    descriptionTemplate: 'An anime-style portrait of a {personality} {species} with {features}. She has {ears}, {hairColor} {hairStyle} hair, and {eyeColor} eyes that {eyeExpression}. She {pose}{accessories},{background}.',
     wings: 'small bat wings',
   },
   Umamimi: {
@@ -149,7 +149,7 @@ export const animalGirlData = {
     features: ['long face shape', 'large expressive eyes', 'horse-like features'],
     personality: ['strong', 'hardworking', 'disciplined'],
     negative_prompt: 'horse nose, hooves, full equine body, racing gear, glitch effects, malformed faces',
-    descriptionTemplate: 'An anime-style portrait of a {personality} {species} with {features}. She has {ears}, {hairColor} {hairStyle} hair, and {eyeColor} eyes against a {background}.',
+    descriptionTemplate: 'An anime-style portrait of a {personality} {species} with {features}. She has {ears}, {hairColor} {hairStyle} hair, and {eyeColor} eyes that {eyeExpression}. She {pose}{accessories},{background}.',
     tail: 'a long horse tail',
   },
   Irukamimi: {
@@ -158,7 +158,7 @@ export const animalGirlData = {
     features: ['playful eyes', 'sleek skin texture', 'dolphin-like features'],
     personality: ['friendly', 'energetic', 'curious'],
     negative_prompt: 'dolphin head, full tail body, fish scales, blowhole, flippers, cartoon features, glitch effects, malformed anatomy',
-    descriptionTemplate: 'An anime-style portrait of a {personality} {species} with {features}. She has {ears}, {hairColor} {hairStyle} hair, and {eyeColor} eyes against a {background}.',
+    descriptionTemplate: 'An anime-style portrait of a {personality} {species} with {features}. She has {ears}, {hairColor} {hairStyle} hair, and {eyeColor} eyes that {eyeExpression}. She {pose}{accessories},{background}.',
     tail: 'a smooth dolphin-like tail fin',
   },
   Samemimi: {
@@ -167,7 +167,7 @@ export const animalGirlData = {
     features: ['sharp teeth', 'strong jawline', 'shark-like features'],
     personality: ['confident', 'predatory', 'focused'],
     negative_prompt: 'full shark head, dorsal fin on head, heavy gills, webbed fingers, glitch effects, malformed anatomy',
-    descriptionTemplate: 'An anime-style portrait of a {personality} {species} with {features}. She has {ears}, {hairColor} {hairStyle} hair, and {eyeColor} eyes against a {background}.',
+    descriptionTemplate: 'An anime-style portrait of a {personality} {species} with {features}. She has {ears}, {hairColor} {hairStyle} hair, and {eyeColor} eyes that {eyeExpression}. She {pose}{accessories},{background}.',
     tail: 'a crescent-shaped shark tail',
   },
   Kuragemimi: {
@@ -176,7 +176,7 @@ export const animalGirlData = {
     features: ['translucent skin', 'soft glowing patterns', 'jellyfish-like features'],
     personality: ['gentle', 'drifting', 'enigmatic'],
     negative_prompt: 'tentacle limbs, bloated jelly body, missing face, gelatinous mass, glitch effects, malformed anatomy',
-    descriptionTemplate: 'An anime-style portrait of a {personality} {species} with {features}. She has {ears}, {hairColor} {hairStyle} hair, and {eyeColor} eyes against a {background}.',
+    descriptionTemplate: 'An anime-style portrait of a {personality} {species} with {features}. She has {ears}, {hairColor} {hairStyle} hair, and {eyeColor} eyes that {eyeExpression}. She {pose}{accessories},{background}.',
     tail: 'flowing jelly-like strands resembling a tail',
   },
   Sakana: {
@@ -185,7 +185,7 @@ export const animalGirlData = {
     features: ['gill marks on neck', 'shiny scales on cheeks', 'fish-like features'],
     personality: ['quiet', 'calm', 'watchful'],
     negative_prompt: 'fish head, full scaly body, fins for hands, surreal mutations, glitch effects, malformed anatomy',
-    descriptionTemplate: 'An anime-style portrait of a {personality} {species} with {features}. She has {ears}, {hairColor} {hairStyle} hair, and {eyeColor} eyes against a {background}.',
+    descriptionTemplate: 'An anime-style portrait of a {personality} {species} with {features}. She has {ears}, {hairColor} {hairStyle} hair, and {eyeColor} eyes that {eyeExpression}. She {pose}{accessories},{background}.',
     tail: 'a wide flowing fish tail',
   },
   Umigamimimi: {
@@ -194,7 +194,7 @@ export const animalGirlData = {
     features: ['serene expression', 'slightly textured skin', 'turtle-like features'],
     personality: ['wise', 'patient', 'steady'],
     negative_prompt: 'turtle shell on back, flipper arms, oversized head, cartoon limbs, glitch effects, malformed faces',
-    descriptionTemplate: 'An anime-style portrait of a {personality} {species} with {features}. She has {ears}, {hairColor} {hairStyle} hair, and {eyeColor} eyes against a {background}.',
+    descriptionTemplate: 'An anime-style portrait of a {personality} {species} with {features}. She has {ears}, {hairColor} {hairStyle} hair, and {eyeColor} eyes that {eyeExpression}. She {pose}{accessories},{background}.',
     tail: 'a small turtle tail',
   }
 };

@@ -214,3 +214,7 @@ credentials.json
 /F:/
 F:/WebHatchery/
 comfyui/ftp-config.json
+
+# Gallery do not include images in source control
+/gallery/portraits/
+/gallery/adventurer/

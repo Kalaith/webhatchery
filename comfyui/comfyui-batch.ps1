@@ -352,12 +352,13 @@ if ($PromptJsonFile) {
         $prompt = ""
         if ($item.Prompt) {
             $prompt = $item.Prompt
-        } elseif ($item.description) {
+        } elseif ($item.description -and $item.description.Trim() -ne "") {
             $prompt = $item.description
-        } elseif ($item.title) {
+        } elseif ($item.title -and $item.title.Trim() -ne "") {
             $prompt = $item.title
         } else {
-            $prompt = $Prompt
+            Write-Warning "No valid prompt found for item $index"
+            continue
         }
 
         $width = if ($null -ne $item.Width) { $item.Width } else { $Width }
@@ -371,20 +372,16 @@ if ($PromptJsonFile) {
             $negativePrompt = $item.negative_prompt
         }
 
-        # Use title (lowercase, underscores) for keyword, fallback to first 2 words of description
+        # Generate filename based on tags or fallback to title/description
         $keyword = "image"
-        if ($item.title) {
-            $keyword = $item.title.ToLower() -replace '[^a-z0-9]+', '_'
-            $keyword = $keyword.Trim('_')
+        if ($item.tags -and $item.tags.Count -gt 0) {
+            $keyword = ($item.tags -join "_").ToLower() -replace '[^a-z0-9_]', ''
+        } elseif ($item.title) {
+            $keyword = $item.title.ToLower() -replace '[^a-z0-9_]', ''
         } elseif ($item.description) {
-            $keyword = ($item.description -split '\s+') | Select-Object -First 2 -Join '_'
-            $keyword = $keyword.ToLower() -replace '[^a-z0-9_]', ''
-        } elseif ($prompt) {
-            $keyword = ($prompt -split '\s+') | Select-Object -First 2 -Join '_'
-            $keyword = $keyword.ToLower() -replace '[^a-z0-9_]', ''
+            $keyword = ($item.description.Split(" ")[0..1] -join "_").ToLower() -replace '[^a-z0-9_]', ''
         }
 
-        # Remove tags from filename and don't create companion files
         $dateStr = Get-Date -Format 'yyyyMMdd-HHmmss'
         $sizeStr = "${width}x${height}"
         $backgroundsDir = Join-Path -Path $PSScriptRoot -ChildPath 'backgrounds'
@@ -399,41 +396,27 @@ if ($PromptJsonFile) {
         $scheduler = if ($null -ne $item.Scheduler) { $item.Scheduler } else { $Scheduler }
 
         if ($Test) {
-            Write-Host "[TEST MODE] Would send to ComfyUI:" -ForegroundColor Yellow
-            Write-Host "Prompt: $prompt"
-            Write-Host "Width: $width"
-            Write-Host "Height: $height"
-            Write-Host "NegativePrompt: $negativePrompt"
-            Write-Host "OutputPath: $outputPath"
-            Write-Host "Steps: $steps"
-            Write-Host "CFG: $cfg"
-            Write-Host "Seed: $seed"
-            Write-Host "Model: $model"
-            Write-Host "Sampler: $sampler"
             Write-Host "Scheduler: $scheduler"
         } else {
-            $invokeParams = @{
-                Prompt = $prompt
-                Width = $width
-                Height = $height
-                NegativePrompt = $negativePrompt
-                OutputPath = $outputPath
-                ComfyUIServer = $ComfyUIServer
-                Steps = $steps
-                CFG = $cfg
-                Seed = $seed
-                Model = $model
-                Sampler = $sampler
-                Scheduler = $scheduler
-                SetAsWallpaper = $SetAsWallpaper
-                OpenImage = $OpenImage
-                LowRes = $LowRes
-            }
-            Invoke-ImageGeneration @invokeParams
+            Invoke-ImageGeneration `
+                -Prompt $prompt `
+                -Width $width `
+                -Height $height `
+                -NegativePrompt $negativePrompt `
+                -OutputPath $outputPath `
+                -ComfyUIServer $ComfyUIServer `
+                -Steps $steps `
+                -CFG $cfg `
+                -Seed $seed `
+                -Model $model `
+                -Sampler $sampler `
+                -Scheduler $scheduler `
+                -SetAsWallpaper:$SetAsWallpaper `
+                -OpenImage:$OpenImage `
+                -LowRes:$LowRes
         }
 
         if ($index -lt $promptList.Count -and -not $Test) {
-            Write-Host "Waiting $DelaySeconds seconds before next request..." -ForegroundColor DarkGray
             Start-Sleep -Seconds $DelaySeconds
         }
     }
