@@ -12,11 +12,12 @@ export async function fetchPeopleNames(params: PeopleParams): Promise<PersonName
     period: params.period,
     excludeReal: params.excludeReal ? '1' : '0',
   });
-  const res = await fetch(`/api/generate_name.php?${query.toString()}`);
+  const res = await fetch(`api/generate_name.php?${query.toString()}`);
   if (!res.ok) throw new Error('API error');
   const data = await res.json();
-  // Expecting data.names as array of PersonNameResult
-  return data.names || [];
+
+  return data.names;
+
 }
 
 export interface PlaceParams {
@@ -37,7 +38,7 @@ export async function fetchPlaceNames(params: PlaceParams): Promise<string[]> {
     climate: params.climate,
     size: params.size,
   });
-  const res = await fetch(`/api/generate_place.php?${query.toString()}`);
+  const res = await fetch(`api/generate_place.php?${query.toString()}`);
   if (!res.ok) throw new Error('API error');
   const data = await res.json();
   return data.names || [];
@@ -50,7 +51,7 @@ export async function fetchEventNames(params: { count: number; type: string; the
     theme: params.theme,
     tone: params.tone,
   });
-  const res = await fetch(`/api/generate_event.php?${query.toString()}`);
+  const res = await fetch(`api/generate_event.php?${query.toString()}`);
   if (!res.ok) throw new Error('API error');
   const data = await res.json();
   return data.names || [];
@@ -80,7 +81,7 @@ export async function fetchTitleNames(params: TitleParams): Promise<string[]> {
     race: params.race,
     species: params.species,
   });
-  const res = await fetch(`/api/generate_title.php?${query.toString()}`);
+  const res = await fetch(`api/generate_title.php?${query.toString()}`);
   if (!res.ok) throw new Error('API error');
   const data = await res.json();
   return data.titles || [];
@@ -91,13 +92,13 @@ export async function fetchBatchResults(params: { count: number; types: string[]
     count: params.count.toString(),
   });
   params.types.forEach(type => query.append('types[]', type));
-  const res = await fetch(`/api/generate_batch.php?${query.toString()}`);
+  const res = await fetch(`api/generate_batch.php?${query.toString()}`);
   if (!res.ok) throw new Error('API error');
   return res.json();
 }
 
 export async function fetchSelectOptions(field: string): Promise<Option[]> {
-  const res = await fetch(`/api/options.php?field=${encodeURIComponent(field)}`);
+  const res = await fetch(`api/options.php?field=${encodeURIComponent(field)}`);
   if (!res.ok) throw new Error('Failed to fetch options');
   return res.json();
 } 

@@ -59,18 +59,48 @@ class NameGenerators {
     }
 
     public function generateMarkovName($culture, $gender) {
+        // If culture is 'any', pick a random available culture
+        if ($culture === 'any' || !isset($this->markovChains[$culture])) {
+            $cultureKeys = array_keys($this->markovChains);
+            if (empty($cultureKeys)) return "Invalid culture or gender";
+            $culture = $cultureKeys[array_rand($cultureKeys)];
+        }
+        // If gender is 'any', pick a random available gender for this culture
+        if ($gender === 'any' || !isset($this->markovChains[$culture][$gender])) {
+            $genderKeys = array_keys($this->markovChains[$culture]);
+            if (empty($genderKeys)) return "Invalid culture or gender";
+            $gender = $genderKeys[array_rand($genderKeys)];
+        }
         $chain = $this->markovChains[$culture][$gender] ?? null;
         if (!$chain) return "Invalid culture or gender";
 
-        $name = '';
-        $current = array_rand($chain);
-        while (true) {
-            $nextChar = $chain[$current][array_rand($chain[$current])];
-            if ($nextChar === '$') break;
-            $name .= $nextChar;
-            $current = substr($current, 1) . $nextChar;
+        $attempts = 0;
+        $minLength = 2;
+        $maxLength = 10;
+        while ($attempts < 20) {
+            $name = '';
+            $current = array_rand($chain);
+            $endCount = 0;
+            while (true) {
+                $nextChar = $chain[$current][array_rand($chain[$current])];
+                if ($nextChar === '$') {
+                    $endCount++;
+                    // Allow up to 2 end tokens to be skipped to encourage longer names
+                    if ($endCount > 2 || strlen($name) >= $maxLength) break;
+                    // Otherwise, pick a new random key and continue
+                    $current = array_rand($chain);
+                    continue;
+                }
+                $name .= $nextChar;
+                $current = substr($current, 1) . $nextChar;
+                if (strlen($name) >= $maxLength) break;
+            }
+            if (strlen($name) >= $minLength && strlen($name) <= $maxLength) {
+                return ucfirst($name);
+            }
+            $attempts++;
         }
-        return ucfirst($name);
+        return "No name generated";
     }
 
     public function generateSyllableName($culture) {

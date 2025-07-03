@@ -9,40 +9,30 @@ require_once 'generators.php';
 $generators = new NameGenerators();
 
 // Get parameters from the request
+$method = $_GET['method'] ?? 'markov_chain';
 $culture = $_GET['culture'] ?? 'western';
 $gender = $_GET['gender'] ?? 'male';
 $count = intval($_GET['count'] ?? 1);
-$method = $_GET['method'] ?? 'markov_chain';
 $period = $_GET['period'] ?? 'medieval'; // for historical
-
-// Validate parameters
-if (!isset($generators->markovChains[$culture]) && !isset($generators->syllableBanks[$culture]) && $method !== 'fantasy') {
-    echo json_encode(['error' => 'Invalid culture']);
-    exit;
-}
-if (!in_array($gender, ['male', 'female'])) {
-    echo json_encode(['error' => 'Invalid gender']);
-    exit;
-}
-if ($count < 1 || $count > 10) {
-    echo json_encode(['error' => 'Count must be between 1 and 10']);
-    exit;
-}
 
 $names = [];
 for ($i = 0; $i < $count; $i++) {
+    $actualGender = $gender;
+    if ($gender === 'any') {
+        $actualGender = (rand(0, 1) === 0) ? 'male' : 'female';
+    }
     switch ($method) {
         case 'markov_chain':
-            $names[] = $generators->generateMarkovName($culture, $gender);
+            $names[] = $generators->generateMarkovName($culture, $actualGender);
             break;
         case 'syllable':
             $names[] = $generators->generateSyllableName($culture);
             break;
         case 'phonetic':
-            $names[] = $generators->generatePhoneticName($culture, $gender);
+            $names[] = $generators->generatePhoneticName($culture, $actualGender);
             break;
         case 'historical':
-            $names[] = $generators->generateHistoricalName($culture, $period, $gender);
+            $names[] = $generators->generateHistoricalName($culture, $period, $actualGender);
             break;
         case 'fantasy':
             $names[] = $generators->generateSyllableName('fantasy');

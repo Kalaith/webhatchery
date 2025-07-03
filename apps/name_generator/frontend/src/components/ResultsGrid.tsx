@@ -51,25 +51,15 @@ const ResultsGrid: React.FC<ResultsGridProps> = ({ results, type }) => {
         {results.map((item, idx) => {
           switch (type) {
             case 'people':
+              // Backend returns array of strings only
               return (
                 <div key={idx} className="group bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 p-6 hover:shadow-lg hover:scale-102 transition-all duration-200">
                   <div className="flex items-start gap-3">
                     <div className="w-10 h-10 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-full flex items-center justify-center text-white font-bold text-lg">
-                      {item.name.charAt(0)}
+                      {item.charAt(0)}
                     </div>
                     <div className="flex-1 min-w-0">
-                      <h4 className="font-bold text-lg text-gray-900 dark:text-white truncate">{item.name}</h4>
-                      <div className="flex flex-wrap gap-1 mt-2">
-                        <span className="inline-flex items-center px-2 py-1 rounded-md text-xs font-medium bg-gray-100 dark:bg-gray-700 text-gray-800 dark:text-gray-200">
-                          {item.culture}
-                        </span>
-                        <span className="inline-flex items-center px-2 py-1 rounded-md text-xs font-medium bg-gray-100 dark:bg-gray-700 text-gray-800 dark:text-gray-200">
-                          {item.gender}
-                        </span>
-                      </div>
-                      {item.meaning && (
-                        <p className="text-sm text-gray-600 dark:text-gray-400 mt-2 italic">"{item.meaning}"</p>
-                      )}
+                      <h4 className="font-bold text-lg text-gray-900 dark:text-white truncate">{item}</h4>
                     </div>
                   </div>
                 </div>
