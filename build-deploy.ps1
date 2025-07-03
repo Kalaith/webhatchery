@@ -63,7 +63,6 @@ function Main {
             foreach ($projectConfig in $group.projects) {
                 # Extract project name from deployAs
                 $projectName = $projectConfig.deployment.deployAs
-                
                 if ($projectName -like $ProjectFilter) {
                     $projectWithName = $projectConfig | Add-Member -MemberType NoteProperty -Name "ProjectName" -Value $projectName -PassThru
                     $projects += $projectWithName
@@ -92,29 +91,23 @@ function Main {
         $projectName = $project.ProjectName
         $config = $project
         Write-Host "Processing: $projectName" -ForegroundColor Yellow
-        Write-Log "Starting processing for project: $projectName"
-        # Output the full $project object
-        Write-Log "Project details: $($project | ConvertTo-Json -Depth 5)" "DEBUG"
         try {
             $projectType = $config.deployment.type
-            Write-Log "Project type: $projectType, Config: $($config.deployment | ConvertTo-Json -Depth 3)"
 
             $buildSuccess = $true
             if (-not $SkipBuild -and $projectType -in @("React", "PHP", "Node", "FullStack")) {
-                # Build the frontend/main project
                 $projectPath = Join-Path $SOURCE_PATH $config.path
                 if (Test-Path $projectPath) {
                     Push-Location $projectPath
                     try {
                         if ($config.deployment.requiresBuild -and -not $DryRun) {
-                            Write-Log "Building project: $projectName" "INFO"
                             if ($config.deployment.packageManager -eq "npm") {
                                 Invoke-Expression "npm install"
                                 Invoke-Expression $config.deployment.buildCommand
                             }
                         }
                     } catch {
-                        Write-Log "Build failed for $projectName`: $_" "ERROR"
+                        Write-Log "Build failed for $projectName" "ERROR"
                         $buildSuccess = $false
                     } finally {
                         Pop-Location
@@ -124,14 +117,12 @@ function Main {
                     $buildSuccess = $false
                 }
             }
-            # Backend build phase for projects with backend configuration
             if ($config.backend -and $config.backend.requiresBuild -and -not $SkipBuild) {
                 $backendPath = Join-Path $SOURCE_PATH $config.backend.path
                 if (Test-Path $backendPath) {
                     Push-Location $backendPath
                     try {
                         if (-not $DryRun) { 
-                            Write-Log "Building backend for $projectName" "INFO"
                             Invoke-Expression $config.backend.buildCommand 
                         }
                     } catch {
@@ -145,51 +136,32 @@ function Main {
                     $buildSuccess = $false
                 }
             }
-
             if ($buildSuccess) {
-                Write-Log "Copying project files for: $projectName" "INFO"
-                
-                # Copy frontend/main project files
                 $sourcePath = Join-Path $SOURCE_PATH $config.path
                 $deployPath = Join-Path $DEPLOY_PATH $config.deployment.deployAs
-                
                 if ($config.deployment.requiresBuild -and $config.deployment.outputDir) {
                     $sourcePath = Join-Path $sourcePath $config.deployment.outputDir
                 }
-                
                 if (Test-Path $sourcePath) {
                     if (-not $DryRun) {
-                        Write-Log "Copying frontend from $sourcePath to $deployPath" "INFO"
                         New-Item -ItemType Directory -Path $deployPath -Force | Out-Null
                         Copy-Item -Path "$sourcePath\*" -Destination $deployPath -Recurse -Force
                     }
                 } else {
                     Write-Log "Frontend source path not found: $sourcePath" "WARN"
                 }
-
-                # Handle backend deployment if configured
                 if ($config.backend) {
-                    Write-Log "Processing backend for: $projectName" "INFO"
                     $backendSourcePath = Join-Path $SOURCE_PATH $config.backend.path
                     $deployBackendPath = Join-Path $deployPath "api"
-
-                    Write-Log "Backend source: $backendSourcePath, Deploy to: $deployBackendPath" "INFO"
                     if (Test-Path $backendSourcePath) {
-                        Write-Log "Backend source path exists: $backendSourcePath" "INFO"
                         if (-not $DryRun) {
-                            Write-Log "Creating backend deployment directory: $deployBackendPath" "INFO"
                             New-Item -ItemType Directory -Path $deployBackendPath -Force | Out-Null
-                            Write-Log "Copying backend files from $backendSourcePath to $deployBackendPath" "INFO"
                             Copy-Item -Path "$backendSourcePath\*" -Destination $deployBackendPath -Recurse -Force
                         }
                     } else {
                         Write-Log "Backend source path not found: $backendSourcePath" "WARN"
                     }
                 }
-            }
-
-            if ($projectName -eq "name_generator") {
-                Write-Log "Full project configuration for name_generator: $($config | ConvertTo-Json -Depth 10)" "DEBUG"
             }
 
             $results += New-Object PSObject -Property @{ Project = $projectName; Type = $projectType; Success = $buildSuccess; Error = $null }
