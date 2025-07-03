@@ -163,14 +163,26 @@ function Copy-ProjectFiles {
             }
         }
         "FullStack" {
-            # Copy frontend files
+            # Copy frontend build output (React/Vite dist files)
+            if ($Config.OutputDir) {
+                $buildOutput = Join-Path $sourcePath $Config.OutputDir
+                if (Test-Path $buildOutput) {
+                    Write-Log "Copying frontend build output from $buildOutput to $destPath"
+                    Copy-Files "$buildOutput\*" $destPath $true
+                } else {
+                    Write-Log "Frontend build output not found: $buildOutput" "WARN"
+                }
+            }
+            
+            # Legacy support: Copy frontend files if specified
             if ($Config.FrontendFiles) {
                 $Config.FrontendFiles | ForEach-Object {
                     $file = Join-Path $sourcePath $_
                     if (Test-Path $file) { Copy-Files $file $destPath $false }
                 }
             }
-            # Copy backend
+            
+            # Copy backend files (handled separately in main script for newer configs)
             if ($Config.BackendPath) {
                 $backendSource = Join-Path $sourcePath $Config.BackendPath
                 $backendDest = Join-Path $destPath $Config.BackendPath

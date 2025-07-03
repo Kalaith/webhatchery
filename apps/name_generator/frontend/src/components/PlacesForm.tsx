@@ -29,11 +29,9 @@ const PlacesForm: React.FC<PlacesFormProps> = ({ onGenerate, loading }) => {
   const [options, setOptions] = useState<Record<Field, Option[]>>({
     genre: [], location_type: [], tone: [], climate: [], size: []
   });
-  const [loadingOptions, setLoadingOptions] = useState(true);
 
   useEffect(() => {
     let isMounted = true;
-    setLoadingOptions(true);
     Promise.all(fields.map(field => fetchSelectOptions(field)))
       .then(results => {
         if (!isMounted) return;
@@ -44,10 +42,9 @@ const PlacesForm: React.FC<PlacesFormProps> = ({ onGenerate, loading }) => {
           climate: results[3],
           size: results[4],
         });
-        setLoadingOptions(false);
       })
       .catch(() => {
-        if (isMounted) setLoadingOptions(false);
+        if (isMounted) console.error('Failed to fetch options');
       });
     return () => { isMounted = false; };
   }, []);
@@ -136,4 +133,4 @@ const PlacesForm: React.FC<PlacesFormProps> = ({ onGenerate, loading }) => {
   );
 };
 
-export default PlacesForm; 
+export default PlacesForm;

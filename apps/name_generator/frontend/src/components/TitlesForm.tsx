@@ -35,11 +35,9 @@ const TitlesForm: React.FC<TitlesFormProps> = ({ onGenerate, loading }) => {
   const [options, setOptions] = useState<Record<Field, Option[]>>({
     type: [], genre: [], tone: [], setting: [], gender: [], race: [], species: []
   });
-  const [loadingOptions, setLoadingOptions] = useState(true);
 
   useEffect(() => {
     let isMounted = true;
-    setLoadingOptions(true);
     Promise.all(fields.map(field => fetchSelectOptions(field)))
       .then(results => {
         if (!isMounted) return;
@@ -52,10 +50,9 @@ const TitlesForm: React.FC<TitlesFormProps> = ({ onGenerate, loading }) => {
           race: results[5],
           species: results[6],
         });
-        setLoadingOptions(false);
       })
       .catch(() => {
-        if (isMounted) setLoadingOptions(false);
+        if (isMounted) console.error('Failed to fetch options');
       });
     return () => { isMounted = false; };
   }, []);
@@ -171,4 +168,4 @@ const TitlesForm: React.FC<TitlesFormProps> = ({ onGenerate, loading }) => {
   );
 };
 
-export default TitlesForm; 
+export default TitlesForm;

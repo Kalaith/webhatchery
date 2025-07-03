@@ -25,11 +25,9 @@ const EventsForm: React.FC<EventsFormProps> = ({ onGenerate, loading }) => {
   const [options, setOptions] = useState<Record<Field, Option[]>>({
     type: [], theme: [], tone: []
   });
-  const [loadingOptions, setLoadingOptions] = useState(true);
 
   useEffect(() => {
     let isMounted = true;
-    setLoadingOptions(true);
     Promise.all(fields.map(field => fetchSelectOptions(field)))
       .then(results => {
         if (!isMounted) return;
@@ -38,10 +36,9 @@ const EventsForm: React.FC<EventsFormProps> = ({ onGenerate, loading }) => {
           theme: results[1],
           tone: results[2],
         });
-        setLoadingOptions(false);
       })
       .catch(() => {
-        if (isMounted) setLoadingOptions(false);
+        if (isMounted) console.error('Failed to fetch options');
       });
     return () => { isMounted = false; };
   }, []);
@@ -114,4 +111,4 @@ const EventsForm: React.FC<EventsFormProps> = ({ onGenerate, loading }) => {
   );
 };
 
-export default EventsForm; 
+export default EventsForm;

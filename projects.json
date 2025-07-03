@@ -4,7 +4,8 @@
   "groups": {
     "fiction": {
       "name": "Fiction Projects",
-      "projects": [        {
+      "projects": [
+        {
           "title": "Stories",
           "path": "stories/",
           "description": "Collection of interactive stories and creative writing projects with immersive web presentations.",
@@ -13,9 +14,17 @@
             "deployAs": "stories",
             "recursive": true,
             "preserveStructure": true,
-            "files": ["index.php", "**/*.html", "**/*.php", "**/*.css", "**/*.js", "**/*.md"]
+            "files": [
+              "index.php",
+              "**/*.html",
+              "**/*.php",
+              "**/*.css",
+              "**/*.js",
+              "**/*.md"
+            ]
           }
-        },        {
+        },
+        {
           "title": "Stories Explicit",
           "path": "storiesx/",
           "description": "Story collection that may contain explicit language.",
@@ -24,9 +33,17 @@
             "deployAs": "storiesx",
             "recursive": true,
             "preserveStructure": true,
-            "files": ["index.php", "**/*.html", "**/*.php", "**/*.css", "**/*.js", "**/*.md"]
+            "files": [
+              "index.php",
+              "**/*.html",
+              "**/*.php",
+              "**/*.css",
+              "**/*.js",
+              "**/*.md"
+            ]
           }
-        },        {
+        },
+        {
           "title": "Anime Hub",
           "path": "anime/",
           "description": "Character analysis and development charts for popular anime series including Dragon Ball and Granblue Fantasy.",
@@ -35,7 +52,18 @@
             "deployAs": "anime",
             "recursive": true,
             "preserveStructure": true,
-            "files": ["index.php", "**/*.html", "**/*.php", "**/*.css", "**/*.js", "**/*.md", "**/*.jpg", "**/*.png", "**/*.gif", "**/*.webp"]
+            "files": [
+              "index.php",
+              "**/*.html",
+              "**/*.php",
+              "**/*.css",
+              "**/*.js",
+              "**/*.md",
+              "**/*.jpg",
+              "**/*.png",
+              "**/*.gif",
+              "**/*.webp"
+            ]
           }
         },
         {
@@ -47,14 +75,20 @@
             "deployAs": "gallery",
             "recursive": true,
             "preserveStructure": true,
-            "files": ["index.html", "portraits/*.png", "portraits/*.jpg", "portraits/*.webp"]
+            "files": [
+              "index.html",
+              "portraits/*.png",
+              "portraits/*.jpg",
+              "portraits/*.webp"
+            ]
           }
         }
       ]
     },
     "apps": {
       "name": "Web Applications",
-      "projects": [          {
+      "projects": [
+        {
           "title": "Is It Done Yet?",
           "path": "apps/isitdoneyet/",
           "description": "A full-stack web application for project tracking and status monitoring with real-time updates.",
@@ -67,7 +101,13 @@
             "deployAs": "isitdoneyet",
             "frontend": {
               "type": "Static",
-              "files": ["index.html", "app.js", "api-service.js", "style.css", "server.js"]
+              "files": [
+                "index.html",
+                "app.js",
+                "api-service.js",
+                "style.css",
+                "server.js"
+              ]
             },
             "backend": {
               "type": "PHP",
@@ -79,20 +119,28 @@
             },
             "production": {
               "apiUrl": "https://webhatchery.au/isitdoneyet/api",
-              "corsOrigins": ["https://webhatchery.au"],
+              "corsOrigins": [
+                "https://webhatchery.au"
+              ],
               "environmentUpdates": {
                 "DEBUG": "false",
                 "APP_ENV": "production"
               }
             },
-            "exclude": ["deployment-test.html", "initialize-database.php", "mcp-server.js", "MCP-README.md"],
+            "exclude": [
+              "deployment-test.html",
+              "initialize-database.php",
+              "mcp-server.js",
+              "MCP-README.md"
+            ],
             "apache": {
               "requiresRewrite": true,
               "documentRoot": "/",
               "apiBasePath": "/api"
             }
           }
-        },        {
+        },
+        {
           "title": "Meme Generator",
           "path": "apps/meme_generator/",
           "description": "Interactive tool for creating custom memes with various templates and text customization options.",
@@ -104,17 +152,29 @@
             "buildCommand": "npm run build -- --base=./",
             "packageManager": "npm"
           }
-        },{
+        },
+        {
           "title": "Project Management",
           "path": "apps/project_management/",
           "description": "Comprehensive project management dashboard with stakeholder tracking and report generation features.",
           "deployment": {
             "type": "Static",
             "deployAs": "project_management",
-            "files": ["index.html", "app.js", "style.css", "*.js", "data.json", "*.png"],
-            "exclude": ["test.html", "php-integration-guide.md"]
+            "files": [
+              "index.html",
+              "app.js",
+              "style.css",
+              "*.js",
+              "data.json",
+              "*.png"
+            ],
+            "exclude": [
+              "test.html",
+              "php-integration-guide.md"
+            ]
           }
-        },        {
+        },
+        {
           "title": "LitRPG Studio",
           "path": "apps/litrpg_studio/frontend/",
           "description": "A specialized writing tool designed for LitRPG authors to create and manage game mechanics in their stories.",
@@ -125,8 +185,9 @@
             "requiresBuild": true,
             "buildCommand": "npm run build -- --base=./",
             "packageManager": "npm"
-          } 
-        },{
+          }
+        },
+        {
           "title": "Monster Maker",
           "path": "apps/monster_maker/",
           "description": "D&D monster creation tool with challenge rating calculator and stat progression charts.",
@@ -134,15 +195,28 @@
             "type": "Static",
             "deployAs": "monster_maker"
           }
-        },{
+        },
+        {
           "title": "Name Generator API",
-          "path": "apps/name_generator/",
+          "path": "apps/name_generator/frontend/",
           "description": "Comprehensive name generation tool with multiple algorithms for creating people, place, event, and title names using Markov chains, phonetic patterns, and cultural linguistics.",
           "deployment": {
-            "type": "Static",
-            "deployAs": "name_generator"
+            "type": "FullStack",
+            "outputDir": "dist",
+            "deployAs": "name_generator",
+            "requiresBuild": true,
+            "buildCommand": "npm run build -- --base=./",
+            "packageManager": "npm"
+          },
+          "backend": {
+            "type": "PHP",
+            "path": "apps/name_generator/backend/",
+            "requiresBuild": false,
+            "databaseInit": false,
+            "envFile": ".env"
           }
-        },{
+        },
+        {
           "title": "Story Forge",
           "path": "apps/story_forge/frontend/",
           "description": "Creative writing assistant tool that helps authors develop characters, plotlines, settings, and narrative arcs with an intuitive interface and visualization capabilities.",
@@ -224,17 +298,23 @@
             "buildCommand": "npm run build -- --base=./",
             "packageManager": "npm"
           }
-        },{
+        },
+        {
           "title": "Emoji Tower",
           "path": "game_apps/emoji_tower/",
           "description": "Casual tower-building puzzle game featuring emoji-based construction elements with physics simulation, progressive difficulty levels, and unlockable special emoji blocks with unique properties.",
           "deployment": {
             "type": "Static",
             "deployAs": "emoji_tower",
-            "files": ["index.html", "style.css", "script.js"],
+            "files": [
+              "index.html",
+              "style.css",
+              "script.js"
+            ],
             "preserveStructure": true
           }
-        },        {
+        },
+        {
           "title": "Planet Trader",
           "path": "game_apps/planet_trader/frontend/",
           "description": "Sci-fi trading and exploration game where players manage resources, trade between planets, and upgrade their ship in a dynamic universe. Built with a modern React frontend.",
@@ -307,7 +387,13 @@
           "deployment": {
             "type": "Static",
             "deployAs": "echo_of_the_many",
-            "files": ["interactive-gdd.html", "react-implementation-plan.md", "package.json", "QUICK-START.md", "*.md"],
+            "files": [
+              "interactive-gdd.html",
+              "react-implementation-plan.md",
+              "package.json",
+              "QUICK-START.md",
+              "*.md"
+            ],
             "preserveStructure": true
           }
         },
@@ -345,12 +431,26 @@
   },
   "rootFiles": {
     "name": "Root Level Files",
-    "description": "Individual files to deploy to the root directory",    "deployment": {
+    "description": "Individual files to deploy to the root directory",
+    "deployment": {
       "type": "Static",
-      "files": ["index.php", "index.css", "projects.json"],
-      "exclude": ["build-deploy.ps1", "build.bat", "validate-projects.ps1", "build-config.json", "BUILD-README.md", "README.md", "*.log"]
+      "files": [
+        "index.php",
+        "index.css",
+        "projects.json"
+      ],
+      "exclude": [
+        "build-deploy.ps1",
+        "build.bat",
+        "validate-projects.ps1",
+        "build-config.json",
+        "BUILD-README.md",
+        "README.md",
+        "*.log"
+      ]
     }
-  },  "global": {
+  },
+  "global": {
     "repository": {
       "type": "git",
       "url": "https://github.com/Kalaith/webhachery",
@@ -363,7 +463,7 @@
     },
     "excludePatterns": [
       ".git",
-      ".gitignore", 
+      ".gitignore",
       "node_modules",
       ".env.example",
       "*.log",
@@ -375,7 +475,7 @@
     ],
     "buildTools": {
       "node": ">=18.0.0",
-      "npm": ">=8.0.0", 
+      "npm": ">=8.0.0",
       "php": ">=8.1.0",
       "composer": ">=2.0.0"
     },

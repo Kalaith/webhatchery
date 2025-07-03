@@ -7,7 +7,6 @@ param(
     [switch]$VerboseOutput,
     [switch]$DryRun,
     [switch]$SkipBuild,
-    [switch]$OnlyBuild,
     [switch]$CleanInstall,
     [switch]$CleanDeploy
 )
@@ -28,7 +27,8 @@ $LOG_FILE = "$SOURCE_PATH\build-deploy.log"
 Clear-Content -Path $LOG_FILE -ErrorAction SilentlyContinue
 
 # Load configurations from projects.json
-$PROJECT_CONFIGS = Get-ProjectConfigs
+$projectsJsonPath = Join-Path $SOURCE_PATH "projects.json"
+$projectsData = Get-Content $projectsJsonPath | ConvertFrom-Json
 
 # Main execution
 function Main {
@@ -55,30 +55,28 @@ function Main {
     }    # Get projects to process
     $projects = @()
     
-    # Only deploy projects listed in projects.json
+    # Parse projects from groups in projects.json
     $projects = @()
-    foreach ($key in $PROJECT_CONFIGS.Keys) {
-        if ($key -eq "rootFiles" -or $key -eq "global") { continue }
-        $config = $PROJECT_CONFIGS[$key]
-        if ($config.path) {
-            $fullPath = Join-Path $SOURCE_PATH $config.path
-        } else {
-            $fullPath = $SOURCE_PATH
-        }
-        if ($key -like $ProjectFilter) {
-            $projects += New-Object PSObject -Property @{
-                Name = $key
-                FullName = $fullPath
-                SourceFolder = $config.path
+    foreach ($groupKey in $projectsData.groups.PSObject.Properties.Name) {
+        $group = $projectsData.groups.$groupKey
+        if ($group.projects) {
+            foreach ($projectConfig in $group.projects) {
+                # Extract project name from deployAs
+                $projectName = $projectConfig.deployment.deployAs
+                
+                if ($projectName -like $ProjectFilter) {
+                    $projectWithName = $projectConfig | Add-Member -MemberType NoteProperty -Name "ProjectName" -Value $projectName -PassThru
+                    $projects += $projectWithName
+                }
             }
         }
     }
     # Add rootFiles as a special project if it matches the filter
-    if ("rootFiles" -like $ProjectFilter -and $PROJECT_CONFIGS["rootFiles"]) {
+    if ("rootFiles" -like $ProjectFilter -and $projectsData.rootFiles) {
         $rootFileProject = New-Object PSObject -Property @{
-            Name = "rootFiles"
-            FullName = $SOURCE_PATH
-            SourceFolder = "root"
+            ProjectName = "rootFiles"
+            deployment = $projectsData.rootFiles.deployment
+            path = ""
         }
         $projects = @($rootFileProject) + $projects
     }
@@ -89,69 +87,117 @@ function Main {
     }
 
     Write-Log "Processing $($projects.Count) projects"
-    $results = @()    # Process each project
+    $results = @()
     foreach ($project in $projects) {
-        $projectName = $project.Name
+        $projectName = $project.ProjectName
+        $config = $project
         Write-Host "Processing: $projectName" -ForegroundColor Yellow
         Write-Log "Starting processing for project: $projectName"
-        
+        # Output the full $project object
+        Write-Log "Project details: $($project | ConvertTo-Json -Depth 5)" "DEBUG"
         try {
-            Write-Log "Step 1: Getting project type for $projectName"
-            $projectType = Get-ProjectType $projectName
-            Write-Log "Project type for $projectName`: $projectType"
-            
-            Write-Log "Step 2: Getting project config for $projectName"
-            $config = $PROJECT_CONFIGS[$projectName]
-            if ($config) {
-                Write-Log "Config found for $projectName with type: $($config.Type)"
-            } else {
-                Write-Log "No config found for $projectName" "WARN"
-            }
-            
-            # Build phase
+            $projectType = $config.deployment.type
+            Write-Log "Project type: $projectType, Config: $($config.deployment | ConvertTo-Json -Depth 3)"
+
             $buildSuccess = $true
             if (-not $SkipBuild -and $projectType -in @("React", "PHP", "Node", "FullStack")) {
-                Write-Log "Step 3: Starting build for $projectName (type: $projectType)"
-                $buildSuccess = Invoke-Build $projectName $projectType $config
-                Write-Log "Build result for $projectName`: $buildSuccess"
-            } else {
-                Write-Log "Skipping build for $projectName (SkipBuild: $SkipBuild, Type: $projectType)"
+                # Build the frontend/main project
+                $projectPath = Join-Path $SOURCE_PATH $config.path
+                if (Test-Path $projectPath) {
+                    Push-Location $projectPath
+                    try {
+                        if ($config.deployment.requiresBuild -and -not $DryRun) {
+                            Write-Log "Building project: $projectName" "INFO"
+                            if ($config.deployment.packageManager -eq "npm") {
+                                Invoke-Expression "npm install"
+                                Invoke-Expression $config.deployment.buildCommand
+                            }
+                        }
+                    } catch {
+                        Write-Log "Build failed for $projectName`: $_" "ERROR"
+                        $buildSuccess = $false
+                    } finally {
+                        Pop-Location
+                    }
+                } else {
+                    Write-Log "Project path not found: $projectPath" "ERROR"
+                    $buildSuccess = $false
+                }
             }
-            
-            # Deploy phase
-            if ($buildSuccess -and -not $OnlyBuild) {
-                Write-Log "Step 4: Starting deployment for $projectName"
-                Copy-ProjectFiles $projectName $projectType $config
-                Write-Log "Deployment completed for $projectName"
-            } else {
-                Write-Log "Skipping deployment for $projectName (BuildSuccess: $buildSuccess, OnlyBuild: $OnlyBuild)"
+            # Backend build phase for projects with backend configuration
+            if ($config.backend -and $config.backend.requiresBuild -and -not $SkipBuild) {
+                $backendPath = Join-Path $SOURCE_PATH $config.backend.path
+                if (Test-Path $backendPath) {
+                    Push-Location $backendPath
+                    try {
+                        if (-not $DryRun) { 
+                            Write-Log "Building backend for $projectName" "INFO"
+                            Invoke-Expression $config.backend.buildCommand 
+                        }
+                    } catch {
+                        Write-Log "Backend build failed: $_" "ERROR"
+                        $buildSuccess = $false
+                    } finally {
+                        Pop-Location
+                    }
+                } else {
+                    Write-Log "Backend path not found: $backendPath" "ERROR"
+                    $buildSuccess = $false
+                }
             }
-            
-            Write-Log "Step 5: Creating success result object for $projectName"
-            $results += New-Object PSObject -Property @{
-                Project = $projectName
-                Type = $projectType
-                Success = $buildSuccess
-                Error = $null
+
+            if ($buildSuccess) {
+                Write-Log "Copying project files for: $projectName" "INFO"
+                
+                # Copy frontend/main project files
+                $sourcePath = Join-Path $SOURCE_PATH $config.path
+                $deployPath = Join-Path $DEPLOY_PATH $config.deployment.deployAs
+                
+                if ($config.deployment.requiresBuild -and $config.deployment.outputDir) {
+                    $sourcePath = Join-Path $sourcePath $config.deployment.outputDir
+                }
+                
+                if (Test-Path $sourcePath) {
+                    if (-not $DryRun) {
+                        Write-Log "Copying frontend from $sourcePath to $deployPath" "INFO"
+                        New-Item -ItemType Directory -Path $deployPath -Force | Out-Null
+                        Copy-Item -Path "$sourcePath\*" -Destination $deployPath -Recurse -Force
+                    }
+                } else {
+                    Write-Log "Frontend source path not found: $sourcePath" "WARN"
+                }
+
+                # Handle backend deployment if configured
+                if ($config.backend) {
+                    Write-Log "Processing backend for: $projectName" "INFO"
+                    $backendSourcePath = Join-Path $SOURCE_PATH $config.backend.path
+                    $deployBackendPath = Join-Path $deployPath "api"
+
+                    Write-Log "Backend source: $backendSourcePath, Deploy to: $deployBackendPath" "INFO"
+                    if (Test-Path $backendSourcePath) {
+                        Write-Log "Backend source path exists: $backendSourcePath" "INFO"
+                        if (-not $DryRun) {
+                            Write-Log "Creating backend deployment directory: $deployBackendPath" "INFO"
+                            New-Item -ItemType Directory -Path $deployBackendPath -Force | Out-Null
+                            Write-Log "Copying backend files from $backendSourcePath to $deployBackendPath" "INFO"
+                            Copy-Item -Path "$backendSourcePath\*" -Destination $deployBackendPath -Recurse -Force
+                        }
+                    } else {
+                        Write-Log "Backend source path not found: $backendSourcePath" "WARN"
+                    }
+                }
             }
-            Write-Log "Successfully processed $projectName" "SUCCESS"
-            
+
+            if ($projectName -eq "name_generator") {
+                Write-Log "Full project configuration for name_generator: $($config | ConvertTo-Json -Depth 10)" "DEBUG"
+            }
+
+            $results += New-Object PSObject -Property @{ Project = $projectName; Type = $projectType; Success = $buildSuccess; Error = $null }
         } catch {
-            Write-Log "EXCEPTION in processing $projectName at step: $($_.InvocationInfo.ScriptLineNumber)" "ERROR"
-            Write-Log "Exception details: $($_.Exception.GetType().Name)" "ERROR"
-            Write-Log "Exception message: $($_.Exception.Message)" "ERROR"
-            Write-Log "Failed to process $projectName`: $_" "ERROR"
-            
-            Write-Log "Creating failure result object for $projectName"
-            $results += New-Object PSObject -Property @{
-                Project = $projectName
-                Type = "Unknown"
-                Success = $false
-                Error = $_.Exception.Message
-            }
+            Write-Log "Failed to process $projectName" "ERROR"
+            $results += New-Object PSObject -Property @{ Project = $projectName; Type = "Unknown"; Success = $false; Error = $_.Exception.Message }
         }
     }
-    
     # Show results
     Show-Summary $results
     
