@@ -93,22 +93,46 @@ const App: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-gray-100">
-      <header className="p-4 bg-white dark:bg-gray-800 shadow">
-        <h1 className="text-2xl font-bold">Name Generator</h1>
-      </header>
-      <nav className="flex space-x-2 p-4 border-b border-gray-200 dark:border-gray-700 bg-gray-100 dark:bg-gray-800">
-        {tabs.map(tab => (
-          <button
-            key={tab.value}
-            className={`px-4 py-2 rounded font-medium focus:outline-none transition-colors ${activeTab === tab.value ? 'bg-blue-500 text-white' : 'bg-white dark:bg-gray-700 text-gray-800 dark:text-gray-200'}`}
-            onClick={() => setActiveTab(tab.value)}
-          >
-            {tab.label}
-          </button>
-        ))}
-      </nav>
-      <main className="p-4 max-w-3xl mx-auto">
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-blue-50 dark:from-gray-900 dark:via-gray-800 dark:to-indigo-900 text-gray-900 dark:text-gray-100">
+      <div className="w-full">
+        <header className="relative overflow-hidden bg-white dark:bg-gray-900 shadow-lg">
+          <div className="absolute inset-0 bg-gradient-to-r from-blue-600 to-indigo-600 opacity-5"></div>
+          <div className="relative px-6 py-8">
+            <div className="max-w-6xl mx-auto text-center">
+              <h1 className="text-4xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-indigo-600 tracking-tight">
+                ✨ Name Generator
+              </h1>
+              <p className="text-gray-600 dark:text-gray-300 mt-2 text-lg">
+                Generate unique names for people, places, events, and titles
+              </p>
+            </div>
+          </div>
+        </header>
+        
+        <nav className="bg-white dark:bg-gray-900 shadow-sm border-b border-gray-200 dark:border-gray-700 sticky top-0 z-10">
+          <div className="max-w-6xl mx-auto px-6 py-4">
+            <div className="flex flex-wrap gap-2 justify-center">
+              {tabs.map(tab => (
+                <button
+                  key={tab.value}
+                  className={`relative px-6 py-3 rounded-xl font-semibold transition-all duration-300 transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 ${
+                    activeTab === tab.value 
+                      ? 'bg-gradient-to-r from-blue-500 to-indigo-600 text-white shadow-lg shadow-blue-500/25' 
+                      : 'bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 hover:text-gray-900 dark:hover:text-white'
+                  }`}
+                  onClick={() => setActiveTab(tab.value)}
+                >
+                  {tab.label}
+                  {activeTab === tab.value && (
+                    <div className="absolute inset-0 rounded-xl bg-white/20 animate-pulse"></div>
+                  )}
+                </button>
+              ))}
+            </div>
+          </div>
+        </nav>
+        
+        <main className="max-w-6xl mx-auto px-6 py-8">
         <TabPanel name="people" active={activeTab}>
           <PeopleForm onGenerate={handlePeopleGenerate} loading={loading} />
           <ResultsGrid results={peopleResults} type="people" />
@@ -139,6 +163,7 @@ const App: React.FC = () => {
           </div>
         </TabPanel>
       </main>
+      </div>
     </div>
   );
 };

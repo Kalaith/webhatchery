@@ -60,100 +60,129 @@ const PeopleForm: React.FC<PeopleFormProps> = ({ onGenerate, loading }) => {
   };
 
   return (
-    <section className="w-full min-h-[80vh] flex items-center justify-center bg-gradient-to-br from-indigo-50 via-white to-blue-50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 py-8 px-2">
-      <div className="w-full max-w-2xl mx-auto rounded-3xl shadow-2xl border border-gray-100 dark:border-gray-700 bg-white dark:bg-gray-900 p-0 sm:p-0">
-        <header className="px-8 pt-8 pb-4 border-b border-gray-100 dark:border-gray-800">
-          <h2 className="text-3xl font-extrabold text-gray-900 dark:text-white mb-1 tracking-tight">Generate People Names</h2>
-          <p className="text-gray-600 dark:text-gray-300 text-base mb-2">Create unique, culturally-inspired names. Adjust the options below to fit your needs.</p>
-        </header>
-        <form onSubmit={handleSubmit} aria-labelledby="people-form-title" className="px-8 py-8 space-y-8">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-6">
-            <div className="flex flex-col">
-              <label htmlFor="count" className="block text-base font-semibold text-gray-800 dark:text-gray-100 mb-1">Count</label>
-              <input
-                id="count"
-                type="number"
-                min={1}
-                max={20}
-                value={count}
-                onChange={e => setCount(Number(e.target.value))}
-                className="input input-bordered w-full px-3 py-2 rounded-lg focus:ring-2 focus:ring-blue-400 border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100 text-lg"
-                aria-describedby="count-help"
-              />
-              <span id="count-help" className="text-xs text-gray-500 mt-1">Choose between 1 and 20 names.</span>
-            </div>
-            <FormSelectField
-              label="Gender"
-              name="gender"
-              value={gender}
-              onChange={setGender}
-              options={options.gender}
-              className="flex flex-col"
-            />
-            <FormSelectField
-              label="Culture"
-              name="culture"
-              value={culture}
-              onChange={setCulture}
-              options={options.culture}
-              className="flex flex-col"
-            />
-            <FormSelectField
-              label="Method"
-              name="method"
-              value={method}
-              onChange={setMethod}
-              options={options.method}
-              className="flex flex-col"
-            />
-            <FormSelectField
-              label="Type"
-              name="type"
-              value={type}
-              onChange={setType}
-              options={options.type}
-              className="flex flex-col"
-            />
-            <FormSelectField
-              label="Period"
-              name="period"
-              value={period}
-              onChange={setPeriod}
-              options={options.period}
-              className="flex flex-col"
-            />
-          </div>
-          <div className="flex flex-col gap-2">
-            <div className="flex items-center mt-2">
-                <input
-                  type="checkbox"
-                  id="excludeReal"
-                  checked={excludeReal}
-                  onChange={e => setExcludeReal(e.target.checked)}
-                  className="mr-2 h-5 w-5 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
-                  aria-describedby="exclude-help"
-                />
-                <label htmlFor="excludeReal" className="text-sm select-none text-gray-800 dark:text-gray-100 font-medium">Exclude Real Names</label>
-                <span id="exclude-help" className="text-xs text-gray-500 ml-2">Check to avoid real-world names in results.</span>
-              </div>
-          </div>
-          <div className="pt-2">
-            <button
-              type="submit"
-              className="w-full md:w-auto bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white px-10 py-3 rounded-xl font-bold shadow-xl text-lg transition-colors duration-150 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-400"
-              disabled={loading}
-              aria-busy={loading}
-            >
-              {loading ? 'Generating...' : 'Generate'}
-            </button>
-          </div>
-          <div aria-live="polite" className="sr-only">
-            {loading && 'Generating names...'}
-            {loadingOptions && 'Loading options...'}
-          </div>
-        </form>
+    <div className="bg-white dark:bg-gray-900 rounded-2xl shadow-xl border border-gray-200 dark:border-gray-700 overflow-hidden">
+      <div className="bg-gradient-to-r from-blue-500 to-indigo-600 px-8 py-6">
+        <h2 className="text-2xl font-bold text-white mb-2">👥 Generate People Names</h2>
+        <p className="text-blue-100">Create unique, culturally-inspired names for your characters and stories</p>
       </div>
-    </section>
+      
+      <form onSubmit={handleSubmit} className="p-8 space-y-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="space-y-2">
+            <label htmlFor="count" className="block text-base font-semibold text-gray-800 dark:text-gray-100">
+              Count
+            </label>
+            <input
+              id="count"
+              type="number"
+              min={1}
+              max={20}
+              value={count}
+              onChange={e => setCount(Number(e.target.value))}
+              className="w-full px-4 py-3 rounded-xl border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 text-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200"
+              placeholder="1-20"
+            />
+            <p className="text-sm text-gray-500">Choose between 1 and 20 names</p>
+          </div>
+          
+          <FormSelectField
+            label="Gender"
+            name="gender"
+            value={gender}
+            onChange={setGender}
+            options={options.gender}
+            className="space-y-2"
+          />
+          
+          <FormSelectField
+            label="Culture"
+            name="culture"
+            value={culture}
+            onChange={setCulture}
+            options={options.culture}
+            className="space-y-2"
+          />
+          
+          <FormSelectField
+            label="Generation Method"
+            name="method"
+            value={method}
+            onChange={setMethod}
+            options={options.method}
+            className="space-y-2"
+          />
+          
+          <FormSelectField
+            label="Name Type"
+            name="type"
+            value={type}
+            onChange={setType}
+            options={options.type}
+            className="space-y-2"
+          />
+          
+          <FormSelectField
+            label="Time Period"
+            name="period"
+            value={period}
+            onChange={setPeriod}
+            options={options.period}
+            className="space-y-2"
+          />
+        </div>
+        
+        <div className="flex items-center gap-3 p-4 bg-gray-50 dark:bg-gray-800 rounded-xl">
+          <input
+            type="checkbox"
+            id="excludeReal"
+            checked={excludeReal}
+            onChange={e => setExcludeReal(e.target.checked)}
+            className="h-5 w-5 text-blue-600 focus:ring-blue-500 border-gray-300 rounded transition-colors"
+          />
+          <div>
+            <label htmlFor="excludeReal" className="text-base font-medium text-gray-800 dark:text-gray-100 cursor-pointer">
+              Exclude Real Names
+            </label>
+            <p className="text-sm text-gray-500">Avoid using real-world names in results</p>
+          </div>
+        </div>
+        
+        <div className="flex justify-center pt-4">
+          <button
+            type="submit"
+            className="group relative px-8 py-4 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white font-bold rounded-xl shadow-lg transform transition-all duration-200 hover:scale-105 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none"
+            disabled={loading || loadingOptions}
+          >
+            <span className="flex items-center gap-2">
+              {loading ? (
+                <>
+                  <svg className="animate-spin h-5 w-5" fill="none" viewBox="0 0 24 24">
+                    <circle cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" className="opacity-25"></circle>
+                    <path fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" className="opacity-75"></path>
+                  </svg>
+                  Generating...
+                </>
+              ) : loadingOptions ? (
+                <>
+                  <svg className="animate-spin h-5 w-5" fill="none" viewBox="0 0 24 24">
+                    <circle cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" className="opacity-25"></circle>
+                    <path fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" className="opacity-75"></path>
+                  </svg>
+                  Loading Options...
+                </>
+              ) : (
+                <>
+                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
+                  </svg>
+                  Generate Names
+                </>
+              )}
+            </span>
+          </button>
+        </div>
+      </form>
+    </div>
   );
 };
 

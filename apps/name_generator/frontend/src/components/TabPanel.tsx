@@ -8,7 +8,11 @@ interface TabPanelProps {
 
 const TabPanel: React.FC<TabPanelProps> = ({ name, active, children }) => {
   if (name !== active) return null;
-  return <div>{children}</div>;
+  return (
+    <div className="animate-in fade-in-0 duration-500">
+      {children}
+    </div>
+  );
 };
 
 export default TabPanel; 
