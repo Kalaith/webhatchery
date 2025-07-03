@@ -6,24 +6,28 @@ import type { Option } from '../types';
 interface PlacesFormProps {
   onGenerate: (params: {
     count: number;
-    type: string;
-    style: string;
-    method: string;
+    genre: string;
+    location_type: string;
+    tone: string;
+    climate: string;
+    size: string;
   }) => void;
   loading?: boolean;
 }
 
-const fields = ['type', 'style', 'method'] as const;
+const fields = ['genre', 'location_type', 'tone', 'climate', 'size'] as const;
 type Field = typeof fields[number];
 
 const PlacesForm: React.FC<PlacesFormProps> = ({ onGenerate, loading }) => {
   const [count, setCount] = useState(5);
-  const [type, setType] = useState('city');
-  const [style, setStyle] = useState('english');
-  const [method, setMethod] = useState('traditional_pattern');
+  const [genre, setGenre] = useState('fantasy');
+  const [locationType, setLocationType] = useState('water');
+  const [tone, setTone] = useState('mystical');
+  const [climate, setClimate] = useState('cold');
+  const [size, setSize] = useState('large');
 
   const [options, setOptions] = useState<Record<Field, Option[]>>({
-    type: [], style: [], method: []
+    genre: [], location_type: [], tone: [], climate: [], size: []
   });
   const [loadingOptions, setLoadingOptions] = useState(true);
 
@@ -34,9 +38,11 @@ const PlacesForm: React.FC<PlacesFormProps> = ({ onGenerate, loading }) => {
       .then(results => {
         if (!isMounted) return;
         setOptions({
-          type: results[0],
-          style: results[1],
-          method: results[2],
+          genre: results[0],
+          location_type: results[1],
+          tone: results[2],
+          climate: results[3],
+          size: results[4],
         });
         setLoadingOptions(false);
       })
@@ -48,7 +54,7 @@ const PlacesForm: React.FC<PlacesFormProps> = ({ onGenerate, loading }) => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    onGenerate({ count, type, style, method });
+    onGenerate({ count, genre, location_type: locationType, tone, climate, size });
   };
 
   return (
@@ -75,27 +81,43 @@ const PlacesForm: React.FC<PlacesFormProps> = ({ onGenerate, loading }) => {
               <span id="count-help" className="text-xs text-gray-500 mt-1">Choose between 1 and 20 names.</span>
             </div>
             <FormSelectField
-              label="Type"
-              name="type"
-              value={type}
-              onChange={setType}
-              options={options.type}
+              label="Genre"
+              name="genre"
+              value={genre}
+              onChange={setGenre}
+              options={options.genre}
               className="flex flex-col"
             />
             <FormSelectField
-              label="Style"
-              name="style"
-              value={style}
-              onChange={setStyle}
-              options={options.style}
+              label="Location Type"
+              name="location_type"
+              value={locationType}
+              onChange={setLocationType}
+              options={options.location_type}
               className="flex flex-col"
             />
             <FormSelectField
-              label="Method"
-              name="method"
-              value={method}
-              onChange={setMethod}
-              options={options.method}
+              label="Tone"
+              name="tone"
+              value={tone}
+              onChange={setTone}
+              options={options.tone}
+              className="flex flex-col"
+            />
+            <FormSelectField
+              label="Climate"
+              name="climate"
+              value={climate}
+              onChange={setClimate}
+              options={options.climate}
+              className="flex flex-col"
+            />
+            <FormSelectField
+              label="Size"
+              name="size"
+              value={size}
+              onChange={setSize}
+              options={options.size}
               className="flex flex-col"
             />
           </div>

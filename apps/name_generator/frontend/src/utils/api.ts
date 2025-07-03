@@ -19,12 +19,23 @@ export async function fetchPeopleNames(params: PeopleParams): Promise<PersonName
   return data.names || [];
 }
 
-export async function fetchPlaceNames(params: { count: number; type: string; style: string; method: string; }): Promise<string[]> {
+export interface PlaceParams {
+  count: number;
+  genre: string;
+  location_type: string;
+  tone: string;
+  climate: string;
+  size: string;
+}
+
+export async function fetchPlaceNames(params: PlaceParams): Promise<string[]> {
   const query = new URLSearchParams({
     count: params.count.toString(),
-    type: params.type,
-    style: params.style,
-    method: params.method,
+    genre: params.genre,
+    location_type: params.location_type,
+    tone: params.tone,
+    climate: params.climate,
+    size: params.size,
   });
   const res = await fetch(`/api/generate_place.php?${query.toString()}`);
   if (!res.ok) throw new Error('API error');

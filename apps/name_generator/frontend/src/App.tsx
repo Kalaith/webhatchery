@@ -6,9 +6,9 @@ import EventsForm from './components/EventsForm';
 import TitlesForm from './components/TitlesForm';
 import BatchForm from './components/BatchForm';
 import ResultsGrid from './components/ResultsGrid';
-import { fetchPeopleNames } from './utils/api';
+import { fetchPeopleNames, fetchPlaceNames, fetchEventNames, fetchTitleNames, fetchBatchResults } from './utils/api';
 import type { PersonNameResult } from './types';
-import type { PeopleParams } from './utils/api';
+import type { PeopleParams, TitleParams, PlaceParams } from './utils/api';
 
 const tabs = [
   { label: 'People', value: 'people' },
@@ -23,14 +23,13 @@ const App: React.FC = () => {
   const [peopleResults, setPeopleResults] = useState<PersonNameResult[]>([]);
   const [loading, setLoading] = useState(false);
 
-  // Placeholder handlers for new forms
-  const [placesResults, setPlacesResults] = useState<any[]>([]);
+  const [placesResults, setPlacesResults] = useState<string[]>([]);
   const [placesLoading, setPlacesLoading] = useState(false);
-  const [eventsResults, setEventsResults] = useState<any[]>([]);
+  const [eventsResults, setEventsResults] = useState<string[]>([]);
   const [eventsLoading, setEventsLoading] = useState(false);
-  const [titlesResults, setTitlesResults] = useState<any[]>([]);
+  const [titlesResults, setTitlesResults] = useState<string[]>([]);
   const [titlesLoading, setTitlesLoading] = useState(false);
-  const [batchResults, setBatchResults] = useState<any[]>([]);
+  const [batchResults, setBatchResults] = useState<Record<string, string[]>>({});
   const [batchLoading, setBatchLoading] = useState(false);
 
   const handlePeopleGenerate = async (params: PeopleParams) => {
@@ -45,40 +44,52 @@ const App: React.FC = () => {
     }
   };
 
-  const handlePlacesGenerate = async (params: any) => {
+  const handlePlacesGenerate = async (params: PlaceParams) => {
     setPlacesLoading(true);
-    // TODO: Call API for places
-    setTimeout(() => {
+    try {
+      const results = await fetchPlaceNames(params);
+      setPlacesResults(results);
+    } catch (e) {
       setPlacesResults([]);
+    } finally {
       setPlacesLoading(false);
-    }, 600);
+    }
   };
 
-  const handleEventsGenerate = async (params: any) => {
+  const handleEventsGenerate = async (params: { count: number; type: string; theme: string; tone: string; }) => {
     setEventsLoading(true);
-    // TODO: Call API for events
-    setTimeout(() => {
+    try {
+      const results = await fetchEventNames(params);
+      setEventsResults(results);
+    } catch (e) {
       setEventsResults([]);
+    } finally {
       setEventsLoading(false);
-    }, 600);
+    }
   };
 
-  const handleTitlesGenerate = async (params: any) => {
+  const handleTitlesGenerate = async (params: TitleParams) => {
     setTitlesLoading(true);
-    // TODO: Call API for titles
-    setTimeout(() => {
+    try {
+      const results = await fetchTitleNames(params);
+      setTitlesResults(results);
+    } catch (e) {
       setTitlesResults([]);
+    } finally {
       setTitlesLoading(false);
-    }, 600);
+    }
   };
 
-  const handleBatchGenerate = async (params: any) => {
+  const handleBatchGenerate = async (params: { count: number; types: string[] }) => {
     setBatchLoading(true);
-    // TODO: Call API for batch
-    setTimeout(() => {
-      setBatchResults([]);
+    try {
+      const results = await fetchBatchResults(params);
+      setBatchResults(results);
+    } catch (e) {
+      setBatchResults({});
+    } finally {
       setBatchLoading(false);
-    }, 600);
+    }
   };
 
   return (
@@ -100,23 +111,32 @@ const App: React.FC = () => {
       <main className="p-4 max-w-3xl mx-auto">
         <TabPanel name="people" active={activeTab}>
           <PeopleForm onGenerate={handlePeopleGenerate} loading={loading} />
-          <ResultsGrid results={peopleResults} />
+          <ResultsGrid results={peopleResults} type="people" />
         </TabPanel>
         <TabPanel name="places" active={activeTab}>
           <PlacesForm onGenerate={handlePlacesGenerate} loading={placesLoading} />
-          <ResultsGrid results={placesResults} />
+          <ResultsGrid results={placesResults} type="places" />
         </TabPanel>
         <TabPanel name="events" active={activeTab}>
           <EventsForm onGenerate={handleEventsGenerate} loading={eventsLoading} />
-          <ResultsGrid results={eventsResults} />
+          <ResultsGrid results={eventsResults} type="events" />
         </TabPanel>
         <TabPanel name="titles" active={activeTab}>
           <TitlesForm onGenerate={handleTitlesGenerate} loading={titlesLoading} />
-          <ResultsGrid results={titlesResults} />
+          <ResultsGrid results={titlesResults} type="titles" />
         </TabPanel>
         <TabPanel name="batch" active={activeTab}>
           <BatchForm onGenerate={handleBatchGenerate} loading={batchLoading} />
-          <ResultsGrid results={batchResults} />
+          <div className="space-y-6 mt-6">
+            {['people', 'places', 'events', 'titles'].map(type => (
+              batchResults[type] && (
+                <div key={type}>
+                  <h3 className="text-lg font-bold mb-2 capitalize">{type}</h3>
+                  <ResultsGrid results={batchResults[type]} type={type as any} />
+                </div>
+              )
+            ))}
+          </div>
         </TabPanel>
       </main>
     </div>
