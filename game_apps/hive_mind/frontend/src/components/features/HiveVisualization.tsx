@@ -17,17 +17,20 @@ const HiveVisualization: React.FC = () => {
   }, []);
 
   return (
-    <div className="hive-visualization p-6 bg-gray-50 rounded-lg shadow-md">
-      <h2 className="text-2xl font-bold text-gray-800 mb-4">The Hive</h2>
+    <div className="bg-gray-800 p-4 rounded-lg">
+      <h2 className="text-xl font-bold mb-4">The Hive</h2>
       <HiveCore />
-      <div className="unit-counts grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-2 lg:grid-cols-3 gap-4 mt-4">
         {units.map((unit) => (
           <UnitCount
             key={unit.id}
             id={unit.id}
             icon={unit.icon}
             label={unit.name}
-            value={Object.values(unit.production).reduce((acc, val) => acc + (val || 0), 0)}
+            value={Object.values(unit.production).reduce(
+              (acc, val) => acc + (val || 0),
+              0,
+            )}
             isVisible={unit.isVisible}
           />
         ))}

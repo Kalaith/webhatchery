@@ -11,14 +11,12 @@ interface UnitCountProps {
 const UnitCount: React.FC<UnitCountProps> = ({ id, icon, label, value, isVisible }) => {
   return (
     <div
-      className={`unit-count flex items-center space-x-4 p-4 bg-gray-100 rounded shadow-md ${
-        isVisible ? 'block' : 'hidden'
-      }`}
+      className={`bg-gray-700 p-2 rounded-lg flex flex-col items-center text-center ${isVisible ? '' : 'hidden'}`}
       id={id}
     >
-      <span className="unit-icon text-2xl">{icon}</span>
-      <span className="unit-label text-lg font-semibold text-gray-700">{label}</span>
-      <span className="unit-value text-lg font-bold text-gray-900">{value}</span>
+      <span className="text-3xl">{icon}</span>
+      <span className="text-sm font-semibold">{label}</span>
+      <span className="text-lg font-bold">{value}</span>
     </div>
   );
 };
