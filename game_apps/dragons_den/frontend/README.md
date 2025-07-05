@@ -50,43 +50,47 @@ The frontend for Dragon's Den is built using modern React and TypeScript princip
 ### Architecture Highlights
 
 #### State Management
-- **Zustand**: Lightweight, persistent state management with automatic local storage synchronization.
-- **React Query**: Efficient server state management.
+- **Zustand**: Utilized for global game state, including player resources (gold, gems), dragon stats, upgrade levels, and minion status. Zustand stores are defined in `src/stores/` and provide reactive access to data. Persistence is handled via Zustand's built-in middleware, saving critical game state to `localStorage` to enable save/load functionality and offline earnings.
+- **React Query**: (If applicable, based on backend interaction) Used for managing server-side data, such as fetching initial game configurations or syncing player progress with a potential backend. This ensures efficient caching, background refetching, and simplified data synchronization. (Note: If there's no backend, this point can be removed or adjusted).
 
-#### Animations
-- **Framer Motion**: Smooth, performant animations for:
-  - Floating numbers on gold collection.
-  - Treasure discovery effects.
-  - UI transitions and micro-interactions.
-  - Cooldown progress indicators.
+#### Data Flow & Storage
+- **Game Data (`src/data/`)**: Static game configurations like treasure definitions, upgrade trees, and achievement criteria are stored as immutable JavaScript objects/arrays. These are loaded once at application startup.
+- **Client-Side State (`src/stores/`)**: Dynamic game state (player progress, current resources, active minions, etc.) is managed by Zustand stores. These stores are the single source of truth for the UI.
+- **Local Storage**: Zustand stores are configured to persist key game state slices to `localStorage`. This allows players to close and reopen the game without losing progress and enables calculation of offline earnings.
+- **API Interaction**: (If applicable) For features requiring server interaction (e.g., leaderboards, cloud saves), data is fetched from and sent to the backend API using standard `fetch` or a library like `axios`. Responses are then integrated into the Zustand state.
 
-#### Styling
-- **Tailwind CSS**: Utility-first approach for:
-  - Responsive design.
-  - Consistent spacing and colors.
-  - Fast development workflow.
-  - Easy customization and theming.
+#### Data Presentation
+- **React Components (`src/components/`)**: Data from Zustand stores and static game data is consumed by React components. Components are designed to be modular and reusable, focusing on presenting specific pieces of information or interactive elements.
+- **Tailwind CSS**: Used for styling all UI elements. Components are built with utility classes for responsive layouts, consistent theming, and rapid prototyping. This ensures a cohesive visual design across the application.
+- **Framer Motion**: Applied to create smooth and engaging animations. Examples include:
+    - Floating text animations for gold collection.
+    - Transition effects for opening/closing modals and menus.
+    - Visual feedback for button clicks and upgrades.
+    - Progress bar animations for minion cooldowns.
 
 #### Type Safety
-- Comprehensive TypeScript definitions for:
-  - Game state and mechanics.
-  - Treasure and upgrade systems.
-  - Component props and interfaces.
-  - API contracts and data structures.
+- **TypeScript**: Enforced throughout the codebase. Comprehensive type definitions (`src/types/`) are used for:
+    - **Game State**: Defining the structure of all Zustand stores.
+    - **API Contracts**: Ensuring consistency between frontend requests and backend responses.
+    - **Component Props**: Clearly defining the expected inputs for each React component.
+    - **Game Entities**: Strongly typing game objects like `Dragon`, `Upgrade`, `Minion`, and `Treasure`.
+This significantly reduces runtime errors and improves code maintainability and developer experience.
 
 ### Project Structure
 ```
 src/
-├── components/          # Reusable React components
-│   ├── ui/             # Basic UI components (Button, Modal, etc.)
-│   ├── game/           # Game-specific components
-│   └── layout/         # Layout components (Header, Sidebar, etc.)
-├── hooks/              # Custom React hooks
-├── stores/             # Zustand state management
-├── types/              # TypeScript type definitions
-├── data/               # Game data (treasures, upgrades, achievements)
-├── utils/              # Utility functions and game logic
-└── styles/             # CSS and styling files
+├── api/                # (Optional) API service definitions and types for backend interaction
+├── components/         # Reusable React components
+│   ├── ui/             # Generic UI components (Button, Modal, Input, etc.)
+│   ├── game/           # Game-specific components (DragonDisplay, UpgradeCard, MinionPanel)
+│   └── layout/         # Layout components (Header, Sidebar, MainContent)
+├── hooks/              # Custom React hooks for encapsulating logic (e.g., useGameLoop, useOfflineEarnings)
+├── stores/             # Zustand state management definitions (e.g., useGameStore, usePlayerStore)
+├── types/              # TypeScript type definitions for all data structures and interfaces
+├── data/               # Static game data (e.g., treasure.ts, upgrades.ts, achievements.ts)
+├── utils/              # Utility functions and core game logic (e.g., calculations, data transformations)
+├── assets/             # Static assets like images, icons (if not in public/)
+└── styles/             # Global CSS, Tailwind configuration, and any custom styles
 ```
 
 ### Development
@@ -104,4 +108,4 @@ src/
 Contributions are welcome! Please open an issue or submit a pull request for any enhancements or bug fixes.
 
 ### License
-This project is licensed under the MIT License. See the LICENSE file for details.
+This project is licensed under the MIT License.
