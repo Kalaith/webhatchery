@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useGameStore } from '../../stores/gameStore';
+import ApiClient from '../../api/ApiClient';
 
 interface GameEvent {
   id: string;
@@ -8,13 +9,22 @@ interface GameEvent {
   timestamp: number;
 }
 
+const apiClient = new ApiClient('/api');
+
 export const GameEvents: React.FC = () => {
   const [events, setEvents] = useState<GameEvent[]>([]);
   const { gold, totalTreasures, achievements, minions } = useGameStore();
 
   // Track game state changes and create events
   useEffect(() => {
-    const addEvent = (message: string, type: GameEvent['type']) => {
+    const addEvent = async (message: string, type: GameEvent['type']) => {
+      try {
+        const eventData = await apiClient.getPlayerData('playerId');
+        console.log('Fetched player data:', eventData);
+      } catch (error) {
+        console.error('Error fetching player data:', error);
+      }
+
       const newEvent: GameEvent = {
         id: Date.now().toString(),
         message,
@@ -27,7 +37,7 @@ export const GameEvents: React.FC = () => {
 
     // This is a simplified event tracking - in a real game you'd want more sophisticated tracking
     if (gold > 0) {
-      // Could track gold milestones here
+      addEvent('Gold milestone reached!', 'gold');
     }
   }, [gold, totalTreasures, achievements, minions]);
 

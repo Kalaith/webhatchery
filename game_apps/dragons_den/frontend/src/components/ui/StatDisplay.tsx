@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
+import ApiClient from '../../api/ApiClient';
 
 interface StatDisplayProps {
   icon: string;
@@ -18,9 +19,20 @@ export const StatDisplay: React.FC<StatDisplayProps> = ({
 }) => {
   const [previousValue, setPreviousValue] = useState(value);
   const [isIncreasing, setIsIncreasing] = useState(false);
+  const apiClient = new ApiClient('/api');
 
   useEffect(() => {
     if (showChange && previousValue !== value) {
+      const fetchStatData = async () => {
+        try {
+          const statData = await apiClient.getConstants();
+          console.log('Fetched stat data:', statData);
+        } catch (error) {
+          console.error('Error fetching stat data:', error);
+        }
+      };
+      fetchStatData();
+
       const numValue = typeof value === 'string' ? parseFloat(value.replace(/[^0-9.-]/g, '')) : value;
       const numPrevious = typeof previousValue === 'string' ? parseFloat(previousValue.toString().replace(/[^0-9.-]/g, '')) : previousValue;
       
