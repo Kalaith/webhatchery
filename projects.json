@@ -141,6 +141,30 @@
           }
         },
         {
+          "title": "Auth Portal",
+          "description": "User Authentication Portal for managing user accounts, roles, and permissions with secure login and registration features.",
+          "deployment": {
+            "type": "FullStack",
+            "deployAs": "auth_portal",
+            "frontend": {
+              "type": "React",
+              "path": "apps/auth/frontend/",
+              "outputDir": "dist",
+              "requiresBuild": true,
+              "buildCommand": "npm run build -- --base=./",
+              "packageManager": "npm"
+            },
+            "backend": {
+              "type": "PHP",
+              "path": "apps/auth/backend/",
+              "requiresBuild": true,
+              "buildCommand": "composer install --no-dev --optimize-autoloader",
+              "databaseInit": true,
+              "envFile": ".env"
+            }
+          }
+        },
+        {
           "title": "Meme Generator",
           "path": "apps/meme_generator/",
           "description": "Interactive tool for creating custom memes with various templates and text customization options.",
@@ -437,7 +461,13 @@
       "files": [
         "index.php",
         "index.css",
-        "projects.json"
+        "projects.json",
+        "favicon/android-chrome-192x192.png",
+        "favicon/android-chrome-512x512.png",
+        "favicon/apple-touch-icon.png",
+        "favicon/favicon-16x16.png",
+        "favicon/favicon-32x32.png",
+        "favicon/favicon.ico"
       ],
       "exclude": [
         "build-deploy.ps1",

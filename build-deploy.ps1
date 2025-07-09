@@ -95,71 +95,165 @@ function Main {
             $projectType = $config.deployment.type
 
             $buildSuccess = $true
-            if (-not $SkipBuild -and $projectType -in @("React", "PHP", "Node", "FullStack")) {
-                $projectPath = Join-Path $SOURCE_PATH $config.path
-                if (Test-Path $projectPath) {
-                    Push-Location $projectPath
+            # Enhanced FullStack/Frontend/Backend build and deploy logic
+            if ($projectType -eq "FullStack" -and $config.deployment.frontend -and $config.deployment.backend) {
+                # --- FRONTEND ---
+                $frontend = $config.deployment.frontend
+                $frontendPath = Join-Path $SOURCE_PATH $frontend.path
+                $frontendBuildSuccess = $true
+                if (-not $SkipBuild -and $frontend.requiresBuild -and (Test-Path $frontendPath)) {
+                    Push-Location $frontendPath
                     try {
-                        if ($config.deployment.requiresBuild -and -not $DryRun) {
-                            if ($config.deployment.packageManager -eq "npm") {
-                                Invoke-Expression "npm install"
-                                Invoke-Expression $config.deployment.buildCommand
-                            }
+                        if ($frontend.packageManager -eq "npm" -and -not $DryRun) {
+                            Invoke-Expression "npm install"
+                            Invoke-Expression $frontend.buildCommand
                         }
                     } catch {
-                        Write-Log "Build failed for $projectName" "ERROR"
-                        $buildSuccess = $false
+                        Write-Log "Frontend build failed for $projectName" "ERROR"
+                        $frontendBuildSuccess = $false
                     } finally {
                         Pop-Location
                     }
-                } else {
-                    Write-Log "Project path not found: $projectPath" "ERROR"
-                    $buildSuccess = $false
+                } elseif (-not (Test-Path $frontendPath)) {
+                    Write-Log "Frontend path not found: $frontendPath" "ERROR"
+                    $frontendBuildSuccess = $false
                 }
-            }
-            if ($config.backend -and $config.backend.requiresBuild -and -not $SkipBuild) {
-                $backendPath = Join-Path $SOURCE_PATH $config.backend.path
-                if (Test-Path $backendPath) {
+                # --- BACKEND ---
+                $backend = $config.deployment.backend
+                $backendPath = Join-Path $SOURCE_PATH $backend.path
+                $backendBuildSuccess = $true
+                if (-not $SkipBuild -and $backend.requiresBuild -and (Test-Path $backendPath)) {
                     Push-Location $backendPath
                     try {
-                        if (-not $DryRun) { 
-                            Invoke-Expression $config.backend.buildCommand 
+                        if (-not $DryRun) {
+                            Invoke-Expression $backend.buildCommand
                         }
                     } catch {
-                        Write-Log "Backend build failed: $_" "ERROR"
-                        $buildSuccess = $false
+                        Write-Log "Backend build failed for $projectName" "ERROR"
+                        $backendBuildSuccess = $false
                     } finally {
                         Pop-Location
                     }
-                } else {
+                } elseif (-not (Test-Path $backendPath)) {
                     Write-Log "Backend path not found: $backendPath" "ERROR"
-                    $buildSuccess = $false
+                    $backendBuildSuccess = $false
                 }
-            }
-            if ($buildSuccess) {
-                $sourcePath = Join-Path $SOURCE_PATH $config.path
-                $deployPath = Join-Path $DEPLOY_PATH $config.deployment.deployAs
-                if ($config.deployment.requiresBuild -and $config.deployment.outputDir) {
-                    $sourcePath = Join-Path $sourcePath $config.deployment.outputDir
-                }
-                if (Test-Path $sourcePath) {
-                    if (-not $DryRun) {
-                        New-Item -ItemType Directory -Path $deployPath -Force | Out-Null
-                        Copy-Item -Path "$sourcePath\*" -Destination $deployPath -Recurse -Force
-                    }
-                } else {
-                    Write-Log "Frontend source path not found: $sourcePath" "WARN"
-                }
-                if ($config.backend) {
-                    $backendSourcePath = Join-Path $SOURCE_PATH $config.backend.path
-                    $deployBackendPath = Join-Path $deployPath "api"
-                    if (Test-Path $backendSourcePath) {
+                $buildSuccess = $frontendBuildSuccess -and $backendBuildSuccess
+                # --- DEPLOY ---
+                if ($buildSuccess) {
+                    $deployPath = Join-Path $DEPLOY_PATH $config.deployment.deployAs
+                    # Deploy frontend
+                    $frontendOutput = $frontend.outputDir
+                    $frontendOutputPath = Join-Path $frontendPath $frontendOutput
+                    if (Test-Path $frontendOutputPath) {
                         if (-not $DryRun) {
-                            New-Item -ItemType Directory -Path $deployBackendPath -Force | Out-Null
-                            Copy-Item -Path "$backendSourcePath\*" -Destination $deployBackendPath -Recurse -Force
+                            New-Item -ItemType Directory -Path $deployPath -Force | Out-Null
+                            Copy-Item -Path "$frontendOutputPath\*" -Destination $deployPath -Recurse -Force
                         }
                     } else {
-                        Write-Log "Backend source path not found: $backendSourcePath" "WARN"
+                        Write-Log "Frontend output path not found: $frontendOutputPath" "WARN"
+                    }
+                    # Deploy backend
+                    $deployBackendPath = Join-Path $deployPath "api"
+                    if (Test-Path $backendPath) {
+                        if (-not $DryRun) {
+                            New-Item -ItemType Directory -Path $deployBackendPath -Force | Out-Null
+                            Copy-Item -Path "$backendPath\*" -Destination $deployBackendPath -Recurse -Force
+                        }
+                    } else {
+                        Write-Log "Backend source path not found: $backendPath" "WARN"
+                    }
+                }
+            } else {
+                # Legacy/other project types
+                if (-not $SkipBuild -and $projectType -in @("React", "PHP", "Node", "FullStack")) {
+                    $projectPath = Join-Path $SOURCE_PATH $config.path
+                    if (Test-Path $projectPath) {
+                        Push-Location $projectPath
+                        try {
+                            if ($config.deployment.requiresBuild -and -not $DryRun) {
+                                if ($config.deployment.packageManager -eq "npm") {
+                                    Invoke-Expression "npm install"
+                                    Invoke-Expression $config.deployment.buildCommand
+                                }
+                            }
+                        } catch {
+                            Write-Log "Build failed for $projectName" "ERROR"
+                            $buildSuccess = $false
+                        } finally {
+                            Pop-Location
+                        }
+                    } else {
+                        Write-Log "Project path not found: $projectPath" "ERROR"
+                        $buildSuccess = $false
+                    }
+                }
+                if ($config.backend -and $config.backend.requiresBuild -and -not $SkipBuild) {
+                    $backendPath = Join-Path $SOURCE_PATH $config.backend.path
+                    if (Test-Path $backendPath) {
+                        Push-Location $backendPath
+                        try {
+                            if (-not $DryRun) { 
+                                Invoke-Expression $config.backend.buildCommand 
+                            }
+                        } catch {
+                            Write-Log "Backend build failed: $_" "ERROR"
+                            $buildSuccess = $false
+                        } finally {
+                            Pop-Location
+                        }
+                    } else {
+                        Write-Log "Backend path not found: $backendPath" "ERROR"
+                        $buildSuccess = $false
+                    }
+                }
+                if ($buildSuccess) {
+                    $sourcePath = Join-Path $SOURCE_PATH $config.path
+                    $deployPath = Join-Path $DEPLOY_PATH $config.deployment.deployAs
+                    if ($projectName -eq "rootFiles") {
+                        # Only copy files listed in the files array, and exclude as needed
+                        $rootFiles = $config.deployment.files
+                        $rootExcludes = $config.deployment.exclude
+                        foreach ($filePattern in $rootFiles) {
+                            $filesToCopy = Get-ChildItem -Path (Join-Path $SOURCE_PATH $filePattern) -File -ErrorAction SilentlyContinue
+                            foreach ($file in $filesToCopy) {
+                                $excludeMatch = $false
+                                if ($rootExcludes) {
+                                    foreach ($ex in $rootExcludes) {
+                                        if ($file.Name -like $ex) { $excludeMatch = $true; break }
+                                    }
+                                }
+                                if (-not $excludeMatch) {
+                                    if (-not $DryRun) {
+                                        Copy-Item -Path $file.FullName -Destination $DEPLOY_PATH -Force
+                                    }
+                                }
+                            }
+                        }
+                    } else {
+                        if ($config.deployment.requiresBuild -and $config.deployment.outputDir) {
+                            $sourcePath = Join-Path $sourcePath $config.deployment.outputDir
+                        }
+                        if (Test-Path $sourcePath) {
+                            if (-not $DryRun) {
+                                New-Item -ItemType Directory -Path $deployPath -Force | Out-Null
+                                Copy-Item -Path "$sourcePath\*" -Destination $deployPath -Recurse -Force
+                            }
+                        } else {
+                            Write-Log "Frontend source path not found: $sourcePath" "WARN"
+                        }
+                        if ($config.backend) {
+                            $backendSourcePath = Join-Path $SOURCE_PATH $config.backend.path
+                            $deployBackendPath = Join-Path $deployPath "api"
+                            if (Test-Path $backendSourcePath) {
+                                if (-not $DryRun) {
+                                    New-Item -ItemType Directory -Path $deployBackendPath -Force | Out-Null
+                                    Copy-Item -Path "$backendSourcePath\*" -Destination $deployBackendPath -Recurse -Force
+                                }
+                            } else {
+                                Write-Log "Backend source path not found: $backendSourcePath" "WARN"
+                            }
+                        }
                     }
                 }
             }

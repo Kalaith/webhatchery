@@ -1,7 +1,7 @@
 {
-  "name": "litrpg-studio",
+  "name": "frontend",
   "version": "0.0.1",
-  "description": "LitRPG Writer's Studio",
+  "description": "Authentication Portal for WebHatchery",
   "private": true,
   "type": "module",
   "scripts": {
