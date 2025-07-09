@@ -1,0 +1,8 @@
+{
+  "require": {
+    "firebase/php-jwt": "^6.0"
+  },
+  "autoload": {
+    "files": ["utils.php", "auth-middleware.php"]
+  }
+}
