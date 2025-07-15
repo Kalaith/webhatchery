@@ -20,7 +20,7 @@ param(
 
 # Configuration
 $SOURCE_PATH = "H:\WebHatchery"
-$DEPLOY_PATH = "F:\WebHatchery"
+$DEPLOY_PATH = "H:\xampp\htdocs"
 $LOG_FILE = "$SOURCE_PATH\build-deploy.log"
 
 # Clear the log file at the start of each run

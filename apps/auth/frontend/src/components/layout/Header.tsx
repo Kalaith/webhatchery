@@ -1,11 +1,16 @@
 
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { useAuth } from '../../hooks/useAuth';
+import { useAuth0 } from '@auth0/auth0-react';
+import { useAuth } from '../../utils/AuthContext';
 import Button from '../ui/Button';
 
 const Header: React.FC = () => {
-  const { isAuthenticated, user, login, logout } = useAuth();
+  const { loginWithRedirect, logout, user } = useAuth0();
+  const { isAuthenticated } = useAuth();
+
+  const handleLogin = () => loginWithRedirect();
+  const handleLogout = () => logout();
 
   return (
     <header className="w-full bg-white shadow p-4 flex items-center justify-between" role="banner">
@@ -16,17 +21,23 @@ const Header: React.FC = () => {
         <Link to="/" className="text-gray-700 hover:text-blue-700 focus:outline-none focus:underline">
           Home
         </Link>
+          <Link to="/auth-debug" className="text-gray-700 hover:text-purple-700 focus:outline-none focus:underline">
+              Auth Debug
+            </Link>
         {isAuthenticated && (
-          <Link to="/profile" className="text-gray-700 hover:text-blue-700 focus:outline-none focus:underline">
-            Profile
-          </Link>
+          <>
+            <Link to="/profile" className="text-gray-700 hover:text-blue-700 focus:outline-none focus:underline">
+              Profile
+            </Link>
+
+          </>
         )}
         {isAuthenticated ? (
-          <Button aria-label="Log out" onClick={logout}>
+          <Button aria-label="Log out" onClick={handleLogout}>
             Log Out
           </Button>
         ) : (
-          <Button aria-label="Log in" onClick={login}>
+          <Button aria-label="Log in" onClick={handleLogin}>
             Log In
           </Button>
         )}

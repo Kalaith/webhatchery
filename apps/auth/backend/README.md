@@ -1,12 +1,35 @@
-# Auth0 PHP Backend for SES Auth Portal
+# Auth0 PHP Backend for Auth Portal
 
-This backend provides minimal Auth0 JWT validation and user profile endpoint for the SES Auth Portal frontend.
+This backend provides Auth0 JWT validation and user management endpoints for the Auth Portal frontend.
+
+## Setup
+
+1. **Install Dependencies**:
+   ```bash
+   composer install
+   ```
+
+2. **Configure Environment**:
+   - Update the Auth0 settings in `.env`:
+     - `AUTH0_DOMAIN`: Your Auth0 tenant domain
+     - `AUTH0_CLIENT_ID`: Your Auth0 application client ID
+     - `AUTH0_CLIENT_SECRET`: Your Auth0 application client secret
+     - `AUTH0_AUDIENCE`: (Optional) Your API audience identifier
+     - `APP_ENV`: Set to `development` for debug info
+
+3. **Start the Server**:
+   ```bash
+   php -S localhost:8000 index.php
+   ```
 
 ## Endpoints
 
+- **GET /api/auth/me** — Get current user profile (requires JWT token)
+- **POST /api/auth/register** — Register a new user (requires JWT token)
+- **GET /api/users** — Get all users (requires JWT token)
+- **GET /api/health** — Health check endpoint
 - `POST /api/auth/login` — Not implemented (handled by Auth0 Universal Login)
 - `POST /api/auth/logout` — Returns success (logout handled by frontend/Auth0)
-- `GET /api/auth/profile` — Returns user info from JWT (requires Bearer token)
 
 ## Setup
 
