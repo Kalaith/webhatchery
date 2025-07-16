@@ -30,47 +30,54 @@ export const ResourceBar: React.FC = () => {
 
   return (
     <header className="game-header bg-gray-800 text-white">
-      <div className="resource-bar flex flex-wrap gap-4 justify-between items-center p-2">
-        <div className="resource flex items-center gap-2" id="mana-display">
-          <span className="resource-icon text-blue-400">✨</span>
-          <span className="resource-value">
-            <span id="current-mana">{mana}</span>/<span id="max-mana">{maxMana}</span>
-            <span className="resource-regen text-xs ml-1 text-blue-300">+{manaRegen}/s</span>
-          </span>
-          <div className="w-20 bg-gray-700 rounded-full h-2 ml-2">
-            <div 
-              className="bg-blue-500 h-2 rounded-full transition-all duration-300" 
-              style={{ width: `${(mana / maxMana) * 100}%` }}
-            />
+      <div className="resource-bar p-3 md:p-4">
+        {/* Top Row - Main Resources */}
+        <div className="flex flex-wrap gap-3 md:gap-6 justify-between items-center mb-2">
+          {/* Mana */}
+          <div className="flex items-center gap-2 min-w-0 flex-1">
+            <span className="text-blue-400 text-lg">✨</span>
+            <div className="flex flex-col min-w-0">
+              <div className="text-sm md:text-base font-medium">
+                {mana}/{maxMana}
+              </div>
+              <div className="w-16 md:w-24 bg-gray-700 rounded-full h-1.5">
+                <div 
+                  className="bg-blue-500 h-1.5 rounded-full transition-all duration-300" 
+                  style={{ width: `${(mana / maxMana) * 100}%` }}
+                />
+              </div>
+            </div>
+            <span className="text-xs text-blue-300 hidden sm:inline">+{manaRegen}/s</span>
+          </div>
+          
+          {/* Gold & Souls */}
+          <div className="flex gap-4 md:gap-6">
+            <div className="flex items-center gap-1">
+              <span className="text-yellow-400 text-lg">💰</span>
+              <span className="text-yellow-300 text-sm md:text-base font-medium">{gold}</span>
+            </div>
+            
+            <div className="flex items-center gap-1">
+              <span className="text-purple-400 text-lg">👻</span>
+              <span className="text-purple-300 text-sm md:text-base font-medium">{souls}</span>
+            </div>
           </div>
         </div>
         
-        <div className="resource flex items-center gap-2" id="gold-display">
-          <span className="resource-icon text-yellow-400">💰</span>
-          <span className="resource-value text-yellow-300" id="current-gold">{gold}</span>
-        </div>
-        
-        <div className="resource flex items-center gap-2" id="souls-display">
-          <span className="resource-icon text-purple-400">👻</span>
-          <span className="resource-value text-purple-300" id="current-souls">{souls}</span>
-        </div>
-        
-        <div className="day-cycle flex flex-col items-end">
-          <span className="time-display text-xs text-gray-300">
-            Day <span id="day-count" className="font-bold">{day}</span> - 
-            <span id="time-display" className="ml-1">{formatTime(hour)}</span>
-          </span>
-          <span 
-            className={`status-indicator text-sm font-bold ${getStatusColor(status)}`} 
-            id="dungeon-status"
-          >
-            {status}
-          </span>
-        </div>
-        
-        <div className="dungeon-info text-xs text-gray-400">
-          <div>Level 1 Dungeon</div>
-          <div>Parties Active: {useGameStore.getState().adventurerParties.length}</div>
+        {/* Bottom Row - Status & Info */}
+        <div className="flex flex-wrap gap-2 justify-between items-center text-xs md:text-sm">
+          <div className="flex items-center gap-3">
+            <span className="text-gray-300">
+              Day <span className="font-bold">{day}</span> - {formatTime(hour)}
+            </span>
+            <span className={`font-bold ${getStatusColor(status)}`}>
+              {status}
+            </span>
+          </div>
+          
+          <div className="text-gray-400 hidden sm:block">
+            Parties: {useGameStore.getState().adventurerParties.length}
+          </div>
         </div>
       </div>
     </header>

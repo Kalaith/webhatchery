@@ -8,6 +8,7 @@ import { ErrorBoundary } from "./components/ui/ErrorBoundary";
 import { DungeonView } from "./components/game/DungeonView";
 import { AdventurerSystem } from "./components/game/AdventurerSystemFloor";
 import { TimeSystem } from "./components/game/TimeSystem";
+import { AdventurerChat } from "./components/game/AdventurerChat";
 import { useGameStore } from "./stores/gameStore";
 
 function App() {
@@ -86,6 +87,8 @@ function App() {
         
         <MonsterSelector />
       </main>
+      
+      <AdventurerChat />
       
       <GameModal
         open={modalOpen}

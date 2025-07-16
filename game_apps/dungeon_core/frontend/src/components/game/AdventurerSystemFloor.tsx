@@ -159,6 +159,21 @@ export const AdventurerSystem: React.FC<AdventurerSystemProps> = ({ running }) =
               message: `${victim.type} defeated in Floor ${party.currentFloor}, Room ${party.currentRoom}! +${goldReward} gold${soulReward > 0 ? `, +${soulReward} soul` : ''}`,
               type: "combat"
             });
+            
+            if (Math.random() < 0.2) { // 20% chance to speak after combat
+              const victoryQuotes = [
+                "That was a hard fight!",
+                "Got it!",
+                "Nice teamwork!",
+                "One down!",
+                "Victory is ours!"
+              ];
+              const randomQuote = victoryQuotes[Math.floor(Math.random() * victoryQuotes.length)];
+              addLog({ 
+                message: `${party.members.find(m => m.alive)?.name || 'Adventurer'} says: "${randomQuote}"`,
+                type: "adventure"
+              });
+            }
           }
         }
         // Else: Stalemate, continue combat next tick
@@ -182,10 +197,26 @@ export const AdventurerSystem: React.FC<AdventurerSystemProps> = ({ running }) =
             // Party completed their target, retreat with loot
             updateAdventurerParty(party.id, { retreating: true });
             gainGold(party.loot);
+            
             addLog({ 
               message: `Party ${party.id} completed their exploration! +${party.loot} gold`,
               type: "adventure"
             });
+            
+            if (Math.random() < 0.4) { // 40% chance to speak when leaving
+              const leaveQuotes = [
+                "I can't wait to come visit this dungeon again!",
+                "That was quite the adventure!",
+                "We did well today!",
+                "Time to head back to town.",
+                "Great haul everyone!"
+              ];
+              const randomQuote = leaveQuotes[Math.floor(Math.random() * leaveQuotes.length)];
+              addLog({ 
+                message: `${party.members.find(m => m.alive)?.name || 'Adventurer'} says: "${randomQuote}"`,
+                type: "adventure"
+              });
+            }
           }
         } else {
           // Advance to next room on same floor
@@ -202,24 +233,38 @@ export const AdventurerSystem: React.FC<AdventurerSystemProps> = ({ running }) =
   // Spawn new adventurer parties
   const spawnAdventurerParty = async () => {
     if (status !== 'Open' || adventurerParties.length > 0) return;
-    if (hour < 6 || hour >= 22) return; // Only spawn during day hours
     if (hour < nextPartySpawn) return;
 
     const gameConstants = await fetchGameConstantsData();
     const spawnChance = Math.random();
     
-    if (spawnChance < gameConstants.ADVENTURER_SPAWN_CHANCE) {
+    if (spawnChance < 0.3) { // Increased from gameConstants.ADVENTURER_SPAWN_CHANCE (0.05)
       const newParty = await generateAdventurerParty();
       addAdventurerParty(newParty);
       
-      // Set next spawn time (1-3 hours later)
-      const nextSpawn = hour + Math.floor(Math.random() * 3) + 1;
+      // Set next spawn time (30 minutes to 1 hour later)
+      const nextSpawn = hour + 1;
       useGameStore.setState({ nextPartySpawn: nextSpawn });
       
       addLog({ 
         message: `New adventurer party enters the dungeon! (${newParty.members.length} members)`,
         type: "adventure"
       });
+      
+      if (Math.random() < 0.3) { // 30% chance to speak
+        const enterQuotes = [
+          "Time to do this again!",
+          "Let's see what treasures await!",
+          "This dungeon looks promising.",
+          "Stay close everyone!",
+          "Ready for adventure!"
+        ];
+        const randomQuote = enterQuotes[Math.floor(Math.random() * enterQuotes.length)];
+        addLog({ 
+          message: `${newParty.members[0].name} says: "${randomQuote}"`,
+          type: "adventure"
+        });
+      }
     }
   };
 

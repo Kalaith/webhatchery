@@ -30,6 +30,7 @@ export const MonsterSelector: React.FC = () => {
   const [selectedSpecies, setSelectedSpecies] = useState<string | null>(
     unlockedMonsterSpecies.length > 0 ? unlockedMonsterSpecies[0] : null
   );
+  const [showSpecies, setShowSpecies] = useState(false);
 
   useEffect(() => {
     if (!selectedSpecies && unlockedMonsterSpecies.length > 0) {
@@ -77,9 +78,17 @@ export const MonsterSelector: React.FC = () => {
     <aside className="sidebar sidebar-right bg-gray-100 p-4 w-64">
       <h3 className="text-lg font-bold mb-4 text-gray-800">Monsters</h3>
 
-      {/* Species Selection */}
+      {/* Species Toggle */}
       <div className="mb-4">
-        <h4 className="font-semibold text-gray-700 mb-2">Monster Species</h4>
+        <button
+          onClick={() => setShowSpecies(!showSpecies)}
+          className="w-full flex justify-between items-center p-2 bg-gray-200 hover:bg-gray-300 rounded text-sm font-medium text-gray-700"
+        >
+          <span>Unlock Species</span>
+          <span>{showSpecies ? '▼' : '▶'}</span>
+        </button>
+        
+        {showSpecies && (
         <div className="flex flex-wrap gap-2">
           {monsterSpeciesData && Object.keys(monsterSpeciesData).map(speciesName => {
             const isUnlocked = unlockedMonsterSpecies.includes(speciesName);
@@ -110,13 +119,33 @@ export const MonsterSelector: React.FC = () => {
               </button>
             );
           })}
+          </div>
+        )}
+      </div>
+
+      {/* Species Tabs */}
+      <div className="mb-4">
+        <div className="flex flex-wrap gap-1">
+          {unlockedMonsterSpecies.map(speciesName => (
+            <button
+              key={speciesName}
+              onClick={() => handleSpeciesSelect(speciesName)}
+              className={`px-2 py-1 rounded text-xs font-medium transition-colors ${
+                selectedSpecies === speciesName
+                  ? 'bg-blue-600 text-white'
+                  : 'bg-blue-100 hover:bg-blue-200 text-blue-800'
+              }`}
+            >
+              {speciesName}
+            </button>
+          ))}
         </div>
       </div>
 
       {/* Monster List for Selected Species */}
       {selectedSpecies && (
         <div className="monster-selector flex flex-col gap-2" id="monster-selector">
-          <h4 className="font-semibold text-gray-700 mb-2">{selectedSpecies} Monsters</h4>
+
           {availableMonsters.map((monster: MonsterType) => {
             // Use base cost for display, actual cost calculated when placing
             const displayCost = monster.baseCost;

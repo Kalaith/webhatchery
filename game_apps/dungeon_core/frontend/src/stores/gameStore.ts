@@ -135,16 +135,8 @@ export const useGameStore = create<GameStore>()(
           }        // Determine status based on time (but can be overridden by manual control)
           let status: 'Open' | 'Closing' | 'Closed' | 'Maintenance' = state.status;
           
-          // Only auto-update status if not manually set to Closing or Closed
-          if (state.status !== 'Closing' && state.status !== 'Closed') {
-            if (newHour >= 0 && newHour < 6) {
-              status = 'Maintenance';
-            } else if (newHour >= 6 && newHour < 18) {
-              status = 'Open';
-            } else {
-              status = 'Open'; // Changed: Keep open during evening hours too
-            }
-          }
+          // Keep dungeon open 24/7 unless manually closed
+          // No automatic status changes based on time
 
           // Calculate mana regen with adventurer bonus (0.1 per adventurer)
           const totalAdventurers = state.adventurerParties.reduce((sum, party) => 
