@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useGameStore } from "../../stores/gameStore";
-import type { DungeonFloor, Room } from "../../types/game";
-import { fetchGameConstantsData } from "../../api/gameApi";
+import type { DungeonFloor, Room, MonsterType } from "../../types/game";
+import { fetchGameConstantsData, getMonsterTypes, getScaledMonsterStats } from "../../api/gameApi";
 
 interface DungeonFloorViewProps {
   floor: DungeonFloor;
@@ -12,7 +12,16 @@ const RoomComponent: React.FC<{
   room: Room; 
   onClick: () => void;
   isActive: boolean;
-}> = ({ room, onClick, isActive }) => {  const getRoomColor = () => {
+}> = ({ room, onClick, isActive }) => {
+  const [monsterTypes, setMonsterTypes] = useState<{ [key: string]: MonsterType }>({});
+  
+  useEffect(() => {
+    const loadMonsterTypes = async () => {
+      const types = await getMonsterTypes();
+      setMonsterTypes(types);
+    };
+    loadMonsterTypes();
+  }, []);  const getRoomColor = () => {
     const baseColor = (() => {
       switch (room.type) {
         case 'entrance': return '#4CAF50';
@@ -76,9 +85,15 @@ const RoomComponent: React.FC<{
       {/* Monsters */}
       {room.monsters.length > 0 && (
         <div className="monsters-container flex flex-wrap gap-1 justify-center mb-2">          {room.monsters.slice(0, 3).map((monster) => {
-            const monsterType = monsterTypes[monster.type] || { color: "gray", name: "Unknown" };
+            const monsterType = monsterTypes[monster.type] || { 
+              color: "#gray", 
+              name: "Unknown",
+              hp: 20,
+              attack: 5,
+              defense: 2
+            };
             const scaledStats = getScaledMonsterStats(
-              { hp: monsterType.hp, attack: monsterType.attack, defense: monsterType.defense },
+              { hp: monsterType.hp || 20, attack: monsterType.attack || 5, defense: monsterType.defense || 2 },
               monster.floorNumber,
               monster.isBoss
             );
@@ -88,7 +103,7 @@ const RoomComponent: React.FC<{
               }
               // Use different emojis based on monster type
               const emojiMap: Record<string, string> = {
-                'Goblin': '�',
+                'Goblin': '👹',
                 'Orc': '🧌',
                 'Skeleton': '💀',
                 'Dragon': '🐉',

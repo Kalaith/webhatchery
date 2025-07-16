@@ -1,40 +1,49 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import { useGameStore } from "../../stores/gameStore";
 import type { MonsterType, MonsterSpecies } from "../../types/game";
-import { fetchMonsterSpeciesList, fetchMonsterList, getMonsterManaCost, getMonsterTrait, getMonsterTypes } from "../../api/gameApi";
+import { fetchMonsterSpeciesList, fetchMonsterList, getMonsterTypes } from "../../api/gameApi";
 
 export const MonsterSelector: React.FC = () => {
   const { mana, selectedMonster, selectMonster, unlockedMonsterSpecies, unlockMonsterSpecies } = useGameStore();
   const [monsterSpeciesData, setMonsterSpeciesData] = useState<{[key: string]: MonsterSpecies} | null>(null);
   const [monsterEvolutionTrees, setMonsterEvolutionTrees] = useState<any>(null);
+  const [monsterTypes, setMonsterTypes] = useState<{[key: string]: MonsterType}>({});
 
   useEffect(() => {
     const fetchData = async () => {
-      setMonsterSpeciesData((await fetchMonsterSpeciesList()).species);
-      setMonsterEvolutionTrees((await fetchMonsterList()).evolution_trees);
+      try {
+        const [speciesList, monsterList, types] = await Promise.all([
+          fetchMonsterSpeciesList(),
+          fetchMonsterList(),
+          getMonsterTypes()
+        ]);
+        setMonsterSpeciesData(speciesList.species);
+        setMonsterEvolutionTrees(monsterList.evolution_trees);
+        setMonsterTypes(types);
+      } catch (error) {
+        console.error('Error loading monster data:', error);
+      }
     };
     fetchData();
   }, []);
 
-  const [selectedSpecies, setSelectedSpecies] = useState<string | null>(null);
+  const [selectedSpecies, setSelectedSpecies] = useState<string | null>(
+    unlockedMonsterSpecies.length > 0 ? unlockedMonsterSpecies[0] : null
+  );
 
   useEffect(() => {
-    if (monsterSpeciesData && unlockedMonsterSpecies.length > 0 && selectedSpecies === null) {
-      const initialSelected = unlockedMonsterSpecies[0];
-      setSelectedSpecies(initialSelected);
+    if (!selectedSpecies && unlockedMonsterSpecies.length > 0) {
+      setSelectedSpecies(unlockedMonsterSpecies[0]);
     }
-  }, [monsterSpeciesData, unlockedMonsterSpecies, selectedSpecies]);
-
-  console.log("MonsterSelector (render): mana=", mana, "selectedMonster=", selectedMonster, "unlockedMonsterSpecies=", unlockedMonsterSpecies, "selectedSpecies=", selectedSpecies);
+  }, [unlockedMonsterSpecies.length]);
 
   const handleSpeciesSelect = (speciesName: string) => {
-    console.log("MonsterSelector: handleSpeciesSelect called with", speciesName);
     setSelectedSpecies(speciesName);
-    selectMonster(null); // Deselect monster when changing species
+    selectMonster(null);
   };
 
-  const getMonstersForSelectedSpecies = (): MonsterType[] => {
-    if (!selectedSpecies || !monsterSpeciesData || !monsterEvolutionTrees) return [];
+  const availableMonsters = useMemo((): MonsterType[] => {
+    if (!selectedSpecies || !monsterSpeciesData || !monsterEvolutionTrees || !monsterTypes) return [];
     const speciesData = monsterSpeciesData[selectedSpecies];
     if (!speciesData) return [];
 
@@ -43,27 +52,26 @@ export const MonsterSelector: React.FC = () => {
 
     if (evolutionTree) {
       for (const monsterFamily in evolutionTree) {
-        for (const tierKey in evolutionTree[monsterFamily]) {
-          const tierMonsters = evolutionTree[monsterFamily][tierKey];
-          for (const monsterName in tierMonsters) {
-            // Assuming getMonsterTypes is already fetching and populating monsterTypes
-            // We need to await getMonsterTypes here or pass it down
-            // For now, let's assume monsterTypes is available globally or passed down
-            // This will be addressed in a later step if it causes issues
-            const monster = useGameStore.getState().monsterTypes[monsterName]; // Access from store state
-            if (monster) {
-              monsters.push(monster);
+        const familyTree = evolutionTree[monsterFamily];
+        if (familyTree) {
+          for (const tierKey in familyTree) {
+            const tierMonsters = familyTree[tierKey];
+            if (tierMonsters) {
+              for (const monsterName in tierMonsters) {
+                const monster = monsterTypes[monsterName];
+                if (monster) {
+                  monsters.push(monster);
+                }
+              }
             }
           }
         }
       }
     }
     return monsters.sort((a, b) => a.tier - b.tier);
-  };
+  }, [selectedSpecies, monsterSpeciesData, monsterEvolutionTrees, monsterTypes]);
 
-  
 
-  const availableMonsters = getMonstersForSelectedSpecies();
 
   return (
     <aside className="sidebar sidebar-right bg-gray-100 p-4 w-64">
@@ -110,8 +118,9 @@ export const MonsterSelector: React.FC = () => {
         <div className="monster-selector flex flex-col gap-2" id="monster-selector">
           <h4 className="font-semibold text-gray-700 mb-2">{selectedSpecies} Monsters</h4>
           {availableMonsters.map((monster: MonsterType) => {
-            const cost = getMonsterManaCost(monster.baseCost, 1, false); // Assuming floor 1, not boss room for display cost
-            const canAfford = mana >= cost;
+            // Use base cost for display, actual cost calculated when placing
+            const displayCost = monster.baseCost;
+            const canAfford = mana >= displayCost;
             const isSelected = selectedMonster === monster.name;
 
             return (
@@ -126,14 +135,14 @@ export const MonsterSelector: React.FC = () => {
                   }`}
                 style={{
                   borderLeftWidth: '4px',
-                  borderLeftColor: monster.color
+                  borderLeftColor: monster.color || '#gray'
                 }}
                 onClick={() => canAfford && selectMonster(monster.name)}
               >
                 <div className="monster-type-header flex justify-between items-center mb-1">
                   <span className="monster-type-name font-bold text-gray-800">{monster.name} (Tier {monster.tier})</span>
                   <span className={`monster-type-cost text-sm font-bold ${canAfford ? 'text-blue-600' : 'text-red-500'}`}>
-                    {cost}✨
+                    {displayCost}✨
                   </span>
                 </div>
                 <div className="monster-type-description text-xs text-gray-600 mb-2">
@@ -148,10 +157,7 @@ export const MonsterSelector: React.FC = () => {
                   <div className="monster-traits mt-1">
                     <span className="font-semibold text-xs text-gray-700">Traits: </span>
                     <span className="text-xs text-purple-600 italic">
-                      {monster.traits.map(traitName => {
-                        const trait = getMonsterTrait(traitName);
-                        return trait ? trait.description : traitName;
-                      }).join(', ')}
+                      {monster.traits.join(', ')}
                     </span>
                   </div>
                 )}

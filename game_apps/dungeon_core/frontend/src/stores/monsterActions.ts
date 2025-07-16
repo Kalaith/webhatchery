@@ -1,12 +1,12 @@
 import type { GetState, SetState } from 'zustand';
 import type { GameState, Monster, MonsterType } from '../types/game';
+import { getMonsterTypes, getMonsterManaCost, getScaledMonsterStats, fetchMonsterSpeciesList, fetchMonsterList } from '../api/gameApi';
 
 
 
 // Define a type for the full GameStore actions that will be passed to these functions
 // This avoids circular dependency with the main gameStore.ts file
 interface GameStoreActions {
-  addLog: (entry: any) => void;
   spendMana: (amount: number) => boolean;
   spendGold: (amount: number) => boolean;
 }
@@ -14,33 +14,58 @@ interface GameStoreActions {
 // Combine GameState and GameStoreActions for the GetState/SetState types
 type FullGameStore = GameState & GameStoreActions;
 
-export const placeMonster = async (set: SetState<FullGameStore>, get: GetState<FullGameStore>, floorNumber: number, roomPosition: number, monsterName: string) => {
+export const placeMonster = async (set: SetState<FullGameStore>, get: GetState<FullGameStore>, floorNumber: number, roomPosition: number, monsterName: string, addLog: (entry: any) => void) => {
   const state = get();
+  
+  // Cannot place monsters while adventurers are in dungeon
+  if (state.adventurerParties.length > 0) {
+    addLog({ message: "Cannot place monsters while adventurers are in the dungeon!", type: "system" });
+    return false;
+  }
+  
   const monsterTypes = await getMonsterTypes();
   const monster = monsterTypes[monsterName];
   
+  if (!monster) {
+    addLog({ message: "Monster type not found!", type: "system" });
+    return false;
+  }
+  
   const floor = state.floors.find(f => f.number === floorNumber);
   if (!floor) {
-    get().addLog({ message: "Floor not found!", type: "system" });
+    addLog({ message: "Floor not found!", type: "system" });
     return false;
   }
 
   const room = floor.rooms.find(r => r.position === roomPosition);
   if (!room) {
-    get().addLog({ message: "Room not found!", type: "system" });
+    addLog({ message: "Room not found!", type: "system" });
     return false;
   }
 
   if (room.type === 'entrance' || room.type === 'core') {
-    get().addLog({ message: "Cannot place monsters in entrance or core rooms!", type: "system" });
+    addLog({ message: "Cannot place monsters in entrance or core rooms!", type: "system" });
+    return false;
+  }
+
+  // Check room capacity: Room position * 2, divided by monster tier
+  const roomCapacity = roomPosition * 2;
+  const tierCapacity = Math.floor(roomCapacity / monster.tier);
+  const currentTierCount = room.monsters.filter(m => {
+    const mType = monsterTypes[m.type];
+    return mType && mType.tier === monster.tier;
+  }).length;
+
+  if (currentTierCount >= tierCapacity) {
+    addLog({ message: `Room ${roomPosition} can only hold ${tierCapacity} Tier ${monster.tier} monsters!`, type: "system" });
     return false;
   }
 
   const isBossRoom = room.type === 'boss';
-  const cost = getMonsterManaCost(monster.baseCost, floorNumber, isBossRoom);
+  const cost = await getMonsterManaCost(monster.baseCost, floorNumber, isBossRoom);
 
   if (!get().spendMana(cost)) {
-    get().addLog({ message: `Not enough mana! Need ${cost} mana.`, type: "system" });
+    addLog({ message: `Not enough mana! Need ${cost} mana.`, type: "system" });
     return false;
   }
 
@@ -82,7 +107,7 @@ export const placeMonster = async (set: SetState<FullGameStore>, get: GetState<F
 
   set({ floors: updatedFloors });
   
-  get().addLog({ 
+  addLog({ 
     message: `Spawned ${monster.name}${isBoss ? ' (Boss)' : ''} on floor ${floorNumber}, room ${roomPosition} for ${cost} mana`, 
     type: "system" 
   });
@@ -90,24 +115,24 @@ export const placeMonster = async (set: SetState<FullGameStore>, get: GetState<F
   return true;
 };
 
-export const unlockMonsterSpecies = async (set: SetState<FullGameStore>, get: GetState<FullGameStore>, speciesName: string) => {
+export const unlockMonsterSpecies = async (set: SetState<FullGameStore>, get: GetState<FullGameStore>, speciesName: string, addLog: (entry: any) => void) => {
   const monsterSpeciesData = await fetchMonsterSpeciesList();
   set((state) => {
     if (!state.unlockedMonsterSpecies.includes(speciesName)) {
       const speciesData = monsterSpeciesData.species[speciesName];
       if (speciesData && state.gold >= speciesData.unlock_cost) {
         get().spendGold(speciesData.unlock_cost);
-        get().addLog(`Unlocked new monster species: ${speciesName}!`);
+        addLog(`Unlocked new monster species: ${speciesName}!`);
         return { unlockedMonsterSpecies: [...state.unlockedMonsterSpecies, speciesName] };
       } else if (speciesData) {
-        get().addLog(`Not enough gold to unlock ${speciesName}. Need ${speciesData.unlock_cost} gold.`);
+        addLog(`Not enough gold to unlock ${speciesName}. Need ${speciesData.unlock_cost} gold.`);
       }
     }
     return state;
   });
 };
 
-export const gainMonsterExperience = async (set: SetState<FullGameStore>, get: GetState<FullGameStore>, monsterName: string, exp: number) => {
+export const gainMonsterExperience = async (set: SetState<FullGameStore>, get: GetState<FullGameStore>, monsterName: string, exp: number, addLog: (entry: any) => void) => {
   const monsterTypes = await getMonsterTypes();
   const monsterSpeciesData = await fetchMonsterSpeciesList();
   const monsterEvolutionTrees = await fetchMonsterList();
@@ -166,7 +191,7 @@ export const gainMonsterExperience = async (set: SetState<FullGameStore>, get: G
     }
 
     if (newUnlockedTier > currentMaxTier) {
-      get().addLog(`Unlocked new tier (${newUnlockedTier}) for ${speciesName} monsters!`);
+      addLog(`Unlocked new tier (${newUnlockedTier}) for ${speciesName} monsters!`);
     }
 
     return { monsterExperience: updatedMonsterExperience };

@@ -3,8 +3,8 @@ import { ResourceBar } from "./components/layout/ResourceBar";
 import { RoomSelector } from "./components/game/RoomSelector";
 import { MonsterSelector } from "./components/game/MonsterSelector";
 import { GameControls } from "./components/game/GameControls";
-
 import { GameModal } from "./components/ui/GameModal";
+import { ErrorBoundary } from "./components/ui/ErrorBoundary";
 import { DungeonView } from "./components/game/DungeonView";
 import { AdventurerSystem } from "./components/game/AdventurerSystemFloor";
 import { TimeSystem } from "./components/game/TimeSystem";
@@ -34,12 +34,20 @@ function App() {
     ensureCoreRoom();
   }, [ensureCoreRoom]);
 
-  const handleRoomClick = (floorNumber: number, roomPosition: number) => {
+  const handleRoomClick = async (floorNumber: number, roomPosition: number) => {
     if (selectedMonster !== null) {
-      const success = placeMonster(floorNumber, roomPosition, selectedMonster);
-      if (success) {
-        // Optionally deselect monster after placing
-        // selectMonster(null);
+      try {
+        const success = await placeMonster(floorNumber, roomPosition, selectedMonster);
+        if (success) {
+          // Optionally deselect monster after placing
+          // selectMonster(null);
+        }
+      } catch (error) {
+        console.error('Error placing monster:', error);
+        addLog({ 
+          message: "Failed to place monster. Please try again.", 
+          type: "system" 
+        });
       }
     } else {
       addLog({ 
@@ -54,7 +62,8 @@ function App() {
   };
 
   return (
-    <div className="game-container min-h-screen bg-gradient-to-br from-gray-900 to-gray-700 flex flex-col">
+    <ErrorBoundary>
+      <div className="game-container min-h-screen bg-gradient-to-br from-gray-900 to-gray-700 flex flex-col">
       {/* System components for game logic */}
       <TimeSystem />
       <AdventurerSystem running={true} />
@@ -114,7 +123,8 @@ function App() {
           </p>
         </div>
       </GameModal>
-    </div>
+      </div>
+    </ErrorBoundary>
   );
 }
 

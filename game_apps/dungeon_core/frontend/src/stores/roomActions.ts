@@ -17,6 +17,13 @@ type FullGameStore = GameState & GameStoreActions;
 
 export const addRoom = async (set: SetState<FullGameStore>, get: GetState<FullGameStore>, targetFloorNumber?: number) => {
   const state = get();
+  
+  // Cannot add rooms while adventurers are in dungeon
+  if (state.adventurerParties.length > 0) {
+    get().addLog({ message: "Cannot add rooms while adventurers are in the dungeon!", type: "system" });
+    return false;
+  }
+  
   let targetFloor: DungeonFloor;
   
   if (targetFloorNumber) {

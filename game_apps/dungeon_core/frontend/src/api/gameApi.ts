@@ -111,9 +111,66 @@ export const fetchMonsterSpeciesList = async (): Promise<MonsterSpeciesList> => 
   return monsterSpecies.default as MonsterSpeciesList;
 };
 
-export const getMonsterTypes = async (): Promise<{ [key: string]: MonsterType }> => {
+export const fetchMonsterTraits = async (): Promise<{ [key: string]: MonsterTrait }> => {
   const monsterTraits = await import('../data/monster_traits.json');
   return monsterTraits.default as { [key: string]: MonsterTrait };
+};
+
+export const getMonsterTypes = async (): Promise<{ [key: string]: MonsterType }> => {
+  const monsterList = await fetchMonsterList();
+  const monsterTypes: { [key: string]: MonsterType } = {};
+  
+  // Base stats for different tiers
+  const tierStats = {
+    1: { hp: 20, attack: 5, defense: 2, cost: 10 },
+    2: { hp: 35, attack: 8, defense: 4, cost: 20 },
+    3: { hp: 55, attack: 12, defense: 6, cost: 35 },
+    4: { hp: 80, attack: 18, defense: 9, cost: 55 },
+    5: { hp: 120, attack: 25, defense: 12, cost: 80 }
+  };
+  
+  const speciesColors = {
+    'Mimetic': '#8B4513',
+    'Amorphous': '#32CD32',
+    'Plant': '#228B22',
+    'Crustacean': '#FF6347',
+    'Avian': '#4169E1',
+    'Insectoid': '#8B008B',
+    'Batkin': '#2F4F4F',
+    'Reptilian': '#556B2F',
+    'Canine': '#CD853F',
+    'Undead': '#696969'
+  };
+  
+  for (const speciesName in monsterList.evolution_trees) {
+    const species = monsterList.evolution_trees[speciesName];
+    for (const familyName in species) {
+      const family = species[familyName];
+      for (const tierKey in family) {
+        const tierNumber = parseInt(tierKey.replace('Tier ', ''));
+        const tier = family[tierKey];
+        for (const monsterName in tier) {
+          const monsterInfo = tier[monsterName];
+          const stats = tierStats[tierNumber] || tierStats[1];
+          
+          monsterTypes[monsterName] = {
+            name: monsterName,
+            baseCost: stats.cost,
+            hp: stats.hp,
+            attack: stats.attack,
+            defense: stats.defense,
+            color: speciesColors[speciesName] || '#808080',
+            description: monsterInfo.description,
+            species: speciesName,
+            tier: tierNumber,
+            traits: monsterInfo.traits
+          };
+        }
+      }
+    }
+  }
+  
+  return monsterTypes;
 };
 
 export const fetchFloorScalingData = async (): Promise<FloorScaling[]> => {
@@ -196,8 +253,21 @@ export const getFloorScaling = async (floorNumber: number): Promise<FloorScaling
   };
 };
 
-// Calculate scaled monster stats
-export const getScaledMonsterStats = async (baseStats: BaseStats, floorNumber: number, isBoss: boolean = false): Promise<{ hp: number, attack: number, defense: number }> => {
+// Calculate scaled monster stats (synchronous version for immediate use)
+export const getScaledMonsterStats = (baseStats: BaseStats, floorNumber: number, isBoss: boolean = false): { hp: number, attack: number, defense: number } => {
+  // Use default values if constants aren't available
+  const floorMultiplier = 1 + ((floorNumber - 1) * 0.2); // 20% increase per floor
+  const bossMultiplier = isBoss ? 1.5 : 1;
+  
+  return {
+    hp: Math.floor(baseStats.hp * floorMultiplier * bossMultiplier),
+    attack: Math.floor(baseStats.attack * floorMultiplier * bossMultiplier),
+    defense: Math.floor(baseStats.defense * floorMultiplier * bossMultiplier)
+  };
+};
+
+// Async version for when game constants are needed
+export const getScaledMonsterStatsAsync = async (baseStats: BaseStats, floorNumber: number, isBoss: boolean = false): Promise<{ hp: number, attack: number, defense: number }> => {
   const gameConstants = await fetchGameConstantsData();
   const scaling = await getFloorScaling(floorNumber);
   const floorMultiplier = 1 + (scaling.monsterBoostPercentage / 100);

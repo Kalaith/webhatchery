@@ -228,15 +228,23 @@ export const AdventurerSystem: React.FC<AdventurerSystemProps> = ({ running }) =
     if (!running) return;
 
     const setupInterval = async () => {
-      if (systemIntervalRef.current) {
-        clearInterval(systemIntervalRef.current);
+      try {
+        if (systemIntervalRef.current) {
+          clearInterval(systemIntervalRef.current);
+        }
+        
+        const gameConstants = await fetchGameConstantsData();
+        systemIntervalRef.current = setInterval(async () => {
+          try {
+            await spawnAdventurerParty();
+            await processAdventurerParties();
+          } catch (error) {
+            console.error('Error in adventurer system:', error);
+          }
+        }, gameConstants.TIME_ADVANCE_INTERVAL);
+      } catch (error) {
+        console.error('Error setting up adventurer system:', error);
       }
-      
-      const gameConstants = await fetchGameConstantsData();
-      systemIntervalRef.current = setInterval(() => {
-        spawnAdventurerParty();
-        processAdventurerParties();
-      }, gameConstants.TIME_ADVANCE_INTERVAL);
     };
 
     setupInterval();
@@ -248,16 +256,6 @@ export const AdventurerSystem: React.FC<AdventurerSystemProps> = ({ running }) =
     };
   }, [running, status, hour, adventurerParties.length]);
 
-  // Boost mana regen when parties are present
-  useEffect(() => {
-    const totalAdventurers = adventurerParties.reduce((sum, party) => 
-      sum + party.members.filter(a => a.alive).length, 0);
-    
-    if (totalAdventurers > 0) {
-      const boostedRegen = manaRegen + totalAdventurers;
-      useGameStore.setState({ manaRegen: boostedRegen });
-    }
-  }, [adventurerParties, manaRegen]);
 
   return null; // This is a system component, no visual rendering
 };

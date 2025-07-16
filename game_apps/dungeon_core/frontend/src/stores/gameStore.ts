@@ -105,10 +105,25 @@ export const useGameStore = create<GameStore>()(
         gainGold: (...args) => gainGold(set, get, ...args),
         gainSouls: (...args) => gainSouls(set, get, ...args),
 
-        placeMonster: (...args) => placeMonster(set, get, ...args),
-        unlockMonsterSpecies: (...args) => unlockMonsterSpecies(set, get, ...args),
-        gainMonsterExperience: (...args) => gainMonsterExperience(set, get, ...args),
-        getAvailableMonsters: (...args) => getAvailableMonsters(set, get, ...args),
+        placeMonster: async (floorNumber, roomPosition, monsterName) => {
+          try {
+            return await placeMonster(set, get, floorNumber, roomPosition, monsterName, get().addLog);
+          } catch (error) {
+            console.error('Error placing monster:', error);
+            get().addLog('Failed to place monster. Please try again.');
+            return false;
+          }
+        },
+        unlockMonsterSpecies: (speciesName) => unlockMonsterSpecies(set, get, speciesName, get().addLog),
+        gainMonsterExperience: (monsterName, exp) => gainMonsterExperience(set, get, monsterName, exp, get().addLog),
+        getAvailableMonsters: async (...args) => {
+          try {
+            return await getAvailableMonsters(set, get, ...args);
+          } catch (error) {
+            console.error('Error getting available monsters:', error);
+            return [];
+          }
+        },
 
         advanceTime: () => set((state) => {
           let newHour = state.hour + 1;
@@ -131,12 +146,24 @@ export const useGameStore = create<GameStore>()(
             }
           }
 
+          // Calculate mana regen with adventurer bonus (0.1 per adventurer)
+          const totalAdventurers = state.adventurerParties.reduce((sum, party) => 
+            sum + party.members.filter(a => a.alive).length, 0);
+          const adventurerBonus = totalAdventurers * 0.1;
+          const currentRegen = 1 + state.deepCoreBonus + adventurerBonus;
+          const newMana = Math.min(state.mana + currentRegen, state.maxMana);
+          
+          // Log mana increase
+          if (newMana > state.mana) {
+            console.log(`[${new Date().toLocaleTimeString()}] Mana: ${state.mana} -> ${newMana} (+${currentRegen})`);
+          }
+
           return {
             hour: newHour,
             day: newDay,
             status,
-            // Regenerate mana
-            mana: Math.min(state.mana + state.manaRegen, state.maxMana),
+            manaRegen: currentRegen,
+            mana: newMana,
           };
         }),
 
@@ -199,9 +226,33 @@ export const useGameStore = create<GameStore>()(
           )
         })),
 
-        removeAdventurerParty: (partyId) => set((state) => ({
-          adventurerParties: state.adventurerParties.filter(party => party.id !== partyId)
-        })),      respawnMonsters: () => set((state) => {
+        removeAdventurerParty: (partyId) => set((state) => {
+          const updatedParties = state.adventurerParties.filter(party => party.id !== partyId);
+          
+          // If no more parties, respawn all monsters
+          let updatedFloors = state.floors;
+          if (updatedParties.length === 0) {
+            updatedFloors = state.floors.map(floor => ({
+              ...floor,
+              rooms: floor.rooms.map(room => ({
+                ...room,
+                monsters: room.monsters.map(monster => ({
+                  ...monster,
+                  hp: monster.maxHp,
+                  alive: true,
+                }))
+              }))
+            }));
+            get().addLog("All monsters have respawned!");
+          }
+          
+          return {
+            adventurerParties: updatedParties,
+            floors: updatedFloors
+          };
+        }),
+
+        respawnMonsters: () => set((state) => {
             // Only respawn if no adventurers are in the dungeon
             if (state.adventurerParties.length > 0) return state;
 
