@@ -22,9 +22,9 @@ export interface GameStateResponse {
 }
 
 export interface PlaceMonsterRequest {
-  roomId: number;
+  floorNumber: number;
+  roomPosition: number;
   monsterType: string;
-  cost: number;
 }
 
 export interface PlaceMonsterResponse {
@@ -34,7 +34,59 @@ export interface PlaceMonsterResponse {
     id: number;
     type: string;
     hp: number;
+    maxHp: number;
+    isBoss: boolean;
+    scaledStats: {
+      hp: number;
+      attack: number;
+      defense: number;
+    };
   };
+  costPaid?: number;
+  remainingMana?: number;
+}
+
+export interface UnlockMonsterSpeciesRequest {
+  speciesName: string;
+}
+
+export interface UnlockMonsterSpeciesResponse {
+  success: boolean;
+  error?: string;
+  speciesName?: string;
+  costPaid?: number;
+  remainingGold?: number;
+  required?: number;
+}
+
+export interface GainMonsterExperienceRequest {
+  monsterName: string;
+  experience: number;
+}
+
+export interface GainMonsterExperienceResponse {
+  success: boolean;
+  error?: string;
+  monsterName?: string;
+  previousExp?: number;
+  newExp?: number;
+  expGained?: number;
+  tierUnlocks?: Array<{
+    species: string;
+    tier: number;
+  }>;
+}
+
+export interface GetAvailableMonstersResponse {
+  success: boolean;
+  error?: string;
+  monsters?: Array<{
+    name: string;
+    hp: number;
+    attack: number;
+    defense: number;
+    tier: number;
+  }>;
 }
 
 export interface AddRoomRequest {

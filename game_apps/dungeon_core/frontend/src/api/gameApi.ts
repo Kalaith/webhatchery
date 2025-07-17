@@ -12,9 +12,24 @@ export const getGameState = async (): Promise<GameStateResponse> => {
   return apiClient.getGameState();
 };
 
-// Place monster via backend
-export const placeMonsterAPI = async (roomId: number, monsterType: string, cost: number) => {
-  return apiClient.placeMonster({ roomId, monsterType, cost });
+// Place monster via backend (secure)
+export const placeMonsterAPI = async (floorNumber: number, roomPosition: number, monsterType: string) => {
+  return apiClient.placeMonster({ floorNumber, roomPosition, monsterType });
+};
+
+// Unlock monster species via backend (secure)
+export const unlockMonsterSpeciesAPI = async (speciesName: string) => {
+  return apiClient.unlockMonsterSpecies({ speciesName });
+};
+
+// Gain monster experience via backend (secure)
+export const gainMonsterExperienceAPI = async (monsterName: string, experience: number) => {
+  return apiClient.gainMonsterExperience({ monsterName, experience });
+};
+
+// Get available monsters via backend (secure)
+export const getAvailableMonstersAPI = async () => {
+  return apiClient.getAvailableMonsters();
 };
 
 // Add room via backend
@@ -37,12 +52,12 @@ export const fetchMonsterSpeciesList = async () => {
   return monsterSpecies.default;
 };
 
-// Keep monster types local for UI
+// Keep monster types local for UI - remove calculations that should be server-side
 export const getMonsterTypes = async (): Promise<{ [key: string]: MonsterType }> => {
   const monsterList = await fetchMonsterList();
   const monsterTypes: { [key: string]: MonsterType } = {};
   
-  const tierStats = {
+  const tierStats: { [key: number]: { hp: number; attack: number; defense: number; cost: number } } = {
     1: { hp: 20, attack: 5, defense: 2, cost: 10 },
     2: { hp: 35, attack: 8, defense: 4, cost: 20 },
     3: { hp: 55, attack: 12, defense: 6, cost: 35 },
@@ -50,7 +65,7 @@ export const getMonsterTypes = async (): Promise<{ [key: string]: MonsterType }>
     5: { hp: 120, attack: 25, defense: 12, cost: 80 }
   };
   
-  const speciesColors = {
+  const speciesColors: { [key: string]: string } = {
     'Mimetic': '#8B4513',
     'Amorphous': '#32CD32',
     'Plant': '#228B22',
@@ -63,8 +78,10 @@ export const getMonsterTypes = async (): Promise<{ [key: string]: MonsterType }>
     'Undead': '#696969'
   };
   
-  for (const speciesName in monsterList.evolution_trees) {
-    const species = monsterList.evolution_trees[speciesName];
+  const evolutionTrees = monsterList.evolution_trees as any;
+  
+  for (const speciesName in evolutionTrees) {
+    const species = evolutionTrees[speciesName];
     for (const familyName in species) {
       const family = species[familyName];
       for (const tierKey in family) {
@@ -81,10 +98,10 @@ export const getMonsterTypes = async (): Promise<{ [key: string]: MonsterType }>
             attack: stats.attack,
             defense: stats.defense,
             color: speciesColors[speciesName] || '#808080',
-            description: monsterInfo.description,
+            description: monsterInfo.description || `Tier ${tierNumber} monster`,
             species: speciesName,
             tier: tierNumber,
-            traits: monsterInfo.traits
+            traits: monsterInfo.traits || []
           };
         }
       }

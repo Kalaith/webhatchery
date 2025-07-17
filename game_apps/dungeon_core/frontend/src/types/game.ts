@@ -23,6 +23,7 @@ export interface GameState {
   dungeonLevel: number;
   adventurerParties: AdventurerParty[];
   nextPartySpawn: number; // Hour when next party will spawn
+  floors: DungeonFloor[];
   totalFloors: number;
   deepCoreBonus: number; // Percentage mana regen bonus
   unlockedMonsterSpecies: string[];

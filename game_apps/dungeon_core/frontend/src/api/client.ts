@@ -2,6 +2,11 @@ import type {
   GameStateResponse, 
   PlaceMonsterRequest, 
   PlaceMonsterResponse,
+  UnlockMonsterSpeciesRequest,
+  UnlockMonsterSpeciesResponse,
+  GainMonsterExperienceRequest,
+  GainMonsterExperienceResponse,
+  GetAvailableMonstersResponse,
   AddRoomRequest,
   AddRoomResponse,
   InitializeGameResponse
@@ -52,6 +57,24 @@ class ApiClient {
       method: 'POST',
       body: JSON.stringify(request),
     });
+  }
+
+  async unlockMonsterSpecies(request: UnlockMonsterSpeciesRequest): Promise<UnlockMonsterSpeciesResponse> {
+    return this.request<UnlockMonsterSpeciesResponse>('/game/unlock-species', {
+      method: 'POST',
+      body: JSON.stringify(request),
+    });
+  }
+
+  async gainMonsterExperience(request: GainMonsterExperienceRequest): Promise<GainMonsterExperienceResponse> {
+    return this.request<GainMonsterExperienceResponse>('/game/gain-experience', {
+      method: 'POST',
+      body: JSON.stringify(request),
+    });
+  }
+
+  async getAvailableMonsters(): Promise<GetAvailableMonstersResponse> {
+    return this.request<GetAvailableMonstersResponse>('/game/available-monsters');
   }
 }
 

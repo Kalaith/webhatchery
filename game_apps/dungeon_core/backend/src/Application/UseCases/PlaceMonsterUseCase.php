@@ -4,37 +4,77 @@ namespace DungeonCore\Application\UseCases;
 
 use DungeonCore\Domain\Repositories\GameRepositoryInterface;
 use DungeonCore\Domain\Repositories\DungeonRepositoryInterface;
+use DungeonCore\Domain\Services\GameLogic;
 
 class PlaceMonsterUseCase
 {
     public function __construct(
         private GameRepositoryInterface $gameRepo,
-        private DungeonRepositoryInterface $dungeonRepo
+        private DungeonRepositoryInterface $dungeonRepo,
+        private GameLogic $gameLogic
     ) {}
 
-    public function execute(string $sessionId, int $roomId, string $monsterType, int $cost): array
+    public function execute(string $sessionId, int $floorNumber, int $roomPosition, string $monsterType): array
     {
         $game = $this->gameRepo->findBySessionId($sessionId);
         if (!$game) {
             return ['success' => false, 'error' => 'Game not found'];
         }
 
-        // Check room capacity
-        $capacity = $this->dungeonRepo->getRoomCapacity($roomId);
-        $currentCount = $this->dungeonRepo->getMonsterCount($roomId);
-        
-        if ($currentCount >= $capacity) {
-            return ['success' => false, 'error' => 'Room is full'];
+        // Check if adventurers are in dungeon
+        if ($game->hasActiveAdventurers()) {
+            return ['success' => false, 'error' => 'Cannot place monsters while adventurers are in the dungeon!'];
         }
+
+        // Validate monster type exists and get stats
+        $monsterStats = $this->gameLogic->getMonsterStats($monsterType);
+        if (!$monsterStats) {
+            return ['success' => false, 'error' => 'Monster type not found!'];
+        }
+
+        // Get room info and validate
+        $room = $this->dungeonRepo->getRoom($floorNumber, $roomPosition);
+        if (!$room) {
+            return ['success' => false, 'error' => 'Room not found!'];
+        }
+
+        if ($room['type'] === 'entrance' || $room['type'] === 'core') {
+            return ['success' => false, 'error' => 'Cannot place monsters in entrance or core rooms!'];
+        }
+
+        // Validate room capacity using backend logic
+        $existingMonsters = $this->dungeonRepo->getRoomMonsters($floorNumber, $roomPosition);
+        $validation = $this->gameLogic->validateMonsterPlacement($floorNumber, $roomPosition, $monsterType, $existingMonsters);
+        
+        if (!$validation['valid']) {
+            return ['success' => false, 'error' => $validation['error']];
+        }
+
+        // Calculate actual cost server-side (never trust frontend)
+        $isBossRoom = $room['type'] === 'boss';
+        $cost = $this->gameLogic->calculateMonsterCost($monsterType, $floorNumber, $isBossRoom);
 
         // Check mana cost
         if (!$game->spendMana($cost)) {
-            return ['success' => false, 'error' => 'Insufficient mana'];
+            return ['success' => false, 'error' => "Not enough mana! Need {$cost} mana."];
         }
 
+        // Determine if this is a boss monster
+        $isBoss = $isBossRoom && count($existingMonsters) === 0;
+        
+        // Scale monster stats server-side
+        $scaledStats = $this->gameLogic->scaleMonsterStats($monsterStats, $floorNumber, $isBoss);
+
         // Place monster
-        $hp = $this->getMonsterHp($monsterType);
-        $monster = $this->dungeonRepo->placeMonster($roomId, $monsterType, $hp, $hp, false);
+        $monster = $this->dungeonRepo->placeMonster(
+            $floorNumber,
+            $roomPosition,
+            $monsterType,
+            $scaledStats['hp'],
+            $scaledStats['hp'], // maxHp
+            $isBoss,
+            $scaledStats
+        );
         
         // Save game state
         $this->gameRepo->save($game);
@@ -44,21 +84,13 @@ class PlaceMonsterUseCase
             'monster' => [
                 'id' => $monster->getId(),
                 'type' => $monster->getType(),
-                'hp' => $monster->getHp()
-            ]
+                'hp' => $monster->getHp(),
+                'maxHp' => $monster->getMaxHp(),
+                'isBoss' => $monster->isBoss(),
+                'scaledStats' => $scaledStats
+            ],
+            'costPaid' => $cost,
+            'remainingMana' => $game->getMana()
         ];
-    }
-
-    private function getMonsterHp(string $monsterType): int
-    {
-        // Basic monster stats - could be moved to a service
-        $stats = [
-            'Goblin' => 25,
-            'Orc' => 40,
-            'Slime' => 20,
-            'False Chest' => 30
-        ];
-        
-        return $stats[$monsterType] ?? 20;
     }
 }
