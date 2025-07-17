@@ -8,69 +8,75 @@ import { ErrorBoundary } from "./components/ui/ErrorBoundary";
 import { DungeonView } from "./components/game/DungeonView";
 import { AdventurerSystem } from "./components/game/AdventurerSystemFloor";
 import { TimeSystem } from "./components/game/TimeSystem";
-import { AdventurerChat } from "./components/game/AdventurerChat";
-import { useGameStore } from "./stores/gameStore";
+import { BackendMonsterPlacement } from "./components/game/BackendMonsterPlacement";
+import { useBackendGameStore } from "./stores/backendGameStore";
 
 function App() {
   const { 
-    modalOpen, 
-    selectedMonster, 
-    floors,
-    closeModal, 
-    placeMonster,
-    addLog,
-    ensureCoreRoom
-  } = useGameStore();
+    gameData,
+    initialData,
+    loading,
+    error,
+    selectedMonster,
+    initializeGame,
+    loadGameState,
+    selectMonster,
+    placeMonster
+  } = useBackendGameStore();
 
-  // Initialize modal state from session storage
+  // Initialize game on mount
   useEffect(() => {
-    const modalSeen = sessionStorage.getItem("dungeoncore_modal_seen") === "1";
-    if (modalSeen && modalOpen) {
-      closeModal();
-    }
-  }, [modalOpen, closeModal]);
+    initializeGame();
+  }, [initializeGame]);
 
-  // Ensure core room is always present on game load
+  // Auto-refresh game state every 5 seconds
   useEffect(() => {
-    ensureCoreRoom();
-  }, [ensureCoreRoom]);
+    const interval = setInterval(loadGameState, 5000);
+    return () => clearInterval(interval);
+  }, [loadGameState]);
 
-  const handleRoomClick = async (floorNumber: number, roomPosition: number) => {
+  const handleRoomClick = async (roomId: number): Promise<void> => {
     if (selectedMonster !== null) {
       try {
-        const success = await placeMonster(floorNumber, roomPosition, selectedMonster);
+        const success = await placeMonster(roomId, selectedMonster);
         if (success) {
-          // Optionally deselect monster after placing
-          // selectMonster(null);
+          selectMonster(null);
         }
       } catch (error) {
         console.error('Error placing monster:', error);
-        addLog({ 
-          message: "Failed to place monster. Please try again.", 
-          type: "system" 
-        });
       }
-    } else {
-      addLog({ 
-        message: "Select a monster first before clicking on a room", 
-        type: "system" 
-      });
     }
   };
 
-  const handleModalClose = () => {
-    closeModal();
-  };
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-gradient-to-br from-gray-900 to-gray-700 flex items-center justify-center">
+        <div className="text-white text-xl">Loading game...</div>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="min-h-screen bg-gradient-to-br from-gray-900 to-gray-700 flex items-center justify-center">
+        <div className="text-red-400 text-xl">Error: {error}</div>
+      </div>
+    );
+  }
+
+  if (!gameData) {
+    return (
+      <div className="min-h-screen bg-gradient-to-br from-gray-900 to-gray-700 flex items-center justify-center">
+        <div className="text-white text-xl">No game data</div>
+      </div>
+    );
+  }
 
   return (
     <ErrorBoundary>
       <div className="game-container min-h-screen bg-gradient-to-br from-gray-900 to-gray-700 flex flex-col">
-      {/* System components for game logic */}
-      <TimeSystem />
-      <AdventurerSystem running={true} />
-      
       {/* UI Components */}
-      <ResourceBar />
+      <ResourceBar gameData={gameData} />
       
       <main className="game-main flex flex-1 max-h-screen overflow-hidden">
         <RoomSelector />
@@ -78,8 +84,34 @@ function App() {
         <section className="dungeon-area flex-1 flex flex-col items-center justify-start p-4 overflow-auto">
           <GameControls />
           
+          <BackendMonsterPlacement />
+          
           <div className="dungeon-view-container mb-4 w-full">
-            <DungeonView floors={floors} onRoomClick={handleRoomClick} />
+            <div className="bg-gray-800 rounded-lg p-4">
+              <h2 className="text-2xl font-bold text-white mb-4">Monsters</h2>
+              {gameData.monsters.length === 0 ? (
+                <p className="text-gray-400">No monsters placed yet</p>
+              ) : (
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                  {gameData.monsters.map((monster: { id: number; type: string; hp: number; maxHp: number; roomId: number; alive: boolean }) => (
+                    <div key={monster.id} className="bg-gray-700 p-3 rounded">
+                      <div className="text-white font-bold">{monster.type}</div>
+                      <div className="text-gray-300 text-sm">
+                        HP: {monster.hp}/{monster.maxHp}
+                      </div>
+                      <div className="text-gray-300 text-sm">
+                        Room: {monster.roomId}
+                      </div>
+                      <div className={`text-sm ${
+                        monster.alive ? 'text-green-400' : 'text-red-400'
+                      }`}>
+                        {monster.alive ? 'Alive' : 'Dead'}
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              )}
+            </div>
           </div>
           
           
@@ -87,45 +119,9 @@ function App() {
         
         <MonsterSelector />
       </main>
+
       
-      <AdventurerChat />
-      
-      <GameModal
-        open={modalOpen}
-        onClose={handleModalClose}
-        title="Welcome to Dungeon Core Simulator v1.2"
-        onConfirm={handleModalClose}
-      >
-        <div className="space-y-3 text-gray-700">
-          <p>
-            You are a newly formed Dungeon Core. Build a <strong>linear dungeon</strong> with 
-            multiple floors to challenge brave adventurers!
-          </p>
-          <p>
-            <strong>New Floor-Based System:</strong>
-          </p>
-          <ul className="list-disc list-inside space-y-1 text-sm">
-            <li>Add rooms to expand your dungeon linearly</li>
-            <li>Each floor has 5 rooms + entrance (Room 5 becomes Boss)</li>
-            <li>When a floor is full, new rooms create deeper floors</li>
-            <li>Deeper floors = stronger monsters & higher costs</li>
-            <li>Core room automatically appears on deepest floor</li>
-            <li>Deep Core Bonus: +5% mana regen per floor</li>
-          </ul>
-          <p>
-            <strong>Getting Started:</strong>
-          </p>
-          <ul className="list-disc list-inside space-y-1 text-sm">
-            <li>Click "Add New Room" to expand your dungeon</li>
-            <li>Select monsters and click on rooms to place them</li>
-            <li>Boss rooms make the first monster a boss (+50% stats)</li>
-            <li>Adventurers progress room by room through floors</li>
-          </ul>
-          <p className="text-sm text-gray-600">
-            Good luck, Dungeon Core! Build deep and challenge the brave!
-          </p>
-        </div>
-      </GameModal>
+
       </div>
     </ErrorBoundary>
   );

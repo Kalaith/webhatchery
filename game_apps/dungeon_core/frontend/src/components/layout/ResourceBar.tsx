@@ -1,17 +1,20 @@
 import React from "react";
-import { useGameStore } from "../../stores/gameStore";
+import type { GameStateResponse } from "../../api/types";
 
-export const ResourceBar: React.FC = () => {
+interface ResourceBarProps {
+  gameData: GameStateResponse;
+}
+
+export const ResourceBar: React.FC<ResourceBarProps> = ({ gameData }) => {
   const { 
     mana, 
     maxMana, 
-    manaRegen, 
     gold, 
     souls, 
     day, 
     hour, 
     status 
-  } = useGameStore();
+  } = gameData.game;
 
   const formatTime = (hour: number) => {
     const displayHour = hour === 0 ? 12 : hour > 12 ? hour - 12 : hour;
@@ -47,7 +50,7 @@ export const ResourceBar: React.FC = () => {
                 />
               </div>
             </div>
-            <span className="text-xs text-blue-300 hidden sm:inline">+{manaRegen}/s</span>
+            <span className="text-xs text-blue-300 hidden sm:inline">Backend</span>
           </div>
           
           {/* Gold & Souls */}
@@ -76,7 +79,7 @@ export const ResourceBar: React.FC = () => {
           </div>
           
           <div className="text-gray-400 hidden sm:block">
-            Parties: {useGameStore.getState().adventurerParties.length}
+            Monsters: {gameData.monsters.length}
           </div>
         </div>
       </div>

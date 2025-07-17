@@ -1,12 +1,12 @@
 import type { GetState, SetState } from 'zustand';
-import type { GameState, DungeonFloor, Room } from '../types/game';
+import type { GameState, DungeonFloor, Room, LogEntry } from '../types/game';
 import { fetchGameConstantsData } from '../api/gameApi';
 import { getRoomCost } from '../api/gameApi';
 
 // Define a type for the full GameStore actions that will be passed to these functions
 // This avoids circular dependency with the main gameStore.ts file
 interface GameStoreActions {
-  addLog: (entry: any) => void;
+  addLog: (entry: LogEntry | string) => void;
   spendMana: (amount: number) => boolean;
   createNewFloor: () => DungeonFloor;
   updateDeepCoreBonus: () => void;

@@ -1,10 +1,12 @@
 import React, { useState, useEffect, useMemo } from "react";
-import { useGameStore } from "../../stores/gameStore";
+import { useBackendGameStore } from "../../stores/backendGameStore";
 import type { MonsterType, MonsterSpecies } from "../../types/game";
 import { fetchMonsterSpeciesList, fetchMonsterList, getMonsterTypes } from "../../api/gameApi";
 
 export const MonsterSelector: React.FC = () => {
-  const { mana, selectedMonster, selectMonster, unlockedMonsterSpecies, unlockMonsterSpecies } = useGameStore();
+  const { gameData, selectedMonster, selectMonster } = useBackendGameStore();
+  const mana = gameData?.game.mana || 0;
+  const unlockedMonsterSpecies = ['Mimetic', 'Amorphous']; // Hardcoded for now
   const [monsterSpeciesData, setMonsterSpeciesData] = useState<{[key: string]: MonsterSpecies} | null>(null);
   const [monsterEvolutionTrees, setMonsterEvolutionTrees] = useState<any>(null);
   const [monsterTypes, setMonsterTypes] = useState<{[key: string]: MonsterType}>({});
@@ -90,7 +92,7 @@ export const MonsterSelector: React.FC = () => {
         
         {showSpecies && (
         <div className="flex flex-wrap gap-2">
-          {monsterSpeciesData && Object.keys(monsterSpeciesData).map(speciesName => {
+          {monsterSpeciesData && Object.keys(monsterSpeciesData).map((speciesName: string) => {
             const isUnlocked = unlockedMonsterSpecies.includes(speciesName);
             const speciesData = monsterSpeciesData[speciesName];
             const canAffordUnlock = mana >= speciesData.unlock_cost;
@@ -126,7 +128,7 @@ export const MonsterSelector: React.FC = () => {
       {/* Species Tabs */}
       <div className="mb-4">
         <div className="flex flex-wrap gap-1">
-          {unlockedMonsterSpecies.map(speciesName => (
+          {unlockedMonsterSpecies.map((speciesName: string) => (
             <button
               key={speciesName}
               onClick={() => handleSpeciesSelect(speciesName)}

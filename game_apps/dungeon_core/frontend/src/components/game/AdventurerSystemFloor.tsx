@@ -131,12 +131,20 @@ export const AdventurerSystem: React.FC<AdventurerSystemProps> = ({ running }) =
             const manaGain = victim.level * 10;
             useGameStore.setState({ mana: Math.min(mana + manaGain, useGameStore.getState().maxMana) });
             
-            addLog(`${victim.name} has fallen in Floor ${party.currentFloor}, Room ${party.currentRoom}! +${manaGain} mana`);
+            addLog({ 
+              message: `${victim.name} has fallen in Floor ${party.currentFloor}, Room ${party.currentRoom}! +${manaGain} mana`,
+              type: "combat",
+              timestamp: Date.now()
+            });
             
             // Check retreat condition
             if (casualties >= gameConstants.RETREAT_THRESHOLD) {
               updateAdventurerParty(party.id, { retreating: true });
-              addLog(`Party ${party.id} is retreating due to heavy casualties!`);
+              addLog({ 
+                message: `Party ${party.id} is retreating due to heavy casualties!`,
+                type: "adventure",
+                timestamp: Date.now()
+              });
             }
           }
         } else if (combatResult < 0.6) {
@@ -157,7 +165,8 @@ export const AdventurerSystem: React.FC<AdventurerSystemProps> = ({ running }) =
             
             addLog({ 
               message: `${victim.type} defeated in Floor ${party.currentFloor}, Room ${party.currentRoom}! +${goldReward} gold${soulReward > 0 ? `, +${soulReward} soul` : ''}`,
-              type: "combat"
+              type: "combat",
+              timestamp: Date.now()
             });
             
             if (Math.random() < 0.2) { // 20% chance to speak after combat
@@ -191,7 +200,8 @@ export const AdventurerSystem: React.FC<AdventurerSystemProps> = ({ running }) =
             });
             addLog({ 
               message: `Party ${party.id} descends to Floor ${party.currentFloor + 1}`,
-              type: "adventure"
+              type: "adventure",
+              timestamp: Date.now()
             });
           } else {
             // Party completed their target, retreat with loot
@@ -200,7 +210,8 @@ export const AdventurerSystem: React.FC<AdventurerSystemProps> = ({ running }) =
             
             addLog({ 
               message: `Party ${party.id} completed their exploration! +${party.loot} gold`,
-              type: "adventure"
+              type: "adventure",
+              timestamp: Date.now()
             });
             
             if (Math.random() < 0.4) { // 40% chance to speak when leaving
@@ -223,7 +234,8 @@ export const AdventurerSystem: React.FC<AdventurerSystemProps> = ({ running }) =
           updateAdventurerParty(party.id, { currentRoom: nextRoomPosition });
           addLog({ 
             message: `Party ${party.id} advances to Room ${nextRoomPosition} on Floor ${party.currentFloor}`,
-            type: "adventure"
+            type: "adventure",
+            timestamp: Date.now()
           });
         }
       }
@@ -248,7 +260,8 @@ export const AdventurerSystem: React.FC<AdventurerSystemProps> = ({ running }) =
       
       addLog({ 
         message: `New adventurer party enters the dungeon! (${newParty.members.length} members)`,
-        type: "adventure"
+        type: "adventure",
+        timestamp: Date.now()
       });
       
       if (Math.random() < 0.3) { // 30% chance to speak
@@ -262,7 +275,8 @@ export const AdventurerSystem: React.FC<AdventurerSystemProps> = ({ running }) =
         const randomQuote = enterQuotes[Math.floor(Math.random() * enterQuotes.length)];
         addLog({ 
           message: `${newParty.members[0].name} says: "${randomQuote}"`,
-          type: "adventure"
+          type: "adventure",
+          timestamp: Date.now()
         });
       }
     }

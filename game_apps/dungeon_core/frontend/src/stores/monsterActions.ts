@@ -1,5 +1,5 @@
 import type { GetState, SetState } from 'zustand';
-import type { GameState, Monster, MonsterType } from '../types/game';
+import type { GameState, Monster, MonsterType, LogEntry } from '../types/game';
 import { getMonsterTypes, getMonsterManaCost, getScaledMonsterStats, fetchMonsterSpeciesList, fetchMonsterList } from '../api/gameApi';
 
 
@@ -14,7 +14,7 @@ interface GameStoreActions {
 // Combine GameState and GameStoreActions for the GetState/SetState types
 type FullGameStore = GameState & GameStoreActions;
 
-export const placeMonster = async (set: SetState<FullGameStore>, get: GetState<FullGameStore>, floorNumber: number, roomPosition: number, monsterName: string, addLog: (entry: any) => void) => {
+export const placeMonster = async (set: SetState<FullGameStore>, get: GetState<FullGameStore>, floorNumber: number, roomPosition: number, monsterName: string, addLog: (entry: LogEntry | string) => void) => {
   const state = get();
   
   // Cannot place monsters while adventurers are in dungeon
@@ -115,7 +115,7 @@ export const placeMonster = async (set: SetState<FullGameStore>, get: GetState<F
   return true;
 };
 
-export const unlockMonsterSpecies = async (set: SetState<FullGameStore>, get: GetState<FullGameStore>, speciesName: string, addLog: (entry: any) => void) => {
+export const unlockMonsterSpecies = async (set: SetState<FullGameStore>, get: GetState<FullGameStore>, speciesName: string, addLog: (entry: LogEntry | string) => void) => {
   const monsterSpeciesData = await fetchMonsterSpeciesList();
   set((state) => {
     if (!state.unlockedMonsterSpecies.includes(speciesName)) {
@@ -132,7 +132,7 @@ export const unlockMonsterSpecies = async (set: SetState<FullGameStore>, get: Ge
   });
 };
 
-export const gainMonsterExperience = async (set: SetState<FullGameStore>, get: GetState<FullGameStore>, monsterName: string, exp: number, addLog: (entry: any) => void) => {
+export const gainMonsterExperience = async (set: SetState<FullGameStore>, get: GetState<FullGameStore>, monsterName: string, exp: number, addLog: (entry: LogEntry | string) => void) => {
   const monsterTypes = await getMonsterTypes();
   const monsterSpeciesData = await fetchMonsterSpeciesList();
   const monsterEvolutionTrees = await fetchMonsterList();
@@ -163,7 +163,7 @@ export const gainMonsterExperience = async (set: SetState<FullGameStore>, get: G
     }
 
     // Define experience thresholds for each tier
-    const tierExperienceThresholds = [
+    const tierExperienceThresholds: number[] = [
       0,    // Tier 1
       500,  // Tier 2
       1500, // Tier 3
@@ -205,13 +205,13 @@ export const getAvailableMonsters = async (set: SetState<FullGameStore>, get: Ge
   const monsterSpeciesData = await fetchMonsterSpeciesList();
   const monsterEvolutionTrees = await fetchMonsterList();
 
-  state.unlockedMonsterSpecies.forEach(speciesName => {
+  state.unlockedMonsterSpecies.forEach((speciesName: string) => {
     const speciesData = monsterSpeciesData.species[speciesName];
     if (speciesData) {
       const evolutionTree = monsterEvolutionTrees.evolution_trees[speciesName];
       if (evolutionTree) {
         // Determine the highest unlocked tier for this species based on total experience
-        const speciesTotalExp = Object.keys(evolutionTree).reduce((sum, monsterFamily) => {
+        const speciesTotalExp = Object.keys(evolutionTree).reduce((sum: number, monsterFamily: string) => {
           for (const tierKey in evolutionTree[monsterFamily]) {
             for (const monsterName in evolutionTree[monsterFamily][tierKey]) {
               sum += state.monsterExperience[monsterName] || 0;
