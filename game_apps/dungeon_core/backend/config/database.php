@@ -5,7 +5,7 @@ return [
     'port' => $_ENV['DB_PORT'] ?? 3306,
     'database' => $_ENV['DB_NAME'] ?? 'dungeon_core',
     'username' => $_ENV['DB_USER'] ?? 'root',
-    'password' => $_ENV['DB_PASS'] ?? '',
+    'password' => $_ENV['DB_PASSWORD'] ?? '',
     'charset' => 'utf8mb4',
     'options' => [
         PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,

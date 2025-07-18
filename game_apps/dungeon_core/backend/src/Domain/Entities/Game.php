@@ -8,6 +8,7 @@ class Game
         private int $id,
         private int $mana,
         private int $maxMana,
+        private int $manaRegen,
         private int $gold,
         private int $souls,
         private int $day,
@@ -18,6 +19,7 @@ class Game
     public function getId(): int { return $this->id; }
     public function getMana(): int { return $this->mana; }
     public function getMaxMana(): int { return $this->maxMana; }
+    public function getManaRegen(): int { return $this->manaRegen; }
     public function getGold(): int { return $this->gold; }
     public function getSouls(): int { return $this->souls; }
     public function getDay(): int { return $this->day; }

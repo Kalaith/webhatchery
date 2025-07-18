@@ -24,10 +24,11 @@ class MySQLGameRepository implements GameRepositoryInterface
     public function save(Game $game): void
     {
         $stmt = $this->connection->prepare(
-            'UPDATE players SET mana = ?, gold = ?, souls = ?, day = ?, hour = ?, status = ? WHERE id = ?'
+            'UPDATE players SET mana = ?, mana_regen = ?, gold = ?, souls = ?, day = ?, hour = ?, status = ? WHERE id = ?'
         );
         $stmt->execute([
             $game->getMana(),
+            $game->getManaRegen(),
             $game->getGold(),
             $game->getSouls(),
             $game->getDay(),
@@ -40,13 +41,13 @@ class MySQLGameRepository implements GameRepositoryInterface
     public function create(string $sessionId): Game
     {
         $stmt = $this->connection->prepare(
-            'INSERT INTO players (session_id, mana, max_mana, gold, souls, day, hour, status) 
-             VALUES (?, 50, 100, 100, 0, 1, 6, "Open")'
+            'INSERT INTO players (session_id, mana, max_mana, mana_regen, gold, souls, day, hour, status) 
+             VALUES (?, 50, 100, 1, 100, 0, 1, 6, "Open")'
         );
         $stmt->execute([$sessionId]);
         
         $id = $this->connection->lastInsertId();
-        return new Game($id, 50, 100, 100, 0, 1, 6, 'Open');
+        return new Game($id, 50, 100, 1, 100, 0, 1, 6, 'Open');
     }
 
     private function mapToEntity(array $data): Game
@@ -55,6 +56,7 @@ class MySQLGameRepository implements GameRepositoryInterface
             $data['id'],
             $data['mana'],
             $data['max_mana'],
+            $data['mana_regen'],
             $data['gold'],
             $data['souls'],
             $data['day'],

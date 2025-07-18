@@ -4,6 +4,7 @@ export interface GameStateResponse {
     id: number;
     mana: number;
     maxMana: number;
+    manaRegen: number;
     gold: number;
     souls: number;
     day: number;
@@ -109,22 +110,44 @@ export interface InitializeGameResponse {
     id: number;
     mana: number;
     maxMana: number;
+    manaRegen: number;
     gold: number;
     souls: number;
     day: number;
     hour: number;
     status: string;
-  };
-  initialData: {
-    unlockedMonsterSpecies: string[];
+    speed: number;
+    selectedRoom: null;
+    selectedMonster: null;
+    modalOpen: boolean;
+    dungeonLevel: number;
+    adventurerParties: any[];
+    nextPartySpawn: number;
     totalFloors: number;
     deepCoreBonus: number;
+    unlockedMonsterSpecies: string[];
+    monsterExperience: any[];
     log: Array<{
       message: string;
       type: string;
       timestamp: number;
     }>;
   };
+  floors: Array<{
+    id: number;
+    number: number;
+    rooms: Array<{
+      id: number;
+      type: string;
+      position: number;
+      floorNumber: number;
+      monsters: any[];
+      roomUpgrade: null;
+      explored: boolean;
+      loot: number;
+    }>;
+    isDeepest: boolean;
+  }>;
   monsters: Array<{
     id: number;
     roomId: number;

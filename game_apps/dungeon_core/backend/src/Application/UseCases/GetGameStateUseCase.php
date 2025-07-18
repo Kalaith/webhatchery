@@ -28,6 +28,7 @@ class GetGameStateUseCase
                 'id' => $game->getId(),
                 'mana' => $game->getMana(),
                 'maxMana' => $game->getMaxMana(),
+                'manaRegen' => $game->getManaRegen(),
                 'gold' => $game->getGold(),
                 'souls' => $game->getSouls(),
                 'day' => $game->getDay(),

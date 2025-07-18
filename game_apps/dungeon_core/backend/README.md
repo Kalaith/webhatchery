@@ -9,23 +9,59 @@ Clean Architecture PHP backend for the Dungeon Core game.
 composer install
 ```
 
-2. Configure database in `config/database.php`
+2. Configure database in `config/database.php` or use environment variables in `.env`
 
-3. Run database migrations:
-```bash
-mysql -u username -p database_name < migrations/001_create_tables.sql
-```
-
-4. Start development server:
+3. Start development server (database will be created automatically):
 ```bash
 php -S localhost:8000 -t public
+```
+
+The backend will automatically:
+- Create the database if it doesn't exist
+- Create all required tables
+- Handle initial data setup
+
+## Launch Instructions
+
+To launch the PHP backend:
+
+1. **Navigate to backend directory:**
+   ```bash
+   cd backend
+   ```
+
+2. **Install dependencies (if not already installed):**
+   ```bash
+   composer install
+   ```
+
+3. **Start the development server:**
+   ```bash
+   php -S localhost:8000 -t public
+   ```
+
+The backend will automatically:
+- Load environment variables from `.env` file
+- Create the MySQL database if it doesn't exist
+- Create all required tables
+- Handle initial data setup
+
+You should see output like:
+```
+Database 'dungeon_core' created successfully.
+Database tables created successfully.
+PHP 8.x.x Development Server (http://localhost:8000) started
 ```
 
 ## API Endpoints
 
 ### Game State
+- `GET /api/game/initialize` - Initialize new game
 - `GET /api/game/state` - Get current game state
 - `POST /api/game/place-monster` - Place monster in room
+- `POST /api/game/unlock-species` - Unlock monster species
+- `POST /api/game/gain-experience` - Gain monster experience
+- `GET /api/game/available-monsters` - Get available monsters
 
 ### Dungeon Management  
 - `POST /api/dungeon/add-room` - Add room to dungeon

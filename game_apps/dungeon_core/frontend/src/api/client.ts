@@ -76,6 +76,27 @@ class ApiClient {
   async getAvailableMonsters(): Promise<GetAvailableMonstersResponse> {
     return this.request<GetAvailableMonstersResponse>('/game/available-monsters');
   }
+
+  // Data endpoints
+  async getGameConstants(): Promise<any> {
+    return this.request<any>('/data/game-constants');
+  }
+
+  async getMonsterTypes(): Promise<any> {
+    return this.request<any>('/data/monster-types');
+  }
+
+  async getMonsterTraits(): Promise<any> {
+    return this.request<any>('/data/monster-traits');
+  }
+
+  async getEquipmentData(): Promise<any> {
+    return this.request<any>('/data/equipment');
+  }
+
+  async getFloorScaling(): Promise<any> {
+    return this.request<any>('/data/floor-scaling');
+  }
 }
 
 export const apiClient = new ApiClient();

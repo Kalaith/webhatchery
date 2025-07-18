@@ -1,19 +1,41 @@
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
-import type { GameState, DungeonFloor, Room, LogEntry, AdventurerParty, Monster, MonsterType } from '../types/game';
-import { fetchGameConstantsData } from '../api/gameApi';
-import { getMonsterManaCost, getScaledMonsterStats, getRoomCost } from '../api/gameApi';
+import type { GameState, DungeonFloor, Room, LogEntry, AdventurerParty, MonsterType } from '../types/game';
+import { fetchGameConstantsData, initializeGame } from '../api/gameApi';
 
 // Import refactored modules
-import { initialState, createInitialFloor } from './initialState';
 import { addRoom } from './roomActions';
 import { spendMana, spendGold, gainGold, gainSouls } from './manaGoldSoulsActions';
 import { placeMonster, unlockMonsterSpecies, gainMonsterExperience, getAvailableMonsters } from './monsterActions';
 
-
+// Create a minimal initial state that will be replaced by backend data
+const createEmptyInitialState = (): Omit<GameState, 'floors'> => ({
+  mana: 0,
+  maxMana: 0,
+  manaRegen: 0,
+  gold: 0,
+  souls: 0,
+  day: 1,
+  hour: 6,
+  status: 'Open',
+  speed: 1,
+  selectedRoom: null,
+  selectedMonster: null,
+  log: [],
+  modalOpen: false,
+  dungeonLevel: 1,
+  adventurerParties: [],
+  nextPartySpawn: 8,
+  totalFloors: 1,
+  deepCoreBonus: 0,
+  unlockedMonsterSpecies: [],
+  monsterExperience: {},
+});
 
 interface GameStore extends GameState {
   floors: DungeonFloor[];
+  isInitialized: boolean;
+  initializeFromBackend: () => Promise<void>;
   setFloors: (floors: DungeonFloor[]) => void;
   addRoom: (floorNumber?: number) => Promise<boolean>;
   selectRoom: (roomIndex: number | null) => void;
@@ -48,8 +70,42 @@ export const useGameStore = create<GameStore>()(
     (set, get) => {
       console.log("gameStore: Initializing state");
       return {
-        ...initialState,
-        floors: [createInitialFloor()],
+        ...createEmptyInitialState(),
+        floors: [],
+        isInitialized: false,
+
+        initializeFromBackend: async () => {
+          try {
+            const backendData = await initializeGame();
+            
+            // Convert backend data to frontend format
+            const gameState = backendData.game;
+            const floors = backendData.floors || [];
+            
+            set({
+              ...gameState,
+              floors: floors as DungeonFloor[],
+              isInitialized: true,
+              status: gameState.status as 'Open' | 'Closing' | 'Closed' | 'Maintenance',
+              log: gameState.log.map(entry => ({
+                ...entry,
+                type: entry.type as 'system' | 'combat' | 'adventure' | 'building'
+              })),
+              monsterExperience: Array.isArray(gameState.monsterExperience) ? {} : gameState.monsterExperience
+            });
+            
+            console.log("Game initialized from backend:", backendData);
+          } catch (error) {
+            console.error("Failed to initialize game from backend:", error);
+            // Fallback to empty state if backend fails
+            set({
+              ...createEmptyInitialState(),
+              floors: [],
+              isInitialized: false,
+              modalOpen: false
+            });
+          }
+        },
 
         setFloors: (floors) => set({ floors }),
 
@@ -83,7 +139,7 @@ export const useGameStore = create<GameStore>()(
         updateDeepCoreBonus: async () => {
           const state = get();
           const gameConstants = await fetchGameConstantsData();
-          const newBonus = state.totalFloors * (await fetchGameConstantsData()).CORE_ROOM_MANA_BONUS;
+          const newBonus = state.totalFloors * gameConstants.CORE_ROOM_MANA_BONUS;
           const newManaRegen = 1 + newBonus; // Base 1 + bonus
           
           set({ 
@@ -269,19 +325,18 @@ export const useGameStore = create<GameStore>()(
               sessionStorage.removeItem('dungeoncore_modal_seen');
             }
             
-            // Reset to initial state with a new floor
+            // Reset to empty state and re-initialize from backend
             set({
-              ...initialState,
-              floors: [createInitialFloor()],          
-              log: [
-                { message: "Game reset successfully!", type: "system", timestamp: Date.now() },
-                { message: "Welcome to Dungeon Core Simulator v1.2!", type: "system", timestamp: Date.now() },
-                { message: "Your dungeon starts with an entrance and core room. Add more rooms to expand!", type: "system", timestamp: Date.now() },
-              ],
+              ...createEmptyInitialState(),
+              floors: [],
+              isInitialized: false,
+              modalOpen: false
             });
             
-            // Ensure core room is present after reset
-            get().ensureCoreRoom();
+            // Re-initialize from backend
+            get().initializeFromBackend();
+            
+            get().addLog("Game reset successfully!");
           },
 
           ensureCoreRoom: () => {

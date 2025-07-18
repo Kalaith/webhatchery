@@ -4,6 +4,7 @@ CREATE TABLE players (
     session_id VARCHAR(255) UNIQUE,
     mana INT DEFAULT 50,
     max_mana INT DEFAULT 100,
+    mana_regen INT DEFAULT 1,
     gold INT DEFAULT 100,
     souls INT DEFAULT 0,
     day INT DEFAULT 1,
