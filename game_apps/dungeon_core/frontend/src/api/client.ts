@@ -14,14 +14,32 @@ import type {
 
 class ApiClient {
   private baseUrl = 'http://localhost:8000/api';
-  private sessionId = this.generateSessionId();
+  private sessionId = this.getOrCreateSessionId();
 
-  private generateSessionId(): string {
-    return Math.random().toString(36).substring(2) + Date.now().toString(36);
+  private getOrCreateSessionId(): string {
+    // For now, always use the first session to avoid login complexity
+    const fixedSessionId = 'x5netciu1jmd8tvw1h';
+    
+    // Clear any existing stored session to force fresh connection
+    localStorage.removeItem('dungeon-core-session-id');
+    
+    console.log('Using fixed session ID:', fixedSessionId);
+    return fixedSessionId;
   }
 
   private async request<T>(endpoint: string, options?: RequestInit): Promise<T> {
-    const response = await fetch(`${this.baseUrl}${endpoint}`, {
+    const url = `${this.baseUrl}${endpoint}`;
+    
+    // Only log for non-routine requests to reduce console spam
+    const isRoutineRequest = endpoint === '/game/state';
+    if (!isRoutineRequest) {
+      console.log('Making API request:', {
+        url,
+        method: options?.method || 'GET',
+      });
+    }
+    
+    const response = await fetch(url, {
       ...options,
       headers: {
         'Content-Type': 'application/json',
@@ -30,11 +48,25 @@ class ApiClient {
       },
     });
 
+    if (!isRoutineRequest) {
+      console.log('API response:', {
+        url,
+        status: response.status,
+        statusText: response.statusText,
+        ok: response.ok
+      });
+    }
+
     if (!response.ok) {
+      console.error('API Error:', response.status, response.statusText);
       throw new Error(`API Error: ${response.status}`);
     }
 
-    return response.json();
+    const data = await response.json();
+    if (!isRoutineRequest) {
+      console.log('API response data:', data);
+    }
+    return data;
   }
 
   async initializeGame(): Promise<InitializeGameResponse> {

@@ -11,15 +11,7 @@ composer install
 
 2. Configure database in `config/database.php` or use environment variables in `.env`
 
-3. Start development server (database will be created automatically):
-```bash
-php -S localhost:8000 -t public
-```
-
-The backend will automatically:
-- Create the database if it doesn't exist
-- Create all required tables
-- Handle initial data setup
+3. The backend will automatically create the database and tables when first accessed
 
 ## Launch Instructions
 
@@ -39,6 +31,8 @@ To launch the PHP backend:
    ```bash
    php -S localhost:8000 -t public
    ```
+
+**GitHub Copilot Instructions:** Do not automatically run the PHP server using run_in_terminal. The user will manually start the server when needed.
 
 The backend will automatically:
 - Load environment variables from `.env` file

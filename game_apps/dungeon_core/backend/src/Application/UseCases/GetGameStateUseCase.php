@@ -21,8 +21,6 @@ class GetGameStateUseCase
             $game = $this->gameRepo->create($sessionId);
         }
 
-        $monsters = $this->dungeonRepo->getMonsters($game->getId());
-
         return [
             'game' => [
                 'id' => $game->getId(),
@@ -34,16 +32,7 @@ class GetGameStateUseCase
                 'day' => $game->getDay(),
                 'hour' => $game->getHour(),
                 'status' => $game->getStatus()
-            ],
-            'monsters' => array_map(fn($monster) => [
-                'id' => $monster->getId(),
-                'roomId' => $monster->getRoomId(),
-                'type' => $monster->getType(),
-                'hp' => $monster->getHp(),
-                'maxHp' => $monster->getMaxHp(),
-                'alive' => $monster->isAlive(),
-                'isBoss' => $monster->isBoss()
-            ], $monsters)
+            ]
         ];
     }
 }

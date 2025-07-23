@@ -14,9 +14,11 @@ class MySQLDungeonRepository implements DungeonRepositoryInterface
     {
         // Get or create dungeon
         $dungeonId = $this->getDungeonId($gameId);
+        error_log("Got dungeon ID: $dungeonId for game ID: $gameId");
         
         // Get or create floor
         $floorId = $this->getFloorId($dungeonId, $floorNumber);
+        error_log("Got floor ID: $floorId for dungeon ID: $dungeonId, floor number: $floorNumber");
         
         // Add room
         $stmt = $this->connection->prepare(
@@ -24,7 +26,40 @@ class MySQLDungeonRepository implements DungeonRepositoryInterface
         );
         $stmt->execute([$floorId, $roomType, $position]);
         
-        return $this->connection->lastInsertId();
+        $roomId = $this->connection->lastInsertId();
+        error_log("Created room ID: $roomId with type: $roomType, position: $position");
+        
+        return $roomId;
+    }
+
+    public function getRooms(int $gameId): array
+    {
+        error_log("Looking for rooms for game ID: $gameId");
+        $stmt = $this->connection->prepare(
+            'SELECT r.*, f.number as floor_number 
+             FROM rooms r 
+             JOIN floors f ON r.floor_id = f.id 
+             JOIN dungeons d ON f.dungeon_id = d.id 
+             WHERE d.player_id = ?
+             ORDER BY f.number, r.position'
+        );
+        $stmt->execute([$gameId]);
+        
+        $rooms = [];
+        while ($data = $stmt->fetch()) {
+            error_log("Found room: " . json_encode($data));
+            $rooms[] = [
+                'id' => $data['id'],
+                'type' => $data['type'],
+                'position' => $data['position'],
+                'floor_number' => $data['floor_number'],
+                'explored' => $data['explored'] ?? false,
+                'loot' => $data['loot'] ?? 0
+            ];
+        }
+        
+        error_log("Total rooms found: " . count($rooms));
+        return $rooms;
     }
 
     public function placeMonster(int $roomId, string $monsterType, int $hp, int $maxHp, bool $isBoss): Monster

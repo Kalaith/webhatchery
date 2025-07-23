@@ -14,26 +14,36 @@ import { useBackendGameStore } from "./stores/backendGameStore";
 function App() {
   const { 
     gameData,
-    initialData,
     loading,
     error,
     selectedMonster,
     initializeGame,
-    loadGameState,
+    refreshGameState,
     selectMonster,
     placeMonster
   } = useBackendGameStore();
 
-  // Initialize game on mount
+  // Initialize game on mount only - run once
   useEffect(() => {
+    console.log('App initialization effect running');
     initializeGame();
   }, [initializeGame]);
 
-  // Auto-refresh game state every 5 seconds
+  // Auto-refresh game state every 5 seconds (preserves floors)
   useEffect(() => {
-    const interval = setInterval(loadGameState, 5000);
-    return () => clearInterval(interval);
-  }, [loadGameState]);
+    // Only start auto-refresh if we have game data
+    if (gameData && gameData.floors && gameData.floors.length > 0) {
+      console.log('Setting up auto-refresh interval');
+      const interval = setInterval(() => {
+        console.log('Auto-refreshing game state...');
+        refreshGameState();
+      }, 5000);
+      return () => {
+        console.log('Clearing auto-refresh interval');
+        clearInterval(interval);
+      };
+    }
+  }, [refreshGameState, gameData?.floors?.length]); // Only depend on floors length, not entire gameData
 
   const handleRoomClick = async (roomId: number): Promise<void> => {
     if (selectedMonster !== null) {
@@ -85,6 +95,10 @@ function App() {
           <GameControls />
           
           <BackendMonsterPlacement />
+          
+          <div className="dungeon-view-container mb-4 w-full">
+            <DungeonView floors={gameData.floors || []} onRoomClick={handleRoomClick} />
+          </div>
           
           <div className="dungeon-view-container mb-4 w-full">
             <div className="bg-gray-800 rounded-lg p-4">

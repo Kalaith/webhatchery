@@ -11,6 +11,21 @@ export interface GameStateResponse {
     hour: number;
     status: string;
   };
+  floors?: Array<{
+    id: number;
+    number: number;
+    rooms: Array<{
+      id: number;
+      type: 'entrance' | 'normal' | 'boss' | 'core';
+      position: number;
+      floorNumber: number;
+      monsters: any[];
+      roomUpgrade: null;
+      explored: boolean;
+      loot: number;
+    }>;
+    isDeepest: boolean;
+  }>;
   monsters: Array<{
     id: number;
     roomId: number;
@@ -138,7 +153,7 @@ export interface InitializeGameResponse {
     number: number;
     rooms: Array<{
       id: number;
-      type: string;
+      type: 'entrance' | 'normal' | 'boss' | 'core';
       position: number;
       floorNumber: number;
       monsters: any[];

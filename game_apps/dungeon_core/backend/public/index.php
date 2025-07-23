@@ -89,13 +89,18 @@ $dataController = new DataController(
 // Create Slim app
 $app = AppFactory::create();
 
-// Add CORS middleware
+// Add CORS middleware - this MUST be the first middleware
 $app->add(function ($request, $handler) {
     $response = $handler->handle($request);
     return $response
         ->withHeader('Access-Control-Allow-Origin', '*')
         ->withHeader('Access-Control-Allow-Headers', 'X-Requested-With, Content-Type, Accept, Origin, Authorization, X-Session-ID')
         ->withHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, PATCH, OPTIONS');
+});
+
+// Handle preflight requests first
+$app->options('/{routes:.+}', function ($request, $response, $args) {
+    return $response;
 });
 
 // Routes
@@ -113,10 +118,5 @@ $app->get('/api/data/monster-types', [$dataController, 'getMonsterTypes']);
 $app->get('/api/data/monster-traits', [$dataController, 'getMonsterTraits']);
 $app->get('/api/data/equipment', [$dataController, 'getEquipmentData']);
 $app->get('/api/data/floor-scaling', [$dataController, 'getFloorScaling']);
-
-// Handle preflight requests
-$app->options('/{routes:.+}', function ($request, $response, $args) {
-    return $response;
-});
 
 $app->run();

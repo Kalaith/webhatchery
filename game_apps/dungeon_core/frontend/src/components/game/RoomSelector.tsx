@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from "react";
-import { useGameStore } from "../../stores/gameStore";
+import { useBackendGameStore } from "../../stores/backendGameStore";
 import { fetchGameConstantsData, getRoomCost } from "../../api/gameApi";
 
 export const RoomSelector: React.FC = () => {
   const [gameConstants, setGameConstants] = useState<any>(null);
+  const [roomCost, setRoomCost] = useState(0);
+  const [displayMessage, setDisplayMessage] = useState("Loading...");
 
   useEffect(() => {
     const fetchConstants = async () => {
@@ -11,18 +13,26 @@ export const RoomSelector: React.FC = () => {
     };
     fetchConstants();
   }, []);
-  const { mana, addRoom, floors, totalFloors } = useGameStore();
+  
+  const { gameData, addRoom } = useBackendGameStore();
+  
+  // Get current game data
+  const mana = gameData?.game?.mana || 0;
+  const floors = gameData?.floors || [];
+  const totalFloors = floors.length;
+  
   // Calculate the cost for the next room
   const getNextRoomCost = async () => {
-    const gameConstants = await fetchGameConstantsData();
-    const deepestFloor = floors.find(f => f.isDeepest);
+    if (!gameConstants) return 0;
+    
+    const deepestFloor = floors.find((f: any) => f.isDeepest);
     if (!deepestFloor) return await getRoomCost(0, 'normal');
 
-    const nonCoreRooms = deepestFloor.rooms.filter(room => room.type !== 'core');
+    const nonCoreRooms = deepestFloor.rooms.filter((room: any) => room.type !== 'core');
     
     // Calculate total room count across all floors (excluding entrance and core rooms)
-    const totalRoomCount = floors.reduce((total, floor) => {
-      return total + floor.rooms.filter(room => room.type !== 'core' && room.type !== 'entrance').length;
+    const totalRoomCount = floors.reduce((total: number, floor: any) => {
+      return total + floor.rooms.filter((room: any) => room.type !== 'core' && room.type !== 'entrance').length;
     }, 0);
     
     // If the current floor is full, next room will be on a new floor
@@ -35,20 +45,73 @@ export const RoomSelector: React.FC = () => {
     }
   };
 
-  const [roomCost, setRoomCost] = useState(0);
-
+  // Update room cost when dependencies change
   useEffect(() => {
     const updateRoomCost = async () => {
       setRoomCost(await getNextRoomCost());
     };
     updateRoomCost();
-  }, [floors]); // Recalculate when floors change
+  }, [floors, gameConstants]);
 
-  const handleAddRoom = () => {
-    if (mana >= roomCost) {
-      const success = addRoom();
-      if (!success) {
-        // Could show an error message here
+  // Update display message
+  useEffect(() => {
+    const updateMessage = async () => {
+      if (!gameConstants) {
+        setDisplayMessage("Loading...");
+        return;
+      }
+      
+      const deepestFloor = floors.find((f: any) => f.isDeepest);
+      if (!deepestFloor) {
+        setDisplayMessage("Adds first room");
+        return;
+      }
+      
+      const nonCoreRooms = deepestFloor.rooms.filter((room: any) => room.type !== 'core');
+      
+      if (nonCoreRooms.length >= gameConstants.MAX_ROOMS_PER_FLOOR + 1) {
+        setDisplayMessage(`Creates floor ${totalFloors + 1}`);
+      } else {
+        const nextPosition = nonCoreRooms.length;
+        const roomType = nextPosition === gameConstants.MAX_ROOMS_PER_FLOOR ? 'Boss' : 'Normal';
+        setDisplayMessage(`${roomType} room on floor ${deepestFloor.number}`);
+      }
+    };
+    updateMessage();
+  }, [floors, totalFloors, gameConstants]);
+
+  const handleAddRoom = async () => {
+    if (mana >= roomCost && gameConstants) {
+      try {
+        const deepestFloor = floors.find((f: any) => f.isDeepest);
+        if (!deepestFloor) {
+          // Create first floor with entrance room
+          const success = await addRoom(1, 'entrance', 0);
+          if (!success) {
+            console.error('Failed to add entrance room');
+          }
+        } else {
+          const nonCoreRooms = deepestFloor.rooms.filter((room: any) => room.type !== 'core');
+          
+          // If current floor is full, create new floor
+          if (nonCoreRooms.length >= gameConstants.MAX_ROOMS_PER_FLOOR + 1) {
+            const newFloorNumber = totalFloors + 1;
+            const success = await addRoom(newFloorNumber, 'normal', 1);
+            if (!success) {
+              console.error('Failed to add room');
+            }
+          } else {
+            // Add to current floor
+            const nextPosition = nonCoreRooms.length + 1;
+            const roomType = nextPosition === gameConstants.MAX_ROOMS_PER_FLOOR + 1 ? 'boss' : 'normal';
+            const success = await addRoom(deepestFloor.number, roomType, nextPosition);
+            if (!success) {
+              console.error('Failed to add room');
+            }
+          }
+        }
+      } catch (error) {
+        console.error('Error adding room:', error);
       }
     }
   };
@@ -70,39 +133,15 @@ export const RoomSelector: React.FC = () => {
             }`}
             onClick={handleAddRoom}
             disabled={!canAfford}
-          >            <div className="flex justify-between items-center">
+          >
+            <div className="flex justify-between items-center">
               <span className="font-bold">Add New Room</span>
               <span className={`text-sm font-bold ${canAfford ? 'text-blue-200' : 'text-red-500'}`}>
-                {roomCost}�
+                {roomCost}💎
               </span>
-            </div>            <div className="text-xs mt-1 opacity-90">
-              {(() => {
-                const [displayMessage, setDisplayMessage] = useState("Loading...");
-
-                useEffect(() => {
-                  const getMessage = async () => {
-                    const deepestFloor = floors.find(f => f.isDeepest);
-                    if (!deepestFloor) {
-                      setDisplayMessage("Adds to deepest floor");
-                      return;
-                    }
-                    
-                    const nonCoreRooms = deepestFloor.rooms.filter(room => room.type !== 'core');
-                    
-                    const gameConstants = await fetchGameConstantsData();
-                    if (nonCoreRooms.length >= gameConstants.MAX_ROOMS_PER_FLOOR + 1) {
-                      setDisplayMessage(`Creates floor ${totalFloors + 1}`);
-                    } else {
-                      const nextPosition = nonCoreRooms.length;
-                      const roomType = nextPosition === gameConstants.MAX_ROOMS_PER_FLOOR ? 'Boss' : 'Normal';
-                      setDisplayMessage(`${roomType} room on floor ${deepestFloor.number}`);
-                    }
-                  };
-                  getMessage();
-                }, [floors, totalFloors]);
-
-                return displayMessage;
-              })()}
+            </div>
+            <div className="text-xs mt-1 opacity-90">
+              {displayMessage}
             </div>
           </button>
         </div>
