@@ -44,6 +44,11 @@ export const addRoomAPI = async (floorNumber: number, roomType: string, position
   return apiClient.addRoom({ floorNumber, roomType, position, cost });
 };
 
+// Reset game via backend
+export const resetGameAPI = async () => {
+  return apiClient.resetGame();
+};
+
 // Game constants from backend (cached)
 export const fetchGameConstantsData = async () => {
   if (gameConstantsCache === null) {

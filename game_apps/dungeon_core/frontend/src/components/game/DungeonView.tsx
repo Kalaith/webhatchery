@@ -12,7 +12,8 @@ const RoomComponent: React.FC<{
   room: Room; 
   onClick: () => void;
   isActive: boolean;
-}> = ({ room, onClick, isActive }) => {
+  floor: DungeonFloor;
+}> = ({ room, onClick, isActive, floor }) => {
   const [monsterTypes, setMonsterTypes] = useState<{ [key: string]: MonsterType }>({});
   
   useEffect(() => {
@@ -21,7 +22,20 @@ const RoomComponent: React.FC<{
       setMonsterTypes(types);
     };
     loadMonsterTypes();
-  }, []);  const getRoomColor = () => {
+  }, []);
+
+  // Calculate the proper room number (excluding entrance)
+  const getRoomNumber = () => {
+    if (room.type === 'entrance') return 'Entrance';
+    if (room.type === 'core') return 'Core';
+    
+    // For normal/boss rooms, calculate the room number by counting non-entrance rooms before this one
+    const roomsBeforeThis = floor.rooms
+      .filter(r => r.type !== 'entrance' && r.type !== 'core' && r.position < room.position)
+      .length;
+    
+    return `Room ${roomsBeforeThis + 1}`;
+  };  const getRoomColor = () => {
     const baseColor = (() => {
       switch (room.type) {
         case 'entrance': return '#4CAF50';
@@ -78,7 +92,7 @@ const RoomComponent: React.FC<{
       <div className="room-header text-center mb-2">
         <div className="text-2xl">{getRoomIcon()}</div>
         <div className="text-xs font-bold text-white">
-          {room.type === 'core' ? 'Core' : `Room ${room.position}`}
+          {getRoomNumber()}
         </div>
       </div>
 
@@ -232,6 +246,7 @@ export const DungeonFloorView: React.FC<DungeonFloorViewProps> = ({ floor, onRoo
             <React.Fragment key={room.id}>
               <RoomComponent
                 room={room}
+                floor={floor}
                 onClick={() => onRoomClick(floor.number, room.position)}
                 isActive={false}
               />

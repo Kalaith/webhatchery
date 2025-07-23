@@ -1,9 +1,11 @@
 import React, { useEffect, useRef } from "react";
 import { useGameStore } from "../../stores/gameStore";
+import { useBackendGameStore } from "../../stores/backendGameStore";
 import { fetchGameConstantsData } from "../../api/gameApi";
 
 export const GameControls: React.FC = () => {
-  const { speed, status, setSpeed, setStatus, advanceTime, respawnMonsters, adventurerParties, resetGame } = useGameStore();
+  const { speed, status, setSpeed, setStatus, advanceTime, respawnMonsters, adventurerParties } = useGameStore();
+  const { resetGame: resetBackendGame } = useBackendGameStore();
   const timeIntervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
 
   // Auto-advance time
@@ -13,9 +15,11 @@ export const GameControls: React.FC = () => {
         clearInterval(timeIntervalRef.current);
       }
       const gameConstants = await fetchGameConstantsData();
-      timeIntervalRef.current = setInterval(() => {
-        advanceTime();
-      }, gameConstants.TIME_ADVANCE_INTERVAL / speed);
+      if (gameConstants) {
+        timeIntervalRef.current = setInterval(() => {
+          advanceTime();
+        }, gameConstants.TIME_ADVANCE_INTERVAL / speed);
+      }
     };
 
     setupInterval();
@@ -45,11 +49,10 @@ export const GameControls: React.FC = () => {
     }
   };
 
-  const handleResetGame = () => {
+  const handleResetGame = async () => {
     if (window.confirm('Are you sure you want to reset the game? This will delete all progress and cannot be undone.')) {
-      resetGame();
-      // Reload the page to ensure all components reset properly
-      window.location.reload();
+      await resetBackendGame();
+      // No need to reload the page - the backend reset handles everything
     }
   };
 

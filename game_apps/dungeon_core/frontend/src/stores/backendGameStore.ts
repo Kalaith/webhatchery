@@ -1,6 +1,6 @@
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
-import { initializeGame, getGameState, placeMonsterAPI, addRoomAPI } from '../api/gameApi';
+import { initializeGame, getGameState, placeMonsterAPI, addRoomAPI, resetGameAPI } from '../api/gameApi';
 import type { GameStateResponse, InitializeGameResponse } from '../api/types';
 
 interface BackendGameState {
@@ -19,6 +19,7 @@ interface BackendGameState {
   loadGameState: () => Promise<void>;
   refreshGameState: () => Promise<void>;
   forceRefreshAll: () => Promise<void>;
+  resetGame: () => Promise<void>;
   selectMonster: (monster: string | null) => void;
   selectRoom: (room: number | null) => void;
   placeMonster: (roomId: number, monsterType: string) => Promise<boolean>;
@@ -207,7 +208,7 @@ export const useBackendGameStore = create<BackendGameState>()((set, get) => ({
                 floors.push(targetFloor);
               }
               
-              // Add the new room
+              // Add the new room in the correct position (before core room)
               const newRoom = {
                 id: result.roomId || Date.now(),
                 type: result.type as "entrance" | "normal" | "boss" | "core",
@@ -219,7 +220,19 @@ export const useBackendGameStore = create<BackendGameState>()((set, get) => ({
                 loot: 0
               };
               
-              targetFloor.rooms.push(newRoom);
+              // Find core room and insert before it, or add at end if no core room
+              const coreRoomIndex = targetFloor.rooms.findIndex(room => room.type === 'core');
+              if (coreRoomIndex !== -1) {
+                // Insert before core room
+                targetFloor.rooms.splice(coreRoomIndex, 0, newRoom);
+                // Update core room position to be after the new room
+                targetFloor.rooms[coreRoomIndex + 1].position = newRoom.position + 1;
+              } else {
+                // No core room, add at end
+                targetFloor.rooms.push(newRoom);
+              }
+              
+              // Sort all rooms by position to ensure proper order
               targetFloor.rooms.sort((a, b) => a.position - b.position);
               
               // Update game data with new floors and refresh dynamic state
@@ -241,6 +254,37 @@ export const useBackendGameStore = create<BackendGameState>()((set, get) => ({
         } catch (error) {
           set({ error: error instanceof Error ? error.message : 'Failed to add room' });
           return false;
+        }
+      },
+
+      resetGame: async () => {
+        set({ loading: true, error: null });
+        try {
+          console.log('Resetting game...');
+          const result = await resetGameAPI();
+          
+          if (result.success && result.gameData) {
+            console.log('Game reset successful, reinitializing with fresh data...');
+            // Clear all state and set fresh data
+            set({ 
+              initialData: result.gameData, 
+              gameData: { 
+                game: result.gameData.game, 
+                monsters: result.gameData.monsters,
+                floors: result.gameData.floors 
+              }, 
+              loading: false,
+              error: null,
+              selectedMonster: null,
+              selectedRoom: null
+            });
+            console.log('Game reset complete');
+          } else {
+            set({ error: result.error || 'Failed to reset game', loading: false });
+          }
+        } catch (error) {
+          console.error('Error during game reset:', error);
+          set({ error: error instanceof Error ? error.message : 'Failed to reset game', loading: false });
         }
       },
     }));

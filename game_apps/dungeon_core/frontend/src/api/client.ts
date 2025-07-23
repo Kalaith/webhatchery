@@ -11,6 +11,7 @@ import type {
   AddRoomResponse,
   InitializeGameResponse
 } from './types';
+import type { ResetGameResponse } from './resetTypes';
 
 class ApiClient {
   private baseUrl = 'http://localhost:8000/api';
@@ -88,6 +89,12 @@ class ApiClient {
     return this.request<AddRoomResponse>('/dungeon/add-room', {
       method: 'POST',
       body: JSON.stringify(request),
+    });
+  }
+
+  async resetGame(): Promise<ResetGameResponse> {
+    return this.request<ResetGameResponse>('/game/reset', {
+      method: 'POST',
     });
   }
 

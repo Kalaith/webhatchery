@@ -5,6 +5,7 @@ namespace DungeonCore\Controllers;
 use DungeonCore\Application\UseCases\GetGameStateUseCase;
 use DungeonCore\Application\UseCases\PlaceMonsterUseCase;
 use DungeonCore\Application\UseCases\InitializeGameUseCase;
+use DungeonCore\Application\UseCases\ResetGameUseCase;
 use DungeonCore\Application\UseCases\UnlockMonsterSpeciesUseCase;
 use DungeonCore\Application\UseCases\GainMonsterExperienceUseCase;
 use DungeonCore\Application\UseCases\GetAvailableMonstersUseCase;
@@ -17,6 +18,7 @@ class GameController
         private GetGameStateUseCase $getGameStateUseCase,
         private PlaceMonsterUseCase $placeMonsterUseCase,
         private InitializeGameUseCase $initializeGameUseCase,
+        private ResetGameUseCase $resetGameUseCase,
         private UnlockMonsterSpeciesUseCase $unlockMonsterSpeciesUseCase,
         private GainMonsterExperienceUseCase $gainMonsterExperienceUseCase,
         private GetAvailableMonstersUseCase $getAvailableMonstersUseCase
@@ -90,6 +92,15 @@ class GameController
         $sessionId = $this->getSessionId($request);
         
         $result = $this->getAvailableMonstersUseCase->execute($sessionId);
+        
+        $response->getBody()->write(json_encode($result));
+        return $response->withHeader('Content-Type', 'application/json');
+    }
+
+    public function resetGame(Request $request, Response $response): Response
+    {
+        $sessionId = $this->getSessionId($request);
+        $result = $this->resetGameUseCase->execute($sessionId);
         
         $response->getBody()->write(json_encode($result));
         return $response->withHeader('Content-Type', 'application/json');

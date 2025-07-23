@@ -101,10 +101,12 @@ export const RoomSelector: React.FC = () => {
               console.error('Failed to add room');
             }
           } else {
-            // Add to current floor
-            const nextPosition = nonCoreRooms.length + 1;
-            const roomType = nextPosition === gameConstants.MAX_ROOMS_PER_FLOOR + 1 ? 'boss' : 'normal';
-            const success = await addRoom(deepestFloor.number, roomType, nextPosition);
+            // Add to current floor - position should be after all existing non-core rooms
+            const nextPosition = nonCoreRooms.length; // This gives us: 0 non-core → pos 0, 1 non-core → pos 1, etc.
+            // But since entrance is at position 0, we need to add 1 to get the correct insertion position
+            const insertPosition = nextPosition + 1;
+            const roomType = nextPosition === gameConstants.MAX_ROOMS_PER_FLOOR - 1 ? 'boss' : 'normal';
+            const success = await addRoom(deepestFloor.number, roomType, insertPosition);
             if (!success) {
               console.error('Failed to add room');
             }

@@ -50,6 +50,27 @@ class MySQLGameRepository implements GameRepositoryInterface
         return new Game($id, 50, 100, 1, 100, 0, 1, 6, 'Open');
     }
 
+    public function resetGame(int $gameId): void
+    {
+        error_log("Resetting player state for game ID: $gameId");
+        
+        $stmt = $this->connection->prepare(
+            'UPDATE players SET 
+                mana = 50, 
+                max_mana = 100, 
+                mana_regen = 1, 
+                gold = 100, 
+                souls = 0, 
+                day = 1, 
+                hour = 6, 
+                status = "Open" 
+             WHERE id = ?'
+        );
+        $stmt->execute([$gameId]);
+        
+        error_log("Successfully reset player state for game ID: $gameId");
+    }
+
     private function mapToEntity(array $data): Game
     {
         return new Game(

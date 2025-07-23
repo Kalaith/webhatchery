@@ -5,6 +5,7 @@ namespace DungeonCore\Infrastructure\Database\MySQL;
 use DungeonCore\Domain\Entities\Monster;
 use DungeonCore\Domain\Repositories\DungeonRepositoryInterface;
 use PDO;
+use Exception;
 
 class MySQLDungeonRepository implements DungeonRepositoryInterface
 {
@@ -19,6 +20,17 @@ class MySQLDungeonRepository implements DungeonRepositoryInterface
         // Get or create floor
         $floorId = $this->getFloorId($dungeonId, $floorNumber);
         error_log("Got floor ID: $floorId for dungeon ID: $dungeonId, floor number: $floorNumber");
+        
+        // If adding a normal/boss room (not entrance or core), we need to maintain core room at the end
+        if ($roomType !== 'entrance' && $roomType !== 'core') {
+            // First, shift any rooms at or after this position to make space
+            $stmt = $this->connection->prepare(
+                'UPDATE rooms SET position = position + 1 
+                 WHERE floor_id = ? AND position >= ?'
+            );
+            $stmt->execute([$floorId, $position]);
+            error_log("Shifted rooms at position $position and after on floor $floorId");
+        }
         
         // Add room
         $stmt = $this->connection->prepare(
@@ -157,5 +169,64 @@ class MySQLDungeonRepository implements DungeonRepositoryInterface
         }
         
         return $floorId;
+    }
+
+    public function resetGame(int $gameId): void
+    {
+        error_log("Resetting game for player ID: $gameId");
+        
+        try {
+            // Start transaction to ensure all or nothing
+            $this->connection->beginTransaction();
+            
+            // Get dungeon ID first
+            $stmt = $this->connection->prepare('SELECT id FROM dungeons WHERE player_id = ?');
+            $stmt->execute([$gameId]);
+            $dungeonId = $stmt->fetchColumn();
+            
+            if ($dungeonId) {
+                // Delete all monsters (will cascade through rooms)
+                $stmt = $this->connection->prepare(
+                    'DELETE m FROM monsters m 
+                     JOIN rooms r ON m.room_id = r.id 
+                     JOIN floors f ON r.floor_id = f.id 
+                     WHERE f.dungeon_id = ?'
+                );
+                $stmt->execute([$dungeonId]);
+                error_log("Deleted monsters for dungeon ID: $dungeonId");
+                
+                // Delete all rooms (will cascade through floors)
+                $stmt = $this->connection->prepare(
+                    'DELETE r FROM rooms r 
+                     JOIN floors f ON r.floor_id = f.id 
+                     WHERE f.dungeon_id = ?'
+                );
+                $stmt->execute([$dungeonId]);
+                error_log("Deleted rooms for dungeon ID: $dungeonId");
+                
+                // Delete all floors
+                $stmt = $this->connection->prepare('DELETE FROM floors WHERE dungeon_id = ?');
+                $stmt->execute([$dungeonId]);
+                error_log("Deleted floors for dungeon ID: $dungeonId");
+                
+                // Delete the dungeon itself
+                $stmt = $this->connection->prepare('DELETE FROM dungeons WHERE id = ?');
+                $stmt->execute([$dungeonId]);
+                error_log("Deleted dungeon ID: $dungeonId");
+            }
+            
+            // Delete all adventurer parties and their adventurers (cascades)
+            $stmt = $this->connection->prepare('DELETE FROM adventurer_parties WHERE player_id = ?');
+            $stmt->execute([$gameId]);
+            error_log("Deleted adventurer parties for player ID: $gameId");
+            
+            $this->connection->commit();
+            error_log("Successfully reset game for player ID: $gameId");
+            
+        } catch (Exception $e) {
+            $this->connection->rollBack();
+            error_log("Failed to reset game for player ID $gameId: " . $e->getMessage());
+            throw $e;
+        }
     }
 }
