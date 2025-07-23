@@ -1,11 +1,11 @@
 import React from "react";
-import type { GameStateResponse } from "../../api/types";
+import type { GameState } from "../../stores/backendGameStore";
 
 interface ResourceBarProps {
-  gameData: GameStateResponse;
+  gameState: GameState;
 }
 
-export const ResourceBar: React.FC<ResourceBarProps> = ({ gameData }) => {
+export const ResourceBar: React.FC<ResourceBarProps> = ({ gameState }) => {
   const { 
     mana, 
     maxMana, 
@@ -14,7 +14,7 @@ export const ResourceBar: React.FC<ResourceBarProps> = ({ gameData }) => {
     day, 
     hour, 
     status 
-  } = gameData.game;
+  } = gameState;
 
   const formatTime = (hour: number) => {
     const displayHour = hour === 0 ? 12 : hour > 12 ? hour - 12 : hour;
@@ -76,10 +76,6 @@ export const ResourceBar: React.FC<ResourceBarProps> = ({ gameData }) => {
             <span className={`font-bold ${getStatusColor(status)}`}>
               {status}
             </span>
-          </div>
-          
-          <div className="text-gray-400 hidden sm:block">
-            Monsters: {gameData.monsters.length}
           </div>
         </div>
       </div>

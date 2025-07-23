@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { useBackendGameStore } from "../../stores/backendGameStore";
-import { fetchGameConstantsData, getRoomCost } from "../../api/gameApi";
+import { fetchGameConstantsData, getRoomCost, getDungeonState } from "../../api/gameApi";
 
 export const RoomSelector: React.FC = () => {
   const [gameConstants, setGameConstants] = useState<any>(null);
   const [roomCost, setRoomCost] = useState(0);
   const [displayMessage, setDisplayMessage] = useState("Loading...");
+  const [floors, setFloors] = useState<any[]>([]);
 
   useEffect(() => {
     const fetchConstants = async () => {
@@ -13,12 +14,26 @@ export const RoomSelector: React.FC = () => {
     };
     fetchConstants();
   }, []);
+
+  // Load floor data for room calculations
+  useEffect(() => {
+    const loadFloors = async () => {
+      try {
+        const dungeonData = await getDungeonState();
+        if (dungeonData && dungeonData.floors) {
+          setFloors(dungeonData.floors);
+        }
+      } catch (err) {
+        console.error('Failed to load floors for RoomSelector:', err);
+      }
+    };
+    loadFloors();
+  }, []);
   
-  const { gameData, addRoom } = useBackendGameStore();
+  const { gameState, addRoom } = useBackendGameStore();
   
-  // Get current game data
-  const mana = gameData?.game?.mana || 0;
-  const floors = gameData?.floors || [];
+  // Get current game data from simplified state
+  const mana = gameState?.mana || 0;
   const totalFloors = floors.length;
   
   // Calculate the cost for the next room
@@ -121,24 +136,24 @@ export const RoomSelector: React.FC = () => {
   const canAfford = mana >= roomCost;
 
   return (
-    <aside className="sidebar sidebar-left bg-gray-100 p-4 w-64">
-      <h3 className="text-lg font-bold mb-4 text-gray-800">Dungeon Construction</h3>
+    <div className="bg-gray-800 p-4 rounded-lg">
+      <h3 className="text-lg font-bold mb-4 text-white">Dungeon Construction</h3>
       
       <div className="construction-options space-y-4">
         <div className="add-room-section">
-          <h4 className="font-semibold text-gray-700 mb-2">Add Room</h4>
+          <h4 className="font-semibold text-gray-300 mb-2">Add Room</h4>
           <button
             className={`w-full p-3 rounded border-2 transition-all ${
               canAfford 
-                ? 'bg-blue-500 hover:bg-blue-600 text-white border-blue-600' 
-                : 'bg-gray-200 border-gray-300 text-gray-500 cursor-not-allowed'
+                ? 'bg-blue-600 hover:bg-blue-700 text-white border-blue-500' 
+                : 'bg-gray-600 border-gray-500 text-gray-400 cursor-not-allowed'
             }`}
             onClick={handleAddRoom}
             disabled={!canAfford}
           >
             <div className="flex justify-between items-center">
               <span className="font-bold">Add New Room</span>
-              <span className={`text-sm font-bold ${canAfford ? 'text-blue-200' : 'text-red-500'}`}>
+              <span className={`text-sm font-bold ${canAfford ? 'text-blue-200' : 'text-red-400'}`}>
                 {roomCost}💎
               </span>
             </div>
@@ -148,9 +163,9 @@ export const RoomSelector: React.FC = () => {
           </button>
         </div>
 
-        <div className="room-info bg-blue-50 p-3 rounded">
-          <h4 className="font-semibold text-blue-800 mb-2">Room System</h4>
-          <div className="text-xs text-blue-700 space-y-1">
+        <div className="room-info bg-blue-900 p-3 rounded">
+          <h4 className="font-semibold text-blue-200 mb-2">Room System</h4>
+          <div className="text-xs text-blue-300 space-y-1">
             <div>• Rooms 1-4: Normal combat</div>
             <div>• Room 5: Boss chamber</div>
             <div>• {gameConstants?.MAX_ROOMS_PER_FLOOR + 1} rooms per floor</div>
@@ -159,9 +174,9 @@ export const RoomSelector: React.FC = () => {
           </div>
         </div>
 
-        <div className="scaling-info bg-yellow-50 p-3 rounded">
-          <h4 className="font-semibold text-yellow-800 mb-2">Floor Scaling</h4>
-          <div className="text-xs text-yellow-700 space-y-1">
+        <div className="scaling-info bg-yellow-900 p-3 rounded">
+          <h4 className="font-semibold text-yellow-200 mb-2">Floor Scaling</h4>
+          <div className="text-xs text-yellow-300 space-y-1">
             <div>• Deeper floors = stronger monsters</div>
             <div>• Higher mana costs per floor</div>
             <div>• Better loot rewards</div>
@@ -170,10 +185,10 @@ export const RoomSelector: React.FC = () => {
         </div>
       </div>
 
-      <div className="mt-4 p-2 bg-gray-50 rounded text-xs text-gray-600">
+      <div className="mt-4 p-2 bg-gray-700 rounded text-xs text-gray-300">
         💡 Add rooms to expand your dungeon. When a floor reaches {gameConstants?.MAX_ROOMS_PER_FLOOR + 1} rooms, 
         the next room will start a new floor.
       </div>
-    </aside>
+    </div>
   );
 };

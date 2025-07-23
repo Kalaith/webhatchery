@@ -1,5 +1,6 @@
 import type { 
   GameStateResponse, 
+  DungeonStateResponse,
   PlaceMonsterRequest, 
   PlaceMonsterResponse,
   UnlockMonsterSpeciesRequest,
@@ -76,6 +77,10 @@ class ApiClient {
 
   async getGameState(): Promise<GameStateResponse> {
     return this.request<GameStateResponse>('/game/state');
+  }
+
+  async getDungeonState(): Promise<DungeonStateResponse> {
+    return this.request<DungeonStateResponse>('/dungeon/state');
   }
 
   async placeMonster(request: PlaceMonsterRequest): Promise<PlaceMonsterResponse> {

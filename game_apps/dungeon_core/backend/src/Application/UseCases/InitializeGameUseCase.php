@@ -23,7 +23,7 @@ class InitializeGameUseCase
             
             // Create initial dungeon structure
             $entranceRoomId = $this->dungeonRepo->addRoom($game->getId(), 1, 'entrance', 0);
-            $coreRoomId = $this->dungeonRepo->addRoom($game->getId(), 1, 'core', 1);
+            $coreRoomId = $this->dungeonRepo->addRoom($game->getId(), 1, 'core', 99);
             error_log('Created entrance room: ' . $entranceRoomId . ' and core room: ' . $coreRoomId);
         } else {
             error_log('Found existing game for session: ' . $sessionId . ', game ID: ' . $game->getId());
@@ -36,7 +36,7 @@ class InitializeGameUseCase
         if (empty($rooms)) {
             error_log('Existing game has no rooms, creating initial rooms');
             $entranceRoomId = $this->dungeonRepo->addRoom($game->getId(), 1, 'entrance', 0);
-            $coreRoomId = $this->dungeonRepo->addRoom($game->getId(), 1, 'core', 1);
+            $coreRoomId = $this->dungeonRepo->addRoom($game->getId(), 1, 'core', 99);
             error_log('Created entrance room: ' . $entranceRoomId . ' and core room: ' . $coreRoomId);
             
             // Re-fetch rooms after creation
@@ -87,8 +87,8 @@ class InitializeGameUseCase
                 'nextPartySpawn' => 8, // First party spawns at 8 AM
                 'totalFloors' => 1,
                 'deepCoreBonus' => 0,
-                'unlockedMonsterSpecies' => ['Mimetic'], // Start with Mimetic unlocked
-                'monsterExperience' => [], // Empty object for monster experience
+                'unlockedMonsterSpecies' => $game->getUnlockedSpecies(),
+                'speciesExperience' => $game->getSpeciesExperience(),
                 'log' => [
                     [
                         'message' => 'Welcome to Dungeon Core Simulator v1.2!',

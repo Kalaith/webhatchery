@@ -10,6 +10,7 @@ export interface GameStateResponse {
     day: number;
     hour: number;
     status: string;
+    unlockedMonsterSpecies: string[];
   };
   floors?: Array<{
     id: number;
@@ -34,6 +35,38 @@ export interface GameStateResponse {
     maxHp: number;
     alive: boolean;
     isBoss: boolean;
+  }>;
+}
+
+export interface DungeonStateResponse {
+  floors: Array<{
+    id: number;
+    number: number;
+    isDeepest: boolean;
+    rooms: Array<{
+      id: number;
+      type: 'entrance' | 'normal' | 'boss' | 'core';
+      position: number;
+      floorNumber: number;
+      explored: boolean;
+      loot: number;
+      roomUpgrade: null;
+      monsters: Array<{
+        id: number;
+        type: string;
+        hp: number;
+        maxHp: number;
+        alive: boolean;
+      }>;
+    }>;
+  }>;
+  monsters: Array<{
+    id: number;
+    type: string;
+    hp: number;
+    maxHp: number;
+    roomId: number;
+    alive: boolean;
   }>;
 }
 
@@ -141,7 +174,7 @@ export interface InitializeGameResponse {
     totalFloors: number;
     deepCoreBonus: number;
     unlockedMonsterSpecies: string[];
-    monsterExperience: any[];
+    speciesExperience: Record<string, number>;
     log: Array<{
       message: string;
       type: string;

@@ -1,6 +1,6 @@
 import type { MonsterType, GameConstants, EquipmentData, FloorScaling, DeepFloorScaling, MonsterTrait } from '../types/game';
 import { apiClient } from './client';
-import type { GameStateResponse, InitializeGameResponse } from './types';
+import type { GameStateResponse, InitializeGameResponse, DungeonStateResponse } from './types';
 
 // Cache for static data
 let gameConstantsCache: GameConstants | null = null;
@@ -17,6 +17,11 @@ export const initializeGame = async (): Promise<InitializeGameResponse> => {
 // Game state from backend
 export const getGameState = async (): Promise<GameStateResponse> => {
   return apiClient.getGameState();
+};
+
+// Get dungeon state (floors and monsters) from backend
+export const getDungeonState = async (): Promise<DungeonStateResponse> => {
+  return apiClient.getDungeonState();
 };
 
 // Place monster via backend (secure)

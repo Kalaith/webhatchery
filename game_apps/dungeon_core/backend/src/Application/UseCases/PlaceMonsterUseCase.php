@@ -65,15 +65,20 @@ class PlaceMonsterUseCase
         // Scale monster stats server-side
         $scaledStats = $this->gameLogic->scaleMonsterStats($monsterStats, $floorNumber, $isBoss);
 
+        // Get the room ID for monster placement
+        $roomId = $room['id'];
+
+        // Ensure HP values are integers
+        $hp = (int) $scaledStats['hp'];
+        $maxHp = (int) $scaledStats['hp'];
+
         // Place monster
         $monster = $this->dungeonRepo->placeMonster(
-            $floorNumber,
-            $roomPosition,
+            $roomId,
             $monsterType,
-            $scaledStats['hp'],
-            $scaledStats['hp'], // maxHp
-            $isBoss,
-            $scaledStats
+            $hp,
+            $maxHp,
+            $isBoss
         );
         
         // Save game state

@@ -31,7 +31,9 @@ class GetGameStateUseCase
                 'souls' => $game->getSouls(),
                 'day' => $game->getDay(),
                 'hour' => $game->getHour(),
-                'status' => $game->getStatus()
+                'status' => $game->getStatus(),
+                'unlockedMonsterSpecies' => $game->getUnlockedSpecies(),
+                'speciesExperience' => $game->getSpeciesExperience()
             ]
         ];
     }

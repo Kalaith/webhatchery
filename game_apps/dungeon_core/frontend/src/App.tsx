@@ -1,38 +1,45 @@
-import { useEffect } from "react";
-import { ResourceBar } from "./components/layout/ResourceBar";
-import { RoomSelector } from "./components/game/RoomSelector";
-import { MonsterSelector } from "./components/game/MonsterSelector";
-import { GameControls } from "./components/game/GameControls";
-import { GameModal } from "./components/ui/GameModal";
-import { ErrorBoundary } from "./components/ui/ErrorBoundary";
-import { DungeonView } from "./components/game/DungeonView";
-import { AdventurerSystem } from "./components/game/AdventurerSystemFloor";
-import { TimeSystem } from "./components/game/TimeSystem";
-import { BackendMonsterPlacement } from "./components/game/BackendMonsterPlacement";
+import { useState, useEffect } from "react";
 import { useBackendGameStore } from "./stores/backendGameStore";
+import { useSpeciesStore } from "./stores/speciesStore";
+import { ErrorBoundary } from "./components/ui/ErrorBoundary";
+import { LoadingSpinner } from "./components/ui/LoadingSpinner";
+import { ResourceBar } from "./components/layout/ResourceBar";
+import { SpeciesSelectionModal } from "./components/game/SpeciesSelectionModal";
+import { MonsterSelector } from "./components/game/MonsterSelector";
+import { DungeonView } from "./components/game/DungeonView";
+import { GameControls } from "./components/game/GameControls";
+import { RoomSelector } from "./components/game/RoomSelector";
 
 function App() {
   const { 
-    gameData,
+    gameState,
     loading,
     error,
-    selectedMonster,
     initializeGame,
-    refreshGameState,
-    selectMonster,
-    placeMonster
+    refreshGameState
   } = useBackendGameStore();
 
-  // Initialize game on mount only - run once
+  const { 
+    unlockedSpecies
+  } = useSpeciesStore();
+
+  const [showSpeciesModal, setShowSpeciesModal] = useState(false);
+
+  // Initialize game on first load
   useEffect(() => {
-    console.log('App initialization effect running');
     initializeGame();
   }, [initializeGame]);
 
-  // Auto-refresh game state every 5 seconds (preserves floors)
+  // Check if species modal should be shown
   useEffect(() => {
-    // Only start auto-refresh if we have game data
-    if (gameData && gameData.floors && gameData.floors.length > 0) {
+    if (unlockedSpecies.length === 0 && gameState) {
+      setShowSpeciesModal(true);
+    }
+  }, [unlockedSpecies.length, gameState]);
+
+  // Auto-refresh game state every 5 seconds
+  useEffect(() => {
+    if (gameState) {
       console.log('Setting up auto-refresh interval');
       const interval = setInterval(() => {
         console.log('Auto-refreshing game state...');
@@ -43,99 +50,84 @@ function App() {
         clearInterval(interval);
       };
     }
-  }, [refreshGameState, gameData?.floors?.length]); // Only depend on floors length, not entire gameData
+  }, [refreshGameState, gameState]);
 
-  const handleRoomClick = async (roomId: number): Promise<void> => {
-    if (selectedMonster !== null) {
-      try {
-        const success = await placeMonster(roomId, selectedMonster);
-        if (success) {
-          selectMonster(null);
-        }
-      } catch (error) {
-        console.error('Error placing monster:', error);
-      }
-    }
+  // Handle species selection from modal
+  const handleSpeciesSelect = () => {
+    setShowSpeciesModal(false);
   };
 
   if (loading) {
-    return (
-      <div className="min-h-screen bg-gradient-to-br from-gray-900 to-gray-700 flex items-center justify-center">
-        <div className="text-white text-xl">Loading game...</div>
-      </div>
-    );
+    return <LoadingSpinner />;
   }
 
   if (error) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-gray-900 to-gray-700 flex items-center justify-center">
-        <div className="text-red-400 text-xl">Error: {error}</div>
+      <div className="min-h-screen bg-gray-900 text-white flex items-center justify-center">
+        <div className="bg-red-900 p-6 rounded-lg">
+          <h2 className="text-xl font-bold mb-2">Error</h2>
+          <p>{error}</p>
+          <button 
+            onClick={initializeGame}
+            className="mt-4 px-4 py-2 bg-red-700 hover:bg-red-600 rounded"
+          >
+            Retry
+          </button>
+        </div>
       </div>
     );
   }
 
-  if (!gameData) {
-    return (
-      <div className="min-h-screen bg-gradient-to-br from-gray-900 to-gray-700 flex items-center justify-center">
-        <div className="text-white text-xl">No game data</div>
-      </div>
-    );
+  if (!gameState) {
+    return <LoadingSpinner />;
   }
 
   return (
     <ErrorBoundary>
-      <div className="game-container min-h-screen bg-gradient-to-br from-gray-900 to-gray-700 flex flex-col">
-      {/* UI Components */}
-      <ResourceBar gameData={gameData} />
-      
-      <main className="game-main flex flex-1 max-h-screen overflow-hidden">
-        <RoomSelector />
+      <div className="min-h-screen bg-gray-900 text-white">
+        <ResourceBar gameState={gameState} />
         
-        <section className="dungeon-area flex-1 flex flex-col items-center justify-start p-4 overflow-auto">
-          <GameControls />
-          
-          <BackendMonsterPlacement />
-          
-          <div className="dungeon-view-container mb-4 w-full">
-            <DungeonView floors={gameData.floors || []} onRoomClick={handleRoomClick} />
-          </div>
-          
-          <div className="dungeon-view-container mb-4 w-full">
-            <div className="bg-gray-800 rounded-lg p-4">
-              <h2 className="text-2xl font-bold text-white mb-4">Monsters</h2>
-              {gameData.monsters.length === 0 ? (
-                <p className="text-gray-400">No monsters placed yet</p>
-              ) : (
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                  {gameData.monsters.map((monster: { id: number; type: string; hp: number; maxHp: number; roomId: number; alive: boolean }) => (
-                    <div key={monster.id} className="bg-gray-700 p-3 rounded">
-                      <div className="text-white font-bold">{monster.type}</div>
-                      <div className="text-gray-300 text-sm">
-                        HP: {monster.hp}/{monster.maxHp}
-                      </div>
-                      <div className="text-gray-300 text-sm">
-                        Room: {monster.roomId}
-                      </div>
-                      <div className={`text-sm ${
-                        monster.alive ? 'text-green-400' : 'text-red-400'
-                      }`}>
-                        {monster.alive ? 'Alive' : 'Dead'}
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              )}
+        {showSpeciesModal && (
+          <SpeciesSelectionModal
+            open={showSpeciesModal}
+            onClose={handleSpeciesSelect}
+          />
+        )}
+        
+        <div className="container mx-auto px-4 py-6 pb-24">
+          <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
+            {/* Left sidebar - Room construction */}
+            <div className="lg:col-span-1">
+              <RoomSelector />
+            </div>
+            
+            {/* Center - Dungeon view */}
+            <div className="lg:col-span-2">
+              {/* DungeonView now handles its own floor/room data and monster placement */}
+              <DungeonView />
+            </div>
+            
+            {/* Right sidebar - Monster management */}
+            <div className="lg:col-span-1">
+              <MonsterSelector />
+              
+              <div className="bg-gray-800 p-4 rounded-lg mt-6">
+                <h3 className="text-lg font-semibold mb-3 text-white">Monsters</h3>
+                {/* Monsters will be shown by individual room components */}
+                <p className="text-gray-400 text-sm">
+                  Monsters are displayed in their respective rooms
+                </p>
+              </div>
             </div>
           </div>
-          
-          
-        </section>
+        </div>
         
-        <MonsterSelector />
-      </main>
-
-      
-
+        {/* Floating game controls at bottom */}
+        <div className="fixed bottom-0 left-0 right-0 bg-gray-800 border-t border-gray-700 p-4 shadow-lg">
+          <div className="container mx-auto">
+            <GameControls />
+          </div>
+        </div>
       </div>
     </ErrorBoundary>
   );

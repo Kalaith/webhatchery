@@ -35,8 +35,9 @@ class GameLogic
 
     public function calculateRoomCapacity(int $roomPosition, int $monsterTier): int
     {
-        $baseCapacity = $roomPosition * 2;
-        return (int) floor($baseCapacity / $monsterTier);
+        $baseCapacity = max(1, $roomPosition) * 2; // Ensure position is at least 1 
+        $tier = max(1, $monsterTier); // Ensure tier is at least 1 to prevent division by zero
+        return (int) floor($baseCapacity / $tier);
     }
 
     public function getMonsterStats(string $monsterType): array
@@ -54,14 +55,13 @@ class GameLogic
     public function getSpeciesUnlockCost(string $speciesName): ?int
     {
         $unlockCosts = [
-            'Goblinoid' => 0,    // Starting species
-            'Slime' => 100,
-            'Mimic' => 250,
-            'Dragon' => 500,
-            'Undead' => 300
+            'Mimetic' => 1000,      // Default cost from constants
+            'Amorphous' => 1000,
+            'Plant' => 1000,
+            'Crustacean' => 1000,
         ];
         
-        return $unlockCosts[$speciesName] ?? null;
+        return $unlockCosts[$speciesName] ?? 1000; // Default cost
     }
 
     public function calculateUnlockedTier(int $totalExperience): int
@@ -139,7 +139,7 @@ class GameLogic
         // Count existing monsters of the same tier
         $sameTierCount = 0;
         foreach ($existingMonsters as $monster) {
-            $existingStats = $this->getMonsterStats($monster['type']);
+            $existingStats = $this->getMonsterStats($monster->getType());
             if ($existingStats['tier'] === $monsterStats['tier']) {
                 $sameTierCount++;
             }

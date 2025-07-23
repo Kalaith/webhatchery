@@ -30,9 +30,19 @@ class UnlockMonsterSpeciesUseCase
             return ['success' => false, 'error' => 'Invalid species name'];
         }
 
-        // Check if player has enough gold
-        if (!$game->spendGold($unlockCost)) {
+        // First species is free for new players
+        $unlockedSpecies = $game->getUnlockedSpecies();
+        $isFirstSpecies = empty($unlockedSpecies);
+        $actualCost = $isFirstSpecies ? 0 : $unlockCost;
+
+        // Check if player has enough gold (unless it's their first species)
+        if (!$isFirstSpecies && !$game->spendGold($unlockCost)) {
             return ['success' => false, 'error' => 'Insufficient gold', 'required' => $unlockCost];
+        } elseif ($isFirstSpecies) {
+            // First species is free, no need to spend gold
+        } else {
+            // Spend gold for additional species
+            $game->spendGold($unlockCost);
         }
 
         // Unlock the species
@@ -44,8 +54,9 @@ class UnlockMonsterSpeciesUseCase
         return [
             'success' => true,
             'speciesName' => $speciesName,
-            'costPaid' => $unlockCost,
-            'remainingGold' => $game->getGold()
+            'costPaid' => $actualCost,
+            'remainingGold' => $game->getGold(),
+            'isFirstSpecies' => $isFirstSpecies
         ];
     }
 }

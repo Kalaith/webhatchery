@@ -20,6 +20,7 @@ use DungeonCore\Controllers\GameController;
 use DungeonCore\Controllers\DungeonController;
 use DungeonCore\Controllers\DataController;
 use DungeonCore\Application\UseCases\GetGameStateUseCase;
+use DungeonCore\Application\UseCases\GetDungeonStateUseCase;
 use DungeonCore\Application\UseCases\PlaceMonsterUseCase;
 use DungeonCore\Application\UseCases\AddRoomUseCase;
 use DungeonCore\Application\UseCases\InitializeGameUseCase;
@@ -55,6 +56,7 @@ $gameLogic = new GameLogic();
 
 // Use Cases
 $getGameStateUseCase = new GetGameStateUseCase($gameRepo, $dungeonRepo);
+$getDungeonStateUseCase = new GetDungeonStateUseCase($gameRepo, $dungeonRepo);
 $placeMonsterUseCase = new PlaceMonsterUseCase($gameRepo, $dungeonRepo, $gameLogic);
 $addRoomUseCase = new AddRoomUseCase($gameRepo, $dungeonRepo);
 $initializeGameUseCase = new InitializeGameUseCase($gameRepo, $dungeonRepo);
@@ -80,7 +82,7 @@ $gameController = new GameController(
     $gainMonsterExperienceUseCase,
     $getAvailableMonstersUseCase
 );
-$dungeonController = new DungeonController($addRoomUseCase);
+$dungeonController = new DungeonController($addRoomUseCase, $getDungeonStateUseCase);
 $dataController = new DataController(
     $getGameConstantsUseCase,
     $getMonsterTypesUseCase,
@@ -114,6 +116,7 @@ $app->post('/api/game/reset', [$gameController, 'resetGame']);
 $app->post('/api/game/unlock-species', [$gameController, 'unlockMonsterSpecies']);
 $app->post('/api/game/gain-experience', [$gameController, 'gainMonsterExperience']);
 $app->get('/api/game/available-monsters', [$gameController, 'getAvailableMonsters']);
+$app->get('/api/dungeon/state', [$dungeonController, 'getDungeonState']);
 $app->post('/api/dungeon/add-room', [$dungeonController, 'addRoom']);
 
 // Data endpoints

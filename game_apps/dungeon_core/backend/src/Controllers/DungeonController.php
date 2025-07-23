@@ -3,14 +3,25 @@
 namespace DungeonCore\Controllers;
 
 use DungeonCore\Application\UseCases\AddRoomUseCase;
+use DungeonCore\Application\UseCases\GetDungeonStateUseCase;
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
 
 class DungeonController
 {
     public function __construct(
-        private AddRoomUseCase $addRoomUseCase
+        private AddRoomUseCase $addRoomUseCase,
+        private GetDungeonStateUseCase $getDungeonStateUseCase
     ) {}
+
+    public function getDungeonState(Request $request, Response $response): Response
+    {
+        $sessionId = $this->getSessionId($request);
+        $result = $this->getDungeonStateUseCase->execute($sessionId);
+        
+        $response->getBody()->write(json_encode($result));
+        return $response->withHeader('Content-Type', 'application/json');
+    }
 
     public function addRoom(Request $request, Response $response): Response
     {

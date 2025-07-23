@@ -74,12 +74,39 @@ class MySQLDungeonRepository implements DungeonRepositoryInterface
         return $rooms;
     }
 
+    public function getRoom(int $floorNumber, int $roomPosition): ?array
+    {
+        $stmt = $this->connection->prepare(
+            'SELECT r.*, f.number as floor_number 
+             FROM rooms r 
+             JOIN floors f ON r.floor_id = f.id 
+             WHERE f.number = ? AND r.position = ?'
+        );
+        $stmt->execute([$floorNumber, $roomPosition]);
+        
+        $data = $stmt->fetch();
+        if (!$data) {
+            return null;
+        }
+        
+        return [
+            'id' => $data['id'],
+            'type' => $data['type'],
+            'position' => $data['position'],
+            'floor_number' => $data['floor_number'],
+            'explored' => $data['explored'] ?? false,
+            'loot' => $data['loot'] ?? 0
+        ];
+    }
+
     public function placeMonster(int $roomId, string $monsterType, int $hp, int $maxHp, bool $isBoss): Monster
     {
         $stmt = $this->connection->prepare(
             'INSERT INTO monsters (room_id, type, hp, max_hp, is_boss) VALUES (?, ?, ?, ?, ?)'
         );
-        $stmt->execute([$roomId, $monsterType, $hp, $maxHp, $isBoss]);
+        // Convert boolean to integer for MySQL
+        $isBossInt = $isBoss ? 1 : 0;
+        $stmt->execute([$roomId, $monsterType, $hp, $maxHp, $isBossInt]);
         
         $id = $this->connection->lastInsertId();
         return new Monster($id, $roomId, $monsterType, $hp, $maxHp, true, $isBoss);
@@ -95,6 +122,32 @@ class MySQLDungeonRepository implements DungeonRepositoryInterface
              WHERE d.player_id = ?'
         );
         $stmt->execute([$gameId]);
+        
+        $monsters = [];
+        while ($data = $stmt->fetch()) {
+            $monsters[] = new Monster(
+                $data['id'],
+                $data['room_id'],
+                $data['type'],
+                $data['hp'],
+                $data['max_hp'],
+                $data['alive'],
+                $data['is_boss']
+            );
+        }
+        
+        return $monsters;
+    }
+
+    public function getRoomMonsters(int $floorNumber, int $roomPosition): array
+    {
+        $stmt = $this->connection->prepare(
+            'SELECT m.* FROM monsters m 
+             JOIN rooms r ON m.room_id = r.id 
+             JOIN floors f ON r.floor_id = f.id 
+             WHERE f.number = ? AND r.position = ?'
+        );
+        $stmt->execute([$floorNumber, $roomPosition]);
         
         $monsters = [];
         while ($data = $stmt->fetch()) {
@@ -228,5 +281,53 @@ class MySQLDungeonRepository implements DungeonRepositoryInterface
             error_log("Failed to reset game for player ID $gameId: " . $e->getMessage());
             throw $e;
         }
+    }
+
+    public function getFloorsByGameId(int $gameId): array
+    {
+        // Get dungeon ID first
+        $dungeonId = $this->getDungeonId($gameId);
+        
+        $stmt = $this->connection->prepare(
+            'SELECT id, dungeon_id, number FROM floors WHERE dungeon_id = ? ORDER BY number'
+        );
+        $stmt->execute([$dungeonId]);
+        
+        $floors = [];
+        while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+            $floors[] = new \DungeonCore\Domain\Entities\Floor(
+                $row['id'],
+                $row['dungeon_id'],
+                $row['number']
+            );
+        }
+        
+        return $floors;
+    }
+
+    public function getRoomsByFloorId(int $floorId): array
+    {
+        $stmt = $this->connection->prepare(
+            'SELECT id, floor_id, type, position FROM rooms WHERE floor_id = ? ORDER BY position'
+        );
+        $stmt->execute([$floorId]);
+        
+        $rooms = [];
+        while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+            $rooms[] = new \DungeonCore\Domain\Entities\Room(
+                $row['id'],
+                $row['floor_id'],
+                $row['type'],
+                $row['position']
+            );
+        }
+        
+        return $rooms;
+    }
+
+    public function getMonstersByGameId(int $gameId): array
+    {
+        // This method already exists as getMonsters, but let's create an alias for clarity
+        return $this->getMonsters($gameId);
     }
 }

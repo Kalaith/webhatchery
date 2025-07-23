@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { useGameStore } from "../../stores/gameStore";
+import { useBackendGameStore } from "../../stores/backendGameStore";
 import type { DungeonFloor, Room, MonsterType } from "../../types/game";
-import { fetchGameConstantsData, getMonsterTypes, getScaledMonsterStats } from "../../api/gameApi";
+import { fetchGameConstantsData, getMonsterTypes, getScaledMonsterStats, getDungeonState } from "../../api/gameApi";
 
 interface DungeonFloorViewProps {
   floor: DungeonFloor;
@@ -270,11 +271,110 @@ export const DungeonFloorView: React.FC<DungeonFloorViewProps> = ({ floor, onRoo
 };
 
 interface DungeonViewProps {
-  floors: DungeonFloor[];
-  onRoomClick: (floorNumber: number, roomPosition: number) => void;
+  // No props needed - component handles everything internally
 }
 
-export const DungeonView: React.FC<DungeonViewProps> = ({ floors, onRoomClick }) => {
+export const DungeonView: React.FC<DungeonViewProps> = () => {
+  const [floors, setFloors] = useState<DungeonFloor[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+
+  // Get monster placement functions from store
+  const { selectedMonster, selectMonster, placeMonster } = useBackendGameStore();
+
+  // Handle room clicks internally
+  const handleRoomClick = async (floorNumber: number, roomPosition: number): Promise<void> => {
+    if (selectedMonster !== null) {
+      try {
+        // Calculate room ID based on floor and position
+        // This is a simple calculation - rooms are numbered sequentially
+        const roomId = (floorNumber - 1) * 10 + roomPosition;
+        
+        console.log(`Attempting to place ${selectedMonster} in room ${roomId} (floor ${floorNumber}, position ${roomPosition})`);
+        
+        const success = await placeMonster(roomId, selectedMonster);
+        if (success) {
+          console.log('Monster placed successfully!');
+          selectMonster(null); // Clear selection after successful placement
+          // Immediately refresh to show the new monster
+          loadFloors();
+        } else {
+          console.error('Failed to place monster');
+        }
+      } catch (error) {
+        console.error('Error placing monster:', error);
+      }
+    } else {
+      console.log(`Clicked room at floor ${floorNumber}, position ${roomPosition} - no monster selected`);
+    }
+  };
+
+  // Function to load floors data
+  const loadFloors = async () => {
+    try {
+      const dungeonData = await getDungeonState();
+      if (dungeonData && dungeonData.floors) {
+        // Transform API data to match frontend types
+        const transformedFloors: DungeonFloor[] = dungeonData.floors.map(floor => ({
+          ...floor,
+          rooms: floor.rooms.map(room => ({
+            ...room,
+            monsters: room.monsters.map(monster => ({
+              ...monster,
+              isBoss: false, // Default for now - backend should provide this
+              floorNumber: room.floorNumber,
+              scaledStats: {
+                hp: monster.maxHp, // Use maxHp as scaled HP
+                attack: 5, // Default values - could be calculated
+                defense: 2
+              }
+            }))
+          }))
+        }));
+        
+        setFloors(transformedFloors);
+        setError(null); // Clear any previous errors
+      }
+    } catch (err) {
+      console.error('Failed to load floors:', err);
+      setError('Failed to load dungeon data');
+    }
+  };
+
+  // Initial load
+  useEffect(() => {
+    const initialLoad = async () => {
+      setLoading(true);
+      await loadFloors();
+      setLoading(false);
+    };
+    initialLoad();
+  }, []);
+
+  // Set up intelligent refresh - more frequent when monsters might be placed
+  useEffect(() => {
+    const interval = setInterval(() => {
+      loadFloors(); // Refresh without loading state
+    }, 3000); // Check every 3 seconds for updates
+
+    return () => clearInterval(interval);
+  }, []);
+
+  if (loading) {
+    return (
+      <div className="dungeon-container bg-gray-900 rounded-lg p-4">
+        <div className="text-center text-white">Loading dungeon...</div>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="dungeon-container bg-gray-900 rounded-lg p-4">
+        <div className="text-center text-red-400">{error}</div>
+      </div>
+    );
+  }
   return (
     <div className="dungeon-container bg-gray-900 rounded-lg p-4 max-h-[70vh] overflow-y-auto">
       <div className="dungeon-header text-center mb-4">
@@ -289,7 +389,7 @@ export const DungeonView: React.FC<DungeonViewProps> = ({ floors, onRoomClick })
             <DungeonFloorView
               key={floor.id}
               floor={floor}
-              onRoomClick={onRoomClick}
+              onRoomClick={handleRoomClick}
             />
           ))}
       </div>

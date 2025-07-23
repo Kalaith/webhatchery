@@ -66,7 +66,7 @@ export const GameControls: React.FC = () => {
   };
 
   return (
-    <div className="game-controls flex gap-4 mb-4 p-4 bg-white rounded-lg shadow">
+    <div className="game-controls flex flex-wrap gap-4 justify-center items-center">
       <button 
         className={`btn px-4 py-2 rounded text-white transition-colors ${getSpeedButtonColor()}`}
         onClick={handleToggleSpeed} 
@@ -123,7 +123,7 @@ export const GameControls: React.FC = () => {
         Reset Game
       </button>
 
-      <div className="flex items-center gap-2 text-sm text-gray-600">
+      <div className="flex items-center gap-2 text-sm text-gray-300">
         <span>Active Parties: {adventurerParties.length}</span>
       </div>
     </div>
