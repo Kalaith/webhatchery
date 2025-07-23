@@ -29,7 +29,7 @@ export const MainMenu: React.FC = () => {
             Interstellar Romance
           </h1>
           <p className="text-2xl text-blue-200 mb-2">
-            A Stellaris Dating Simulator
+            A Stellaris Inspired Dating Simulator
           </p>
           <p className="text-lg text-blue-300">
             Find love among the stars

@@ -265,6 +265,19 @@
             "buildCommand": "npm run build -- --base=./",
             "packageManager": "npm"
           }
+        },
+        {
+          "title": "Campaign Chronicle",
+          "path": "apps/campaign_chronicle/frontend/",
+          "description": "D&D Campaign Companion for managing campaigns, characters, locations, items, relationships, and session notes with an intuitive interface and local storage.",
+          "deployment": {
+            "type": "React",
+            "outputDir": "dist",
+            "deployAs": "campaign_chronicle",
+            "requiresBuild": true,
+            "buildCommand": "npm run build -- --base=./",
+            "packageManager": "npm"
+          }
         }
       ]
     },
@@ -385,6 +398,19 @@
             "type": "React",
             "outputDir": "dist",
             "deployAs": "kemo_sim",
+            "requiresBuild": true,
+            "buildCommand": "npm run build -- --base=./",
+            "packageManager": "npm"
+          }
+        },
+        {
+          "title": "Interstellar Romance",
+          "path": "game_apps/interstellar_romance/frontend/",
+          "description": "Sci-fi romance simulation game featuring relationship building, space exploration, and character interactions across different alien civilizations.",
+          "deployment": {
+            "type": "React",
+            "outputDir": "dist",
+            "deployAs": "interstellar_romance",
             "requiresBuild": true,
             "buildCommand": "npm run build -- --base=./",
             "packageManager": "npm"
