@@ -218,3 +218,4 @@ comfyui/ftp-config.json
 # Gallery do not include images in source control
 /gallery/portraits/
 /gallery/adventurer/
+/gallery/alien/

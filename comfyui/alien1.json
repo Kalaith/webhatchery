@@ -1,0 +1,154 @@
+{
+  "image_prompts": [
+    {
+    "id": 1753269055806,
+    "title": "Avian Alien (Continental World, cyberpunk)",
+    "description": "A Avian alien from a Continental world, depicted in a cyberpunk style. Physical characteristics: Bird-like creatures with beaks, feathers, and wing structures. Variation: peacock variants. Features: some have crests, colorful plumage. Visual details: jewelry with feather motifs, lightweight aerodynamic garments. The alien with vibrant, healthy appearance and with unusual, unsettling features, set in a crystalline cavern, holding a bioluminescent orb. AI prompt elements: Avian alien, bird-like features, feathers, beak, wing structures, colorful plumage, aerial grace, predatory or songbird appearance, vibrant feather patterns, aerodynamic clothing.",
+    "negative_prompt": "malformed anatomy, low quality, blurry, inappropriate content, violence, gore, distorted proportions, unrealistic textures, oversaturated colors, multiple heads, extra limbs, deformed features",
+    "tags": [
+      "Avian",
+      "Continental",
+      "Rapid Breeders",
+      "Repugnant",
+      "cyberpunk",
+      "crystalline cavern",
+      "bioluminescent orb"
+    ]
+  },
+  {
+    "id": 1753269055806,
+    "title": "Plantoid Alien (Alpine World, biomechanical)",
+    "description": "A Plantoid alien from a Alpine world, depicted in a biomechanical style. Physical characteristics: Plant-based lifeforms with photosynthetic capabilities. Variation: flower-inspired. Features: root systems, some have Groot-inspired wooden appearances. Visual details: vibrant petals with glowing veins, bark armor with natural engravings. The alien with robust, athletic physique and with a transient appearance, set in a floating sky islands, holding a intricate blade. AI prompt elements: Plantoid alien, plant-like features, leaves and flowers, bark-textured skin, photosynthetic, green/brown colors, nature harmony aesthetic, glowing petals, vine accessories.",
+    "negative_prompt": "malformed anatomy, low quality, blurry, inappropriate content, violence, gore, distorted proportions, unrealistic textures, oversaturated colors, multiple heads, extra limbs, deformed features",
+    "tags": [
+      "Plantoid",
+      "Alpine",
+      "Strong/Very Strong",
+      "Fleeting",
+      "biomechanical",
+      "floating sky islands",
+      "intricate blade"
+    ]
+  },
+  {
+    "id": 1753269055806,
+    "title": "Aquatic Alien (Desert World, biomechanical)",
+    "description": "A Aquatic alien from a Desert world, depicted in a biomechanical style. Physical characteristics: Water-adapted species with marine features. Variation: amphibian. Features: unique diplomacy voice, graceful swimming motions. Visual details: coral-inspired jewelry, flowing aquatic garments. The alien showing impressive physical strength and having an alien, uncomfortable appearance, set in a floating sky islands, holding a glowing amulet. AI prompt elements: Aquatic alien, fish-like features, fins and gills, scaled skin, bioluminescent, oceanic aesthetic, graceful swimming posture, iridescent scales, coral jewelry.",
+    "negative_prompt": "malformed anatomy, low quality, blurry, inappropriate content, violence, gore, distorted proportions, unrealistic textures, oversaturated colors, multiple heads, extra limbs, deformed features",
+    "tags": [
+      "Aquatic",
+      "Desert",
+      "Strong/Very Strong",
+      "Repugnant",
+      "biomechanical",
+      "floating sky islands",
+      "glowing amulet"
+    ]
+  },
+  {
+    "id": 1753269055806,
+    "title": "Lithoid Alien (Tropical World, biomechanical)",
+    "description": "A Lithoid alien from a Tropical world, depicted in a biomechanical style. Physical characteristics: Rock and crystal-based lifeforms made of living stone. Variation: jagged crystal formations. Features: rocky textures, crystalline growths. Visual details: gem-encrusted adornments, polished stone with glowing crystal veins. The alien with wise, calculating eyes and with a transient appearance, set in a toxic swamp, holding a tribal mask. AI prompt elements: Lithoid alien, rock-like, crystalline features, mineral composition, massive boulder body, gem-like elements, geological aesthetic, glowing crystal veins, runic carvings.",
+    "negative_prompt": "malformed anatomy, low quality, blurry, inappropriate content, violence, gore, distorted proportions, unrealistic textures, oversaturated colors, multiple heads, extra limbs, deformed features",
+    "tags": [
+      "Lithoid",
+      "Tropical",
+      "Intelligent",
+      "Fleeting",
+      "biomechanical",
+      "toxic swamp",
+      "tribal mask"
+    ]
+  },
+  {
+    "id": 1753269055806,
+    "title": "Fungoid Alien (Steppe World, realistic)",
+    "description": "A Fungoid alien from a Steppe world, depicted in a realistic style. Physical characteristics: Mushroom and fungal-inspired forms with spore-based reproduction. Variation: parasitic forms. Features: some appear parasitic controlling host bodies, distinctive caps, gills, organic growth patterns. Visual details: earthy textures with coral-like accents, organic armor with fungal growths. The alien with wise, calculating eyes and with unusual, unsettling features, set in a orbital space station, holding a tribal mask. AI prompt elements: Fungoid alien, mushroom-like, spore-based, organic growth patterns, caps and gills, earthy colors, parasitic or symbiotic appearance, bioluminescent spores, fungal armor.",
+    "negative_prompt": "malformed anatomy, low quality, blurry, inappropriate content, violence, gore, distorted proportions, unrealistic textures, oversaturated colors, multiple heads, extra limbs, deformed features",
+    "tags": [
+      "Fungoid",
+      "Steppe",
+      "Intelligent",
+      "Repugnant",
+      "realistic",
+      "orbital space station",
+      "tribal mask"
+    ]
+  },
+  {
+    "id": 1753269055806,
+    "title": "Plantoid Alien (Steppe World, baroque)",
+    "description": "A Plantoid alien from a Steppe world, depicted in a baroque style. Physical characteristics: Plant-based lifeforms with photosynthetic capabilities. Variation: flower-inspired. Features: root systems, leaves. Visual details: vine-like accessories wrapping around limbs, bark armor with natural engravings. The alien showing impressive physical strength and showing environmental struggle, set in a volcanic landscape, holding a mechanical prosthetic. AI prompt elements: Plantoid alien, plant-like features, leaves and flowers, bark-textured skin, photosynthetic, green/brown colors, nature harmony aesthetic, glowing petals, vine accessories.",
+    "negative_prompt": "malformed anatomy, low quality, blurry, inappropriate content, violence, gore, distorted proportions, unrealistic textures, oversaturated colors, multiple heads, extra limbs, deformed features",
+    "tags": [
+      "Plantoid",
+      "Steppe",
+      "Strong/Very Strong",
+      "Nonadaptive",
+      "baroque",
+      "volcanic landscape",
+      "mechanical prosthetic"
+    ]
+  },
+  {
+    "id": 1753269055806,
+    "title": "Necroid Alien (Ocean World, fantasy)",
+    "description": "A Necroid alien from a Ocean world, depicted in a fantasy style. Physical characteristics: Undead and death-themed species with gothic aesthetics. Variation: skeletal. Features: some require technological assistance to survive, unique diplomacy voice. Visual details: spectral aura with dark mist, cybernetic implants glowing faintly. The alien showing signs of vitality and with a slender, delicate build, set in a underwater city, holding a ornate scepter. AI prompt elements: Necroid alien, undead appearance, skeletal or mummified, gothic aesthetic, dark colors, death-themed, cybernetic enhancements, cult-like, tattered robes, spectral aura.",
+    "negative_prompt": "malformed anatomy, low quality, blurry, inappropriate content, violence, gore, distorted proportions, unrealistic textures, oversaturated colors, multiple heads, extra limbs, deformed features",
+    "tags": [
+      "Necroid",
+      "Ocean",
+      "Rapid Breeders",
+      "Weak",
+      "fantasy",
+      "underwater city",
+      "ornate scepter"
+    ]
+  },
+  {
+    "id": 1753269055806,
+    "title": "Arthropoid Alien (Tundra World, baroque)",
+    "description": "A Arthropoid alien from a Tundra world, depicted in a baroque style. Physical characteristics: Insect and arachnid-inspired forms with exoskeletons. Variation: butterfly. Features: multiple limbs, some have eight legs and eight eyes. Visual details: chitinous armor with intricate engravings, bioluminescent markings. The alien showing signs of advanced intellect and with an intellectual rather than physical presence, set in a desolate wasteland, holding a bioluminescent orb. AI prompt elements: Arthropoid alien, insect-like, exoskeleton, multiple limbs, compound eyes, segmented body, chitinous armor, technological aesthetic, bioluminescent markings, mechanical augmentations.",
+    "negative_prompt": "malformed anatomy, low quality, blurry, inappropriate content, violence, gore, distorted proportions, unrealistic textures, oversaturated colors, multiple heads, extra limbs, deformed features",
+    "tags": [
+      "Arthropoid",
+      "Tundra",
+      "Intelligent",
+      "Weak",
+      "baroque",
+      "desolate wasteland",
+      "bioluminescent orb"
+    ]
+  },
+  {
+    "id": 1753269055806,
+    "title": "Arthropoid Alien (Ocean World, cyberpunk)",
+    "description": "A Arthropoid alien from a Ocean world, depicted in a cyberpunk style. Physical characteristics: Insect and arachnid-inspired forms with exoskeletons. Variation: ant-like. Features: multiple limbs, segmented bodies. Visual details: mechanical augmentations on limbs, bioluminescent markings. The alien showing signs of vitality and with ephemeral, translucent qualities, set in a futuristic cityscape, holding a futuristic headset. AI prompt elements: Arthropoid alien, insect-like, exoskeleton, multiple limbs, compound eyes, segmented body, chitinous armor, technological aesthetic, bioluminescent markings, mechanical augmentations.",
+    "negative_prompt": "malformed anatomy, low quality, blurry, inappropriate content, violence, gore, distorted proportions, unrealistic textures, oversaturated colors, multiple heads, extra limbs, deformed features",
+    "tags": [
+      "Arthropoid",
+      "Ocean",
+      "Rapid Breeders",
+      "Fleeting",
+      "cyberpunk",
+      "futuristic cityscape",
+      "futuristic headset"
+    ]
+  },
+  {
+    "id": 1753269055806,
+    "title": "Machine Alien (Arctic World, retro-futuristic)",
+    "description": "A Machine alien from a Arctic world, depicted in a retro-futuristic style. Physical characteristics: Artificial intelligences in robotic bodies. Variation: mechanical versions of biological species. Features: metallic construction, glowing elements. Visual details: polished chrome with glowing circuits, sleek synthetic plating. The alien with youthful energy and with a slender, delicate build, set in a volcanic landscape, holding a ancient relic. AI prompt elements: Machine alien, robotic appearance, metallic construction, glowing elements, mechanical joints, synthetic aesthetic, technological design, polished chrome, holographic interfaces.",
+    "negative_prompt": "malformed anatomy, low quality, blurry, inappropriate content, violence, gore, distorted proportions, unrealistic textures, oversaturated colors, multiple heads, extra limbs, deformed features",
+    "tags": [
+      "Machine",
+      "Arctic",
+      "Rapid Breeders",
+      "Weak",
+      "retro-futuristic",
+      "volcanic landscape",
+      "ancient relic"
+    ]
+  }
+  ]
+}

@@ -334,13 +334,26 @@ if ($PromptJsonFile) {
     }
     $jsonContent = Get-Content $PromptJsonFile -Raw | ConvertFrom-Json
     # Support both array and object with image_prompts property
-    if ($jsonContent.image_prompts) {
+    # Check if it's an object with image_prompts property (not an array)
+    if ($jsonContent -isnot [System.Array] -and $null -ne $jsonContent.image_prompts) {
         $promptList = $jsonContent.image_prompts
+        Write-Host "Found JSON with image_prompts wrapper, $($promptList.Count) prompts detected" -ForegroundColor Blue
     } else {
         $promptList = $jsonContent
+        Write-Host "Found JSON array format, $($promptList.Count) prompts detected" -ForegroundColor Blue
     }
-    if (-not $promptList) {
-        Write-Error "No prompts found in JSON file."
+    
+    # Filter out empty objects from the prompt list
+    if ($promptList -is [System.Array]) {
+        $originalCount = $promptList.Count
+        $promptList = $promptList | Where-Object { 
+            $_ -and ($_.description -or $_.title -or $_.Prompt) 
+        }
+        Write-Host "After filtering: $($promptList.Count) valid prompts (removed $($originalCount - $promptList.Count) empty/invalid)" -ForegroundColor Blue
+    }
+    
+    if (-not $promptList -or $promptList.Count -eq 0) {
+        Write-Error "No valid prompts found in JSON file."
         exit 1
     }
     $index = 0
@@ -350,14 +363,14 @@ if ($PromptJsonFile) {
 
         # Compose the prompt from description or title/description
         $prompt = ""
-        if ($item.Prompt) {
+        if ($item.Prompt -and $item.Prompt.Trim() -ne "") {
             $prompt = $item.Prompt
         } elseif ($item.description -and $item.description.Trim() -ne "") {
             $prompt = $item.description
         } elseif ($item.title -and $item.title.Trim() -ne "") {
             $prompt = $item.title
         } else {
-            Write-Warning "No valid prompt found for item $index"
+            Write-Warning "No valid prompt found for item $index, skipping..."
             continue
         }
 
@@ -372,8 +385,15 @@ if ($PromptJsonFile) {
             $negativePrompt = $item.negative_prompt
         }
 
-        # Generate filename based on tags or fallback to title/description
+        # Generate filename based on ID, tags, or fallback to title/description
         $keyword = "image"
+        $idPrefix = ""
+        
+        # Use ID field if available for linking
+        if ($null -ne $item.id -and $item.id -ne "") {
+            $idPrefix = "$($item.id)_"
+        }
+        
         if ($item.tags -and $item.tags.Count -gt 0) {
             $keyword = ($item.tags -join "_").ToLower() -replace '[^a-z0-9_]', ''
         } elseif ($item.title) {
@@ -386,7 +406,7 @@ if ($PromptJsonFile) {
         $sizeStr = "${width}x${height}"
         $backgroundsDir = Join-Path -Path $PSScriptRoot -ChildPath 'backgrounds'
         if (-not (Test-Path $backgroundsDir)) { New-Item -ItemType Directory -Path $backgroundsDir | Out-Null }
-        $outputPath = Join-Path $backgroundsDir ("${keyword}_${sizeStr}_${dateStr}.png")
+        $outputPath = Join-Path $backgroundsDir ("${idPrefix}${keyword}_${sizeStr}_${dateStr}.png")
 
         $steps = if ($null -ne $item.Steps) { $item.Steps } else { $Steps }
         $cfg = if ($null -ne $item.CFG) { $item.CFG } else { $CFG }
@@ -396,7 +416,13 @@ if ($PromptJsonFile) {
         $scheduler = if ($null -ne $item.Scheduler) { $item.Scheduler } else { $Scheduler }
 
         if ($Test) {
-            Write-Host "Scheduler: $scheduler"
+            Write-Host "Test Mode - Prompt ${index}:" -ForegroundColor Yellow
+            if ($null -ne $item.id) { Write-Host "  ID: $($item.id)" -ForegroundColor White }
+            Write-Host "  Prompt: $($prompt.Substring(0, [Math]::Min(100, $prompt.Length)))..." -ForegroundColor Cyan
+            Write-Host "  Size: ${width}x${height}" -ForegroundColor Green
+            Write-Host "  Output: $outputPath" -ForegroundColor Magenta
+            Write-Host "  Model: $model" -ForegroundColor Blue
+            Write-Host "  Scheduler: $scheduler" -ForegroundColor Gray
         } else {
             Invoke-ImageGeneration `
                 -Prompt $prompt `

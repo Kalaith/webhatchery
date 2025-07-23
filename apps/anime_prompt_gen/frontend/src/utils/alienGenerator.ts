@@ -1,4 +1,7 @@
 
+// Import shared attributes for variety
+import { hairColors, eyeColors, clothingItems, hairStyles, accessories, facialFeatures, backgrounds, poses, eyeExpressions } from './sharedAttributes';
+
 // Stellaris species data (inlined from stellaris_species.json)
 export const speciesClasses = [
   'Humanoid', 'Mammalian', 'Reptilian', 'Avian', 'Arthropoid', 'Molluscoid', 'Fungoid', 'Plantoid', 'Lithoid', 'Necroid', 'Aquatic', 'Toxoid', 'Machine'
@@ -9,7 +12,7 @@ export const speciesTraits = {
     physical_characteristics: {
       form: 'Bipedal human-like forms with diverse variations',
       variations: ['classic human appearance', 'exotic variants with unique features', 'Klingon-inspired', 'Vulcan-like', 'cyclops', 'orcs', 'dwarves', 'elves'],
-      features: ['most portraits feature different models for male and female variants', 'some have hair customization', 'unique diplomacy voices'],
+      features: ['elongated limbs and graceful proportions', 'diverse skin tones and markings', 'distinctive alien facial features'],
       visual_descriptors: ['diverse skin tones from pale to deep metallic', 'futuristic clothing with glowing accents', 'ornate diplomatic robes or sleek suits']
     },
     key_traits: ['adaptive', 'intelligent', 'charismatic', 'strong leadership qualities', 'cultural diversity with multiple government types', 'excellent diplomatic abilities', 'trade focus'],
@@ -19,7 +22,7 @@ export const speciesTraits = {
     physical_characteristics: {
       form: 'Diverse animal-inspired designs',
       variations: ['primates', 'felines', 'canines', 'ungulates', 'slender monkey-like', 'massive gorilla', 'buffalo variants', 'horse-like', 'tiger-striped', 'otter-like', 'fox-featured', 'bat-like'],
-      features: ['all wear clothing/garments', 'distinct fur patterns', 'snouts', 'ears', 'varied body structures'],
+      features: ['thick fur covering muscular frame', 'prominent snouts and alert ears', 'expressive animal-like eyes'],
       visual_descriptors: ['lush fur in vibrant or muted tones', 'tribal or high-tech armor', 'flowing capes or utility harnesses']
     },
     key_traits: ['social', 'adaptive', 'strong pack mentality', 'good at cooperation', 'community building', 'varied specializations from peaceful to aggressive'],
@@ -29,7 +32,7 @@ export const speciesTraits = {
     physical_characteristics: {
       form: 'Scale-covered beings based on reptiles and amphibians',
       variations: ['crocodilian', 'dinosaur-like', 'chameleon', 'gecko', 'turtle'],
-      features: ['some have distinctive head crests, frills, or shell-like features', 'colors range from earth tones to vibrant greens and blues', 'all possess scales'],
+      features: ['tough scaled hide covering athletic body', 'prominent head crests or frills', 'piercing reptilian eyes'],
       visual_descriptors: ['iridescent scales with metallic sheen', 'ceremonial armor with tribal motifs', 'ancient jewelry with gemstone inlays']
     },
     key_traits: ['ancient wisdom', 'honor-based societies', 'tactical prowess', 'military leadership', 'strategic thinking', 'long-lived', 'traditional values'],
@@ -39,7 +42,7 @@ export const speciesTraits = {
     physical_characteristics: {
       form: 'Bird-like creatures with beaks, feathers, and wing structures',
       variations: ['small songbird-like', 'large predatory bird', 'parrot-colored', 'penguin-like', 'eagle-inspired', 'peacock variants'],
-      features: ['some have crests', 'colorful plumage', 'unique beak shapes', 'many retain wing structures in bipedal form'],
+      features: ['vibrant feathered plumage covering body', 'sharp curved beak and alert eyes', 'wing-like arm structures'],
       visual_descriptors: ['vibrant feathers with gradient patterns', 'lightweight aerodynamic garments', 'jewelry with feather motifs']
     },
     key_traits: ['aerial perspective', 'keen senses', 'exploration focus', 'flight-related abilities', 'spatial awareness', 'natural scouts and explorers'],
@@ -49,7 +52,7 @@ export const speciesTraits = {
     physical_characteristics: {
       form: 'Insect and arachnid-inspired forms with exoskeletons',
       variations: ['spider-like', 'ant-like', 'mantis', 'butterfly', 'crab-like'],
-      features: ['multiple limbs', 'compound eyes', 'segmented bodies', 'range from delicate to heavily armored', 'some have eight legs and eight eyes'],
+      features: ['chitinous exoskeleton covering segmented body', 'multiple articulated limbs', 'large compound eyes'],
       visual_descriptors: ['chitinous armor with intricate engravings', 'bioluminescent markings', 'mechanical augmentations on limbs']
     },
     key_traits: ['hive mentality', 'technological efficiency', 'logical thinking', 'large-scale coordination', 'engineering projects', 'technological advancement'],
@@ -59,7 +62,7 @@ export const speciesTraits = {
     physical_characteristics: {
       form: 'Soft-bodied creatures with tentacles and smooth, wet-looking skin',
       variations: ['octopus-like', 'jellyfish-inspired', 'slug-like', 'nautilus'],
-      features: ['distinctive tentacles for manipulation and movement', 'flowing organic curves', 'translucent elements', 'some have shell-like protective features'],
+      features: ['smooth wet-looking skin with flowing tentacles', 'organic curves and translucent elements', 'large expressive eyes'],
       visual_descriptors: ['iridescent skin with shifting colors', 'flowing robes with organic patterns', 'translucent jewelry']
     },
     key_traits: ['philosophical nature', 'empathy', 'artistic inclinations', 'research and cultural development', 'peaceful and contemplative'],
@@ -69,7 +72,7 @@ export const speciesTraits = {
     physical_characteristics: {
       form: 'Mushroom and fungal-inspired forms with spore-based reproduction',
       variations: ['puffball-like', 'parasitic forms', 'coral-inspired'],
-      features: ['some appear parasitic controlling host bodies', 'distinctive caps, gills, organic growth patterns', 'many have no visible eyes'],
+      features: ['mushroom cap-like head structure', 'organic growth patterns across body', 'bioluminescent spore patches'],
       visual_descriptors: ['bioluminescent spores glowing softly', 'organic armor with fungal growths', 'earthy textures with coral-like accents']
     },
     key_traits: ['collective consciousness potential', 'adaptation', 'recycling efficiency', 'unique reproduction through spores', 'natural decomposers', 'ecosystem engineers'],
@@ -79,7 +82,7 @@ export const speciesTraits = {
     physical_characteristics: {
       form: 'Plant-based lifeforms with photosynthetic capabilities',
       variations: ['cactus-like', 'flower-inspired', 'tree-like', 'vine-covered'],
-      features: ['leaves', 'flowers', 'bark-like skin', 'root systems', 'some have Groot-inspired wooden appearances'],
+      features: ['bark-textured skin with leaf and vine elements', 'photosynthetic patches on exposed skin', 'root-like appendages'],
       visual_descriptors: ['vibrant petals with glowing veins', 'bark armor with natural engravings', 'vine-like accessories wrapping around limbs']
     },
     key_traits: ['budding: enhanced population growth', 'phototrophic/radiotrophic: sustenance through sunlight/radiation', 'environmental harmony', 'patience', 'long-term thinking'],
@@ -89,7 +92,7 @@ export const speciesTraits = {
     physical_characteristics: {
       form: 'Rock and crystal-based lifeforms made of living stone',
       variations: ['massive boulder-like bodies', 'smooth stone', 'jagged crystal formations'],
-      features: ['crystalline growths', 'rocky textures', 'gem-like eyes', 'some have energy flowing between body segments'],
+      features: ['crystalline formations protruding from stone body', 'gem-like eyes that glow with inner light', 'rocky textured skin with mineral veins'],
       visual_descriptors: ['polished stone with glowing crystal veins', 'ancient runic carvings', 'gem-encrusted adornments']
     },
     key_traits: ['lithoid: consume minerals, extremely long-lived', 'scintillating skin: produce rare crystals', 'gaseous byproducts: generate exotic gases', 'durability', 'persistence', 'mineral-focused economy'],
@@ -99,7 +102,7 @@ export const speciesTraits = {
     physical_characteristics: {
       form: 'Undead and death-themed species with gothic aesthetics',
       variations: ['skeletal', 'mummified', 'spectral', 'cybernetically enhanced'],
-      features: ['some require technological assistance to survive', 'dark, macabre appearance', 'death-themed elements', 'unique diplomacy voice'],
+      features: ['gaunt skeletal or mummified appearance', 'cybernetic implants glowing faintly', 'spectral aura surrounding body'],
       visual_descriptors: ['tattered gothic robes', 'cybernetic implants glowing faintly', 'spectral aura with dark mist']
     },
     key_traits: ['necrophage: consume other species for reproduction', 'death-focused culture', 'unnatural longevity', 'cult-like societies', 'reanimation abilities', 'undead workforce'],
@@ -109,7 +112,7 @@ export const speciesTraits = {
     physical_characteristics: {
       form: 'Water-adapted species with marine features',
       variations: ['fish-like', 'amphibian', 'deep-sea creature'],
-      features: ['fins', 'gills', 'scaled skin', 'bioluminescent elements', 'graceful swimming motions', 'water-themed aesthetics', 'unique diplomacy voice'],
+      features: ['sleek aquatic body with fins and gills', 'bioluminescent patterns on smooth skin', 'large eyes adapted for underwater vision'],
       visual_descriptors: ['iridescent scales with bioluminescent patterns', 'flowing aquatic garments', 'coral-inspired jewelry']
     },
     key_traits: ['aquatic: thrive on ocean worlds', 'marine adaptation', 'fluid movement', 'deep-sea wisdom', 'ocean paradise origins', 'seafaring culture'],
@@ -118,8 +121,8 @@ export const speciesTraits = {
   Toxoid: {
     physical_characteristics: {
       form: 'Adapted to toxic environments with hazardous appearances',
-      variations: [],
-      features: ['toxic coloration', 'protective adaptations', 'industrial aesthetic', 'warning colors', 'signs of environmental adaptation', 'toxic waste themes'],
+      variations: ['hazmat-suited', 'mutated', 'chemically-enhanced', 'industrial-adapted'],
+      features: ['toxic warning coloration on exposed skin', 'protective adaptations and mutations', 'industrial augmentations integrated into body'],
       visual_descriptors: ['neon warning colors with toxic glow', 'hazmat-style suits', 'industrial machinery integrated into body']
     },
     key_traits: ['noxious: repellent to other species', 'inorganic breath: generate exotic gases', 'exotic metabolism: enhanced adaptation to hostile environments', 'rapid growth at environmental cost', 'industrial focus'],
@@ -129,7 +132,7 @@ export const speciesTraits = {
     physical_characteristics: {
       form: 'Artificial intelligences in robotic bodies',
       variations: ['humanoid robots', 'mechanical versions of biological species'],
-      features: ['metallic construction', 'glowing elements', 'mechanical joints', 'range from sleek synthetic to industrial robot designs'],
+      features: ['metallic construction with visible joints', 'glowing circuit patterns on body', 'synthetic facial features with digital displays'],
       visual_descriptors: ['polished chrome with glowing circuits', 'sleek synthetic plating', 'holographic interfaces']
     },
     key_traits: ['machine intelligence: gestalt consciousness, no biological needs', 'superconductive: enhanced efficiency and processing', 'waterproof: environmental adaptation', 'logical thinking', 'technological mastery', 'collective purpose'],
@@ -174,6 +177,25 @@ export const culturalArtifacts = [
   'bioluminescent orb', 'ancient relic', 'futuristic headset', 'ornate scepter', 'mechanical prosthetic'
 ];
 
+export const genders = ['male', 'female'];
+
+// Visual descriptions for traits that affect image generation
+export const positiveTraitVisuals = {
+  'Intelligent': ['with wise, calculating eyes', 'showing signs of advanced intellect', 'with a scholarly demeanor'],
+  'Charismatic': ['with a commanding, regal presence', 'radiating natural authority', 'with an magnetic aura'],
+  'Strong/Very Strong': ['with a powerful, muscular build', 'showing impressive physical strength', 'with robust, athletic physique'],
+  'Adaptive': ['showing evolutionary adaptations', 'with versatile features', 'displaying environmental modifications'],
+  'Rapid Breeders': ['with vibrant, healthy appearance', 'showing signs of vitality', 'with youthful energy']
+};
+
+export const negativeTraitVisuals = {
+  'Slow Breeders': ['with ancient, weathered features', 'showing signs of age and wisdom', 'with a dignified, elderly bearing'],
+  'Weak': ['with a slender, delicate build', 'showing refined, non-physical focus', 'with an intellectual rather than physical presence'],
+  'Repugnant': ['with unusual, unsettling features', 'having an alien, uncomfortable appearance', 'with disturbing visual elements'],
+  'Nonadaptive': ['with rigid, unchanging features', 'showing environmental struggle', 'with signs of environmental mismatch'],
+  'Fleeting': ['with ephemeral, translucent qualities', 'showing temporary, fragile nature', 'with a transient appearance']
+};
+
 // Utility functions
 export const getRandomElement = <T>(array: T[]): T => {
   return array[Math.floor(Math.random() * array.length)];
@@ -191,7 +213,8 @@ export const generateAlienPrompt = (
   positiveTrait?: string,
   negativeTrait?: string,
   style?: string,
-  environment?: string
+  environment?: string,
+  gender?: string
 ): {
   id: number;
   title: string;
@@ -210,6 +233,9 @@ export const generateAlienPrompt = (
     selectedClimate = getRandomElement(pref.types);
   }
 
+  // Gender selection
+  const selectedGender = gender || getRandomElement(genders);
+
   // Traits
   const posTrait = positiveTrait || getRandomElement(universalTraits.positive).name;
   const negTrait = negativeTrait || getRandomElement(universalTraits.negative).name;
@@ -223,24 +249,72 @@ export const generateAlienPrompt = (
   // Cultural artifact
   const selectedArtifact = getRandomElement(culturalArtifacts);
 
+  // Add shared attributes for more detail (declare outside to use in tags)
+  // Adapt attributes based on species type
+  let selectedHairColor, selectedHairStyle, selectedEyeColor, selectedClothing, selectedAccessory;
+  
+  if (['Humanoid', 'Mammalian', 'Necroid'].includes(selectedClass)) {
+    // Species that can have traditional hair
+    selectedHairColor = getRandomElement(hairColors);
+    selectedHairStyle = getRandomElement(hairStyles);
+  } else if (['Avian'].includes(selectedClass)) {
+    // Feathered species - adapt hair to feathers
+    selectedHairColor = getRandomElement(hairColors);
+    selectedHairStyle = 'feathered crest';
+  } else if (['Plantoid'].includes(selectedClass)) {
+    // Plant species - adapt to leaves/petals
+    selectedHairColor = getRandomElement(['green', 'brown', 'yellow', 'red', 'orange']);
+    selectedHairStyle = 'leaf-like fronds';
+  } else if (['Machine'].includes(selectedClass)) {
+    // Mechanical species - no traditional hair
+    selectedHairColor = 'metallic';
+    selectedHairStyle = 'synthetic fibers';
+  } else {
+    // Other species - more exotic options
+    selectedHairColor = getRandomElement(['iridescent', 'bioluminescent', 'crystalline', 'ethereal']);
+    selectedHairStyle = 'alien appendages';
+  }
+  
+  selectedEyeColor = getRandomElement(eyeColors);
+  selectedClothing = getRandomElement(clothingItems);
+  selectedAccessory = getRandomElement(accessories);
+  const selectedFacialFeature = getRandomElement(facialFeatures);
+  const selectedPose = getRandomElement(poses);
+  const selectedEyeExpression = getRandomElement(eyeExpressions);
+  const selectedBackground = getRandomElement(backgrounds);
+
   // Description template
   let description = '';
   if (classData) {
     const visualDetails = getRandomElements(classData.physical_characteristics.visual_descriptors, 2).join(', ');
-    description = `A ${selectedClass} alien from a ${selectedClimate} world, depicted in a ${selectedStyle} style. Physical characteristics: ${classData.physical_characteristics.form}. Variations include: ${getRandomElement(classData.physical_characteristics.variations)}. Features: ${getRandomElements(classData.physical_characteristics.features, 2).join(', ')}. Visual details: ${visualDetails}. Key traits: ${getRandomElements(classData.key_traits, 3).join(', ')}. The alien is set in a ${selectedEnvironment}, holding a ${selectedArtifact}. AI prompt elements: ${classData.ai_prompt_elements}. Positive trait: ${posTrait}. Negative trait: ${negTrait}.`;
+    const variation = classData.physical_characteristics.variations.length > 0 
+      ? getRandomElement(classData.physical_characteristics.variations)
+      : 'standard';
+    
+    // Create a more image-focused description
+    const posTraitVisual = positiveTraitVisuals[posTrait as keyof typeof positiveTraitVisuals] 
+      ? getRandomElement(positiveTraitVisuals[posTrait as keyof typeof positiveTraitVisuals])
+      : 'with a confident bearing';
+    
+    const negTraitVisual = negativeTraitVisuals[negTrait as keyof typeof negativeTraitVisuals]
+      ? getRandomElement(negativeTraitVisuals[negTrait as keyof typeof negativeTraitVisuals])
+      : 'with subtle imperfections';
+    
+    description = `Portrait of a ${selectedGender} ${selectedClass} alien from a ${selectedClimate} world, depicted in a ${selectedStyle} style. ${variation} variation. Physical features: ${getRandomElements(classData.physical_characteristics.features, 2).join(', ')}. Hair: ${selectedHairStyle} ${selectedHairColor} hair. Eyes: ${selectedEyeColor} eyes that ${selectedEyeExpression}. Facial features include ${selectedFacialFeature}. Wearing ${selectedClothing} with ${selectedAccessory}. Visual details: ${visualDetails}. The alien ${posTraitVisual} and ${negTraitVisual}, ${selectedPose} in ${selectedBackground}. Holding a ${selectedArtifact}. Style elements: ${classData.ai_prompt_elements}.`;
   } else {
-    description = `A ${selectedClass} alien from a ${selectedClimate} world, depicted in a ${selectedStyle} style. The alien is set in a ${selectedEnvironment}, holding a ${selectedArtifact}. Traits: Positive - ${posTrait}, Negative - ${negTrait}.`;
+    // Fallback with shared attributes
+    description = `Portrait of a ${selectedGender} ${selectedClass} alien from a ${selectedClimate} world, depicted in a ${selectedStyle} style. Hair: ${selectedHairStyle} ${selectedHairColor} hair. Eyes: ${selectedEyeColor} eyes. Wearing ${selectedClothing} with ${selectedAccessory}. The alien ${selectedPose} in ${selectedBackground}, holding a ${selectedArtifact}.`;
   }
 
-  // Enhanced negative prompt
-  const negativePrompt = `${negTrait}, malformed anatomy, low quality, blurry, inappropriate content, violence, gore, distorted proportions, unrealistic textures, oversaturated colors`;
+  // Enhanced negative prompt (alien-friendly, focusing on quality issues rather than anatomy)
+  const negativePrompt = `low quality, blurry, inappropriate content, violence, gore, distorted proportions, unrealistic textures, oversaturated colors, poorly drawn features, asymmetrical when should be symmetrical, floating disconnected parts, inconsistent lighting, pixelated, artifacts`;
 
   return {
     id: Date.now(),
     title: `${selectedClass} Alien (${selectedClimate} World, ${selectedStyle})`,
     description,
     negative_prompt: negativePrompt,
-    tags: [selectedClass, selectedClimate, posTrait, negTrait, selectedStyle, selectedEnvironment, selectedArtifact]
+    tags: [selectedClass, selectedClimate, posTrait, negTrait, selectedStyle, selectedEnvironment, selectedArtifact, selectedGender, selectedHairColor, selectedEyeColor, selectedClothing]
   };
 };
 
@@ -252,10 +326,11 @@ export const generateMultipleAlienPrompts = (
   positiveTrait?: string,
   negativeTrait?: string,
   style?: string,
-  environment?: string
+  environment?: string,
+  gender?: string
 ): ReturnType<typeof generateAlienPrompt>[] => {
   return Array.from({ length: count }, () => 
-    generateAlienPrompt(speciesClass, climate, positiveTrait, negativeTrait, style, environment)
+    generateAlienPrompt(speciesClass, climate, positiveTrait, negativeTrait, style, environment, gender)
   );
 };
 

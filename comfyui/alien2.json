@@ -1,0 +1,952 @@
+[
+  {
+    "id": 1753269960261,
+    "title": "Avian Alien (Desert World, surreal)",
+    "description": "Portrait of a female Avian alien from a Desert world, depicted in a surreal style. small songbird-like variation. Physical features: vibrant feathered plumage covering body, sharp curved beak and alert eyes. Hair: feathered crest grey hair. Eyes: blue eyes that burn with inner fire. Facial features include radiant face. Wearing hoodie with watch. Visual details: vibrant feathers with gradient patterns, lightweight aerodynamic garments. The alien radiating natural authority and with an intellectual rather than physical presence, stands confidently in desert landscape background. Holding a tribal mask. Style elements: Avian alien, bird-like features, feathers, beak, wing structures, colorful plumage, aerial grace, predatory or songbird appearance, vibrant feather patterns, aerodynamic clothing.",
+    "negative_prompt": "low quality, blurry, inappropriate content, violence, gore, distorted proportions, unrealistic textures, oversaturated colors, poorly drawn features, asymmetrical when should be symmetrical, floating disconnected parts, inconsistent lighting, pixelated, artifacts",
+    "tags": [
+      "Avian",
+      "Desert",
+      "Charismatic",
+      "Weak",
+      "surreal",
+      "futuristic cityscape",
+      "tribal mask",
+      "female",
+      "grey",
+      "blue",
+      "hoodie"
+    ]
+  },
+  {
+    "id": 1753269960261,
+    "title": "Molluscoid Alien (Ocean World, baroque)",
+    "description": "Portrait of a female Molluscoid alien from a Ocean world, depicted in a baroque style. slug-like variation. Physical features: large expressive eyes, organic curves and translucent elements. Hair: alien appendages bioluminescent hair. Eyes: emerald eyes that hold ancient secrets. Facial features include jeweled forehead. Wearing short-sleeve shirt with cap. Visual details: translucent jewelry, flowing robes with organic patterns. The alien showing signs of vitality and showing temporary, fragile nature, adopts a fighting stance in soft background. Holding a futuristic headset. Style elements: Molluscoid alien, tentacles, soft smooth skin, wet appearance, flowing organic shapes, translucent elements, philosophical demeanor, iridescent skin, organic-patterned robes.",
+    "negative_prompt": "low quality, blurry, inappropriate content, violence, gore, distorted proportions, unrealistic textures, oversaturated colors, poorly drawn features, asymmetrical when should be symmetrical, floating disconnected parts, inconsistent lighting, pixelated, artifacts",
+    "tags": [
+      "Molluscoid",
+      "Ocean",
+      "Rapid Breeders",
+      "Fleeting",
+      "baroque",
+      "orbital space station",
+      "futuristic headset",
+      "female",
+      "bioluminescent",
+      "emerald",
+      "short-sleeve shirt"
+    ]
+  },
+  {
+    "id": 1753269960261,
+    "title": "Humanoid Alien (Steppe World, fantasy)",
+    "description": "Portrait of a male Humanoid alien from a Steppe world, depicted in a fantasy style. exotic variants with unique features variation. Physical features: diverse skin tones and markings, distinctive alien facial features. Hair: curly white hair. Eyes: golden eyes that hold ancient secrets. Facial features include beauty mark. Wearing utility vest with watch. Visual details: ornate diplomatic robes or sleek suits, futuristic clothing with glowing accents. The alien with a scholarly demeanor and showing environmental struggle, leans casually in tavern interior background. Holding a glowing amulet. Style elements: Humanoid alien, bipedal, human-like features, diverse skin tones, varied clothing styles, futuristic aesthetic, diplomatic appearance, glowing accessories, intricate hairstyles.",
+    "negative_prompt": "low quality, blurry, inappropriate content, violence, gore, distorted proportions, unrealistic textures, oversaturated colors, poorly drawn features, asymmetrical when should be symmetrical, floating disconnected parts, inconsistent lighting, pixelated, artifacts",
+    "tags": [
+      "Humanoid",
+      "Steppe",
+      "Intelligent",
+      "Nonadaptive",
+      "fantasy",
+      "futuristic cityscape",
+      "glowing amulet",
+      "male",
+      "white",
+      "golden",
+      "utility vest"
+    ]
+  },
+  {
+    "id": 1753269960261,
+    "title": "Reptilian Alien (Tropical World, retro-futuristic)",
+    "description": "Portrait of a male Reptilian alien from a Tropical world, depicted in a retro-futuristic style. chameleon variation. Physical features: prominent head crests or frills, piercing reptilian eyes. Hair: alien appendages ethereal hair. Eyes: glowing eyes that reflect deep thought. Facial features include sharp eyes. Wearing sleeveless top with bracelet. Visual details: ancient jewelry with gemstone inlays, iridescent scales with metallic sheen. The alien with wise, calculating eyes and showing environmental struggle, poses heroically in soft background. Holding a glowing amulet. Style elements: Reptilian alien, scaled skin, dinosaur-like or lizard features, prehistoric appearance, earth-toned colors, tribal or military aesthetic, iridescent scales, ceremonial armor.",
+    "negative_prompt": "low quality, blurry, inappropriate content, violence, gore, distorted proportions, unrealistic textures, oversaturated colors, poorly drawn features, asymmetrical when should be symmetrical, floating disconnected parts, inconsistent lighting, pixelated, artifacts",
+    "tags": [
+      "Reptilian",
+      "Tropical",
+      "Intelligent",
+      "Nonadaptive",
+      "retro-futuristic",
+      "underwater city",
+      "glowing amulet",
+      "male",
+      "ethereal",
+      "glowing",
+      "sleeveless top"
+    ]
+  },
+  {
+    "id": 1753269960261,
+    "title": "Reptilian Alien (Alpine World, minimalist)",
+    "description": "Portrait of a female Reptilian alien from a Alpine world, depicted in a minimalist style. chameleon variation. Physical features: piercing reptilian eyes, tough scaled hide covering athletic body. Hair: alien appendages crystalline hair. Eyes: emerald eyes that glow with magic. Facial features include serious brow. Wearing utility vest with necklace. Visual details: ancient jewelry with gemstone inlays, ceremonial armor with tribal motifs. The alien with a commanding, regal presence and showing signs of age and wisdom, gazes into the distance in magical library background. Holding a mechanical prosthetic. Style elements: Reptilian alien, scaled skin, dinosaur-like or lizard features, prehistoric appearance, earth-toned colors, tribal or military aesthetic, iridescent scales, ceremonial armor.",
+    "negative_prompt": "low quality, blurry, inappropriate content, violence, gore, distorted proportions, unrealistic textures, oversaturated colors, poorly drawn features, asymmetrical when should be symmetrical, floating disconnected parts, inconsistent lighting, pixelated, artifacts",
+    "tags": [
+      "Reptilian",
+      "Alpine",
+      "Charismatic",
+      "Slow Breeders",
+      "minimalist",
+      "underwater city",
+      "mechanical prosthetic",
+      "female",
+      "crystalline",
+      "emerald",
+      "utility vest"
+    ]
+  },
+  {
+    "id": 1753269960261,
+    "title": "Plantoid Alien (Tropical World, retro-futuristic)",
+    "description": "Portrait of a female Plantoid alien from a Tropical world, depicted in a retro-futuristic style. vine-covered variation. Physical features: root-like appendages, photosynthetic patches on exposed skin. Hair: leaf-like fronds red hair. Eyes: glowing eyes that radiate confidence. Facial features include weathered face. Wearing sleeveless top with hairpin. Visual details: vine-like accessories wrapping around limbs, bark armor with natural engravings. The alien with robust, athletic physique and with ancient, weathered features, poses heroically in clean background. Holding a ancient relic. Style elements: Plantoid alien, plant-like features, leaves and flowers, bark-textured skin, photosynthetic, green/brown colors, nature harmony aesthetic, glowing petals, vine accessories.",
+    "negative_prompt": "low quality, blurry, inappropriate content, violence, gore, distorted proportions, unrealistic textures, oversaturated colors, poorly drawn features, asymmetrical when should be symmetrical, floating disconnected parts, inconsistent lighting, pixelated, artifacts",
+    "tags": [
+      "Plantoid",
+      "Tropical",
+      "Strong/Very Strong",
+      "Slow Breeders",
+      "retro-futuristic",
+      "orbital space station",
+      "ancient relic",
+      "female",
+      "red",
+      "glowing",
+      "sleeveless top"
+    ]
+  },
+  {
+    "id": 1753269960261,
+    "title": "Arthropoid Alien (Savanna World, biomechanical)",
+    "description": "Portrait of a male Arthropoid alien from a Savanna world, depicted in a biomechanical style. crab-like variation. Physical features: multiple articulated limbs, large compound eyes. Hair: alien appendages bioluminescent hair. Eyes: green eyes that sparkle with mischief. Facial features include freckles. Wearing simple dress with headphones. Visual details: mechanical augmentations on limbs, bioluminescent markings. The alien showing signs of advanced intellect and with ephemeral, translucent qualities, looks over her shoulder in neutral background. Holding a tribal mask. Style elements: Arthropoid alien, insect-like, exoskeleton, multiple limbs, compound eyes, segmented body, chitinous armor, technological aesthetic, bioluminescent markings, mechanical augmentations.",
+    "negative_prompt": "low quality, blurry, inappropriate content, violence, gore, distorted proportions, unrealistic textures, oversaturated colors, poorly drawn features, asymmetrical when should be symmetrical, floating disconnected parts, inconsistent lighting, pixelated, artifacts",
+    "tags": [
+      "Arthropoid",
+      "Savanna",
+      "Intelligent",
+      "Fleeting",
+      "biomechanical",
+      "toxic swamp",
+      "tribal mask",
+      "male",
+      "bioluminescent",
+      "green",
+      "simple dress"
+    ]
+  },
+  {
+    "id": 1753269960261,
+    "title": "Aquatic Alien (Arctic World, baroque)",
+    "description": "Portrait of a male Aquatic alien from a Arctic world, depicted in a baroque style. fish-like variation. Physical features: sleek aquatic body with fins and gills, bioluminescent patterns on smooth skin. Hair: alien appendages ethereal hair. Eyes: golden eyes that gleam with determination. Facial features include theatrical eyes. Wearing plain shirt with necklace. Visual details: iridescent scales with bioluminescent patterns, flowing aquatic garments. The alien with wise, calculating eyes and with a transient appearance, stands confidently in light gradient background. Holding a holographic data slate. Style elements: Aquatic alien, fish-like features, fins and gills, scaled skin, bioluminescent, oceanic aesthetic, graceful swimming posture, iridescent scales, coral jewelry.",
+    "negative_prompt": "low quality, blurry, inappropriate content, violence, gore, distorted proportions, unrealistic textures, oversaturated colors, poorly drawn features, asymmetrical when should be symmetrical, floating disconnected parts, inconsistent lighting, pixelated, artifacts",
+    "tags": [
+      "Aquatic",
+      "Arctic",
+      "Intelligent",
+      "Fleeting",
+      "baroque",
+      "volcanic landscape",
+      "holographic data slate",
+      "male",
+      "ethereal",
+      "golden",
+      "plain shirt"
+    ]
+  },
+  {
+    "id": 1753269960261,
+    "title": "Molluscoid Alien (Arctic World, biomechanical)",
+    "description": "Portrait of a female Molluscoid alien from a Arctic world, depicted in a biomechanical style. slug-like variation. Physical features: large expressive eyes, organic curves and translucent elements. Hair: alien appendages crystalline hair. Eyes: brown eyes that twinkle with humor. Facial features include crooked nose. Wearing tunic with bracelet. Visual details: iridescent skin with shifting colors, flowing robes with organic patterns. The alien with youthful energy and with ephemeral, translucent qualities, stands at attention in desert landscape background. Holding a tribal mask. Style elements: Molluscoid alien, tentacles, soft smooth skin, wet appearance, flowing organic shapes, translucent elements, philosophical demeanor, iridescent skin, organic-patterned robes.",
+    "negative_prompt": "low quality, blurry, inappropriate content, violence, gore, distorted proportions, unrealistic textures, oversaturated colors, poorly drawn features, asymmetrical when should be symmetrical, floating disconnected parts, inconsistent lighting, pixelated, artifacts",
+    "tags": [
+      "Molluscoid",
+      "Arctic",
+      "Rapid Breeders",
+      "Fleeting",
+      "biomechanical",
+      "volcanic landscape",
+      "tribal mask",
+      "female",
+      "crystalline",
+      "brown",
+      "tunic"
+    ]
+  },
+  {
+    "id": 1753269960261,
+    "title": "Avian Alien (Tundra World, surreal)",
+    "description": "Portrait of a female Avian alien from a Tundra world, depicted in a surreal style. parrot-colored variation. Physical features: sharp curved beak and alert eyes, wing-like arm structures. Hair: feathered crest forest green hair. Eyes: glowing eyes that burn with inner fire. Facial features include snarling face. Wearing short-sleeve shirt with cap. Visual details: jewelry with feather motifs, lightweight aerodynamic garments. The alien displaying environmental modifications and with a dignified, elderly bearing, leans casually in soft background. Holding a holographic data slate. Style elements: Avian alien, bird-like features, feathers, beak, wing structures, colorful plumage, aerial grace, predatory or songbird appearance, vibrant feather patterns, aerodynamic clothing.",
+    "negative_prompt": "low quality, blurry, inappropriate content, violence, gore, distorted proportions, unrealistic textures, oversaturated colors, poorly drawn features, asymmetrical when should be symmetrical, floating disconnected parts, inconsistent lighting, pixelated, artifacts",
+    "tags": [
+      "Avian",
+      "Tundra",
+      "Adaptive",
+      "Slow Breeders",
+      "surreal",
+      "floating sky islands",
+      "holographic data slate",
+      "female",
+      "forest green",
+      "glowing",
+      "short-sleeve shirt"
+    ]
+  },
+  {
+    "id": 1753269960261,
+    "title": "Reptilian Alien (Tundra World, realistic)",
+    "description": "Portrait of a female Reptilian alien from a Tundra world, depicted in a realistic style. crocodilian variation. Physical features: tough scaled hide covering athletic body, prominent head crests or frills. Hair: alien appendages ethereal hair. Eyes: amber eyes that shine with wisdom. Facial features include beauty mark. Wearing tunic with glasses. Visual details: ancient jewelry with gemstone inlays, ceremonial armor with tribal motifs. The alien with wise, calculating eyes and showing refined, non-physical focus, adopts a fighting stance in soft background. Holding a mechanical prosthetic. Style elements: Reptilian alien, scaled skin, dinosaur-like or lizard features, prehistoric appearance, earth-toned colors, tribal or military aesthetic, iridescent scales, ceremonial armor.",
+    "negative_prompt": "low quality, blurry, inappropriate content, violence, gore, distorted proportions, unrealistic textures, oversaturated colors, poorly drawn features, asymmetrical when should be symmetrical, floating disconnected parts, inconsistent lighting, pixelated, artifacts",
+    "tags": [
+      "Reptilian",
+      "Tundra",
+      "Intelligent",
+      "Weak",
+      "realistic",
+      "desolate wasteland",
+      "mechanical prosthetic",
+      "female",
+      "ethereal",
+      "amber",
+      "tunic"
+    ]
+  },
+  {
+    "id": 1753269960261,
+    "title": "Aquatic Alien (Ocean World, surreal)",
+    "description": "Portrait of a male Aquatic alien from a Ocean world, depicted in a surreal style. fish-like variation. Physical features: sleek aquatic body with fins and gills, large eyes adapted for underwater vision. Hair: alien appendages ethereal hair. Eyes: hazel eyes that reflect deep thought. Facial features include dimples. Wearing hoodie with headphones. Visual details: coral-inspired jewelry, flowing aquatic garments. The alien with vibrant, healthy appearance and with signs of environmental mismatch, meditates peacefully in ancient temple background. Holding a intricate blade. Style elements: Aquatic alien, fish-like features, fins and gills, scaled skin, bioluminescent, oceanic aesthetic, graceful swimming posture, iridescent scales, coral jewelry.",
+    "negative_prompt": "low quality, blurry, inappropriate content, violence, gore, distorted proportions, unrealistic textures, oversaturated colors, poorly drawn features, asymmetrical when should be symmetrical, floating disconnected parts, inconsistent lighting, pixelated, artifacts",
+    "tags": [
+      "Aquatic",
+      "Ocean",
+      "Rapid Breeders",
+      "Nonadaptive",
+      "surreal",
+      "orbital space station",
+      "intricate blade",
+      "male",
+      "ethereal",
+      "hazel",
+      "hoodie"
+    ]
+  },
+  {
+    "id": 1753269960261,
+    "title": "Humanoid Alien (Desert World, realistic)",
+    "description": "Portrait of a female Humanoid alien from a Desert world, depicted in a realistic style. exotic variants with unique features variation. Physical features: elongated limbs and graceful proportions, diverse skin tones and markings. Hair: shoulder-length pink hair. Eyes: ice blue eyes that radiate confidence. Facial features include serious brow. Wearing sleeveless top with headphones. Visual details: futuristic clothing with glowing accents, diverse skin tones from pale to deep metallic. The alien with a powerful, muscular build and having an alien, uncomfortable appearance, poses heroically in neutral background. Holding a ceremonial staff. Style elements: Humanoid alien, bipedal, human-like features, diverse skin tones, varied clothing styles, futuristic aesthetic, diplomatic appearance, glowing accessories, intricate hairstyles.",
+    "negative_prompt": "low quality, blurry, inappropriate content, violence, gore, distorted proportions, unrealistic textures, oversaturated colors, poorly drawn features, asymmetrical when should be symmetrical, floating disconnected parts, inconsistent lighting, pixelated, artifacts",
+    "tags": [
+      "Humanoid",
+      "Desert",
+      "Strong/Very Strong",
+      "Repugnant",
+      "realistic",
+      "floating sky islands",
+      "ceremonial staff",
+      "female",
+      "pink",
+      "ice blue",
+      "sleeveless top"
+    ]
+  },
+  {
+    "id": 1753269960261,
+    "title": "Necroid Alien (Arctic World, cyberpunk)",
+    "description": "Portrait of a male Necroid alien from a Arctic world, depicted in a cyberpunk style. cybernetically enhanced variation. Physical features: gaunt skeletal or mummified appearance, cybernetic implants glowing faintly. Hair: fluffy midnight blue hair. Eyes: amber eyes that burn with inner fire. Facial features include glowing fingers. Wearing hoodie with headphones. Visual details: tattered gothic robes, cybernetic implants glowing faintly. The alien radiating natural authority and with a slender, delicate build, stands confidently in magical library background. Holding a glowing amulet. Style elements: Necroid alien, undead appearance, skeletal or mummified, gothic aesthetic, dark colors, death-themed, cybernetic enhancements, cult-like, tattered robes, spectral aura.",
+    "negative_prompt": "low quality, blurry, inappropriate content, violence, gore, distorted proportions, unrealistic textures, oversaturated colors, poorly drawn features, asymmetrical when should be symmetrical, floating disconnected parts, inconsistent lighting, pixelated, artifacts",
+    "tags": [
+      "Necroid",
+      "Arctic",
+      "Charismatic",
+      "Weak",
+      "cyberpunk",
+      "alien jungle",
+      "glowing amulet",
+      "male",
+      "midnight blue",
+      "amber",
+      "hoodie"
+    ]
+  },
+  {
+    "id": 1753269960261,
+    "title": "Arthropoid Alien (Savanna World, cyberpunk)",
+    "description": "Portrait of a female Arthropoid alien from a Savanna world, depicted in a cyberpunk style. crab-like variation. Physical features: chitinous exoskeleton covering segmented body, multiple articulated limbs. Hair: alien appendages crystalline hair. Eyes: blue eyes that burn with inner fire. Facial features include battle scars. Wearing hoodie with headphones. Visual details: chitinous armor with intricate engravings, bioluminescent markings. The alien with robust, athletic physique and showing signs of age and wisdom, stands confidently in soft background. Holding a bioluminescent orb. Style elements: Arthropoid alien, insect-like, exoskeleton, multiple limbs, compound eyes, segmented body, chitinous armor, technological aesthetic, bioluminescent markings, mechanical augmentations.",
+    "negative_prompt": "low quality, blurry, inappropriate content, violence, gore, distorted proportions, unrealistic textures, oversaturated colors, poorly drawn features, asymmetrical when should be symmetrical, floating disconnected parts, inconsistent lighting, pixelated, artifacts",
+    "tags": [
+      "Arthropoid",
+      "Savanna",
+      "Strong/Very Strong",
+      "Slow Breeders",
+      "cyberpunk",
+      "floating sky islands",
+      "bioluminescent orb",
+      "female",
+      "crystalline",
+      "blue",
+      "hoodie"
+    ]
+  },
+  {
+    "id": 1753269960261,
+    "title": "Humanoid Alien (Ocean World, realistic)",
+    "description": "Portrait of a female Humanoid alien from a Ocean world, depicted in a realistic style. Vulcan-like variation. Physical features: elongated limbs and graceful proportions, diverse skin tones and markings. Hair: shaggy midnight blue hair. Eyes: violet eyes that reflect deep thought. Facial features include blush. Wearing hoodie with earrings. Visual details: diverse skin tones from pale to deep metallic, ornate diplomatic robes or sleek suits. The alien with versatile features and having an alien, uncomfortable appearance, prepares for battle in magical library background. Holding a tribal mask. Style elements: Humanoid alien, bipedal, human-like features, diverse skin tones, varied clothing styles, futuristic aesthetic, diplomatic appearance, glowing accessories, intricate hairstyles.",
+    "negative_prompt": "low quality, blurry, inappropriate content, violence, gore, distorted proportions, unrealistic textures, oversaturated colors, poorly drawn features, asymmetrical when should be symmetrical, floating disconnected parts, inconsistent lighting, pixelated, artifacts",
+    "tags": [
+      "Humanoid",
+      "Ocean",
+      "Adaptive",
+      "Repugnant",
+      "realistic",
+      "alien jungle",
+      "tribal mask",
+      "female",
+      "midnight blue",
+      "violet",
+      "hoodie"
+    ]
+  },
+  {
+    "id": 1753269960261,
+    "title": "Arthropoid Alien (Alpine World, biomechanical)",
+    "description": "Portrait of a male Arthropoid alien from a Alpine world, depicted in a biomechanical style. mantis variation. Physical features: large compound eyes, multiple articulated limbs. Hair: alien appendages crystalline hair. Eyes: emerald eyes that sparkle with mischief. Facial features include painted face. Wearing tunic with earrings. Visual details: chitinous armor with intricate engravings, bioluminescent markings. The alien with a scholarly demeanor and with a dignified, elderly bearing, looks over her shoulder in tavern interior background. Holding a holographic data slate. Style elements: Arthropoid alien, insect-like, exoskeleton, multiple limbs, compound eyes, segmented body, chitinous armor, technological aesthetic, bioluminescent markings, mechanical augmentations.",
+    "negative_prompt": "low quality, blurry, inappropriate content, violence, gore, distorted proportions, unrealistic textures, oversaturated colors, poorly drawn features, asymmetrical when should be symmetrical, floating disconnected parts, inconsistent lighting, pixelated, artifacts",
+    "tags": [
+      "Arthropoid",
+      "Alpine",
+      "Intelligent",
+      "Slow Breeders",
+      "biomechanical",
+      "orbital space station",
+      "holographic data slate",
+      "male",
+      "crystalline",
+      "emerald",
+      "tunic"
+    ]
+  },
+  {
+    "id": 1753269960261,
+    "title": "Fungoid Alien (Steppe World, baroque)",
+    "description": "Portrait of a female Fungoid alien from a Steppe world, depicted in a baroque style. coral-inspired variation. Physical features: mushroom cap-like head structure, bioluminescent spore patches. Hair: alien appendages ethereal hair. Eyes: blue eyes that hold ancient secrets. Facial features include blush. Wearing simple dress with bandana. Visual details: earthy textures with coral-like accents, bioluminescent spores glowing softly. The alien with a powerful, muscular build and with ephemeral, translucent qualities, strikes a dynamic pose in neutral background. Holding a futuristic headset. Style elements: Fungoid alien, mushroom-like, spore-based, organic growth patterns, caps and gills, earthy colors, parasitic or symbiotic appearance, bioluminescent spores, fungal armor.",
+    "negative_prompt": "low quality, blurry, inappropriate content, violence, gore, distorted proportions, unrealistic textures, oversaturated colors, poorly drawn features, asymmetrical when should be symmetrical, floating disconnected parts, inconsistent lighting, pixelated, artifacts",
+    "tags": [
+      "Fungoid",
+      "Steppe",
+      "Strong/Very Strong",
+      "Fleeting",
+      "baroque",
+      "alien jungle",
+      "futuristic headset",
+      "female",
+      "ethereal",
+      "blue",
+      "simple dress"
+    ]
+  },
+  {
+    "id": 1753269960261,
+    "title": "Toxoid Alien (Arctic World, surreal)",
+    "description": "Portrait of a male Toxoid alien from a Arctic world, depicted in a surreal style. industrial-adapted variation. Physical features: industrial augmentations integrated into body, protective adaptations and mutations. Hair: alien appendages bioluminescent hair. Eyes: violet eyes that twinkle with humor. Facial features include stern gaze. Wearing short-sleeve shirt with cap. Visual details: industrial machinery integrated into body, hazmat-style suits. The alien with a scholarly demeanor and with ancient, weathered features, prepares for battle in light gradient background. Holding a glowing amulet. Style elements: Toxoid alien, toxic appearance, warning colors, industrial aesthetic, hazmat-like features, pollution-adapted, resilient build, neon glow, industrial machinery.",
+    "negative_prompt": "low quality, blurry, inappropriate content, violence, gore, distorted proportions, unrealistic textures, oversaturated colors, poorly drawn features, asymmetrical when should be symmetrical, floating disconnected parts, inconsistent lighting, pixelated, artifacts",
+    "tags": [
+      "Toxoid",
+      "Arctic",
+      "Intelligent",
+      "Slow Breeders",
+      "surreal",
+      "futuristic cityscape",
+      "glowing amulet",
+      "male",
+      "bioluminescent",
+      "violet",
+      "short-sleeve shirt"
+    ]
+  },
+  {
+    "id": 1753269960261,
+    "title": "Fungoid Alien (Tundra World, realistic)",
+    "description": "Portrait of a male Fungoid alien from a Tundra world, depicted in a realistic style. coral-inspired variation. Physical features: bioluminescent spore patches, organic growth patterns across body. Hair: alien appendages crystalline hair. Eyes: green eyes that sparkle with mischief. Facial features include tattooed. Wearing short-sleeve shirt with watch. Visual details: organic armor with fungal growths, bioluminescent spores glowing softly. The alien with vibrant, healthy appearance and with a transient appearance, strikes a dynamic pose in neutral background. Holding a ancient relic. Style elements: Fungoid alien, mushroom-like, spore-based, organic growth patterns, caps and gills, earthy colors, parasitic or symbiotic appearance, bioluminescent spores, fungal armor.",
+    "negative_prompt": "low quality, blurry, inappropriate content, violence, gore, distorted proportions, unrealistic textures, oversaturated colors, poorly drawn features, asymmetrical when should be symmetrical, floating disconnected parts, inconsistent lighting, pixelated, artifacts",
+    "tags": [
+      "Fungoid",
+      "Tundra",
+      "Rapid Breeders",
+      "Fleeting",
+      "realistic",
+      "ancient ruins",
+      "ancient relic",
+      "male",
+      "crystalline",
+      "green",
+      "short-sleeve shirt"
+    ]
+  },
+  {
+    "id": 1753269960261,
+    "title": "Toxoid Alien (Desert World, realistic)",
+    "description": "Portrait of a male Toxoid alien from a Desert world, depicted in a realistic style. industrial-adapted variation. Physical features: protective adaptations and mutations, toxic warning coloration on exposed skin. Hair: alien appendages crystalline hair. Eyes: yellow eyes that reflect deep thought. Facial features include theatrical eyes. Wearing sleeveless top with beanie. Visual details: hazmat-style suits, industrial machinery integrated into body. The alien with an magnetic aura and with rigid, unchanging features, stands at attention in minimal background. Holding a intricate blade. Style elements: Toxoid alien, toxic appearance, warning colors, industrial aesthetic, hazmat-like features, pollution-adapted, resilient build, neon glow, industrial machinery.",
+    "negative_prompt": "low quality, blurry, inappropriate content, violence, gore, distorted proportions, unrealistic textures, oversaturated colors, poorly drawn features, asymmetrical when should be symmetrical, floating disconnected parts, inconsistent lighting, pixelated, artifacts",
+    "tags": [
+      "Toxoid",
+      "Desert",
+      "Charismatic",
+      "Nonadaptive",
+      "realistic",
+      "floating sky islands",
+      "intricate blade",
+      "male",
+      "crystalline",
+      "yellow",
+      "sleeveless top"
+    ]
+  },
+  {
+    "id": 1753269960261,
+    "title": "Plantoid Alien (Steppe World, fantasy)",
+    "description": "Portrait of a male Plantoid alien from a Steppe world, depicted in a fantasy style. tree-like variation. Physical features: bark-textured skin with leaf and vine elements, photosynthetic patches on exposed skin. Hair: leaf-like fronds yellow hair. Eyes: green eyes that burn with inner fire. Facial features include serious brow. Wearing plain shirt with necklace. Visual details: vine-like accessories wrapping around limbs, vibrant petals with glowing veins. The alien with a commanding, regal presence and with a slender, delicate build, prepares for battle in minimal background. Holding a tribal mask. Style elements: Plantoid alien, plant-like features, leaves and flowers, bark-textured skin, photosynthetic, green/brown colors, nature harmony aesthetic, glowing petals, vine accessories.",
+    "negative_prompt": "low quality, blurry, inappropriate content, violence, gore, distorted proportions, unrealistic textures, oversaturated colors, poorly drawn features, asymmetrical when should be symmetrical, floating disconnected parts, inconsistent lighting, pixelated, artifacts",
+    "tags": [
+      "Plantoid",
+      "Steppe",
+      "Charismatic",
+      "Weak",
+      "fantasy",
+      "ancient ruins",
+      "tribal mask",
+      "male",
+      "yellow",
+      "green",
+      "plain shirt"
+    ]
+  },
+  {
+    "id": 1753269960261,
+    "title": "Toxoid Alien (Arctic World, surreal)",
+    "description": "Portrait of a female Toxoid alien from a Arctic world, depicted in a surreal style. chemically-enhanced variation. Physical features: toxic warning coloration on exposed skin, protective adaptations and mutations. Hair: alien appendages ethereal hair. Eyes: hazel eyes that glow with magic. Facial features include serious brow. Wearing tank top with watch. Visual details: hazmat-style suits, neon warning colors with toxic glow. The alien with vibrant, healthy appearance and with disturbing visual elements, looks over her shoulder in ancient temple background. Holding a mechanical prosthetic. Style elements: Toxoid alien, toxic appearance, warning colors, industrial aesthetic, hazmat-like features, pollution-adapted, resilient build, neon glow, industrial machinery.",
+    "negative_prompt": "low quality, blurry, inappropriate content, violence, gore, distorted proportions, unrealistic textures, oversaturated colors, poorly drawn features, asymmetrical when should be symmetrical, floating disconnected parts, inconsistent lighting, pixelated, artifacts",
+    "tags": [
+      "Toxoid",
+      "Arctic",
+      "Rapid Breeders",
+      "Repugnant",
+      "surreal",
+      "alien jungle",
+      "mechanical prosthetic",
+      "female",
+      "ethereal",
+      "hazel",
+      "tank top"
+    ]
+  },
+  {
+    "id": 1753269960261,
+    "title": "Machine Alien (Savanna World, baroque)",
+    "description": "Portrait of a male Machine alien from a Savanna world, depicted in a baroque style. mechanical versions of biological species variation. Physical features: synthetic facial features with digital displays, glowing circuit patterns on body. Hair: synthetic fibers metallic hair. Eyes: ice blue eyes that twinkle with humor. Facial features include wrinkles. Wearing t-shirt with cap. Visual details: polished chrome with glowing circuits, sleek synthetic plating. The alien showing impressive physical strength and showing temporary, fragile nature, stands confidently in desert landscape background. Holding a intricate blade. Style elements: Machine alien, robotic appearance, metallic construction, glowing elements, mechanical joints, synthetic aesthetic, technological design, polished chrome, holographic interfaces.",
+    "negative_prompt": "low quality, blurry, inappropriate content, violence, gore, distorted proportions, unrealistic textures, oversaturated colors, poorly drawn features, asymmetrical when should be symmetrical, floating disconnected parts, inconsistent lighting, pixelated, artifacts",
+    "tags": [
+      "Machine",
+      "Savanna",
+      "Strong/Very Strong",
+      "Fleeting",
+      "baroque",
+      "alien jungle",
+      "intricate blade",
+      "male",
+      "metallic",
+      "ice blue",
+      "t-shirt"
+    ]
+  },
+  {
+    "id": 1753269960261,
+    "title": "Toxoid Alien (Ocean World, fantasy)",
+    "description": "Portrait of a female Toxoid alien from a Ocean world, depicted in a fantasy style. mutated variation. Physical features: toxic warning coloration on exposed skin, industrial augmentations integrated into body. Hair: alien appendages bioluminescent hair. Eyes: violet eyes that show fierce resolve. Facial features include painted face. Wearing utility vest with bracelet. Visual details: industrial machinery integrated into body, neon warning colors with toxic glow. The alien with vibrant, healthy appearance and with ancient, weathered features, prepares for battle in light gradient background. Holding a ornate scepter. Style elements: Toxoid alien, toxic appearance, warning colors, industrial aesthetic, hazmat-like features, pollution-adapted, resilient build, neon glow, industrial machinery.",
+    "negative_prompt": "low quality, blurry, inappropriate content, violence, gore, distorted proportions, unrealistic textures, oversaturated colors, poorly drawn features, asymmetrical when should be symmetrical, floating disconnected parts, inconsistent lighting, pixelated, artifacts",
+    "tags": [
+      "Toxoid",
+      "Ocean",
+      "Rapid Breeders",
+      "Slow Breeders",
+      "fantasy",
+      "alien jungle",
+      "ornate scepter",
+      "female",
+      "bioluminescent",
+      "violet",
+      "utility vest"
+    ]
+  },
+  {
+    "id": 1753269960261,
+    "title": "Fungoid Alien (Tundra World, cyberpunk)",
+    "description": "Portrait of a male Fungoid alien from a Tundra world, depicted in a cyberpunk style. parasitic forms variation. Physical features: bioluminescent spore patches, organic growth patterns across body. Hair: alien appendages crystalline hair. Eyes: glowing eyes that reflect deep thought. Facial features include battle scars. Wearing t-shirt with necklace. Visual details: earthy textures with coral-like accents, organic armor with fungal growths. The alien with vibrant, healthy appearance and with ephemeral, translucent qualities, strikes a dynamic pose in light gradient background. Holding a futuristic headset. Style elements: Fungoid alien, mushroom-like, spore-based, organic growth patterns, caps and gills, earthy colors, parasitic or symbiotic appearance, bioluminescent spores, fungal armor.",
+    "negative_prompt": "low quality, blurry, inappropriate content, violence, gore, distorted proportions, unrealistic textures, oversaturated colors, poorly drawn features, asymmetrical when should be symmetrical, floating disconnected parts, inconsistent lighting, pixelated, artifacts",
+    "tags": [
+      "Fungoid",
+      "Tundra",
+      "Rapid Breeders",
+      "Fleeting",
+      "cyberpunk",
+      "orbital space station",
+      "futuristic headset",
+      "male",
+      "crystalline",
+      "glowing",
+      "t-shirt"
+    ]
+  },
+  {
+    "id": 1753269960261,
+    "title": "Machine Alien (Ocean World, cyberpunk)",
+    "description": "Portrait of a male Machine alien from a Ocean world, depicted in a cyberpunk style. mechanical versions of biological species variation. Physical features: metallic construction with visible joints, glowing circuit patterns on body. Hair: synthetic fibers metallic hair. Eyes: emerald eyes that reflect deep thought. Facial features include blush. Wearing short-sleeve shirt with headphones. Visual details: holographic interfaces, sleek synthetic plating. The alien with an magnetic aura and with ancient, weathered features, stands at attention in tavern interior background. Holding a ceremonial staff. Style elements: Machine alien, robotic appearance, metallic construction, glowing elements, mechanical joints, synthetic aesthetic, technological design, polished chrome, holographic interfaces.",
+    "negative_prompt": "low quality, blurry, inappropriate content, violence, gore, distorted proportions, unrealistic textures, oversaturated colors, poorly drawn features, asymmetrical when should be symmetrical, floating disconnected parts, inconsistent lighting, pixelated, artifacts",
+    "tags": [
+      "Machine",
+      "Ocean",
+      "Charismatic",
+      "Slow Breeders",
+      "cyberpunk",
+      "crystalline cavern",
+      "ceremonial staff",
+      "male",
+      "metallic",
+      "emerald",
+      "short-sleeve shirt"
+    ]
+  },
+  {
+    "id": 1753269960261,
+    "title": "Machine Alien (Ocean World, realistic)",
+    "description": "Portrait of a male Machine alien from a Ocean world, depicted in a realistic style. mechanical versions of biological species variation. Physical features: metallic construction with visible joints, glowing circuit patterns on body. Hair: synthetic fibers metallic hair. Eyes: green eyes that glow with magic. Facial features include thick eyebrows. Wearing plain shirt with cap. Visual details: holographic interfaces, sleek synthetic plating. The alien with robust, athletic physique and with a transient appearance, stands at attention in clean background. Holding a tribal mask. Style elements: Machine alien, robotic appearance, metallic construction, glowing elements, mechanical joints, synthetic aesthetic, technological design, polished chrome, holographic interfaces.",
+    "negative_prompt": "low quality, blurry, inappropriate content, violence, gore, distorted proportions, unrealistic textures, oversaturated colors, poorly drawn features, asymmetrical when should be symmetrical, floating disconnected parts, inconsistent lighting, pixelated, artifacts",
+    "tags": [
+      "Machine",
+      "Ocean",
+      "Strong/Very Strong",
+      "Fleeting",
+      "realistic",
+      "ancient ruins",
+      "tribal mask",
+      "male",
+      "metallic",
+      "green",
+      "plain shirt"
+    ]
+  },
+  {
+    "id": 1753269960261,
+    "title": "Lithoid Alien (Steppe World, retro-futuristic)",
+    "description": "Portrait of a male Lithoid alien from a Steppe world, depicted in a retro-futuristic style. smooth stone variation. Physical features: rocky textured skin with mineral veins, gem-like eyes that glow with inner light. Hair: alien appendages ethereal hair. Eyes: ice blue eyes that reflect deep thought. Facial features include freckles. Wearing simple dress with bandana. Visual details: polished stone with glowing crystal veins, ancient runic carvings. The alien with a powerful, muscular build and with ephemeral, translucent qualities, leans casually in castle courtyard background. Holding a ornate scepter. Style elements: Lithoid alien, rock-like, crystalline features, mineral composition, massive boulder body, gem-like elements, geological aesthetic, glowing crystal veins, runic carvings.",
+    "negative_prompt": "low quality, blurry, inappropriate content, violence, gore, distorted proportions, unrealistic textures, oversaturated colors, poorly drawn features, asymmetrical when should be symmetrical, floating disconnected parts, inconsistent lighting, pixelated, artifacts",
+    "tags": [
+      "Lithoid",
+      "Steppe",
+      "Strong/Very Strong",
+      "Fleeting",
+      "retro-futuristic",
+      "floating sky islands",
+      "ornate scepter",
+      "male",
+      "ethereal",
+      "ice blue",
+      "simple dress"
+    ]
+  },
+  {
+    "id": 1753269960261,
+    "title": "Lithoid Alien (Arctic World, fantasy)",
+    "description": "Portrait of a male Lithoid alien from a Arctic world, depicted in a fantasy style. massive boulder-like bodies variation. Physical features: rocky textured skin with mineral veins, gem-like eyes that glow with inner light. Hair: alien appendages crystalline hair. Eyes: copper eyes that shine with wisdom. Facial features include stern gaze. Wearing hoodie with headphones. Visual details: gem-encrusted adornments, ancient runic carvings. The alien with youthful energy and having an alien, uncomfortable appearance, leans casually in desert landscape background. Holding a futuristic headset. Style elements: Lithoid alien, rock-like, crystalline features, mineral composition, massive boulder body, gem-like elements, geological aesthetic, glowing crystal veins, runic carvings.",
+    "negative_prompt": "low quality, blurry, inappropriate content, violence, gore, distorted proportions, unrealistic textures, oversaturated colors, poorly drawn features, asymmetrical when should be symmetrical, floating disconnected parts, inconsistent lighting, pixelated, artifacts",
+    "tags": [
+      "Lithoid",
+      "Arctic",
+      "Rapid Breeders",
+      "Repugnant",
+      "fantasy",
+      "crystalline cavern",
+      "futuristic headset",
+      "male",
+      "crystalline",
+      "copper",
+      "hoodie"
+    ]
+  },
+  {
+    "id": 1753269960261,
+    "title": "Machine Alien (Alpine World, baroque)",
+    "description": "Portrait of a female Machine alien from a Alpine world, depicted in a baroque style. mechanical versions of biological species variation. Physical features: metallic construction with visible joints, glowing circuit patterns on body. Hair: synthetic fibers metallic hair. Eyes: violet eyes that show fierce resolve. Facial features include smiling face. Wearing simple dress with earrings. Visual details: polished chrome with glowing circuits, sleek synthetic plating. The alien showing impressive physical strength and showing environmental struggle, strikes a dynamic pose in tavern interior background. Holding a glowing amulet. Style elements: Machine alien, robotic appearance, metallic construction, glowing elements, mechanical joints, synthetic aesthetic, technological design, polished chrome, holographic interfaces.",
+    "negative_prompt": "low quality, blurry, inappropriate content, violence, gore, distorted proportions, unrealistic textures, oversaturated colors, poorly drawn features, asymmetrical when should be symmetrical, floating disconnected parts, inconsistent lighting, pixelated, artifacts",
+    "tags": [
+      "Machine",
+      "Alpine",
+      "Strong/Very Strong",
+      "Nonadaptive",
+      "baroque",
+      "volcanic landscape",
+      "glowing amulet",
+      "female",
+      "metallic",
+      "violet",
+      "simple dress"
+    ]
+  },
+  {
+    "id": 1753269960261,
+    "title": "Mammalian Alien (Tropical World, baroque)",
+    "description": "Portrait of a male Mammalian alien from a Tropical world, depicted in a baroque style. ungulates variation. Physical features: expressive animal-like eyes, prominent snouts and alert ears. Hair: shoulder-length white hair. Eyes: amber eyes that sparkle with mischief. Facial features include painted face. Wearing t-shirt with glasses. Visual details: lush fur in vibrant or muted tones, tribal or high-tech armor. The alien with a powerful, muscular build and with ancient, weathered features, poses heroically in ancient temple background. Holding a glowing amulet. Style elements: Mammalian alien, fur-covered, animal-like features, clothing/garments, varied body sizes from slender to massive, distinct facial features with snouts and ears, tribal markings, high-tech armor.",
+    "negative_prompt": "low quality, blurry, inappropriate content, violence, gore, distorted proportions, unrealistic textures, oversaturated colors, poorly drawn features, asymmetrical when should be symmetrical, floating disconnected parts, inconsistent lighting, pixelated, artifacts",
+    "tags": [
+      "Mammalian",
+      "Tropical",
+      "Strong/Very Strong",
+      "Slow Breeders",
+      "baroque",
+      "floating sky islands",
+      "glowing amulet",
+      "male",
+      "white",
+      "amber",
+      "t-shirt"
+    ]
+  },
+  {
+    "id": 1753269960261,
+    "title": "Reptilian Alien (Ocean World, biomechanical)",
+    "description": "Portrait of a male Reptilian alien from a Ocean world, depicted in a biomechanical style. gecko variation. Physical features: prominent head crests or frills, tough scaled hide covering athletic body. Hair: alien appendages crystalline hair. Eyes: green eyes that sparkle with mischief. Facial features include mole. Wearing tank top with glasses. Visual details: ceremonial armor with tribal motifs, iridescent scales with metallic sheen. The alien with vibrant, healthy appearance and with a dignified, elderly bearing, poses heroically in mountain peak background. Holding a futuristic headset. Style elements: Reptilian alien, scaled skin, dinosaur-like or lizard features, prehistoric appearance, earth-toned colors, tribal or military aesthetic, iridescent scales, ceremonial armor.",
+    "negative_prompt": "low quality, blurry, inappropriate content, violence, gore, distorted proportions, unrealistic textures, oversaturated colors, poorly drawn features, asymmetrical when should be symmetrical, floating disconnected parts, inconsistent lighting, pixelated, artifacts",
+    "tags": [
+      "Reptilian",
+      "Ocean",
+      "Rapid Breeders",
+      "Slow Breeders",
+      "biomechanical",
+      "underwater city",
+      "futuristic headset",
+      "male",
+      "crystalline",
+      "green",
+      "tank top"
+    ]
+  },
+  {
+    "id": 1753269960261,
+    "title": "Plantoid Alien (Alpine World, cyberpunk)",
+    "description": "Portrait of a male Plantoid alien from a Alpine world, depicted in a cyberpunk style. flower-inspired variation. Physical features: bark-textured skin with leaf and vine elements, root-like appendages. Hair: leaf-like fronds orange hair. Eyes: yellow eyes that show fierce resolve. Facial features include jeweled forehead. Wearing t-shirt with headphones. Visual details: vine-like accessories wrapping around limbs, bark armor with natural engravings. The alien with robust, athletic physique and with ephemeral, translucent qualities, poses heroically in mystical forest background. Holding a mechanical prosthetic. Style elements: Plantoid alien, plant-like features, leaves and flowers, bark-textured skin, photosynthetic, green/brown colors, nature harmony aesthetic, glowing petals, vine accessories.",
+    "negative_prompt": "low quality, blurry, inappropriate content, violence, gore, distorted proportions, unrealistic textures, oversaturated colors, poorly drawn features, asymmetrical when should be symmetrical, floating disconnected parts, inconsistent lighting, pixelated, artifacts",
+    "tags": [
+      "Plantoid",
+      "Alpine",
+      "Strong/Very Strong",
+      "Fleeting",
+      "cyberpunk",
+      "floating sky islands",
+      "mechanical prosthetic",
+      "male",
+      "orange",
+      "yellow",
+      "t-shirt"
+    ]
+  },
+  {
+    "id": 1753269960261,
+    "title": "Arthropoid Alien (Steppe World, realistic)",
+    "description": "Portrait of a female Arthropoid alien from a Steppe world, depicted in a realistic style. butterfly variation. Physical features: chitinous exoskeleton covering segmented body, multiple articulated limbs. Hair: alien appendages crystalline hair. Eyes: glowing eyes that show fierce resolve. Facial features include thoughtful eyes. Wearing simple dress with hairpin. Visual details: bioluminescent markings, mechanical augmentations on limbs. The alien with youthful energy and with a slender, delicate build, stands at attention in light gradient background. Holding a intricate blade. Style elements: Arthropoid alien, insect-like, exoskeleton, multiple limbs, compound eyes, segmented body, chitinous armor, technological aesthetic, bioluminescent markings, mechanical augmentations.",
+    "negative_prompt": "low quality, blurry, inappropriate content, violence, gore, distorted proportions, unrealistic textures, oversaturated colors, poorly drawn features, asymmetrical when should be symmetrical, floating disconnected parts, inconsistent lighting, pixelated, artifacts",
+    "tags": [
+      "Arthropoid",
+      "Steppe",
+      "Rapid Breeders",
+      "Weak",
+      "realistic",
+      "orbital space station",
+      "intricate blade",
+      "female",
+      "crystalline",
+      "glowing",
+      "simple dress"
+    ]
+  },
+  {
+    "id": 1753269960261,
+    "title": "Mammalian Alien (Continental World, retro-futuristic)",
+    "description": "Portrait of a male Mammalian alien from a Continental world, depicted in a retro-futuristic style. canines variation. Physical features: prominent snouts and alert ears, expressive animal-like eyes. Hair: wavy midnight blue hair. Eyes: golden eyes that hold ancient secrets. Facial features include painted face. Wearing tank top with headphones. Visual details: tribal or high-tech armor, flowing capes or utility harnesses. The alien with a powerful, muscular build and showing temporary, fragile nature, stands confidently in clean background. Holding a ornate scepter. Style elements: Mammalian alien, fur-covered, animal-like features, clothing/garments, varied body sizes from slender to massive, distinct facial features with snouts and ears, tribal markings, high-tech armor.",
+    "negative_prompt": "low quality, blurry, inappropriate content, violence, gore, distorted proportions, unrealistic textures, oversaturated colors, poorly drawn features, asymmetrical when should be symmetrical, floating disconnected parts, inconsistent lighting, pixelated, artifacts",
+    "tags": [
+      "Mammalian",
+      "Continental",
+      "Strong/Very Strong",
+      "Fleeting",
+      "retro-futuristic",
+      "desolate wasteland",
+      "ornate scepter",
+      "male",
+      "midnight blue",
+      "golden",
+      "tank top"
+    ]
+  },
+  {
+    "id": 1753269960261,
+    "title": "Toxoid Alien (Tundra World, minimalist)",
+    "description": "Portrait of a female Toxoid alien from a Tundra world, depicted in a minimalist style. mutated variation. Physical features: protective adaptations and mutations, toxic warning coloration on exposed skin. Hair: alien appendages iridescent hair. Eyes: glowing eyes that show fierce resolve. Facial features include tribal markings. Wearing tunic with headphones. Visual details: hazmat-style suits, neon warning colors with toxic glow. The alien with a commanding, regal presence and with a transient appearance, looks over her shoulder in ancient temple background. Holding a ceremonial staff. Style elements: Toxoid alien, toxic appearance, warning colors, industrial aesthetic, hazmat-like features, pollution-adapted, resilient build, neon glow, industrial machinery.",
+    "negative_prompt": "low quality, blurry, inappropriate content, violence, gore, distorted proportions, unrealistic textures, oversaturated colors, poorly drawn features, asymmetrical when should be symmetrical, floating disconnected parts, inconsistent lighting, pixelated, artifacts",
+    "tags": [
+      "Toxoid",
+      "Tundra",
+      "Charismatic",
+      "Fleeting",
+      "minimalist",
+      "futuristic cityscape",
+      "ceremonial staff",
+      "female",
+      "iridescent",
+      "glowing",
+      "tunic"
+    ]
+  },
+  {
+    "id": 1753269960261,
+    "title": "Lithoid Alien (Arctic World, realistic)",
+    "description": "Portrait of a female Lithoid alien from a Arctic world, depicted in a realistic style. massive boulder-like bodies variation. Physical features: rocky textured skin with mineral veins, gem-like eyes that glow with inner light. Hair: alien appendages bioluminescent hair. Eyes: violet eyes that burn with inner fire. Facial features include jeweled forehead. Wearing sleeveless top with watch. Visual details: gem-encrusted adornments, ancient runic carvings. The alien showing signs of vitality and showing environmental struggle, stands confidently in tavern interior background. Holding a mechanical prosthetic. Style elements: Lithoid alien, rock-like, crystalline features, mineral composition, massive boulder body, gem-like elements, geological aesthetic, glowing crystal veins, runic carvings.",
+    "negative_prompt": "low quality, blurry, inappropriate content, violence, gore, distorted proportions, unrealistic textures, oversaturated colors, poorly drawn features, asymmetrical when should be symmetrical, floating disconnected parts, inconsistent lighting, pixelated, artifacts",
+    "tags": [
+      "Lithoid",
+      "Arctic",
+      "Rapid Breeders",
+      "Nonadaptive",
+      "realistic",
+      "crystalline cavern",
+      "mechanical prosthetic",
+      "female",
+      "bioluminescent",
+      "violet",
+      "sleeveless top"
+    ]
+  },
+  {
+    "id": 1753269960261,
+    "title": "Fungoid Alien (Savanna World, retro-futuristic)",
+    "description": "Portrait of a male Fungoid alien from a Savanna world, depicted in a retro-futuristic style. coral-inspired variation. Physical features: bioluminescent spore patches, organic growth patterns across body. Hair: alien appendages crystalline hair. Eyes: amber eyes that radiate confidence. Facial features include runes on skin. Wearing sleeveless top with bracelet. Visual details: bioluminescent spores glowing softly, organic armor with fungal growths. The alien with vibrant, healthy appearance and with signs of environmental mismatch, stands at attention in ancient temple background. Holding a holographic data slate. Style elements: Fungoid alien, mushroom-like, spore-based, organic growth patterns, caps and gills, earthy colors, parasitic or symbiotic appearance, bioluminescent spores, fungal armor.",
+    "negative_prompt": "low quality, blurry, inappropriate content, violence, gore, distorted proportions, unrealistic textures, oversaturated colors, poorly drawn features, asymmetrical when should be symmetrical, floating disconnected parts, inconsistent lighting, pixelated, artifacts",
+    "tags": [
+      "Fungoid",
+      "Savanna",
+      "Rapid Breeders",
+      "Nonadaptive",
+      "retro-futuristic",
+      "futuristic cityscape",
+      "holographic data slate",
+      "male",
+      "crystalline",
+      "amber",
+      "sleeveless top"
+    ]
+  },
+  {
+    "id": 1753269960261,
+    "title": "Arthropoid Alien (Tropical World, minimalist)",
+    "description": "Portrait of a male Arthropoid alien from a Tropical world, depicted in a minimalist style. crab-like variation. Physical features: large compound eyes, multiple articulated limbs. Hair: alien appendages ethereal hair. Eyes: green eyes that show fierce resolve. Facial features include long eyelashes. Wearing tunic with cap. Visual details: bioluminescent markings, chitinous armor with intricate engravings. The alien with vibrant, healthy appearance and showing refined, non-physical focus, adopts a fighting stance in clean background. Holding a glowing amulet. Style elements: Arthropoid alien, insect-like, exoskeleton, multiple limbs, compound eyes, segmented body, chitinous armor, technological aesthetic, bioluminescent markings, mechanical augmentations.",
+    "negative_prompt": "low quality, blurry, inappropriate content, violence, gore, distorted proportions, unrealistic textures, oversaturated colors, poorly drawn features, asymmetrical when should be symmetrical, floating disconnected parts, inconsistent lighting, pixelated, artifacts",
+    "tags": [
+      "Arthropoid",
+      "Tropical",
+      "Rapid Breeders",
+      "Weak",
+      "minimalist",
+      "desolate wasteland",
+      "glowing amulet",
+      "male",
+      "ethereal",
+      "green",
+      "tunic"
+    ]
+  },
+  {
+    "id": 1753269960261,
+    "title": "Avian Alien (Tundra World, surreal)",
+    "description": "Portrait of a male Avian alien from a Tundra world, depicted in a surreal style. penguin-like variation. Physical features: vibrant feathered plumage covering body, sharp curved beak and alert eyes. Hair: feathered crest platinum hair. Eyes: green eyes that twinkle with humor. Facial features include freckles. Wearing t-shirt with bracelet. Visual details: jewelry with feather motifs, lightweight aerodynamic garments. The alien with wise, calculating eyes and with rigid, unchanging features, poses heroically in mystical forest background. Holding a ornate scepter. Style elements: Avian alien, bird-like features, feathers, beak, wing structures, colorful plumage, aerial grace, predatory or songbird appearance, vibrant feather patterns, aerodynamic clothing.",
+    "negative_prompt": "low quality, blurry, inappropriate content, violence, gore, distorted proportions, unrealistic textures, oversaturated colors, poorly drawn features, asymmetrical when should be symmetrical, floating disconnected parts, inconsistent lighting, pixelated, artifacts",
+    "tags": [
+      "Avian",
+      "Tundra",
+      "Intelligent",
+      "Nonadaptive",
+      "surreal",
+      "underwater city",
+      "ornate scepter",
+      "male",
+      "platinum",
+      "green",
+      "t-shirt"
+    ]
+  },
+  {
+    "id": 1753269960261,
+    "title": "Avian Alien (Continental World, fantasy)",
+    "description": "Portrait of a male Avian alien from a Continental world, depicted in a fantasy style. eagle-inspired variation. Physical features: vibrant feathered plumage covering body, wing-like arm structures. Hair: feathered crest copper hair. Eyes: green eyes that shine with wisdom. Facial features include battle scars. Wearing t-shirt with beanie. Visual details: vibrant feathers with gradient patterns, lightweight aerodynamic garments. The alien displaying environmental modifications and with ancient, weathered features, adopts a fighting stance in mountain peak background. Holding a glowing amulet. Style elements: Avian alien, bird-like features, feathers, beak, wing structures, colorful plumage, aerial grace, predatory or songbird appearance, vibrant feather patterns, aerodynamic clothing.",
+    "negative_prompt": "low quality, blurry, inappropriate content, violence, gore, distorted proportions, unrealistic textures, oversaturated colors, poorly drawn features, asymmetrical when should be symmetrical, floating disconnected parts, inconsistent lighting, pixelated, artifacts",
+    "tags": [
+      "Avian",
+      "Continental",
+      "Adaptive",
+      "Slow Breeders",
+      "fantasy",
+      "volcanic landscape",
+      "glowing amulet",
+      "male",
+      "copper",
+      "green",
+      "t-shirt"
+    ]
+  },
+  {
+    "id": 1753269960261,
+    "title": "Necroid Alien (Steppe World, biomechanical)",
+    "description": "Portrait of a male Necroid alien from a Steppe world, depicted in a biomechanical style. spectral variation. Physical features: spectral aura surrounding body, cybernetic implants glowing faintly. Hair: wavy platinum hair. Eyes: emerald eyes that twinkle with humor. Facial features include glowing mark. Wearing short-sleeve shirt with beanie. Visual details: tattered gothic robes, cybernetic implants glowing faintly. The alien radiating natural authority and with disturbing visual elements, poses heroically in neutral background. Holding a ornate scepter. Style elements: Necroid alien, undead appearance, skeletal or mummified, gothic aesthetic, dark colors, death-themed, cybernetic enhancements, cult-like, tattered robes, spectral aura.",
+    "negative_prompt": "low quality, blurry, inappropriate content, violence, gore, distorted proportions, unrealistic textures, oversaturated colors, poorly drawn features, asymmetrical when should be symmetrical, floating disconnected parts, inconsistent lighting, pixelated, artifacts",
+    "tags": [
+      "Necroid",
+      "Steppe",
+      "Charismatic",
+      "Repugnant",
+      "biomechanical",
+      "volcanic landscape",
+      "ornate scepter",
+      "male",
+      "platinum",
+      "emerald",
+      "short-sleeve shirt"
+    ]
+  },
+  {
+    "id": 1753269960261,
+    "title": "Avian Alien (Savanna World, minimalist)",
+    "description": "Portrait of a male Avian alien from a Savanna world, depicted in a minimalist style. large predatory bird variation. Physical features: wing-like arm structures, sharp curved beak and alert eyes. Hair: feathered crest brown hair. Eyes: sapphire eyes that burn with inner fire. Facial features include dimples. Wearing utility vest with hairpin. Visual details: vibrant feathers with gradient patterns, jewelry with feather motifs. The alien with a commanding, regal presence and with unusual, unsettling features, leans casually in tavern interior background. Holding a ornate scepter. Style elements: Avian alien, bird-like features, feathers, beak, wing structures, colorful plumage, aerial grace, predatory or songbird appearance, vibrant feather patterns, aerodynamic clothing.",
+    "negative_prompt": "low quality, blurry, inappropriate content, violence, gore, distorted proportions, unrealistic textures, oversaturated colors, poorly drawn features, asymmetrical when should be symmetrical, floating disconnected parts, inconsistent lighting, pixelated, artifacts",
+    "tags": [
+      "Avian",
+      "Savanna",
+      "Charismatic",
+      "Repugnant",
+      "minimalist",
+      "ancient ruins",
+      "ornate scepter",
+      "male",
+      "brown",
+      "sapphire",
+      "utility vest"
+    ]
+  },
+  {
+    "id": 1753269960261,
+    "title": "Reptilian Alien (Tropical World, surreal)",
+    "description": "Portrait of a male Reptilian alien from a Tropical world, depicted in a surreal style. gecko variation. Physical features: piercing reptilian eyes, prominent head crests or frills. Hair: alien appendages crystalline hair. Eyes: crimson eyes that glow with magic. Facial features include wrinkles. Wearing tank top with necklace. Visual details: iridescent scales with metallic sheen, ceremonial armor with tribal motifs. The alien showing signs of vitality and with an intellectual rather than physical presence, adopts a fighting stance in light gradient background. Holding a ornate scepter. Style elements: Reptilian alien, scaled skin, dinosaur-like or lizard features, prehistoric appearance, earth-toned colors, tribal or military aesthetic, iridescent scales, ceremonial armor.",
+    "negative_prompt": "low quality, blurry, inappropriate content, violence, gore, distorted proportions, unrealistic textures, oversaturated colors, poorly drawn features, asymmetrical when should be symmetrical, floating disconnected parts, inconsistent lighting, pixelated, artifacts",
+    "tags": [
+      "Reptilian",
+      "Tropical",
+      "Rapid Breeders",
+      "Weak",
+      "surreal",
+      "desolate wasteland",
+      "ornate scepter",
+      "male",
+      "crystalline",
+      "crimson",
+      "tank top"
+    ]
+  },
+  {
+    "id": 1753269960261,
+    "title": "Plantoid Alien (Continental World, realistic)",
+    "description": "Portrait of a female Plantoid alien from a Continental world, depicted in a realistic style. flower-inspired variation. Physical features: bark-textured skin with leaf and vine elements, photosynthetic patches on exposed skin. Hair: leaf-like fronds orange hair. Eyes: crimson eyes that burn with inner fire. Facial features include peaceful expression. Wearing tank top with hairpin. Visual details: vine-like accessories wrapping around limbs, vibrant petals with glowing veins. The alien showing signs of vitality and with signs of environmental mismatch, gazes into the distance in castle courtyard background. Holding a glowing amulet. Style elements: Plantoid alien, plant-like features, leaves and flowers, bark-textured skin, photosynthetic, green/brown colors, nature harmony aesthetic, glowing petals, vine accessories.",
+    "negative_prompt": "low quality, blurry, inappropriate content, violence, gore, distorted proportions, unrealistic textures, oversaturated colors, poorly drawn features, asymmetrical when should be symmetrical, floating disconnected parts, inconsistent lighting, pixelated, artifacts",
+    "tags": [
+      "Plantoid",
+      "Continental",
+      "Rapid Breeders",
+      "Nonadaptive",
+      "realistic",
+      "floating sky islands",
+      "glowing amulet",
+      "female",
+      "orange",
+      "crimson",
+      "tank top"
+    ]
+  },
+  {
+    "id": 1753269960261,
+    "title": "Toxoid Alien (Tundra World, biomechanical)",
+    "description": "Portrait of a male Toxoid alien from a Tundra world, depicted in a biomechanical style. industrial-adapted variation. Physical features: toxic warning coloration on exposed skin, protective adaptations and mutations. Hair: alien appendages ethereal hair. Eyes: copper eyes that show fierce resolve. Facial features include runes on skin. Wearing tank top with necklace. Visual details: neon warning colors with toxic glow, hazmat-style suits. The alien with vibrant, healthy appearance and with disturbing visual elements, stands confidently in castle courtyard background. Holding a futuristic headset. Style elements: Toxoid alien, toxic appearance, warning colors, industrial aesthetic, hazmat-like features, pollution-adapted, resilient build, neon glow, industrial machinery.",
+    "negative_prompt": "low quality, blurry, inappropriate content, violence, gore, distorted proportions, unrealistic textures, oversaturated colors, poorly drawn features, asymmetrical when should be symmetrical, floating disconnected parts, inconsistent lighting, pixelated, artifacts",
+    "tags": [
+      "Toxoid",
+      "Tundra",
+      "Rapid Breeders",
+      "Repugnant",
+      "biomechanical",
+      "alien jungle",
+      "futuristic headset",
+      "male",
+      "ethereal",
+      "copper",
+      "tank top"
+    ]
+  },
+  {
+    "id": 1753269960261,
+    "title": "Plantoid Alien (Savanna World, retro-futuristic)",
+    "description": "Portrait of a female Plantoid alien from a Savanna world, depicted in a retro-futuristic style. vine-covered variation. Physical features: root-like appendages, photosynthetic patches on exposed skin. Hair: leaf-like fronds orange hair. Eyes: golden eyes that sparkle with mischief. Facial features include jeweled forehead. Wearing plain shirt with bandana. Visual details: vibrant petals with glowing veins, bark armor with natural engravings. The alien with youthful energy and with unusual, unsettling features, strikes a dynamic pose in minimal background. Holding a holographic data slate. Style elements: Plantoid alien, plant-like features, leaves and flowers, bark-textured skin, photosynthetic, green/brown colors, nature harmony aesthetic, glowing petals, vine accessories.",
+    "negative_prompt": "low quality, blurry, inappropriate content, violence, gore, distorted proportions, unrealistic textures, oversaturated colors, poorly drawn features, asymmetrical when should be symmetrical, floating disconnected parts, inconsistent lighting, pixelated, artifacts",
+    "tags": [
+      "Plantoid",
+      "Savanna",
+      "Rapid Breeders",
+      "Repugnant",
+      "retro-futuristic",
+      "orbital space station",
+      "holographic data slate",
+      "female",
+      "orange",
+      "golden",
+      "plain shirt"
+    ]
+  },
+  {
+    "id": 1753269960261,
+    "title": "Molluscoid Alien (Arctic World, fantasy)",
+    "description": "Portrait of a male Molluscoid alien from a Arctic world, depicted in a fantasy style. nautilus variation. Physical features: smooth wet-looking skin with flowing tentacles, organic curves and translucent elements. Hair: alien appendages bioluminescent hair. Eyes: silver eyes that shine with wisdom. Facial features include piercing. Wearing hoodie with necklace. Visual details: iridescent skin with shifting colors, flowing robes with organic patterns. The alien with a powerful, muscular build and with ancient, weathered features, looks over her shoulder in soft background. Holding a futuristic headset. Style elements: Molluscoid alien, tentacles, soft smooth skin, wet appearance, flowing organic shapes, translucent elements, philosophical demeanor, iridescent skin, organic-patterned robes.",
+    "negative_prompt": "low quality, blurry, inappropriate content, violence, gore, distorted proportions, unrealistic textures, oversaturated colors, poorly drawn features, asymmetrical when should be symmetrical, floating disconnected parts, inconsistent lighting, pixelated, artifacts",
+    "tags": [
+      "Molluscoid",
+      "Arctic",
+      "Strong/Very Strong",
+      "Slow Breeders",
+      "fantasy",
+      "underwater city",
+      "futuristic headset",
+      "male",
+      "bioluminescent",
+      "silver",
+      "hoodie"
+    ]
+  },
+  {
+    "id": 1753269960261,
+    "title": "Fungoid Alien (Desert World, realistic)",
+    "description": "Portrait of a female Fungoid alien from a Desert world, depicted in a realistic style. puffball-like variation. Physical features: bioluminescent spore patches, organic growth patterns across body. Hair: alien appendages ethereal hair. Eyes: crimson eyes that burn with inner fire. Facial features include stern gaze. Wearing t-shirt with bracelet. Visual details: bioluminescent spores glowing softly, organic armor with fungal growths. The alien radiating natural authority and having an alien, uncomfortable appearance, prepares for battle in soft background. Holding a intricate blade. Style elements: Fungoid alien, mushroom-like, spore-based, organic growth patterns, caps and gills, earthy colors, parasitic or symbiotic appearance, bioluminescent spores, fungal armor.",
+    "negative_prompt": "low quality, blurry, inappropriate content, violence, gore, distorted proportions, unrealistic textures, oversaturated colors, poorly drawn features, asymmetrical when should be symmetrical, floating disconnected parts, inconsistent lighting, pixelated, artifacts",
+    "tags": [
+      "Fungoid",
+      "Desert",
+      "Charismatic",
+      "Repugnant",
+      "realistic",
+      "volcanic landscape",
+      "intricate blade",
+      "female",
+      "ethereal",
+      "crimson",
+      "t-shirt"
+    ]
+  }
+]
