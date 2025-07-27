@@ -1,4 +1,3 @@
-import type { GetState, SetState } from 'zustand';
 import type { GameState, DungeonFloor, Room, LogEntry } from '../types/game';
 import { fetchGameConstantsData } from '../api/gameApi';
 import { getRoomCost } from '../api/gameApi';
@@ -15,12 +14,15 @@ interface GameStoreActions {
 // Combine GameState and GameStoreActions for the GetState/SetState types
 type FullGameStore = GameState & GameStoreActions;
 
-export const addRoom = async (set: SetState<FullGameStore>, get: GetState<FullGameStore>, targetFloorNumber?: number) => {
+export const addRoom = async (set: (partial: Partial<FullGameStore>) => void, get: () => FullGameStore, targetFloorNumber?: number) => {
   const state = get();
   
   // Cannot add rooms while adventurers are in dungeon
   if (state.adventurerParties.length > 0) {
-    get().addLog({ message: "Cannot add rooms while adventurers are in the dungeon!", type: "system" });
+    get().addLog({ 
+      message: "Cannot add rooms while adventurers are in the dungeon!", 
+      type: "system"
+    });
     return false;
   }
   
@@ -36,6 +38,13 @@ export const addRoom = async (set: SetState<FullGameStore>, get: GetState<FullGa
   }        // Check if current floor is full (entrance + 5 regular/boss rooms, excluding core room)
   const nonCoreRooms = targetFloor.rooms.filter(room => room.type !== 'core');
   const gameConstants = await fetchGameConstantsData();
+  if (!gameConstants) {
+    get().addLog({ 
+      message: "Failed to load game constants!", 
+      type: "system"
+    });
+    return false;
+  }
   if (nonCoreRooms.length >= gameConstants.MAX_ROOMS_PER_FLOOR + 1) {
     // Creating new floor - calculate total rooms across all floors
     const totalRoomCount = state.floors.reduce((total, floor) => {
@@ -103,14 +112,15 @@ export const addRoom = async (set: SetState<FullGameStore>, get: GetState<FullGa
 
     get().updateDeepCoreBonus();          get().addLog({ 
       message: `New floor ${newFloor.number} created! Room added at position 1 for ${roomCost} mana.`, 
-      type: "system" 
+      type: "system"
     });
     
     // Debug: Log current core room status
     const coreRooms = updatedFloors.flatMap(f => f.rooms.filter(r => r.type === 'core'));
     get().addLog({ 
       message: `Debug: ${coreRooms.length} core room(s) exist. On floors: ${coreRooms.map(r => r.floorNumber).join(', ')}`, 
-      type: "system" 
+      type: "system",
+      timestamp: Date.now()
     });
     
     return true;        } else {
@@ -172,14 +182,15 @@ export const addRoom = async (set: SetState<FullGameStore>, get: GetState<FullGa
     set({ floors: updatedFloors });
       get().addLog({ 
       message: `${roomType === 'boss' ? 'Boss room' : 'Normal room'} added to floor ${targetFloor.number} at position ${nextPosition} for ${roomCost} mana.`, 
-      type: "system" 
+      type: "system"
     });
     
     // Debug: Log current core room status
     const coreRooms = updatedFloors.flatMap(f => f.rooms.filter(r => r.type === 'core'));
     get().addLog({ 
       message: `Debug: ${coreRooms.length} core room(s) exist. On floors: ${coreRooms.map(r => r.floorNumber).join(', ')}`, 
-      type: "system" 
+      type: "system",
+      timestamp: Date.now()
     });
     
     return true;

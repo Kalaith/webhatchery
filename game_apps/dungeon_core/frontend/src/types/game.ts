@@ -3,7 +3,7 @@
 export interface LogEntry {
   message: string;
   type: 'system' | 'combat' | 'adventure' | 'building';
-  timestamp: number;
+  timestamp?: number; // Optional, will be auto-added by addLog if missing
 }
 
 export interface GameState {

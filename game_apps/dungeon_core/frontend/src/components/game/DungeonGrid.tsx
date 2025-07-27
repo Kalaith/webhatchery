@@ -81,7 +81,7 @@ export const DungeonGrid: React.FC<DungeonGridProps> = ({ onRoomClick }) => {
                           {room.monsters.slice(0, 2).map((monster) => (
                             <span 
                               key={monster.id} 
-                              style={{ color: monsterTypes[monster.type]?.color || "gray" }}
+                              style={{ color: "gray" }}
                               className={monster.alive ? "" : "opacity-50"}
                             >
                               🐲
@@ -99,7 +99,7 @@ export const DungeonGrid: React.FC<DungeonGridProps> = ({ onRoomClick }) => {
                           {adventurersHere.slice(0, 2).map((adventurer) => (
                             <span 
                               key={adventurer.id} 
-                              style={{ color: adventurerClasses[adventurer.classIdx].color }}
+                              style={{ color: "blue" }}
                             >
                               🧑‍🎤
                             </span>

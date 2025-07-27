@@ -1,4 +1,3 @@
-import type { GetState, SetState } from 'zustand';
 import type { GameState } from '../types/game';
 
 // Define a type for the full GameStore actions that will be passed to these functions
@@ -10,7 +9,7 @@ interface GameStoreActions {
 // Combine GameState and GameStoreActions for the GetState/SetState types
 type FullGameStore = GameState & GameStoreActions;
 
-export const spendMana = (set: SetState<FullGameStore>, get: GetState<FullGameStore>, amount: number) => {
+export const spendMana = (set: (partial: Partial<FullGameStore>) => void, get: () => FullGameStore, amount: number) => {
   const state = get();
   if (state.mana >= amount) {
     set({ mana: state.mana - amount });
@@ -19,7 +18,7 @@ export const spendMana = (set: SetState<FullGameStore>, get: GetState<FullGameSt
   return false;
 };
 
-export const spendGold = (set: SetState<FullGameStore>, get: GetState<FullGameStore>, amount: number) => {
+export const spendGold = (set: (partial: Partial<FullGameStore>) => void, get: () => FullGameStore, amount: number) => {
   const state = get();
   if (state.gold >= amount) {
     set({ gold: state.gold - amount });
@@ -28,10 +27,10 @@ export const spendGold = (set: SetState<FullGameStore>, get: GetState<FullGameSt
   return false;
 };
 
-export const gainGold = (set: SetState<FullGameStore>, get: GetState<FullGameStore>, amount: number) => set((state) => ({
+export const gainGold = (set: (updater: (state: FullGameStore) => Partial<FullGameStore>) => void, _get: () => FullGameStore, amount: number) => set((state: FullGameStore) => ({
   gold: state.gold + amount
 }));
 
-export const gainSouls = (set: SetState<FullGameStore>, get: GetState<FullGameStore>, amount: number) => set((state) => ({
+export const gainSouls = (set: (updater: (state: FullGameStore) => Partial<FullGameStore>) => void, _get: () => FullGameStore, amount: number) => set((state: FullGameStore) => ({
   souls: state.souls + amount
 }));

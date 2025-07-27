@@ -1,4 +1,3 @@
-import type { GetState, SetState } from 'zustand';
 import type { GameState, Monster, MonsterType, LogEntry, DungeonFloor, Room } from '../types/game';
 import { placeMonsterAPI, unlockMonsterSpeciesAPI, gainMonsterExperienceAPI, getAvailableMonstersAPI } from '../api/gameApi';
 
@@ -12,7 +11,7 @@ interface GameStoreActions {
 // Combine GameState and GameStoreActions for the GetState/SetState types
 type FullGameStore = GameState & GameStoreActions;
 
-export const placeMonster = async (set: SetState<FullGameStore>, get: GetState<FullGameStore>, floorNumber: number, roomPosition: number, monsterName: string, addLog: (entry: LogEntry | string) => void) => {
+export const placeMonster = async (set: (partial: Partial<FullGameStore>) => void, get: () => FullGameStore, floorNumber: number, roomPosition: number, monsterName: string, addLog: (entry: LogEntry | string) => void) => {
   try {
     const result = await placeMonsterAPI(floorNumber, roomPosition, monsterName);
     
@@ -65,7 +64,7 @@ export const placeMonster = async (set: SetState<FullGameStore>, get: GetState<F
   }
 };
 
-export const unlockMonsterSpecies = async (set: SetState<FullGameStore>, _get: GetState<FullGameStore>, speciesName: string, addLog: (entry: LogEntry | string) => void) => {
+export const unlockMonsterSpecies = async (set: (updater: (state: FullGameStore) => Partial<FullGameStore>) => void, _get: () => FullGameStore, speciesName: string, addLog: (entry: LogEntry | string) => void) => {
   try {
     const result = await unlockMonsterSpeciesAPI(speciesName);
     
@@ -90,7 +89,7 @@ export const unlockMonsterSpecies = async (set: SetState<FullGameStore>, _get: G
   }
 };
 
-export const gainMonsterExperience = async (set: SetState<FullGameStore>, _get: GetState<FullGameStore>, monsterName: string, exp: number, addLog: (entry: LogEntry | string) => void) => {
+export const gainMonsterExperience = async (set: (updater: (state: FullGameStore) => Partial<FullGameStore>) => void, _get: () => FullGameStore, monsterName: string, exp: number, addLog: (entry: LogEntry | string) => void) => {
   try {
     const result = await gainMonsterExperienceAPI(monsterName, exp);
     
@@ -118,7 +117,7 @@ export const gainMonsterExperience = async (set: SetState<FullGameStore>, _get: 
   }
 };
 
-export const getAvailableMonsters = async (_set: SetState<FullGameStore>, _get: GetState<FullGameStore>) => {
+export const getAvailableMonsters = async (_set: (partial: Partial<FullGameStore>) => void, _get: () => FullGameStore) => {
   try {
     const result = await getAvailableMonstersAPI();
     

@@ -20,8 +20,7 @@ export const AdventurerSystem: React.FC<AdventurerSystemProps> = ({ running }) =
     addLog,
     gainGold,
     gainSouls,
-    mana,
-    manaRegen
+    mana
   } = useGameStore();
   
   const systemIntervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
@@ -29,6 +28,9 @@ export const AdventurerSystem: React.FC<AdventurerSystemProps> = ({ running }) =
   // Generate adventurer party
   const generateAdventurerParty = async (): Promise<AdventurerParty> => {
     const gameConstants = await fetchGameConstantsData();
+    if (!gameConstants) {
+      throw new Error('Failed to load game constants');
+    }
     const partySize = Math.floor(Math.random() * (gameConstants.MAX_PARTY_SIZE - gameConstants.MIN_PARTY_SIZE + 1)) + gameConstants.MIN_PARTY_SIZE;
     
     const adventurerClasses = [
@@ -93,6 +95,10 @@ export const AdventurerSystem: React.FC<AdventurerSystemProps> = ({ running }) =
     if (!running || adventurerParties.length === 0) return;
 
     const gameConstants = await fetchGameConstantsData();
+    if (!gameConstants) {
+      console.error('Failed to load game constants');
+      return;
+    }
     
     for (const party of adventurerParties) {
       if (party.retreating) {
@@ -180,7 +186,8 @@ export const AdventurerSystem: React.FC<AdventurerSystemProps> = ({ running }) =
               const randomQuote = victoryQuotes[Math.floor(Math.random() * victoryQuotes.length)];
               addLog({ 
                 message: `${party.members.find(m => m.alive)?.name || 'Adventurer'} says: "${randomQuote}"`,
-                type: "adventure"
+                type: "adventure",
+                timestamp: Date.now()
               });
             }
           }
@@ -225,7 +232,8 @@ export const AdventurerSystem: React.FC<AdventurerSystemProps> = ({ running }) =
               const randomQuote = leaveQuotes[Math.floor(Math.random() * leaveQuotes.length)];
               addLog({ 
                 message: `${party.members.find(m => m.alive)?.name || 'Adventurer'} says: "${randomQuote}"`,
-                type: "adventure"
+                type: "adventure",
+                timestamp: Date.now()
               });
             }
           }
@@ -247,7 +255,6 @@ export const AdventurerSystem: React.FC<AdventurerSystemProps> = ({ running }) =
     if (status !== 'Open' || adventurerParties.length > 0) return;
     if (hour < nextPartySpawn) return;
 
-    const gameConstants = await fetchGameConstantsData();
     const spawnChance = Math.random();
     
     if (spawnChance < 0.3) { // Increased from gameConstants.ADVENTURER_SPAWN_CHANCE (0.05)
@@ -293,6 +300,10 @@ export const AdventurerSystem: React.FC<AdventurerSystemProps> = ({ running }) =
         }
         
         const gameConstants = await fetchGameConstantsData();
+        if (!gameConstants) {
+          console.error('Failed to load game constants');
+          return;
+        }
         systemIntervalRef.current = setInterval(async () => {
           try {
             await spawnAdventurerParty();

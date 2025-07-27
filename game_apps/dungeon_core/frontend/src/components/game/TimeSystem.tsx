@@ -12,6 +12,10 @@ export const TimeSystem: React.FC = () => {
         clearInterval(timeIntervalRef.current);
       }
       const gameConstants = await fetchGameConstantsData();
+      if (!gameConstants) {
+        console.error('Failed to load game constants');
+        return;
+      }
       timeIntervalRef.current = setInterval(() => {
         advanceTime();
       }, gameConstants.TIME_ADVANCE_INTERVAL);

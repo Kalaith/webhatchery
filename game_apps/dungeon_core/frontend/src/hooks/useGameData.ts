@@ -40,9 +40,9 @@ export const useGameData = (): UseGameDataReturn => {
 
       setData({
         monsterTypes,
-        gameConstants,
-        monsterList,
-        monsterSpecies
+        gameConstants: gameConstants || undefined,
+        monsterList: (monsterList as unknown) as MonsterList | undefined,
+        monsterSpecies: (monsterSpecies as unknown) as MonsterSpeciesList | undefined
       });
     } catch (err) {
       console.error('Error loading game data:', err);

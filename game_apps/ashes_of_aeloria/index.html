@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Conquest of Realms - Strategy Game</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="game-container">
+        <!-- Header -->
+        <header class="game-header">
+            <h1>⚔️ Conquest of Realms</h1>
+            <div class="turn-info">
+                <span class="turn-counter">Turn: <span id="turnNumber">1</span></span>
+                <span class="phase-indicator">Phase: <span id="currentPhase">Player</span></span>
+            </div>
+        </header>
+
+        <!-- Main Game Area -->
+        <div class="game-content">
+            <!-- Left Panel - Resources & Controls -->
+            <div class="left-panel">
+                <div class="card resources-panel">
+                    <h3>Resources</h3>
+                    <div class="resource-item">
+                        <span class="resource-icon">💰</span>
+                        <span>Gold: <span id="goldAmount">500</span></span>
+                    </div>
+                    <div class="resource-item">
+                        <span class="resource-icon">📦</span>
+                        <span>Supplies: <span id="suppliesAmount">300</span></span>
+                    </div>
+                    <div class="resource-item">
+                        <span class="resource-icon">✨</span>
+                        <span>Mana: <span id="manaAmount">100</span></span>
+                    </div>
+                </div>
+
+                <div class="card commanders-panel">
+                    <h3>Commanders</h3>
+                    <div id="commandersList" class="commanders-list">
+                        <p class="text-secondary">No commanders recruited</p>
+                    </div>
+                    <button class="btn btn--primary btn--full-width" id="recruitBtn">
+                        Recruit Commander
+                    </button>
+                </div>
+
+                <div class="card actions-panel">
+                    <h3>Actions</h3>
+                    <button class="btn btn--secondary btn--full-width" id="endTurnBtn">
+                        End Turn
+                    </button>
+                    <button class="btn btn--outline btn--full-width" id="helpBtn">
+                        Help & Rules
+                    </button>
+                </div>
+            </div>
+
+            <!-- Center - Game Map -->
+            <div class="map-container">
+                <canvas id="gameCanvas" width="800" height="600"></canvas>
+                <div class="map-controls">
+                    <button class="btn btn--sm" id="zoomInBtn">🔍+</button>
+                    <button class="btn btn--sm" id="zoomOutBtn">🔍-</button>
+                </div>
+            </div>
+
+            <!-- Right Panel - Selected Node/Commander Info -->
+            <div class="right-panel">
+                <div class="card info-panel">
+                    <h3>Information</h3>
+                    <div id="selectionInfo">
+                        <p class="text-secondary">Select a node or commander for details</p>
+                    </div>
+                </div>
+
+                <div class="card battle-log">
+                    <h3>Battle Log</h3>
+                    <div id="battleLog" class="log-content">
+                        <p class="text-secondary">Game started. Good luck, Commander!</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modals -->
+    <!-- Recruitment Modal -->
+    <div id="recruitModal" class="modal hidden">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Recruit Commander</h2>
+                <button class="modal-close" id="closeRecruitModal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="recruitment-options">
+                    <h4>Select Class:</h4>
+                    <div class="class-selection" id="classSelection">
+                        <!-- Classes will be populated by JavaScript -->
+                    </div>
+                    
+                    <h4>Select Race:</h4>
+                    <div class="race-selection" id="raceSelection">
+                        <!-- Races will be populated by JavaScript -->
+                    </div>
+
+                    <div class="recruitment-summary" id="recruitmentSummary">
+                        <p>Select a class and race to see details</p>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn--secondary" id="cancelRecruitBtn">Cancel</button>
+                <button class="btn btn--primary" id="confirmRecruitBtn" disabled>
+                    Recruit (Cost: <span id="recruitCost">-</span> Gold)
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Help Modal -->
+    <div id="helpModal" class="modal hidden">
+        <div class="modal-content large">
+            <div class="modal-header">
+                <h2>Game Rules & Help</h2>
+                <button class="modal-close" id="closeHelpModal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="help-content">
+                    <h3>Objective</h3>
+                    <p>Control 70% of strategic nodes to achieve victory!</p>
+                    
+                    <h3>Node Types</h3>
+                    <ul>
+                        <li><strong>🏰 Cities:</strong> Generate gold and supplies, enable troop recruitment</li>
+                        <li><strong>⛏️ Resource Nodes:</strong> Provide valuable resources for your empire</li>
+                        <li><strong>🛡️ Fortresses:</strong> Defensive strongholds with high garrison value</li>
+                        <li><strong>✨ Shrines:</strong> Ancient sites that provide magical power</li>
+                        <li><strong>💀 Enemy Strongholds:</strong> Heavily fortified enemy positions</li>
+                    </ul>
+
+                    <h3>Commander Classes</h3>
+                    <ul>
+                        <li><strong>⚔️ Knight:</strong> Tank unit with high defense and Shield Wall ability</li>
+                        <li><strong>🔮 Mage:</strong> AOE damage dealer with Fireball ability</li>
+                        <li><strong>🏹 Ranger:</strong> Scout with mobility and Stealth ability</li>
+                        <li><strong>👑 Warlord:</strong> Leadership buffs with Rally ability</li>
+                    </ul>
+
+                    <h3>Combat System</h3>
+                    <p>Rock-Paper-Scissors mechanics:</p>
+                    <ul>
+                        <li>Cavalry beats Archers</li>
+                        <li>Archers beat Soldiers</li>
+                        <li>Soldiers beat Cavalry</li>
+                        <li>Mages disrupt all but are fragile</li>
+                    </ul>
+
+                    <h3>How to Play</h3>
+                    <ol>
+                        <li>Click on your nodes to select them</li>
+                        <li>Click on adjacent enemy nodes to attack</li>
+                        <li>Recruit commanders and assign them to nodes</li>
+                        <li>Manage your resources and supply lines</li>
+                        <li>End your turn to let enemies respond</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Battle Result Modal -->
+    <div id="battleModal" class="modal hidden">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Battle Result</h2>
+            </div>
+            <div class="modal-body">
+                <div id="battleResult">
+                    <!-- Battle results will be populated by JavaScript -->
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn--primary" id="closeBattleModal">Continue</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>

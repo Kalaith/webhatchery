@@ -24,7 +24,7 @@ export const GameLog: React.FC = () => {
               key={idx} 
               className="log-entry py-1 text-sm text-gray-600"
             >
-              {entry}
+              {typeof entry === 'string' ? entry : entry.message}
             </div>
           ))
         )}

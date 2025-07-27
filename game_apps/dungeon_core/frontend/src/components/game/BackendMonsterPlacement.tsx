@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useBackendGameStore } from '../../stores/backendGameStore';
 
 export const BackendMonsterPlacement: React.FC = () => {
-  const { gameData, selectedMonster, placeMonster, selectMonster } = useBackendGameStore();
+  const { gameState, selectedMonster, placeMonster, selectMonster } = useBackendGameStore();
   const [roomId, setRoomId] = useState<number>(1);
 
   const handlePlaceMonster = async () => {
@@ -15,7 +15,7 @@ export const BackendMonsterPlacement: React.FC = () => {
     }
   };
 
-  if (!gameData) return null;
+  if (!gameState) return null;
 
   return (
     <div className="bg-gray-800 rounded-lg p-4 mb-4">

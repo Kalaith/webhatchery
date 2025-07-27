@@ -91,7 +91,7 @@ export const useGameStore = create<GameStore>()(
                 ...entry,
                 type: entry.type as 'system' | 'combat' | 'adventure' | 'building'
               })),
-              monsterExperience: Array.isArray(gameState.monsterExperience) ? {} : gameState.monsterExperience
+              monsterExperience: (gameState as any).monsterExperience && !Array.isArray((gameState as any).monsterExperience) ? (gameState as any).monsterExperience : {}
             });
             
             console.log("Game initialized from backend:", backendData);
@@ -139,6 +139,10 @@ export const useGameStore = create<GameStore>()(
         updateDeepCoreBonus: async () => {
           const state = get();
           const gameConstants = await fetchGameConstantsData();
+          if (!gameConstants) {
+            console.error('Failed to load game constants');
+            return;
+          }
           const newBonus = state.totalFloors * gameConstants.CORE_ROOM_MANA_BONUS;
           const newManaRegen = 1 + newBonus; // Base 1 + bonus
           
@@ -245,7 +249,7 @@ export const useGameStore = create<GameStore>()(
         addLog: (entry: LogEntry | string) => set((state) => {
           const logEntry: LogEntry = typeof entry === 'string' 
             ? { message: entry, type: 'system', timestamp: Date.now() }
-            : entry;
+            : { ...entry, timestamp: entry.timestamp || Date.now() };
           
           const newLog = [...state.log, logEntry];
           const gameConstants = { MAX_LOG_ENTRIES: 50 }; // Default value
