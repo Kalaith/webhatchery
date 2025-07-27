@@ -5,11 +5,9 @@ import type { GameNode, Owner } from '../../types/game';
 
 export const GameCanvas: React.FC = () => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
-  const { nodes, selectedNode, selectNode } = useGameStore(state => ({
-    nodes: state.nodes,
-    selectedNode: state.selectedNode,
-    selectNode: state.selectNode
-  }));
+  const nodes = useGameStore(state => state.nodes);
+  const selectedNode = useGameStore(state => state.selectedNode);
+  const selectNode = useGameStore(state => state.selectNode);
 
   const getNodeColor = (node: GameNode): string => {
     const ownerColors: Record<Owner, string> = {

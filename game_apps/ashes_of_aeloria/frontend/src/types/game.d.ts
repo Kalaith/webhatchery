@@ -85,6 +85,20 @@ export interface GameNode {
   connections: number[];
 }
 
+export interface BattleResult {
+  victory: boolean;
+  attackerLosses: Army;
+  defenderLosses: Army;
+  nodeConquered: boolean;
+  experienceGained: number;
+}
+
+export interface BattleLogEntry {
+  timestamp: number;
+  type: 'info' | 'combat' | 'victory' | 'defeat' | 'recruitment';
+  message: string;
+}
+
 export interface GameState {
   turn: number;
   phase: Phase;
@@ -95,14 +109,7 @@ export interface GameState {
   selectedCommander: number | null;
   gameOver: boolean;
   winner: Owner | null;
-}
-
-export interface BattleResult {
-  victory: boolean;
-  attackerLosses: Army;
-  defenderLosses: Army;
-  nodeConquered: boolean;
-  experienceGained: number;
+  battleLog: BattleLogEntry[];
 }
 
 export interface GameData {

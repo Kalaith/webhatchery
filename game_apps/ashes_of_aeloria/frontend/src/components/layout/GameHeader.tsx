@@ -1,22 +1,15 @@
 import React from 'react';
-import { useGameStore } from '../../stores/useGameStore';
+import { useGameLogic } from '../../hooks/useGameLogic';
 
 export const GameHeader: React.FC = () => {
-  const { turn, phase } = useGameStore(state => ({
-    turn: state.turn,
-    phase: state.phase
-  }));
-
-  const formatPhase = (phase: string) => {
-    return phase.charAt(0).toUpperCase() + phase.slice(1);
-  };
+  const { turn } = useGameLogic();
 
   return (
-    <header className="game-header">
-      <h1>⚔️ Ashes of Aeloria</h1>
-      <div className="turn-info">
-        <span className="turn-counter">Turn: {turn}</span>
-        <span className="phase-indicator">Phase: {formatPhase(phase)}</span>
+    <header className="bg-white border-b border-gray-200 px-6 py-4 flex justify-between items-center shadow-sm">
+      <h1 className="text-2xl font-bold text-blue-600 m-0">⚔️ Ashes of Aeloria</h1>
+      <div className="flex gap-6">
+        <span className="font-medium px-4 py-2 bg-blue-100 text-blue-800 rounded-md">Turn: {turn}</span>
+        <span className="font-medium px-4 py-2 bg-blue-100 text-blue-800 rounded-md">Phase: Player</span>
       </div>
     </header>
   );

@@ -14,10 +14,8 @@ export const RecruitmentModal: React.FC<RecruitmentModalProps> = ({ isOpen, onCl
   const [selectedClass, setSelectedClass] = useState<CommanderClass | null>(null);
   const [selectedRace, setSelectedRace] = useState<Race | null>(null);
   
-  const { resources, addCommander } = useGameStore(state => ({
-    resources: state.resources,
-    addCommander: state.addCommander
-  }));
+  const resources = useGameStore(state => state.resources);
+  const addCommander = useGameStore(state => state.addCommander);
 
   const handleConfirmRecruitment = () => {
     if (selectedClass && selectedRace) {
@@ -60,71 +58,95 @@ export const RecruitmentModal: React.FC<RecruitmentModalProps> = ({ isOpen, onCl
       title="Recruit Commander"
       footer={footer}
     >
-      <div className="recruitment-options">
-        <h4>Select Class:</h4>
-        <div className="class-selection">
-          {Object.entries(GAME_DATA.commanderClasses).map(([key, classData]) => (
-            <div
-              key={key}
-              className={`selection-option ${selectedClass === key ? 'selected' : ''}`}
-              onClick={() => setSelectedClass(key as CommanderClass)}
-            >
-              <div className="option-icon">{classData.icon}</div>
-              <div className="option-name">{classData.name}</div>
-              <div className="option-description">{classData.description}</div>
-              <div className="option-cost">Cost: {classData.cost} gold</div>
-            </div>
-          ))}
+      <div className="space-y-6">
+        <div>
+          <h4 className="text-md font-semibold text-gray-800 mb-3">Select Class:</h4>
+          <div className="grid grid-cols-1 gap-2">
+            {Object.entries(GAME_DATA.commanderClasses).map(([key, classData]) => (
+              <div
+                key={key}
+                className={`p-3 border rounded cursor-pointer transition-all duration-200 flex items-center gap-3 ${
+                  selectedClass === key 
+                    ? 'border-blue-500 bg-blue-500 text-white' 
+                    : 'border-gray-200 hover:border-blue-500 hover:bg-blue-50'
+                }`}
+                onClick={() => setSelectedClass(key as CommanderClass)}
+              >
+                <div className="text-xl w-8 text-center">{classData.icon}</div>
+                <div className="flex-1">
+                  <div className="font-medium">{classData.name}</div>
+                  <div className={`text-sm mt-1 ${selectedClass === key ? 'opacity-80' : 'text-gray-600'}`}>
+                    {classData.description}
+                  </div>
+                </div>
+                <div className="text-sm font-medium">
+                  Cost: {classData.cost} gold
+                </div>
+              </div>
+            ))}
+          </div>
         </div>
         
-        <h4>Select Race:</h4>
-        <div className="race-selection">
-          {Object.entries(GAME_DATA.races).map(([key, raceData]) => (
-            <div
-              key={key}
-              className={`selection-option ${selectedRace === key ? 'selected' : ''}`}
-              onClick={() => setSelectedRace(key as Race)}
-            >
-              <div className="option-icon">{raceData.icon}</div>
-              <div className="option-name">{raceData.name}</div>
-              <div className="option-description">{raceData.bonus}</div>
-            </div>
-          ))}
+        <div>
+          <h4 className="text-md font-semibold text-gray-800 mb-3">Select Race:</h4>
+          <div className="grid grid-cols-1 gap-2">
+            {Object.entries(GAME_DATA.races).map(([key, raceData]) => (
+              <div
+                key={key}
+                className={`p-3 border rounded cursor-pointer transition-all duration-200 flex items-center gap-3 ${
+                  selectedRace === key 
+                    ? 'border-blue-500 bg-blue-500 text-white' 
+                    : 'border-gray-200 hover:border-blue-500 hover:bg-blue-50'
+                }`}
+                onClick={() => setSelectedRace(key as Race)}
+              >
+                <div className="text-xl w-8 text-center">{raceData.icon}</div>
+                <div className="flex-1">
+                  <div className="font-medium">{raceData.name}</div>
+                  <div className={`text-sm mt-1 ${selectedRace === key ? 'opacity-80' : 'text-gray-600'}`}>
+                    {raceData.bonus}
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
         </div>
 
-        <div className="recruitment-summary">
+        <div className="bg-gray-50 p-4 rounded border border-gray-200">
           {selectedClass && selectedRace ? (
-            <div className="summary-stats">
-              <h4>Commander Summary:</h4>
-              <div className="summary-stat">
-                <span className="summary-stat-label">Name:</span>
-                <span className="summary-stat-value">
-                  {GAME_DATA.races[selectedRace].name} {GAME_DATA.commanderClasses[selectedClass].name}
-                </span>
-              </div>
-              <div className="summary-stat">
-                <span className="summary-stat-label">Health:</span>
-                <span className="summary-stat-value">{GAME_DATA.commanderClasses[selectedClass].baseHealth}</span>
-              </div>
-              <div className="summary-stat">
-                <span className="summary-stat-label">Attack:</span>
-                <span className="summary-stat-value">{GAME_DATA.commanderClasses[selectedClass].baseAttack}</span>
-              </div>
-              <div className="summary-stat">
-                <span className="summary-stat-label">Defense:</span>
-                <span className="summary-stat-value">{GAME_DATA.commanderClasses[selectedClass].baseDefense}</span>
-              </div>
-              <div className="summary-stat">
-                <span className="summary-stat-label">Special:</span>
-                <span className="summary-stat-value">{GAME_DATA.commanderClasses[selectedClass].specialAbility}</span>
-              </div>
-              <div className="summary-stat">
-                <span className="summary-stat-label">Racial Bonus:</span>
-                <span className="summary-stat-value">{GAME_DATA.races[selectedRace].bonus}</span>
+            <div className="space-y-3">
+              <h4 className="text-md font-semibold text-gray-800">Commander Summary:</h4>
+              <div className="space-y-2">
+                <div className="flex justify-between text-sm">
+                  <span className="text-gray-600">Name:</span>
+                  <span className="font-medium">
+                    {GAME_DATA.races[selectedRace].name} {GAME_DATA.commanderClasses[selectedClass].name}
+                  </span>
+                </div>
+                <div className="flex justify-between text-sm">
+                  <span className="text-gray-600">Health:</span>
+                  <span className="font-medium">{GAME_DATA.commanderClasses[selectedClass].baseHealth}</span>
+                </div>
+                <div className="flex justify-between text-sm">
+                  <span className="text-gray-600">Attack:</span>
+                  <span className="font-medium">{GAME_DATA.commanderClasses[selectedClass].baseAttack}</span>
+                </div>
+                <div className="flex justify-between text-sm">
+                  <span className="text-gray-600">Defense:</span>
+                  <span className="font-medium">{GAME_DATA.commanderClasses[selectedClass].baseDefense}</span>
+                </div>
+                <div className="flex justify-between text-sm">
+                  <span className="text-gray-600">Special:</span>
+                  <span className="font-medium">{GAME_DATA.commanderClasses[selectedClass].specialAbility}</span>
+                </div>
+                <div className="flex justify-between text-sm">
+                  <span className="text-gray-600">Racial Bonus:</span>
+                  <span className="font-medium">{GAME_DATA.races[selectedRace].bonus}</span>
+                </div>
               </div>
             </div>
           ) : (
-            <p>Select a class and race to see details</p>
+            <p className="text-gray-500 text-center">Select a class and race to see details</p>
           )}
         </div>
       </div>

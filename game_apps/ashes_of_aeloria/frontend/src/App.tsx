@@ -29,10 +29,10 @@ function App() {
   };
 
   return (
-    <div className="game-container">
+    <div className="h-screen bg-gray-50 text-gray-900 flex flex-col overflow-hidden">
       <GameHeader />
       
-      <div className="game-content">
+      <div className="flex-1 flex gap-4 p-4 overflow-hidden">
         <LeftPanel 
           onRecruitClick={handleRecruitClick}
           onHelpClick={handleHelpClick}
@@ -44,10 +44,10 @@ function App() {
       </div>
 
       {gameOver && (
-        <div className="game-over-overlay">
-          <div className="game-over-modal">
-            <h2>{winner === 'player' ? '🎉 Victory!' : '💀 Defeat!'}</h2>
-            <p>
+        <div className="fixed inset-0 bg-black bg-opacity-80 flex items-center justify-center z-50">
+          <div className="bg-white p-8 rounded-lg border border-gray-200 text-center max-w-sm shadow-lg">
+            <h2 className="text-3xl mb-4">{winner === 'player' ? '🎉 Victory!' : '💀 Defeat!'}</h2>
+            <p className="mb-6 text-gray-600 leading-normal">
               {winner === 'player' 
                 ? 'Congratulations! You have conquered the realm of Aeloria!'
                 : 'The enemy has overwhelmed your forces. Better luck next time!'

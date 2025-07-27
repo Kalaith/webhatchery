@@ -8,18 +8,16 @@ interface ActionsPanelProps {
 }
 
 export const ActionsPanel: React.FC<ActionsPanelProps> = ({ onHelpClick }) => {
-  const { phase, endTurn } = useGameStore(state => ({
-    phase: state.phase,
-    endTurn: state.endTurn
-  }));
+  const phase = useGameStore(state => state.phase);
+  const endTurn = useGameStore(state => state.endTurn);
 
   const handleEndTurn = () => {
     endTurn();
   };
 
   return (
-    <Card className="actions-panel">
-      <h3>Actions</h3>
+    <Card className="space-y-4">
+      <h3 className="text-lg font-semibold text-gray-800 border-b border-gray-200 pb-2">Actions</h3>
       <Button 
         variant="secondary" 
         fullWidth 
