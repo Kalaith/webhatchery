@@ -72,6 +72,7 @@ export interface Commander {
   defense: number;
   assignedNode: number | null;
   army: Army;
+  owner: Owner; // Add owner field to distinguish player vs enemy commanders
 }
 
 export interface GameNode {

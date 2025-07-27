@@ -8,8 +8,8 @@ import { GAME_DATA, GAME_CONSTANTS } from '../data/gameData';
 const getInitialState = (): GameState => {
   // Create some initial enemy commanders
   const initialEnemyCommanders = [
-    createCommander(1000, 'knight', 'orc'),
-    createCommander(1001, 'mage', 'orc')
+    createCommander(1000, 'knight', 'orc', 'enemy'),
+    createCommander(1001, 'mage', 'orc', 'enemy')
   ];
   
   // Assign them to enemy nodes
@@ -76,7 +76,7 @@ export const useGameStore = create<GameStore>()(
         const state = get();
         if (canAffordCommander(state.resources, className)) {
           const newId = Math.max(0, ...state.commanders.map(c => c.id)) + 1;
-          const commander = createCommander(newId, className, race);
+          const commander = createCommander(newId, className, race, 'player'); // Specify player ownership
           const cost = GAME_DATA.commanderClasses[className].cost;
           
           set((state) => ({
@@ -253,13 +253,13 @@ export const useGameStore = create<GameStore>()(
         get().addBattleLogEntry('info', `Enemy collected ${enemyResources.gold} gold, ${enemyResources.supplies} supplies, ${enemyResources.mana} mana`);
         
         // 2. Enemy commander recruitment (if they have few commanders)
-        const enemyCommanders = state.commanders.filter(c => c.race === 'orc'); // Enemies are orcs
+        const enemyCommanders = state.commanders.filter(c => c.owner === 'enemy'); // Filter by owner, not race
         if (enemyCommanders.length < 3 && enemyResources.gold >= 150) {
           const commanderClasses: CommanderClass[] = ['knight', 'mage', 'ranger', 'warlord'];
           const randomClass = commanderClasses[Math.floor(Math.random() * commanderClasses.length)];
           
           const newId = Math.max(0, ...state.commanders.map(c => c.id)) + 1;
-          const enemyCommander = createCommander(newId, randomClass, 'orc');
+          const enemyCommander = createCommander(newId, randomClass, 'orc', 'enemy'); // Specify enemy ownership
           
           set((state) => ({
             commanders: [...state.commanders, enemyCommander]

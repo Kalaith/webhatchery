@@ -16,7 +16,8 @@ import { GAME_DATA, GAME_CONSTANTS } from '../data/gameData';
 export const createCommander = (
   id: number, 
   className: CommanderClass, 
-  race: Race
+  race: Race,
+  owner: Owner = 'player'
 ): Commander => {
   const commanderClass = GAME_DATA.commanderClasses[className];
   
@@ -32,6 +33,7 @@ export const createCommander = (
     attack: commanderClass.baseAttack,
     defense: commanderClass.baseDefense,
     assignedNode: null,
+    owner,
     army: {
       soldiers: 20,
       archers: 10,

@@ -22,9 +22,9 @@ export const CommandersPanel: React.FC<CommandersPanelProps> = ({ onRecruitClick
   // Filter commanders based on active tab
   const filteredCommanders = commanders.filter(commander => {
     if (activeTab === 'player') {
-      return commander.race !== 'orc'; // Player commanders are not orcs
+      return commander.owner === 'player'; // Player commanders
     } else {
-      return commander.race === 'orc'; // Enemy commanders are orcs
+      return commander.owner === 'enemy'; // Enemy commanders
     }
   });
 
@@ -74,7 +74,7 @@ export const CommandersPanel: React.FC<CommandersPanelProps> = ({ onRecruitClick
           }`}
           onClick={() => setActiveTab('enemy')}
         >
-          👹 Enemy ({commanders.filter(c => c.race === 'orc').length})
+          👹 Enemy ({commanders.filter(c => c.owner === 'enemy').length})
         </button>
       </div>
       <div className="flex flex-col gap-2 max-h-40 lg:max-h-48 overflow-y-auto mb-3 lg:mb-4">
