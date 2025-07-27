@@ -173,4 +173,11 @@ export const GAME_CONSTANTS = {
   PLAYER_GARRISON_MULTIPLIER: 0.8,
   BASE_GARRISON_MULTIPLIER: 50,
   MAX_BATTLE_LOG_ENTRIES: 20,
+  COMMANDER_CAPACITIES: {
+    city: 6,
+    fortress: 4, 
+    stronghold: 5,
+    resource: 2,
+    shrine: 3
+  }
 } as const;

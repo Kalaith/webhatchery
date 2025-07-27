@@ -11,6 +11,13 @@ export const InfoPanel: React.FC = () => {
   const commanders = useGameStore(state => state.commanders);
   const attackNode = useGameStore(state => state.attackNode);
   const canAttackNode = useGameStore(state => state.canAttackNode);
+  const assignCommanderToNode = useGameStore(state => state.assignCommanderToNode);
+  const unassignCommander = useGameStore(state => state.unassignCommander);
+  const getNodeCommanderInfo = useGameStore(state => state.getNodeCommanderInfo);
+  const upgradeNode = useGameStore(state => state.upgradeNode);
+  const getUpgradeCost = useGameStore(state => state.getUpgradeCost);
+  const canUpgradeNode = useGameStore(state => state.canUpgradeNode);
+  const resources = useGameStore(state => state.resources);
 
   const node = selectedNode !== null ? nodes.find(n => n.id === selectedNode) : null;
   const commander = selectedCommander !== null ? commanders.find(c => c.id === selectedCommander) : null;
@@ -21,11 +28,33 @@ export const InfoPanel: React.FC = () => {
     }
   };
 
+  const handleUpgrade = () => {
+    if (selectedNode !== null) {
+      upgradeNode(selectedNode);
+    }
+  };
+
   const getAttackableNodes = () => {
     if (!node || node.owner !== 'player') return [];
     return node.connections
       .map(id => nodes.find(n => n.id === id))
       .filter(n => n && n.owner !== 'player') as typeof nodes;
+  };
+
+  const getAssignedCommander = (nodeId: number) => {
+    return commanders.find(c => c.assignedNode === nodeId);
+  };
+
+  const getAvailableCommanders = () => {
+    return commanders.filter(c => c.assignedNode === null);
+  };
+
+  const handleAssignCommander = (commanderId: number, nodeId: number) => {
+    assignCommanderToNode(commanderId, nodeId);
+  };
+
+  const handleUnassignCommander = (commanderId: number) => {
+    unassignCommander(commanderId);
   };
 
   return (
@@ -72,7 +101,143 @@ export const InfoPanel: React.FC = () => {
             </div>
             <p className="text-xs lg:text-sm text-gray-500 bg-gray-50 p-2 lg:p-3 rounded-lg">{GAME_DATA.nodeTypes[node.type].description}</p>
             
-            {node.owner === 'player' && getAttackableNodes().length > 0 && (
+            {/* Commander Assignment Section - Only for player-owned nodes */}
+            {node.owner === 'player' && (
+              <div className="space-y-2 lg:space-y-3 pt-2 border-t border-gray-200">
+                <div className="flex justify-between items-center">
+                  <h4 className="text-sm lg:text-md font-semibold text-gray-800">Commanders:</h4>
+                  <span className="text-xs text-gray-500">
+                    {(() => {
+                      const info = getNodeCommanderInfo(node.id);
+                      return `${info.current}/${info.max}`;
+                    })()}
+                  </span>
+                </div>
+                {(() => {
+                  const commanderInfo = getNodeCommanderInfo(node.id);
+                  const availableCommanders = getAvailableCommanders();
+                  
+                  return (
+                    <div className="space-y-2">
+                      {/* Show assigned commanders */}
+                      {commanderInfo.commanders.length > 0 && (
+                        <div className="space-y-1">
+                          {commanderInfo.commanders.map(assignedCommander => (
+                            <div key={assignedCommander.id} className="flex items-center gap-2 p-2 bg-green-50 rounded-lg border border-green-200">
+                              <span className="text-lg">
+                                {assignedCommander.class === 'knight' && '⚔️'}
+                                {assignedCommander.class === 'mage' && '🔮'}
+                                {assignedCommander.class === 'ranger' && '🏹'}
+                                {assignedCommander.class === 'warlord' && '👑'}
+                              </span>
+                              <div className="flex-1">
+                                <div className="text-sm font-medium text-green-800">{assignedCommander.name}</div>
+                                <div className="text-xs text-green-600">Level {assignedCommander.level} • Stationed here</div>
+                              </div>
+                              <Button
+                                variant="secondary"
+                                size="sm"
+                                className="text-xs px-2 py-1"
+                                onClick={() => handleUnassignCommander(assignedCommander.id)}
+                              >
+                                🔄
+                              </Button>
+                            </div>
+                          ))}
+                        </div>
+                      )}
+                      
+                      {/* Show assignment options if not at capacity */}
+                      {commanderInfo.current < commanderInfo.max && availableCommanders.length > 0 && (
+                        <div className="space-y-2">
+                          <div className="text-xs text-gray-600 mb-2">
+                            Assign commander to this {GAME_DATA.nodeTypes[node.type].name.toLowerCase()}:
+                          </div>
+                          {availableCommanders.slice(0, 3).map(availableCommander => (
+                            <Button
+                              key={availableCommander.id}
+                              variant="primary"
+                              size="sm"
+                              className="w-full justify-start text-xs"
+                              onClick={() => handleAssignCommander(availableCommander.id, node.id)}
+                            >
+                              <span className="mr-2">
+                                {availableCommander.class === 'knight' && '⚔️'}
+                                {availableCommander.class === 'mage' && '🔮'}
+                                {availableCommander.class === 'ranger' && '🏹'}
+                                {availableCommander.class === 'warlord' && '👑'}
+                              </span>
+                              {availableCommander.name}
+                            </Button>
+                          ))}
+                          {availableCommanders.length > 3 && (
+                            <div className="text-xs text-gray-500 italic">
+                              +{availableCommanders.length - 3} more available
+                            </div>
+                          )}
+                        </div>
+                      )}
+                      
+                      {/* Show capacity status */}
+                      {commanderInfo.current >= commanderInfo.max && (
+                        <div className="text-xs text-gray-500 italic bg-gray-50 p-2 rounded">
+                          {GAME_DATA.nodeTypes[node.type].name} is at maximum commander capacity
+                        </div>
+                      )}
+                      
+                      {commanderInfo.current < commanderInfo.max && availableCommanders.length === 0 && (
+                        <div className="text-xs text-gray-500 italic bg-gray-50 p-2 rounded">
+                          No commanders available for assignment
+                        </div>
+                      )}
+                    </div>
+                  );
+                })()}
+              </div>
+            )}
+            
+            {node.owner === 'player' && node.type === 'city' && (
+              <div className="space-y-2 lg:space-y-3 pt-2 border-t border-gray-200">
+                <h4 className="text-sm lg:text-md font-semibold text-gray-800">Upgrade Options:</h4>
+                <div className="space-y-2">
+                  <div className="flex justify-between items-center py-2 px-3 bg-gray-50 rounded">
+                    <span className="text-sm text-gray-600">Current Level:</span>
+                    <span className="text-sm font-medium">
+                      {'⭐'.repeat(node.starLevel || 1)} ({node.starLevel || 1}/5)
+                    </span>
+                  </div>
+                  
+                  {canUpgradeNode(node.id) ? (
+                    <div className="space-y-2">
+                      <div className="flex justify-between items-center py-1">
+                        <span className="text-sm text-gray-600">Upgrade Cost:</span>
+                        <span className="text-sm font-medium text-yellow-600">
+                          {getUpgradeCost(node.id)} gold
+                        </span>
+                      </div>
+                      <Button
+                        variant="primary"
+                        size="sm"
+                        className="w-full"
+                        onClick={() => upgradeNode(node.id)}
+                      >
+                        <span className="mr-2">⬆️</span>
+                        Upgrade to Level {(node.starLevel || 1) + 1}
+                      </Button>
+                    </div>
+                  ) : (
+                    <div className="text-xs text-gray-500 italic bg-gray-50 p-2 rounded">
+                      {(node.starLevel || 1) >= 5 
+                        ? 'City is at maximum level'
+                        : `Need ${getUpgradeCost(node.id)} gold to upgrade`
+                      }
+                    </div>
+                  )}
+                </div>
+              </div>
+            )}
+            
+            {node.owner === 'player' && node.type !== 'city' && getAttackableNodes().length > 0 && (
               <div className="space-y-2 lg:space-y-3 pt-2 border-t border-gray-200">
                 <h4 className="text-sm lg:text-md font-semibold text-gray-800">Attack Options:</h4>
                 <div className="flex flex-col gap-2">
@@ -124,6 +289,18 @@ export const InfoPanel: React.FC = () => {
               <div className="flex justify-between items-center py-1">
                 <span className="text-sm text-gray-600">Defense:</span>
                 <span className="text-sm font-medium text-blue-600">{commander.defense}</span>
+              </div>
+              <div className="flex justify-between items-center py-1">
+                <span className="text-sm text-gray-600">Assignment:</span>
+                {commander.assignedNode ? (
+                  <span className="text-sm font-medium text-green-600">
+                    📍 City (ID: {commander.assignedNode})
+                  </span>
+                ) : (
+                  <span className="text-sm font-medium text-gray-500">
+                    ⚪ Available
+                  </span>
+                )}
               </div>
             </div>
             <div className="space-y-2">

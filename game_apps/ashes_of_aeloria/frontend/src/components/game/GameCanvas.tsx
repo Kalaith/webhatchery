@@ -9,8 +9,10 @@ export const GameCanvas: React.FC = () => {
   const [canvasSize, setCanvasSize] = useState({ width: 800, height: 600 });
   const [scale, setScale] = useState(1);
   const nodes = useGameStore(state => state.nodes);
+  const commanders = useGameStore(state => state.commanders);
   const selectedNode = useGameStore(state => state.selectedNode);
   const selectNode = useGameStore(state => state.selectNode);
+  const getNodeCommanderInfo = useGameStore(state => state.getNodeCommanderInfo);
 
   // Update canvas size based on container
   const updateCanvasSize = useCallback(() => {
@@ -59,6 +61,7 @@ export const GameCanvas: React.FC = () => {
     nodes.forEach(node => {
       const nodeData = GAME_DATA.nodeTypes[node.type];
       const isSelected = selectedNode === node.id;
+      const commanderInfo = getNodeCommanderInfo(node.id);
       
       // Draw node circle
       ctx.fillStyle = getNodeColor(node);
@@ -82,9 +85,64 @@ export const GameCanvas: React.FC = () => {
       ctx.fillStyle = '#FFFFFF';
       ctx.fillText(nodeData.icon, node.x, node.y);
       
+      // Draw commander indicators
+      if (commanderInfo.current > 0) {
+        ctx.font = '12px Arial';
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'middle';
+        
+        // Different colors for different owners
+        const commanderColor = node.owner === 'player' ? '#FFD700' : 
+                              node.owner === 'enemy' ? '#FF4444' : '#CCCCCC';
+        
+        // Position commander indicators around the node
+        const angleStep = (2 * Math.PI) / Math.max(commanderInfo.current, 4);
+        const radius = 30;
+        
+        commanderInfo.commanders.slice(0, 6).forEach((commander, index) => {
+          const angle = index * angleStep;
+          const x = node.x + Math.cos(angle) * radius;
+          const y = node.y + Math.sin(angle) * radius;
+          
+          // Get commander class emoji
+          let commanderEmoji = '⚔️'; // default
+          switch (commander.class) {
+            case 'knight': commanderEmoji = '⚔️'; break;
+            case 'mage': commanderEmoji = '🔮'; break;
+            case 'ranger': commanderEmoji = '🏹'; break;
+            case 'warlord': commanderEmoji = '👑'; break;
+          }
+          
+          // Draw small background circle for commander
+          ctx.fillStyle = node.owner === 'enemy' ? 'rgba(255, 0, 0, 0.7)' : 'rgba(0, 0, 0, 0.7)';
+          ctx.beginPath();
+          ctx.arc(x, y, 8, 0, 2 * Math.PI);
+          ctx.fill();
+          
+          // Draw commander emoji
+          ctx.fillStyle = commanderColor;
+          ctx.font = '10px Arial';
+          ctx.fillText(commanderEmoji, x, y);
+        });
+        
+        // If more than 6 commanders, show count indicator
+        if (commanderInfo.current > 6) {
+          ctx.fillStyle = node.owner === 'enemy' ? 'rgba(255, 100, 100, 0.8)' : 'rgba(255, 0, 0, 0.8)';
+          ctx.beginPath();
+          ctx.arc(node.x + 25, node.y - 25, 8, 0, 2 * Math.PI);
+          ctx.fill();
+          
+          ctx.fillStyle = '#FFFFFF';
+          ctx.font = '10px Arial';
+          ctx.fillText(`+${commanderInfo.current - 6}`, node.x + 25, node.y - 25);
+        }
+      }
+      
       // Draw star level
       ctx.font = '12px Arial';
       ctx.fillStyle = '#FFD700';
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'middle';
       const stars = '★'.repeat(node.starLevel);
       ctx.fillText(stars, node.x, node.y - 35);
       
@@ -93,7 +151,7 @@ export const GameCanvas: React.FC = () => {
       ctx.fillStyle = '#FFFFFF';
       ctx.fillText(node.garrison.toString(), node.x, node.y + 35);
     });
-  }, [nodes, selectedNode]);
+  }, [nodes, selectedNode, getNodeCommanderInfo]);
 
   const render = useCallback(() => {
     const canvas = canvasRef.current;
