@@ -82,18 +82,35 @@ export const canAttackNode = (
 
 export const resolveBattle = (
   attackerNode: GameNode, 
-  defenderNode: GameNode
+  defenderNode: GameNode,
+  attackerCommanders: any[] = [],
+  defenderCommanders: any[] = []
 ): BattleResult => {
-  const attackerStrength = attackerNode.garrison + 50; // Base attack strength
-  const defenderStrength = defenderNode.garrison;
+  // Calculate base strength
+  let attackerStrength = attackerNode.garrison + (attackerNode.starLevel * 20);
+  let defenderStrength = defenderNode.garrison + (defenderNode.starLevel * 15);
+  
+  // Add commander bonuses
+  attackerCommanders.forEach(commander => {
+    attackerStrength += commander.attack + commander.defense + (commander.level * 10);
+  });
+  
+  defenderCommanders.forEach(commander => {
+    defenderStrength += commander.defense + commander.attack + (commander.level * 10);
+  });
+  
+  // Defender gets defensive bonus
+  defenderStrength *= 1.2;
+  
   const victory = attackerStrength > defenderStrength;
+  const strengthRatio = attackerStrength / Math.max(defenderStrength, 1);
 
   return {
     victory,
     attackerLosses: { soldiers: 5, archers: 2, cavalry: 1, mages: 0 },
     defenderLosses: { soldiers: 8, archers: 4, cavalry: 2, mages: 1 },
     nodeConquered: victory,
-    experienceGained: victory ? 50 : 25
+    experienceGained: victory ? Math.floor(50 * strengthRatio) : 25
   };
 };
 

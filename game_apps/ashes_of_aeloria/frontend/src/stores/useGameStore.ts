@@ -1,20 +1,32 @@
 import { create } from 'zustand';
 import { persist, createJSONStorage } from 'zustand/middleware';
 import type { GameState, Resources, CommanderClass, Race } from '../types/game';
-import { createCommander, canAffordCommander, generateInitialMap, calculateIncome } from '../utils/gameLogic';
+import { 
+  createCommander, 
+  canAffordCommander, 
+  generateInitialMap, 
+  calculateIncome, 
+  canAttackNode as gameLogicCanAttackNode,
+  resolveBattle,
+  updateNodeAfterBattle
+} from '../utils/gameLogic';
 import { GAME_DATA, GAME_CONSTANTS } from '../data/gameData';
 
 // Initial game state with proper typing
 const getInitialState = (): GameState => {
-  // Create some initial enemy commanders
-  const initialEnemyCommanders = [
+  // Create initial player and enemy commanders
+  const initialCommanders = [
+    // Player starts with one commander
+    createCommander(1, 'knight', 'human', 'player'),
+    // Enemy commanders
     createCommander(1000, 'knight', 'orc', 'enemy'),
     createCommander(1001, 'mage', 'orc', 'enemy')
   ];
   
-  // Assign them to enemy nodes
-  initialEnemyCommanders[0].assignedNode = 7; // Enemy city
-  initialEnemyCommanders[1].assignedNode = 8; // Enemy fortress
+  // Assign commanders to their starting nodes
+  initialCommanders[0].assignedNode = 1; // Player knight at starting city
+  initialCommanders[1].assignedNode = 7; // Enemy city
+  initialCommanders[2].assignedNode = 8; // Enemy fortress
   
   return {
     turn: 1,
@@ -24,7 +36,7 @@ const getInitialState = (): GameState => {
       supplies: 100,
       mana: 50
     },
-    commanders: initialEnemyCommanders,
+    commanders: initialCommanders,
     nodes: generateInitialMap(),
     selectedNode: null,
     selectedCommander: null,
@@ -346,7 +358,32 @@ export const useGameStore = create<GameStore>()(
           get().addBattleLogEntry('info', 'Enemy consolidated their forces this turn');
         }
         
-        // 5. Enemy upgrades (simple AI - upgrade if they have resources)
+        // 5. Enemy garrison reinforcement
+        set((state) => ({
+          nodes: state.nodes.map(node => {
+            if (node.owner === 'enemy') {
+              // Enemy gets slightly less reinforcement than player
+              const baseReinforcement = {
+                city: 12,
+                fortress: 8,
+                stronghold: 16,
+                resource: 6,
+                shrine: 4
+              }[node.type];
+              
+              const reinforcement = Math.floor(baseReinforcement * node.starLevel);
+              const maxGarrison = 180 + (node.starLevel * 40); // Slightly lower max than player
+              
+              return {
+                ...node,
+                garrison: Math.min(node.garrison + reinforcement, maxGarrison)
+              };
+            }
+            return node;
+          })
+        }));
+
+        // 6. Enemy upgrades (simple AI - upgrade if they have resources)
         const upgradeableEnemyNodes = enemyNodes.filter(n => n.starLevel < 5);
         if (upgradeableEnemyNodes.length > 0 && enemyResources.gold >= 400) {
           const nodeToUpgrade = upgradeableEnemyNodes[0]; // Upgrade first available
@@ -364,8 +401,8 @@ export const useGameStore = create<GameStore>()(
           
           get().addBattleLogEntry('info', `Enemy upgraded their ${GAME_DATA.nodeTypes[nodeToUpgrade.type].name} to ${nodeToUpgrade.starLevel + 1} stars`);
         }
-        
-        // 6. End enemy turn and start player turn
+
+        // 7. End enemy turn and start player turn
         setTimeout(() => {
           get().collectResources();
           get().nextTurn();
@@ -380,19 +417,104 @@ export const useGameStore = create<GameStore>()(
             gold: state.resources.gold + income.gold,
             supplies: state.resources.supplies + income.supplies,
             mana: state.resources.mana + income.mana
-          }
+          },
+          // Reinforce player garrisons each turn
+          nodes: state.nodes.map(node => {
+            if (node.owner === 'player') {
+              // Add garrison reinforcement based on node type and star level
+              const baseReinforcement = {
+                city: 15,
+                fortress: 10,
+                stronghold: 20,
+                resource: 8,
+                shrine: 5
+              }[node.type];
+              
+              const reinforcement = Math.floor(baseReinforcement * node.starLevel);
+              const maxGarrison = 200 + (node.starLevel * 50); // Max garrison scales with star level
+              
+              return {
+                ...node,
+                garrison: Math.min(node.garrison + reinforcement, maxGarrison)
+              };
+            }
+            return node;
+          })
         }));
         
-        get().addBattleLogEntry('info', `Turn ${state.turn + 1}: Collected ${income.gold} gold, ${income.supplies} supplies, ${income.mana} mana`);
+        get().addBattleLogEntry('info', `Turn ${state.turn + 1}: Collected ${income.gold} gold, ${income.supplies} supplies, ${income.mana} mana. Garrisons reinforced!`);
       },
       attackNode: (nodeId) => {
-        // Placeholder implementation - will be implemented later
-        console.log('Attacking node:', nodeId);
+        const state = get();
+        const attackerNode = state.nodes.find(n => n.id === state.selectedNode);
+        const defenderNode = state.nodes.find(n => n.id === nodeId);
+        
+        if (!attackerNode || !defenderNode) {
+          get().addBattleLogEntry('defeat', 'Invalid attack: Could not find nodes');
+          return;
+        }
+        
+        if (!gameLogicCanAttackNode(state.nodes, attackerNode.id, defenderNode.id)) {
+          get().addBattleLogEntry('defeat', 'Invalid attack: Cannot attack this node');
+          return;
+        }
+        
+        // Get commanders at each node
+        const attackerCommanders = state.commanders.filter(c => c.assignedNode === attackerNode.id);
+        const defenderCommanders = state.commanders.filter(c => c.assignedNode === defenderNode.id);
+        
+        // Resolve the battle with commander bonuses
+        const battleResult = resolveBattle(attackerNode, defenderNode, attackerCommanders, defenderCommanders);
+        
+        if (battleResult.victory) {
+          // Player wins - capture the node
+          const updatedDefenderNode = updateNodeAfterBattle(defenderNode, battleResult);
+          
+          set((state) => ({
+            nodes: state.nodes.map(n => 
+              n.id === nodeId 
+                ? updatedDefenderNode
+                : n.id === attackerNode.id
+                ? { ...n, garrison: Math.max(20, n.garrison - 10) } // Attacker loses some garrison
+                : n
+            )
+          }));
+          
+          get().addBattleLogEntry('victory', `Successfully captured ${GAME_DATA.nodeTypes[defenderNode.type].name}!`);
+          
+          // Award experience to commanders at the attacking node
+          const attackingCommanders = state.commanders.filter(c => c.assignedNode === attackerNode.id && c.owner === 'player');
+          if (attackingCommanders.length > 0) {
+            set((state) => ({
+              commanders: state.commanders.map(c => 
+                attackingCommanders.some(ac => ac.id === c.id)
+                  ? { ...c, experience: c.experience + battleResult.experienceGained }
+                  : c
+              )
+            }));
+            
+            get().addBattleLogEntry('info', `Commanders gained ${battleResult.experienceGained} experience`);
+          }
+        } else {
+          // Player loses - reduce both garrisons
+          set((state) => ({
+            nodes: state.nodes.map(n => 
+              n.id === nodeId 
+                ? { ...n, garrison: Math.max(10, n.garrison - 5) }
+                : n.id === attackerNode.id
+                ? { ...n, garrison: Math.max(10, n.garrison - 15) } // Attacker loses more on defeat
+                : n
+            )
+          }));
+          
+          get().addBattleLogEntry('defeat', `Attack on ${GAME_DATA.nodeTypes[defenderNode.type].name} failed!`);
+        }
       },
       canAttackNode: (nodeId) => {
-        // Placeholder implementation - will be implemented later
         const state = get();
-        return state.selectedCommander !== null && state.nodes.some(n => n.id === nodeId);
+        if (state.selectedNode === null) return false;
+        
+        return gameLogicCanAttackNode(state.nodes, state.selectedNode, nodeId);
       },
       addBattleLogEntry: (type, message) => {
         set((state) => ({
@@ -405,10 +527,13 @@ export const useGameStore = create<GameStore>()(
       },
       resetGame: () => {
         const initialState = getInitialState();
+        
+        // Clear localStorage to ensure a true reset
+        localStorage.removeItem('ashes-of-aeloria-game-state');
+        
         set(() => ({ 
           ...initialState,
           battleLog: [
-            ...initialState.battleLog,
             {
               timestamp: Date.now(),
               type: 'info',
