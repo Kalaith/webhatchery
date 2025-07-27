@@ -10,7 +10,7 @@ interface LeftPanelProps {
 
 export const LeftPanel: React.FC<LeftPanelProps> = ({ onRecruitClick, onHelpClick }) => {
   return (
-    <div className="w-80 bg-white border-r border-gray-200 flex flex-col gap-6 p-6 h-full overflow-y-auto">
+    <div className="w-full bg-white border border-gray-200 lg:border-r lg:border-l-0 lg:border-t-0 lg:border-b-0 rounded-lg lg:rounded-none flex flex-col gap-4 lg:gap-6 p-4 lg:p-6 h-auto lg:h-full overflow-y-auto">
       <ResourcePanel />
       <CommandersPanel onRecruitClick={onRecruitClick} />
       <ActionsPanel onHelpClick={onHelpClick} />

@@ -29,14 +29,14 @@ export const InfoPanel: React.FC = () => {
   };
 
   return (
-    <Card className="p-4">
-      <h3 className="text-lg font-bold mb-4 text-gray-800">Information</h3>
+    <Card className="p-3 lg:p-4">
+      <h3 className="text-base lg:text-lg font-bold mb-3 lg:mb-4 text-gray-800">Information</h3>
       <div id="selectionInfo">
         {node ? (
-          <div className="space-y-4">
-            <div className="flex items-center gap-3 p-3 bg-gray-50 rounded-lg">
-              <span className="text-2xl">{GAME_DATA.nodeTypes[node.type].icon}</span>
-              <span className="text-lg font-semibold text-gray-800">{GAME_DATA.nodeTypes[node.type].name}</span>
+          <div className="space-y-3 lg:space-y-4">
+            <div className="flex items-center gap-2 lg:gap-3 p-2 lg:p-3 bg-gray-50 rounded-lg">
+              <span className="text-xl lg:text-2xl">{GAME_DATA.nodeTypes[node.type].icon}</span>
+              <span className="text-base lg:text-lg font-semibold text-gray-800">{GAME_DATA.nodeTypes[node.type].name}</span>
             </div>
             <div className="grid grid-cols-1 gap-2">
               <div className="flex justify-between items-center py-1">
@@ -50,31 +50,31 @@ export const InfoPanel: React.FC = () => {
                 </span>
               </div>
               <div className="flex justify-between items-center py-1">
-                <span className="text-sm text-gray-600">Star Level:</span>
-                <span className="text-sm font-medium">{node.starLevel}</span>
+                <span className="text-xs lg:text-sm text-gray-600">Star Level:</span>
+                <span className="text-xs lg:text-sm font-medium">{node.starLevel}</span>
               </div>
               <div className="flex justify-between items-center py-1">
-                <span className="text-sm text-gray-600">Garrison:</span>
-                <span className="text-sm font-medium">{node.garrison}</span>
+                <span className="text-xs lg:text-sm text-gray-600">Garrison:</span>
+                <span className="text-xs lg:text-sm font-medium">{node.garrison}</span>
               </div>
               <div className="flex justify-between items-center py-1">
-                <span className="text-sm text-gray-600">Gold/Turn:</span>
-                <span className="text-sm font-medium text-yellow-600">{GAME_DATA.nodeTypes[node.type].goldGeneration}</span>
+                <span className="text-xs lg:text-sm text-gray-600">Gold/Turn:</span>
+                <span className="text-xs lg:text-sm font-medium text-yellow-600">{GAME_DATA.nodeTypes[node.type].goldGeneration}</span>
               </div>
               <div className="flex justify-between items-center py-1">
-                <span className="text-sm text-gray-600">Supplies/Turn:</span>
-                <span className="text-sm font-medium text-green-600">{GAME_DATA.nodeTypes[node.type].suppliesGeneration}</span>
+                <span className="text-xs lg:text-sm text-gray-600">Supplies/Turn:</span>
+                <span className="text-xs lg:text-sm font-medium text-green-600">{GAME_DATA.nodeTypes[node.type].suppliesGeneration}</span>
               </div>
               <div className="flex justify-between items-center py-1">
-                <span className="text-sm text-gray-600">Mana/Turn:</span>
-                <span className="text-sm font-medium text-purple-600">{GAME_DATA.nodeTypes[node.type].manaGeneration}</span>
+                <span className="text-xs lg:text-sm text-gray-600">Mana/Turn:</span>
+                <span className="text-xs lg:text-sm font-medium text-purple-600">{GAME_DATA.nodeTypes[node.type].manaGeneration}</span>
               </div>
             </div>
-            <p className="text-sm text-gray-500 bg-gray-50 p-3 rounded-lg">{GAME_DATA.nodeTypes[node.type].description}</p>
+            <p className="text-xs lg:text-sm text-gray-500 bg-gray-50 p-2 lg:p-3 rounded-lg">{GAME_DATA.nodeTypes[node.type].description}</p>
             
             {node.owner === 'player' && getAttackableNodes().length > 0 && (
-              <div className="space-y-3 pt-2 border-t border-gray-200">
-                <h4 className="text-md font-semibold text-gray-800">Attack Options:</h4>
+              <div className="space-y-2 lg:space-y-3 pt-2 border-t border-gray-200">
+                <h4 className="text-sm lg:text-md font-semibold text-gray-800">Attack Options:</h4>
                 <div className="flex flex-col gap-2">
                   {getAttackableNodes().map(targetNode => (
                     <Button

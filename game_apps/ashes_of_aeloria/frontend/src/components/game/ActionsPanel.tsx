@@ -16,8 +16,8 @@ export const ActionsPanel: React.FC<ActionsPanelProps> = ({ onHelpClick }) => {
   };
 
   return (
-    <Card className="space-y-4">
-      <h3 className="text-lg font-semibold text-gray-800 border-b border-gray-200 pb-2">Actions</h3>
+    <Card className="space-y-3 lg:space-y-4">
+      <h3 className="text-base lg:text-lg font-semibold text-gray-800 border-b border-gray-200 pb-2">Actions</h3>
       <Button 
         variant="secondary" 
         fullWidth 

@@ -38,15 +38,17 @@ export const RecruitmentModal: React.FC<RecruitmentModalProps> = ({ isOpen, onCl
 
   const footer = (
     <>
-      <Button variant="secondary" onClick={handleCancel}>
+      <Button variant="secondary" onClick={handleCancel} fullWidth className="sm:w-auto">
         Cancel
       </Button>
       <Button 
         variant="primary" 
         onClick={handleConfirmRecruitment}
         disabled={!selectedClass || !selectedRace || !canAfford}
+        fullWidth
+        className="sm:w-auto"
       >
-        Recruit (Cost: {selectedClass ? GAME_DATA.commanderClasses[selectedClass].cost : '-'} Gold)
+        Recruit ({selectedClass ? GAME_DATA.commanderClasses[selectedClass].cost : '-'} Gold)
       </Button>
     </>
   );
@@ -58,9 +60,9 @@ export const RecruitmentModal: React.FC<RecruitmentModalProps> = ({ isOpen, onCl
       title="Recruit Commander"
       footer={footer}
     >
-      <div className="space-y-6">
+      <div className="space-y-4 lg:space-y-6">
         <div>
-          <h4 className="text-md font-semibold text-gray-800 mb-3">Select Class:</h4>
+          <h4 className="text-sm lg:text-md font-semibold text-gray-800 mb-3">Select Class:</h4>
           <div className="grid grid-cols-1 gap-2">
             {Object.entries(GAME_DATA.commanderClasses).map(([key, classData]) => (
               <div
@@ -72,10 +74,10 @@ export const RecruitmentModal: React.FC<RecruitmentModalProps> = ({ isOpen, onCl
                 }`}
                 onClick={() => setSelectedClass(key as CommanderClass)}
               >
-                <div className="text-xl w-8 text-center">{classData.icon}</div>
-                <div className="flex-1">
-                  <div className="font-medium">{classData.name}</div>
-                  <div className={`text-sm mt-1 ${selectedClass === key ? 'opacity-80' : 'text-gray-600'}`}>
+                <div className="text-lg lg:text-xl w-6 lg:w-8 text-center flex-shrink-0">{classData.icon}</div>
+                <div className="flex-1 min-w-0">
+                  <div className="font-medium text-sm lg:text-base">{classData.name}</div>
+                  <div className={`text-xs lg:text-sm mt-1 ${selectedClass === key ? 'opacity-80' : 'text-gray-600'}`}>
                     {classData.description}
                   </div>
                 </div>
@@ -88,7 +90,7 @@ export const RecruitmentModal: React.FC<RecruitmentModalProps> = ({ isOpen, onCl
         </div>
         
         <div>
-          <h4 className="text-md font-semibold text-gray-800 mb-3">Select Race:</h4>
+          <h4 className="text-sm lg:text-md font-semibold text-gray-800 mb-3">Select Race:</h4>
           <div className="grid grid-cols-1 gap-2">
             {Object.entries(GAME_DATA.races).map(([key, raceData]) => (
               <div
@@ -100,10 +102,10 @@ export const RecruitmentModal: React.FC<RecruitmentModalProps> = ({ isOpen, onCl
                 }`}
                 onClick={() => setSelectedRace(key as Race)}
               >
-                <div className="text-xl w-8 text-center">{raceData.icon}</div>
-                <div className="flex-1">
-                  <div className="font-medium">{raceData.name}</div>
-                  <div className={`text-sm mt-1 ${selectedRace === key ? 'opacity-80' : 'text-gray-600'}`}>
+                <div className="text-lg lg:text-xl w-6 lg:w-8 text-center flex-shrink-0">{raceData.icon}</div>
+                <div className="flex-1 min-w-0">
+                  <div className="font-medium text-sm lg:text-base">{raceData.name}</div>
+                  <div className={`text-xs lg:text-sm mt-1 ${selectedRace === key ? 'opacity-80' : 'text-gray-600'}`}>
                     {raceData.bonus}
                   </div>
                 </div>
@@ -112,10 +114,10 @@ export const RecruitmentModal: React.FC<RecruitmentModalProps> = ({ isOpen, onCl
           </div>
         </div>
 
-        <div className="bg-gray-50 p-4 rounded border border-gray-200">
+        <div className="bg-gray-50 p-3 lg:p-4 rounded border border-gray-200">
           {selectedClass && selectedRace ? (
-            <div className="space-y-3">
-              <h4 className="text-md font-semibold text-gray-800">Commander Summary:</h4>
+            <div className="space-y-2 lg:space-y-3">
+              <h4 className="text-sm lg:text-md font-semibold text-gray-800">Commander Summary:</h4>
               <div className="space-y-2">
                 <div className="flex justify-between text-sm">
                   <span className="text-gray-600">Name:</span>

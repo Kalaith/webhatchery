@@ -19,8 +19,8 @@ export const Modal: React.FC<ModalProps> = ({
   footer 
 }) => {
   const modalContentClass = size === 'large' 
-    ? 'max-w-4xl w-full max-h-[80vh] bg-white rounded-lg shadow-xl relative flex flex-col' 
-    : 'max-w-lg w-full max-h-[80vh] bg-white rounded-lg shadow-xl relative flex flex-col';
+    ? 'w-full max-w-4xl mx-4 max-h-[90vh] bg-white rounded-lg shadow-xl relative flex flex-col' 
+    : 'w-full max-w-lg mx-4 max-h-[90vh] bg-white rounded-lg shadow-xl relative flex flex-col';
 
   return (
     <AnimatePresence>
@@ -39,20 +39,20 @@ export const Modal: React.FC<ModalProps> = ({
             exit={{ scale: 0.8, opacity: 0 }}
             onClick={(e) => e.stopPropagation()}
           >
-            <div className="flex items-center justify-between p-6 border-b border-gray-200">
-              <h2 className="text-xl font-semibold text-gray-800">{title}</h2>
+            <div className="flex items-center justify-between p-4 lg:p-6 border-b border-gray-200">
+              <h2 className="text-lg lg:text-xl font-semibold text-gray-800 pr-4">{title}</h2>
               <button 
-                className="text-gray-400 hover:text-gray-600 text-2xl leading-none font-bold focus:outline-none"
+                className="text-gray-400 hover:text-gray-600 text-2xl leading-none font-bold focus:outline-none flex-shrink-0"
                 onClick={onClose}
               >
                 &times;
               </button>
             </div>
-            <div className="flex-1 p-6 overflow-y-auto">
+            <div className="flex-1 p-4 lg:p-6 overflow-y-auto">
               {children}
             </div>
             {footer && (
-              <div className="flex gap-3 p-6 border-t border-gray-200 bg-gray-50 rounded-b-lg">
+              <div className="flex flex-col sm:flex-row gap-3 p-4 lg:p-6 border-t border-gray-200 bg-gray-50 rounded-b-lg">
                 {footer}
               </div>
             )}
