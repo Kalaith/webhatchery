@@ -1,6 +1,7 @@
 import React, { useRef, useEffect, useCallback, useState } from 'react';
 import { useGameStore } from '../../stores/useGameStore';
 import { GAME_DATA } from '../../data/gameData';
+import { calculateEffectiveGarrison } from '../../utils/gameLogic';
 import type { GameNode, Owner } from '../../types/game';
 
 export const GameCanvas: React.FC = () => {
@@ -146,10 +147,23 @@ export const GameCanvas: React.FC = () => {
       const stars = '★'.repeat(node.starLevel);
       ctx.fillText(stars, node.x, node.y - 35);
       
-      // Draw garrison value
+      // Draw garrison value with commander bonus
+      const effectiveGarrison = calculateEffectiveGarrison(node, commanderInfo.commanders);
       ctx.font = '10px Arial';
       ctx.fillStyle = '#FFFFFF';
-      ctx.fillText(node.garrison.toString(), node.x, node.y + 35);
+      
+      if (effectiveGarrison.commanderBonus > 0) {
+        // Show enhanced garrison with commander bonus
+        ctx.fillStyle = '#90EE90'; // Light green for enhanced garrison
+        ctx.fillText(`${effectiveGarrison.totalPower}`, node.x, node.y + 35);
+        // Show base garrison in smaller text
+        ctx.font = '8px Arial';
+        ctx.fillStyle = '#CCCCCC';
+        ctx.fillText(`(${node.garrison})`, node.x, node.y + 45);
+      } else {
+        // Normal garrison display
+        ctx.fillText(node.garrison.toString(), node.x, node.y + 35);
+      }
     });
   }, [nodes, selectedNode, getNodeCommanderInfo]);
 

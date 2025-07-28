@@ -7,6 +7,7 @@ import React from 'react';
 import { Card } from '../ui/Card';
 import { Button } from '../ui/EnhancedButton';
 import { GAME_DATA } from '../../data/gameData';
+import { calculateEffectiveGarrison } from '../../utils/gameLogic';
 import type { GameNode, Resources } from '../../types/game';
 
 interface NodeInfoProps {
@@ -68,6 +69,11 @@ export const NodeInfo: React.FC<NodeInfoProps> = ({
   className = ''
 }) => {
   const nodeTypeData = GAME_DATA.nodeTypes[node.type];
+  
+  // Calculate effective garrison with commander bonuses
+  const effectiveGarrison = commanderInfo ? 
+    calculateEffectiveGarrison(node, commanderInfo.commanders) : 
+    { baseGarrison: node.garrison, commanderBonus: 0, totalPower: node.garrison };
 
   return (
     <Card className={`p-4 ${className}`}>
@@ -86,7 +92,27 @@ export const NodeInfo: React.FC<NodeInfoProps> = ({
       {/* Node Stats */}
       <div className="space-y-1 mb-4">
         <NodeStat label="Star Level" value={node.starLevel} icon="⭐" />
-        <NodeStat label="Garrison" value={node.garrison} icon="🛡️" />
+        
+        {/* Enhanced Garrison Display */}
+        {effectiveGarrison.commanderBonus > 0 ? (
+          <div className="flex justify-between items-center py-1">
+            <span className="text-sm text-gray-600 flex items-center gap-1">
+              <span>🛡️</span>
+              Garrison:
+            </span>
+            <div className="text-sm">
+              <span className="font-medium text-gray-900">
+                {effectiveGarrison.totalPower}
+              </span>
+              <span className="text-xs text-gray-500 ml-1">
+                ({effectiveGarrison.baseGarrison} + {effectiveGarrison.commanderBonus})
+              </span>
+            </div>
+          </div>
+        ) : (
+          <NodeStat label="Garrison" value={node.garrison} icon="🛡️" />
+        )}
+        
         <NodeStat 
           label="Gold/Turn" 
           value={nodeTypeData.goldGeneration} 
@@ -115,6 +141,11 @@ export const NodeInfo: React.FC<NodeInfoProps> = ({
             value={`${commanderInfo.current}/${commanderInfo.max}`} 
             icon="👑" 
           />
+          {effectiveGarrison.commanderBonus > 0 && (
+            <div className="text-xs text-blue-600 mt-1 ml-5">
+              Power Bonus: +{effectiveGarrison.commanderBonus}
+            </div>
+          )}
         </div>
       )}
 

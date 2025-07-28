@@ -8,7 +8,9 @@ import {
   calculateIncome, 
   canAttackNode as gameLogicCanAttackNode,
   resolveBattle,
-  updateNodeAfterBattle
+  updateNodeAfterBattle,
+  calculateEffectiveGarrison,
+  calculateCommanderBonus
 } from '../utils/gameLogic';
 import { GAME_DATA, GAME_CONSTANTS } from '../data/gameData';
 
@@ -310,13 +312,15 @@ export const useGameStore = create<GameStore>()(
         
         for (let i = 0; i < maxAttacks; i++) {
           const attack = attackableTargets[i];
-          const attackerStrength = attack.attacker.garrison + (attack.attacker.starLevel * 20);
-          const defenderStrength = attack.target.garrison + (attack.target.starLevel * 15);
           
-          // Enemy has slight advantage in calculation
-          const victory = (attackerStrength * 1.1) > defenderStrength;
+          // Get commanders at each node for proper battle calculation
+          const attackerCommanders = state.commanders.filter(c => c.assignedNode === attack.attacker.id);
+          const defenderCommanders = state.commanders.filter(c => c.assignedNode === attack.target.id);
           
-          if (victory) {
+          // Use the enhanced battle resolution
+          const battleResult = resolveBattle(attack.attacker, attack.target, attackerCommanders, defenderCommanders);
+          
+          if (battleResult.victory) {
             // Enemy wins - capture the node
             set((state) => ({
               nodes: state.nodes.map(n => 
@@ -463,6 +467,10 @@ export const useGameStore = create<GameStore>()(
         const attackerCommanders = state.commanders.filter(c => c.assignedNode === attackerNode.id);
         const defenderCommanders = state.commanders.filter(c => c.assignedNode === defenderNode.id);
         
+        // Calculate commander bonuses for battle log
+        const attackerBonus = calculateCommanderBonus(attackerCommanders);
+        const defenderBonus = calculateCommanderBonus(defenderCommanders);
+        
         // Resolve the battle with commander bonuses
         const battleResult = resolveBattle(attackerNode, defenderNode, attackerCommanders, defenderCommanders);
         
@@ -480,7 +488,10 @@ export const useGameStore = create<GameStore>()(
             )
           }));
           
-          get().addBattleLogEntry('victory', `Successfully captured ${GAME_DATA.nodeTypes[defenderNode.type].name}!`);
+          const commanderBonusText = attackerBonus.attackBonus > 0 ? 
+            ` (Commander bonus: +${Math.floor(attackerBonus.attackBonus)})` : '';
+          
+          get().addBattleLogEntry('victory', `Successfully captured ${GAME_DATA.nodeTypes[defenderNode.type].name}!${commanderBonusText}`);
           
           // Award experience to commanders at the attacking node
           const attackingCommanders = state.commanders.filter(c => c.assignedNode === attackerNode.id && c.owner === 'player');
@@ -507,7 +518,10 @@ export const useGameStore = create<GameStore>()(
             )
           }));
           
-          get().addBattleLogEntry('defeat', `Attack on ${GAME_DATA.nodeTypes[defenderNode.type].name} failed!`);
+          const defenderBonusText = defenderBonus.defenseBonus > 0 ? 
+            ` Enemy commanders provided +${Math.floor(defenderBonus.defenseBonus)} defense.` : '';
+          
+          get().addBattleLogEntry('defeat', `Attack on ${GAME_DATA.nodeTypes[defenderNode.type].name} failed!${defenderBonusText}`);
         }
       },
       canAttackNode: (nodeId) => {

@@ -80,6 +80,57 @@ export const canAttackNode = (
   return attackerNode.connections.includes(defenderNodeId);
 };
 
+export const calculateEffectiveGarrison = (
+  node: GameNode, 
+  commanders: any[] = []
+): { baseGarrison: number; commanderBonus: number; totalPower: number } => {
+  const baseGarrison = node.garrison;
+  const commanderBonus = calculateCommanderBonus(commanders);
+  const totalPower = baseGarrison + commanderBonus.powerLevel;
+  
+  return {
+    baseGarrison,
+    commanderBonus: commanderBonus.powerLevel,
+    totalPower
+  };
+};
+
+export const calculateCommanderBonus = (commanders: any[]): { defenseBonus: number; attackBonus: number; powerLevel: number } => {
+  let defenseBonus = 0;
+  let attackBonus = 0;
+  let powerLevel = 0;
+  
+  commanders.forEach(commander => {
+    const commanderPower = commander.attack + commander.defense + (commander.level * 15);
+    powerLevel += commanderPower;
+    
+    // Different commander classes provide different bonuses
+    switch (commander.class) {
+      case 'knight':
+        defenseBonus += commander.defense * 1.5 + (commander.level * 10);
+        attackBonus += commander.attack * 1.2 + (commander.level * 8);
+        break;
+      case 'mage':
+        defenseBonus += commander.defense * 1.0 + (commander.level * 6);
+        attackBonus += commander.attack * 1.8 + (commander.level * 12);
+        break;
+      case 'ranger':
+        defenseBonus += commander.defense * 1.1 + (commander.level * 7);
+        attackBonus += commander.attack * 1.4 + (commander.level * 10);
+        break;
+      case 'warlord':
+        defenseBonus += commander.defense * 1.3 + (commander.level * 12);
+        attackBonus += commander.attack * 1.3 + (commander.level * 12);
+        break;
+      default:
+        defenseBonus += commander.defense + (commander.level * 5);
+        attackBonus += commander.attack + (commander.level * 5);
+    }
+  });
+  
+  return { defenseBonus, attackBonus, powerLevel };
+};
+
 export const resolveBattle = (
   attackerNode: GameNode, 
   defenderNode: GameNode,
@@ -91,13 +142,11 @@ export const resolveBattle = (
   let defenderStrength = defenderNode.garrison + (defenderNode.starLevel * 15);
   
   // Add commander bonuses
-  attackerCommanders.forEach(commander => {
-    attackerStrength += commander.attack + commander.defense + (commander.level * 10);
-  });
+  const attackerBonus = calculateCommanderBonus(attackerCommanders);
+  const defenderBonus = calculateCommanderBonus(defenderCommanders);
   
-  defenderCommanders.forEach(commander => {
-    defenderStrength += commander.defense + commander.attack + (commander.level * 10);
-  });
+  attackerStrength += attackerBonus.attackBonus;
+  defenderStrength += defenderBonus.defenseBonus;
   
   // Defender gets defensive bonus
   defenderStrength *= 1.2;

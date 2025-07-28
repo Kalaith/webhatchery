@@ -415,6 +415,19 @@
             "buildCommand": "npm run build -- --base=./",
             "packageManager": "npm"
           }
+        },
+        {
+          "title": "Ashes of Aeloria",
+          "path": "game_apps/ashes_of_aeloria/frontend/",
+          "description": "High-fantasy node-based strategy game that blends classic commander-driven warfare with modern tactical gameplay. Players control elite commanders across a connected network of strategic nodes, building armies, managing resources, and engaging in large-scale battles to conquer the realm of Aeloria.",
+          "deployment": {
+            "type": "React",
+            "outputDir": "dist",
+            "deployAs": "ashes_of_aeloria",
+            "requiresBuild": true,
+            "buildCommand": "npm run build -- --base=./",
+            "packageManager": "npm"
+          }
         }
       ]
     },
