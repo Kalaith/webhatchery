@@ -25,9 +25,9 @@
           }
         },
         {
-          "title": "Stories Explicit",
+          "title": "Mature Stories",
           "path": "storiesx/",
-          "description": "Story collection that may contain explicit language.",
+          "description": "Story collection that may contain explicit language and adult themes.",
           "deployment": {
             "type": "Static",
             "deployAs": "storiesx",
@@ -427,6 +427,62 @@
             "requiresBuild": true,
             "buildCommand": "npm run build -- --base=./",
             "packageManager": "npm"
+          }
+        },
+        {
+          "title": "Mytherra",
+          "path": "game_apps/mytherra/frontend/",
+          "description": "Fantasy MMO-inspired game with crafting, exploration, and character progression systems.",
+          "deployment": {
+            "type": "React",
+            "outputDir": "dist",
+            "deployAs": "mytherra",
+            "requiresBuild": true,
+            "buildCommand": "npm run build -- --base=./",
+            "packageManager": "npm"
+          }
+        },
+        {
+          "title": "Stock Management",
+          "path": "game_apps/stock_management/frontend/",
+          "description": "Resource and inventory management simulation game with market dynamics and trading mechanics.",
+          "deployment": {
+            "type": "React",
+            "outputDir": "dist",
+            "deployAs": "stock_management",
+            "requiresBuild": true,
+            "buildCommand": "npm run build -- --base=./",
+            "packageManager": "npm"
+          }
+        }
+      ]
+    },
+    "private": {
+      "name": "Private Projects",
+      "hidden": true,
+      "projects": [
+        {
+          "title": "SES",
+          "path": "web/ses/frontend/",
+          "description": "Session Emulation System",
+          "deployment": {
+            "type": "FullStack",
+            "deployAs": "ses",
+            "frontend": {
+              "type": "React",
+              "outputDir": "dist",
+              "requiresBuild": true,
+              "buildCommand": "npm run build -- --base=./",
+              "packageManager": "npm"
+            },
+            "backend": {
+              "type": "PHP",
+              "path": "web/ses/backend/",
+              "requiresBuild": true,
+              "buildCommand": "composer install --no-dev --optimize-autoloader",
+              "databaseInit": false,
+              "envFile": ".env"
+            }
           }
         }
       ]
