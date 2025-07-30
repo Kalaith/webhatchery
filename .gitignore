@@ -12,7 +12,6 @@
 # Web Applications with their own repos
 apps/isitdoneyet/
 
-
 # ==================================================
 # BUILD AND DEPLOYMENT ARTIFACTS
 # ==================================================
@@ -219,3 +218,7 @@ comfyui/ftp-config.json
 /gallery/portraits/
 /gallery/adventurer/
 /gallery/alien/
+web/
+game_apps/infestium
+game_apps/mytherra
+game_apps/stock_management
