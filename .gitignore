@@ -218,7 +218,11 @@ comfyui/ftp-config.json
 /gallery/portraits/
 /gallery/adventurer/
 /gallery/alien/
+
 web/
+web/ses
+
+# Projects that are managed as a seperate git repository
 game_apps/infestium
 game_apps/mytherra
 game_apps/stock_management
