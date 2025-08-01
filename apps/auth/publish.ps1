@@ -238,7 +238,7 @@ function Install-BackendDependencies {
     }
     
     # Install dependencies
-    composer install --no-dev --optimize-autoloader
+    composer update --no-dev --optimize-autoloader
     if ($LASTEXITCODE -ne 0) {
         Write-Error "Failed to install PHP dependencies"
         return $false

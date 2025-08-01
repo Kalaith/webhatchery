@@ -11,10 +11,13 @@ import './App.css';
 
 const App: React.FC = () => {
   const [showRegister, setShowRegister] = useState(false);
+  
+  // Get base path from environment or default to /auth/
+  const basename = import.meta.env.VITE_BASE_PATH || '/auth/';
 
   return (
     <AuthProvider>
-      <Router>
+      <Router basename={basename}>
         <div className="min-h-screen flex flex-col bg-gray-50">
           <Header />
           <main className="flex-1 flex flex-col items-center justify-center px-4">
@@ -26,12 +29,12 @@ const App: React.FC = () => {
                   <div className="w-full max-w-md">
                     {showRegister ? (
                       <RegisterForm 
-                        onSuccess={() => window.location.href = '/profile'}
+                        onSuccess={() => window.location.href = `${basename}profile`}
                         onLoginClick={() => setShowRegister(false)}
                       />
                     ) : (
                       <LoginForm 
-                        onSuccess={() => window.location.href = '/profile'}
+                        onSuccess={() => window.location.href = `${basename}profile`}
                         onRegisterClick={() => setShowRegister(true)}
                       />
                     )}

@@ -95,7 +95,7 @@ const handleApiError = (error: unknown): never => {
  */
 export const login = async (credentials: LoginRequest): Promise<AuthUser> => {
   try {
-    const response = await apiClient.post<ApiResponse<AuthUser>>('/auth/login', credentials);
+    const response = await apiClient.post<ApiResponse<AuthUser>>('/login', credentials);
     
     if (response.data.success && response.data.data.token) {
       localStorage.setItem('token', response.data.data.token);
@@ -112,7 +112,7 @@ export const login = async (credentials: LoginRequest): Promise<AuthUser> => {
  */
 export const register = async (userData: RegisterRequest): Promise<AuthUser> => {
   try {
-    const response = await apiClient.post<ApiResponse<AuthUser>>('/auth/register', userData);
+    const response = await apiClient.post<ApiResponse<AuthUser>>('/register', userData);
     
     if (response.data.success && response.data.data.token) {
       localStorage.setItem('token', response.data.data.token);
@@ -129,7 +129,7 @@ export const register = async (userData: RegisterRequest): Promise<AuthUser> => 
  */
 export const getCurrentUser = async (): Promise<AuthUser | null> => {
   try {
-    const response = await apiClient.get<ApiResponse<AuthUser>>('/auth/me');
+    const response = await apiClient.get<ApiResponse<AuthUser>>('/me');
     return response.data.data;
   } catch (error) {
     if (axios.isAxiosError(error) && (error.response?.status === 401 || error.response?.status === 403)) {
@@ -158,6 +158,42 @@ export const checkServerConnectivity = async (): Promise<boolean> => {
 };
 
 /**
+ * Test health endpoints for debugging
+ */
+export const testHealthEndpoints = async (): Promise<any> => {
+  const baseUrl = API_URL.replace('/api', ''); // Remove /api from base URL
+  const results = {
+    rootHealth: null as any,
+    debugRoute: null as any,
+    apiHealth: null as any,
+    errors: [] as string[]
+  };
+
+  try {
+    const rootHealthResponse = await axios.get(`${baseUrl}/health`, { timeout: 5000 });
+    results.rootHealth = rootHealthResponse.data;
+  } catch (error: any) {
+    results.errors.push(`Root health failed: ${error.message || 'Unknown error'}`);
+  }
+
+  try {
+    const debugResponse = await axios.get(`${baseUrl}/debug`, { timeout: 5000 });
+    results.debugRoute = debugResponse.data;
+  } catch (error: any) {
+    results.errors.push(`Debug route failed: ${error.message || 'Unknown error'}`);
+  }
+
+  try {
+    const apiHealthResponse = await axios.get(`${API_URL}/health`, { timeout: 5000 });
+    results.apiHealth = apiHealthResponse.data;
+  } catch (error: any) {
+    results.errors.push(`API health failed: ${error.message || 'Unknown error'}`);
+  }
+
+  return results;
+};
+
+/**
  * Logout user (client-side only)
  */
 export const logout = (): void => {
@@ -170,4 +206,5 @@ export default {
   getCurrentUser,
   logout,
   checkServerConnectivity,
+  testHealthEndpoints,
 };

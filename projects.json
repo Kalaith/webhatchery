@@ -145,7 +145,7 @@
           "description": "User Authentication Portal for managing user accounts, roles, and permissions with secure login and registration features.",
           "deployment": {
             "type": "FullStack",
-            "deployAs": "auth_portal",
+            "deployAs": "auth",
             "frontend": {
               "type": "React",
               "path": "apps/auth/frontend/",

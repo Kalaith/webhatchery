@@ -10,6 +10,7 @@ use Dotenv\Dotenv;
 use App\Middleware\CorsMiddleware;
 use App\Actions\AuthActions;
 use App\External\UserRepository;
+use App\Controllers\AuthController;
 
 require_once __DIR__ . '/../vendor/autoload.php';
 
@@ -46,10 +47,22 @@ $container->set(AuthActions::class, function($container) {
     return new AuthActions($container->get(UserRepository::class));
 });
 
+$container->set(AuthController::class, function($container) {
+    return new AuthController($container->get(AuthActions::class));
+});
+
 AppFactory::setContainer($container);
 
 // Create Slim app
 $app = AppFactory::create();
+
+// Set base path for subdirectory deployment
+if (isset($_ENV['APP_BASE_PATH'])) {
+    $app->setBasePath($_ENV['APP_BASE_PATH']);
+} else {
+    // Default to /auth for this application
+    $app->setBasePath('/auth');
+}
 
 // Add middleware
 $app->add(new CorsMiddleware());
