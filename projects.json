@@ -434,12 +434,47 @@
           "path": "game_apps/mytherra/frontend/",
           "description": "Fantasy MMO-inspired game with crafting, exploration, and character progression systems.",
           "deployment": {
-            "type": "React",
-            "outputDir": "dist",
+            "type": "FullStack",
             "deployAs": "mytherra",
-            "requiresBuild": true,
-            "buildCommand": "npm run build -- --base=./",
-            "packageManager": "npm"
+            "frontend": {
+              "type": "React",
+              "outputDir": "dist",
+              "requiresBuild": true,
+              "buildCommand": "npm run build -- --base=./",
+              "packageManager": "npm"
+            },
+            "backend": {
+              "type": "PHP",
+              "path": "game_apps/mytherra/backend/",
+              "requiresBuild": true,
+              "buildCommand": "composer install --no-dev --optimize-autoloader",
+              "databaseInit": true,
+              "envFile": ".env"
+            }
+          }
+        },
+        {
+          "title": "TB Realms",
+          "path": "game_apps/tb_realms/frontend/",
+          "description": "Turn-based strategy game with realm management and tactical combat systems.",
+          "deployment": {
+            "type": "FullStack",
+            "deployAs": "tb_realms",
+            "frontend": {
+              "type": "React",
+              "outputDir": "dist",
+              "requiresBuild": true,
+              "buildCommand": "npm run build -- --base=./",
+              "packageManager": "npm"
+            },
+            "backend": {
+              "type": "PHP",
+              "path": "game_apps/tb_realms/backend/",
+              "requiresBuild": true,
+              "buildCommand": "composer install --no-dev --optimize-autoloader",
+              "databaseInit": true,
+              "envFile": ".env"
+            }
           }
         },
         {

@@ -1,33 +1,18 @@
-import React from 'react';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import { Auth0Provider } from '@auth0/auth0-react';
-import { AuthProvider } from './utils/AuthContext';
+import React, { useState } from 'react';
+import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
+import { AuthProvider } from './contexts/AuthContext';
 import Header from './components/layout/Header';
 import HomePage from './pages/HomePage';
 import ProfilePage from './pages/ProfilePage';
-import AuthDebugPage from './pages/AuthDebugPage';
-import ProtectedRoute from './components/features/ProtectedRoute';
+import ProtectedRoute from './components/auth/ProtectedRoute';
+import LoginForm from './components/auth/LoginForm';
+import RegisterForm from './components/auth/RegisterForm';
 import './App.css';
 
-const auth0Domain = import.meta.env.VITE_AUTH0_DOMAIN!;
-const auth0ClientId = import.meta.env.VITE_AUTH0_CLIENT_ID!;
+const App: React.FC = () => {
+  const [showRegister, setShowRegister] = useState(false);
 
-// Debug environment variables
-console.log('Auth0 Config:', {
-  domain: auth0Domain,
-  clientId: auth0ClientId,
-  redirectUri: `${window.location.origin}/auth_portal/`,
-  currentUrl: window.location.href
-});
-
-const App: React.FC = () => (
-  <Auth0Provider
-    domain={auth0Domain}
-    clientId={auth0ClientId}
-    authorizationParams={{
-      redirect_uri: `${window.location.origin}/auth_portal/`,
-    }}
-  >
+  return (
     <AuthProvider>
       <Router>
         <div className="min-h-screen flex flex-col bg-gray-50">
@@ -35,18 +20,37 @@ const App: React.FC = () => (
           <main className="flex-1 flex flex-col items-center justify-center px-4">
             <Routes>
               <Route path="/" element={<HomePage />} />
+              <Route 
+                path="/login" 
+                element={
+                  <div className="w-full max-w-md">
+                    {showRegister ? (
+                      <RegisterForm 
+                        onSuccess={() => window.location.href = '/profile'}
+                        onLoginClick={() => setShowRegister(false)}
+                      />
+                    ) : (
+                      <LoginForm 
+                        onSuccess={() => window.location.href = '/profile'}
+                        onRegisterClick={() => setShowRegister(true)}
+                      />
+                    )}
+                  </div>
+                } 
+              />
               <Route path="/profile" element={
                 <ProtectedRoute>
                   <ProfilePage />
                 </ProtectedRoute>
               } />
-              <Route path="/auth-debug" element={<AuthDebugPage />} />
+              {/* Redirect auth-debug to profile for now */}
+              <Route path="/auth-debug" element={<Navigate to="/profile" replace />} />
             </Routes>
           </main>
         </div>
       </Router>
     </AuthProvider>
-  </Auth0Provider>
-);
+  );
+};
 
 export default App;
