@@ -1,6 +1,6 @@
-# Auth0 PHP Backend for Auth Portal
+# JWT PHP Backend for Auth Portal
 
-This backend provides Auth0 JWT validation and user management endpoints for the Auth Portal frontend.
+This backend provides JWT authentication and user management endpoints for the Auth Portal frontend.
 
 ## Setup
 
@@ -10,12 +10,11 @@ This backend provides Auth0 JWT validation and user management endpoints for the
    ```
 
 2. **Configure Environment**:
-   - Update the Auth0 settings in `.env`:
-     - `AUTH0_DOMAIN`: Your Auth0 tenant domain
-     - `AUTH0_CLIENT_ID`: Your Auth0 application client ID
-     - `AUTH0_CLIENT_SECRET`: Your Auth0 application client secret
-     - `AUTH0_AUDIENCE`: (Optional) Your API audience identifier
+   - Update the JWT settings in `.env`:
+     - `JWT_SECRET`: Your JWT secret key for signing tokens
+     - `JWT_EXPIRATION`: Token expiration time in seconds (default: 86400 = 24 hours)
      - `APP_ENV`: Set to `development` for debug info
+     - `DB_HOST`, `DB_NAME`, `DB_USER`, `DB_PASS`: Database configuration
 
 3. **Start the Server**:
    ```bash
@@ -24,12 +23,12 @@ This backend provides Auth0 JWT validation and user management endpoints for the
 
 ## Endpoints
 
+- **POST /api/auth/login** — Login with email/password, returns JWT token
+- **POST /api/auth/register** — Register a new user
 - **GET /api/auth/me** — Get current user profile (requires JWT token)
-- **POST /api/auth/register** — Register a new user (requires JWT token)
-- **GET /api/users** — Get all users (requires JWT token)
+- **GET /api/admin/users** — Get all users (requires admin JWT token)
 - **GET /api/health** — Health check endpoint
-- `POST /api/auth/login` — Not implemented (handled by Auth0 Universal Login)
-- `POST /api/auth/logout` — Returns success (logout handled by frontend/Auth0)
+- **POST /api/auth/logout** — Logout (client-side token removal)
 
 ## Setup
 
@@ -40,16 +39,18 @@ This backend provides Auth0 JWT validation and user management endpoints for the
    ```
 
 2. Set environment variables (in your web server or `.env`):
-   - `AUTH0_DOMAIN`
-   - `AUTH0_CLIENT_ID`
-   - `AUTH0_CLIENT_SECRET`
-   - `AUTH0_AUDIENCE`
+   - `JWT_SECRET`
+   - `JWT_EXPIRATION`
+   - `DB_HOST`
+   - `DB_NAME`
+   - `DB_USER`
+   - `DB_PASS`
 
 3. Deploy to a PHP-capable server (Apache, Nginx, etc).
 
 ## Security
-- All protected endpoints require a valid Auth0 JWT in the `Authorization: Bearer ...` header.
-- JWKS is fetched from your Auth0 domain for signature verification.
+- All protected endpoints require a valid JWT token in the `Authorization: Bearer ...` header.
+- JWT tokens are signed with a secret key for signature verification.
 
 ## Extending
 - Add more endpoints as needed for your app.

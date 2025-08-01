@@ -4,6 +4,7 @@ import { AuthProvider } from './contexts/AuthContext';
 import Header from './components/layout/Header';
 import HomePage from './pages/HomePage';
 import ProfilePage from './pages/ProfilePage';
+import AdminUsersPage from './pages/AdminUsersPage';
 import ProtectedRoute from './components/auth/ProtectedRoute';
 import LoginForm from './components/auth/LoginForm';
 import RegisterForm from './components/auth/RegisterForm';
@@ -44,6 +45,11 @@ const App: React.FC = () => {
               <Route path="/profile" element={
                 <ProtectedRoute>
                   <ProfilePage />
+                </ProtectedRoute>
+              } />
+              <Route path="/admin/users" element={
+                <ProtectedRoute>
+                  <AdminUsersPage />
                 </ProtectedRoute>
               } />
               {/* Redirect auth-debug to profile for now */}

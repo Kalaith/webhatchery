@@ -13,13 +13,11 @@ if (file_exists(__DIR__ . '/.env')) {
 }
 
 return [
-    'auth0' => [
-        'domain' => getenv('AUTH0_DOMAIN') ?: $_ENV['AUTH0_DOMAIN'] ?? null,
-        'client_id' => getenv('AUTH0_CLIENT_ID') ?: $_ENV['AUTH0_CLIENT_ID'] ?? null,
-        'client_secret' => getenv('AUTH0_CLIENT_SECRET') ?: $_ENV['AUTH0_CLIENT_SECRET'] ?? null,
-        'audience' => getenv('AUTH0_AUDIENCE') ?: $_ENV['AUTH0_AUDIENCE'] ?? null,
-    ],
     'app' => [
         'environment' => getenv('APP_ENV') ?: $_ENV['APP_ENV'] ?? 'production',
+    ],
+    'jwt' => [
+        'secret' => getenv('JWT_SECRET') ?: $_ENV['JWT_SECRET'] ?? 'your_jwt_secret_key_here',
+        'expiration' => (int)(getenv('JWT_EXPIRATION') ?: $_ENV['JWT_EXPIRATION'] ?? 86400), // 24 hours default
     ]
 ];

@@ -2,45 +2,57 @@
 
 use Slim\Routing\RouteCollectorProxy;
 use App\Controllers\AuthController;
+use App\Controllers\AdminController;
 use App\Middleware\JwtAuthMiddleware;
-
-// Root health check (for testing routing)
-$app->get('/health', function($request, $response) {
-    $response->getBody()->write(json_encode([
-        'success' => true,
-        'status' => 'healthy - root route',
-        'timestamp' => date('Y-m-d H:i:s'),
-        'base_path' => 'Root health endpoint working'
-    ]));
-    return $response->withHeader('Content-Type', 'application/json');
-});
-
-// Debug route to show routing info
-$app->get('/debug', function($request, $response) {
-    $uri = $request->getUri();
-    $response->getBody()->write(json_encode([
-        'success' => true,
-        'debug' => [
-            'path' => $uri->getPath(),
-            'base_path' => $uri->getBasePath(),
-            'query' => $uri->getQuery(),
-            'full_url' => (string)$uri,
-            'method' => $request->getMethod(),
-            'timestamp' => date('Y-m-d H:i:s')
-        ]
-    ]));
-    return $response->withHeader('Content-Type', 'application/json');
-});
 
 // API Routes
 $app->group('/api', function (RouteCollectorProxy $group) {
-    // Health check endpoint
-    $group->get('/health', function($request, $response) {
-        $response->getBody()->write(json_encode([
+    // Public Health Check (No Auth Required)
+    $group->get('/health', function ($request, $response) {
+        $payload = json_encode([
             'success' => true,
-            'status' => 'healthy - api route',
-            'timestamp' => date('Y-m-d H:i:s')
-        ]));
+            'message' => 'Auth API is running',
+            'timestamp' => date('Y-m-d H:i:s'),
+            'version' => '1.0.0'
+        ]);
+        
+        $response->getBody()->write($payload);
+        return $response->withHeader('Content-Type', 'application/json');
+    });
+
+    // Debug JWT endpoint (Development only)
+    $group->get('/debug/jwt', function ($request, $response) {
+        if ($_ENV['APP_ENV'] !== 'development') {
+            $payload = json_encode(['success' => false, 'message' => 'Debug endpoint only available in development']);
+            $response->getBody()->write($payload);
+            return $response->withHeader('Content-Type', 'application/json')->withStatus(403);
+        }
+
+        $authHeader = $request->getHeaderLine('Authorization');
+        $debugInfo = [
+            'success' => true,
+            'auth_header' => $authHeader,
+            'jwt_secret_prefix' => substr($_ENV['JWT_SECRET'] ?? 'default', 0, 10) . '...',
+            'environment' => $_ENV['APP_ENV'] ?? 'unknown'
+        ];
+
+        if ($authHeader && preg_match('/Bearer\s+(.*)$/i', $authHeader, $matches)) {
+            $token = $matches[1];
+            $debugInfo['token_prefix'] = substr($token, 0, 20) . '...';
+            
+            try {
+                $jwtSecret = $_ENV['JWT_SECRET'] ?? 'your_jwt_secret_key_here';
+                $decoded = \Firebase\JWT\JWT::decode($token, new \Firebase\JWT\Key($jwtSecret, 'HS256'));
+                $debugInfo['token_decoded'] = true;
+                $debugInfo['token_payload'] = $decoded;
+            } catch (\Exception $e) {
+                $debugInfo['token_decoded'] = false;
+                $debugInfo['decode_error'] = $e->getMessage();
+            }
+        }
+
+        $payload = json_encode($debugInfo, JSON_PRETTY_PRINT);
+        $response->getBody()->write($payload);
         return $response->withHeader('Content-Type', 'application/json');
     });
 
@@ -54,5 +66,15 @@ $app->group('/api', function (RouteCollectorProxy $group) {
         $protected->get('/me', [AuthController::class, 'getCurrentUser']);
         $protected->get('/user', [AuthController::class, 'getCurrentUser']); // Alternative endpoint
         $protected->post('/logout', [AuthController::class, 'logout']);
+        
+        // Admin Routes (Protected - Admin access required)
+        $protected->get('/admin/users', [AdminController::class, 'getAllUsers']);
+        $protected->get('/admin/roles', [AdminController::class, 'getAllRoles']);
+        $protected->post('/admin/users/assign-role', [AdminController::class, 'assignUserRole']);
+        $protected->post('/admin/users/remove-role', [AdminController::class, 'removeUserRole']);
+        $protected->put('/admin/users/{userId}', [AdminController::class, 'updateUser']);
+        $protected->delete('/admin/users/{userId}', [AdminController::class, 'deleteUser']);
+        $protected->post('/admin/users/{userId}/reset-password', [AdminController::class, 'resetUserPassword']);
+        $protected->post('/admin/users/{userId}/deactivate', [AdminController::class, 'deactivateUser']);
     })->add(JwtAuthMiddleware::class);
 });

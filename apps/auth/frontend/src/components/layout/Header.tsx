@@ -2,6 +2,7 @@
 import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../contexts/AuthContext';
+import { isAdmin } from '../../utils/permissions';
 import Button from '../ui/Button';
 
 const Header: React.FC = () => {
@@ -26,6 +27,11 @@ const Header: React.FC = () => {
         {isAuthenticated && (
           <Link to="/profile" className="text-gray-700 hover:text-blue-700 focus:outline-none focus:underline">
             Profile
+          </Link>
+        )}
+        {isAuthenticated && user && isAdmin(user) && (
+          <Link to="/admin/users" className="text-gray-700 hover:text-blue-700 focus:outline-none focus:underline">
+            Admin
           </Link>
         )}
         {isAuthenticated ? (

@@ -6,12 +6,13 @@
  * Authenticated user data returned from API
  */
 export interface AuthUser {
-  id: string;
+  id: number;
   email: string;
   username: string;
   first_name: string;
   last_name: string;
-  role: 'user' | 'admin' | 'moderator';
+  role: 'user' | 'admin' | 'moderator'; // Legacy role field
+  roles?: string[]; // New roles array
   token: string;
 }
 

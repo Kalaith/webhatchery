@@ -41,9 +41,13 @@ class UserRepository
         
         // Set defaults
         $userData['is_active'] = $userData['is_active'] ?? true;
-        $userData['role'] = $userData['role'] ?? 'user';
         
-        return User::create($userData);
+        $user = User::create($userData);
+        
+        // Assign default 'user' role using the new role system
+        $user->assignRole('user');
+        
+        return $user;
     }
 
     /**

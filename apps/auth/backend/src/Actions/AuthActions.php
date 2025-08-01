@@ -52,7 +52,7 @@ class AuthActions
                 'username' => $user->username,
                 'first_name' => $user->first_name,
                 'last_name' => $user->last_name,
-                'role' => $user->role
+                'roles' => $user->getRoleNames()
             ],
             'token' => $token
         ];
@@ -93,7 +93,7 @@ class AuthActions
                 'username' => $user->username,
                 'first_name' => $user->first_name,
                 'last_name' => $user->last_name,
-                'role' => $user->role
+                'roles' => $user->getRoleNames()
             ],
             'token' => $token
         ];
@@ -116,7 +116,7 @@ class AuthActions
             'username' => $user->username,
             'first_name' => $user->first_name,
             'last_name' => $user->last_name,
-            'role' => $user->role,
+            'roles' => $user->getRoleNames(),
             'is_active' => $user->is_active,
             'last_login_at' => $user->last_login_at,
             'created_at' => $user->created_at
@@ -130,10 +130,15 @@ class AuthActions
     {
         $jwtSecret = $_ENV['JWT_SECRET'] ?? 'your_jwt_secret_key_here';
         
+        // Get roles from the new role system
+        $roles = $user->getRoleNames();
+        $primaryRole = !empty($roles) ? $roles[0] : 'user'; // Default to 'user' if no roles assigned
+        
         $payload = [
             'user_id' => $user->id,
             'email' => $user->email,
-            'role' => $user->role,
+            'role' => $primaryRole, // Primary role for backward compatibility
+            'roles' => $roles, // All roles for new system
             'iat' => time(), // issued at
             'exp' => time() + (24 * 60 * 60) // expires in 24 hours
         ];
@@ -148,17 +153,29 @@ class AuthActions
     {
         try {
             $jwtSecret = $_ENV['JWT_SECRET'] ?? 'your_jwt_secret_key_here';
+            error_log('Validating token with secret: ' . substr($jwtSecret, 0, 10) . '...');
+            
             $decoded = JWT::decode($token, new Key($jwtSecret, 'HS256'));
+            error_log('Token decoded successfully. User ID: ' . $decoded->user_id);
             
             // Verify user still exists and is active
             $user = $this->userRepository->findById($decoded->user_id);
-            if (!$user || !$user->is_active) {
+            if (!$user) {
+                error_log('User not found in database: ' . $decoded->user_id);
                 return null;
             }
             
+            if (!$user->is_active) {
+                error_log('User is not active: ' . $decoded->user_id);
+                return null;
+            }
+            
+            error_log('Token validation successful for user: ' . $user->id);
             return $decoded;
         } catch (\Exception $e) {
             error_log('Token validation error: ' . $e->getMessage());
+            error_log('Token validation error class: ' . get_class($e));
+            error_log('Token validation error trace: ' . $e->getTraceAsString());
             return null;
         }
     }

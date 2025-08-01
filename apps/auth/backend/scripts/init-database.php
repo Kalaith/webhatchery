@@ -6,6 +6,8 @@ require_once __DIR__ . '/../vendor/autoload.php';
 use Illuminate\Database\Capsule\Manager as Capsule;
 use Dotenv\Dotenv;
 use App\Models\User;
+use App\Models\Role;
+use App\Models\UserRole;
 
 // Load environment variables
 $dotenv = Dotenv::createImmutable(__DIR__ . '/..');
@@ -34,8 +36,15 @@ try {
     // Create users table
     User::createTable();
     
+    // Create roles table and default roles
+    Role::createTable();
+    
+    // Create user_roles junction table
+    UserRole::createTable();
+    
     echo "\n✅ Database initialization completed successfully!\n";
     echo "📊 You can now start using the Auth Portal API.\n";
+    echo "🔑 Default roles created: user, admin, moderator\n";
     
 } catch (Exception $e) {
     echo "\n❌ Database initialization failed: " . $e->getMessage() . "\n";

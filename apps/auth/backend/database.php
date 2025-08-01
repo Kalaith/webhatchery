@@ -10,7 +10,6 @@ class MockDatabase {
             'firstName' => 'Demo',
             'lastName' => 'User',
             'membershipType' => 'member',
-            'auth0_sub' => 'auth0|demo123',
             'created_at' => '2024-01-01 00:00:00'
         ],
         [
@@ -19,7 +18,6 @@ class MockDatabase {
             'firstName' => 'Admin',
             'lastName' => 'User',
             'membershipType' => 'admin',
-            'auth0_sub' => 'auth0|admin123',
             'created_at' => '2024-01-01 00:00:00'
         ]
     ];
@@ -33,15 +31,6 @@ class MockDatabase {
         return null;
     }
     
-    public static function findUserByAuth0Sub($sub) {
-        foreach (self::$users as $user) {
-            if ($user['auth0_sub'] === $sub) {
-                return $user;
-            }
-        }
-        return null;
-    }
-    
     public static function createUser($userData) {
         $newUser = [
             'id' => count(self::$users) + 1,
@@ -49,7 +38,6 @@ class MockDatabase {
             'firstName' => $userData['firstName'] ?? '',
             'lastName' => $userData['lastName'] ?? '',
             'membershipType' => $userData['membershipType'] ?? 'member',
-            'auth0_sub' => $userData['auth0_sub'] ?? null,
             'created_at' => date('Y-m-d H:i:s')
         ];
         

@@ -1,30 +1,25 @@
 import React from 'react';
-import { useAuth0 } from '@auth0/auth0-react';
-import React, { useState, useEffect } from 'react';
-import { useAuth } from '../contexts/AuthContext';
+import { useAuth } from '../utils/AuthContext';
 
 /**
  * AuthStatusDebugger Component
  * 
  * This component displays detailed authentication information for debugging purposes.
- * It helps identify issues with Auth0 integration, particularly with social logins
- * and email mismatches between Auth0 accounts and database records.
+ * It helps identify issues with JWT authentication and user data.
  */
 const AuthStatusDebugger: React.FC = () => {
-  const auth0 = useAuth0();
-  const { isAuthenticated, user, isLoading, error } = auth0;
-  const { userInfo, debugInfo, checkingUserStatus } = useAuth();
+  const { isAuthenticated, isLoading, user, error } = useAuth();
 
-  // Extract social login info from the debug data
-  const isSocialLogin = debugInfo.isSocialLogin;
-  const provider = debugInfo.auth0Provider;
+  const token = localStorage.getItem('authToken');
 
   return (
     <div className="mt-8 p-4 border border-gray-300 rounded-lg bg-gray-50">
       <h2 className="text-lg font-bold mb-4">Authentication Status Debugger</h2>
       <div className="space-y-4">
+        
+        {/* Authentication Status */}
         <div>
-          <h3 className="font-medium mb-2">Auth0 Status:</h3>
+          <h3 className="font-medium mb-2">Authentication Status:</h3>
           <ul className="list-disc pl-6 space-y-1 text-sm">
             <li>
               <span className="font-semibold">Authenticated:</span>{' '}
@@ -39,141 +34,131 @@ const AuthStatusDebugger: React.FC = () => {
               </span>
             </li>
             <li>
+              <span className="font-semibold">Has Token:</span>{' '}
+              <span className={token ? 'text-green-600' : 'text-red-600'}>
+                {token ? 'Yes' : 'No'}
+              </span>
+            </li>
+            <li>
               <span className="font-semibold">Error:</span>{' '}
               <span className={error ? 'text-red-600' : 'text-green-600'}>
-                {error ? error.message : 'None'}
+                {error || 'None'}
               </span>
             </li>
           </ul>
         </div>
-        {/* Social Login Info */}
-        {isAuthenticated && isSocialLogin && (
-          <div className="p-3 bg-blue-50 border border-blue-200 rounded">
-            <h3 className="font-medium mb-2 text-blue-800">Social Login Detected</h3>
-            <p className="text-sm text-blue-700 mb-2">
-              You're signed in with <strong>{provider}</strong>. Social logins may not always provide an email address.
-            </p>
-            {!debugInfo.auth0Email && (
-              <div className="mt-2 p-2 bg-yellow-50 border border-yellow-200 rounded text-sm text-yellow-800">
-                <p className="font-semibold">⚠️ No email from {provider}</p>
-                <p>
-                  Your social login didn't provide an email address, which is needed to link to your account.
-                  Consider using a different login method or contact support.
-                </p>
-              </div>
-            )}
-          </div>
-        )}
-        {user && (
+
+        {/* Token Info */}
+        {token && (
           <div>
-            <h3 className="font-medium mb-2">Auth0 User Info:</h3>
+            <h3 className="font-medium mb-2">JWT Token Info:</h3>
             <ul className="list-disc pl-6 space-y-1 text-sm">
               <li>
-                <span className="font-semibold">Email:</span>{' '}
-                <span className={!user.email ? 'text-amber-600 font-bold' : ''}>
-                  {user.email || '⚠️ Not provided by social login'}
+                <span className="font-semibold">Token (first 20 chars):</span>{' '}
+                <code className="bg-gray-200 px-1 rounded text-xs">
+                  {token.substring(0, 20)}...
+                </code>
+              </li>
+              <li>
+                <span className="font-semibold">Token Length:</span> {token.length} characters
+              </li>
+            </ul>
+          </div>
+        )}
+
+        {/* User Info */}
+        {user && (
+          <div>
+            <h3 className="font-medium mb-2">User Information:</h3>
+            <ul className="list-disc pl-6 space-y-1 text-sm">
+              <li>
+                <span className="font-semibold">ID:</span> {user.id}
+              </li>
+              <li>
+                <span className="font-semibold">Email:</span> {user.email}
+              </li>
+              <li>
+                <span className="font-semibold">Username:</span> {user.username}
+              </li>
+              <li>
+                <span className="font-semibold">Name:</span> {user.firstName} {user.lastName}
+              </li>
+              <li>
+                <span className="font-semibold">Active:</span>{' '}
+                <span className={user.isActive ? 'text-green-600' : 'text-red-600'}>
+                  {user.isActive ? 'Yes' : 'No'}
                 </span>
               </li>
               <li>
-                <span className="font-semibold">Name:</span> {user.name || 'Not provided'}
+                <span className="font-semibold">Roles:</span>{' '}
+                <span className="bg-blue-100 px-2 py-1 rounded text-xs">
+                  {user.roles.join(', ') || 'None'}
+                </span>
               </li>
-              <li>
-                <span className="font-semibold">Sub:</span> {user.sub || 'Not provided'}
-              </li>
-            </ul>
-          </div>
-        )}
-        <div>
-          <h3 className="font-medium mb-2">User Verification:</h3>
-          <ul className="list-disc pl-6 space-y-1 text-sm">
-            <li>
-              <span className="font-semibold">Status:</span>{' '}
-              <span className={checkingUserStatus ? 'text-amber-600' : 'text-green-600'}>
-                {checkingUserStatus ? 'Checking...' : 'Completed'}
-              </span>
-            </li>
-            <li>
-              <span className="font-semibold">State:</span>{' '}
-              <span 
-                className={
-                  debugInfo.verificationState === 'user_exists' 
-                    ? 'text-green-600' 
-                    : debugInfo.verificationState === 'verification_error'
-                      ? 'text-red-600'
-                      : 'text-amber-600'
-                }
-              >
-                {debugInfo.verificationState}
-              </span>
-            </li>
-            {debugInfo.lastError && (
-              <li>
-                <span className="font-semibold">Error:</span>{' '}
-                <span className="text-red-600">{debugInfo.lastError}</span>
-              </li>
-            )}
-          </ul>
-        </div>
-        {userInfo && (
-          <div>
-            <h3 className="font-medium mb-2">Database User Info:</h3>
-            <ul className="list-disc pl-6 space-y-1 text-sm">
-              <li>
-                <span className="font-semibold">ID:</span> {userInfo.id}
-              </li>
-              <li>
-                <span className="font-semibold">Email:</span> {userInfo.email}
-              </li>
-              <li>
-                <span className="font-semibold">Name:</span> {userInfo.firstName} {userInfo.lastName}
-              </li>
-              <li>
-                <span className="font-semibold">Membership:</span> {userInfo.membershipType}
-              </li>
-            </ul>
-          </div>
-        )}
-        {debugInfo.auth0Email && debugInfo.databaseEmail && (
-          <div>
-            <h3 className="font-medium mb-2">Email Comparison:</h3>
-            <div className="p-3 rounded text-sm">
-              <div className="mb-2">
-                <span className="font-semibold">Auth0 Email:</span> {debugInfo.auth0Email}
-              </div>
-              <div className="mb-2">
-                <span className="font-semibold">Database Email:</span> {debugInfo.databaseEmail}
-              </div>
-              <div className={debugInfo.emailsMatch ? 'text-green-600' : 'text-red-600 font-bold'}>
-                {debugInfo.emailsMatch 
-                  ? '✓ Emails match exactly' 
-                  : '✗ Email mismatch detected - this could be the source of your problem!'}
-              </div>
-              {!debugInfo.emailsMatch && (
-                <div className="mt-2 text-gray-600">
-                  <p>
-                    The emails may differ in case (uppercase/lowercase) or have extra spaces.
-                    Check your database to ensure the email matches exactly what Auth0 returns.
-                  </p>
-                </div>
-              )}
-            </div>
-          </div>
-        )}
-        {/* Social Login Recommendations */}
-        {isAuthenticated && isSocialLogin && !userInfo && (
-          <div className="mt-4 p-3 bg-indigo-50 border border-indigo-200 rounded">
-            <h3 className="font-medium mb-2 text-indigo-800">Recommendations</h3>
-            <ul className="list-disc pl-6 text-sm text-indigo-700 space-y-2">
-              <li>
-                Complete the signup form to create an account in our system that will be linked to your 
-                {' '}{provider} login.
-              </li>
-              {!debugInfo.auth0Email && (
+              {user.avatarUrl && (
                 <li>
-                  Consider linking an email-based login method to your account for more reliable access.
+                  <span className="font-semibold">Avatar:</span>{' '}
+                  <img src={user.avatarUrl} alt="User Avatar" className="inline-block w-6 h-6 rounded-full ml-2" />
                 </li>
               )}
             </ul>
+          </div>
+        )}
+
+        {/* Debug Actions */}
+        <div>
+          <h3 className="font-medium mb-2">Debug Actions:</h3>
+          <div className="space-x-2">
+            <button
+              onClick={() => console.log('Auth State:', { isAuthenticated, isLoading, user, error, token })}
+              className="px-3 py-1 bg-blue-500 text-white rounded text-sm hover:bg-blue-600"
+            >
+              Log Auth State
+            </button>
+            <button
+              onClick={() => {
+                localStorage.removeItem('authToken');
+                window.location.reload();
+              }}
+              className="px-3 py-1 bg-red-500 text-white rounded text-sm hover:bg-red-600"
+            >
+              Clear Token & Reload
+            </button>
+          </div>
+        </div>
+
+        {/* JWT Token Details (for development) */}
+        {import.meta.env.DEV && token && (
+          <div>
+            <h3 className="font-medium mb-2">JWT Token Details (Development Only):</h3>
+            <div className="space-y-2">
+              <button
+                onClick={() => {
+                  try {
+                    const parts = token.split('.');
+                    const header = JSON.parse(atob(parts[0]));
+                    const payload = JSON.parse(atob(parts[1]));
+                    console.log('JWT Header:', header);
+                    console.log('JWT Payload:', payload);
+                  } catch (e) {
+                    console.error('Failed to decode JWT:', e);
+                  }
+                }}
+                className="px-3 py-1 bg-purple-500 text-white rounded text-sm hover:bg-purple-600"
+              >
+                Decode JWT (Check Console)
+              </button>
+            </div>
+          </div>
+        )}
+
+        {/* Raw Data (for development) */}
+        {import.meta.env.DEV && (
+          <div>
+            <h3 className="font-medium mb-2">Raw Data (Development Only):</h3>
+            <pre className="bg-gray-100 p-2 rounded text-xs overflow-x-auto">
+              {JSON.stringify({ isAuthenticated, isLoading, user, error, hasToken: !!token }, null, 2)}
+            </pre>
           </div>
         )}
       </div>

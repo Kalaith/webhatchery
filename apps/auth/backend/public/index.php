@@ -51,6 +51,10 @@ $container->set(AuthController::class, function($container) {
     return new AuthController($container->get(AuthActions::class));
 });
 
+$container->set(\App\Middleware\JwtAuthMiddleware::class, function($container) {
+    return new \App\Middleware\JwtAuthMiddleware($container->get(AuthActions::class));
+});
+
 AppFactory::setContainer($container);
 
 // Create Slim app
