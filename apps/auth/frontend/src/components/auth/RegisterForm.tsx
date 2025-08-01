@@ -140,6 +140,7 @@ const RegisterForm: React.FC<RegisterFormProps> = ({ onSuccess, onLoginClick }) 
                 name="first_name"
                 value={formData.first_name}
                 onChange={handleChange}
+                autoComplete="given-name"
                 className={`w-full px-3 py-2 border rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent ${
                   validationErrors.first_name ? 'border-red-500' : 'border-gray-300'
                 }`}
@@ -161,6 +162,7 @@ const RegisterForm: React.FC<RegisterFormProps> = ({ onSuccess, onLoginClick }) 
                 name="last_name"
                 value={formData.last_name}
                 onChange={handleChange}
+                autoComplete="family-name"
                 className={`w-full px-3 py-2 border rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent ${
                   validationErrors.last_name ? 'border-red-500' : 'border-gray-300'
                 }`}
@@ -183,6 +185,7 @@ const RegisterForm: React.FC<RegisterFormProps> = ({ onSuccess, onLoginClick }) 
               name="email"
               value={formData.email}
               onChange={handleChange}
+              autoComplete="email"
               className={`w-full px-3 py-2 border rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent ${
                 validationErrors.email ? 'border-red-500' : 'border-gray-300'
               }`}
@@ -204,6 +207,7 @@ const RegisterForm: React.FC<RegisterFormProps> = ({ onSuccess, onLoginClick }) 
               name="username"
               value={formData.username}
               onChange={handleChange}
+              autoComplete="username"
               className={`w-full px-3 py-2 border rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent ${
                 validationErrors.username ? 'border-red-500' : 'border-gray-300'
               }`}
@@ -225,6 +229,7 @@ const RegisterForm: React.FC<RegisterFormProps> = ({ onSuccess, onLoginClick }) 
               name="password"
               value={formData.password}
               onChange={handleChange}
+              autoComplete="new-password"
               className={`w-full px-3 py-2 border rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent ${
                 validationErrors.password ? 'border-red-500' : 'border-gray-300'
               }`}
@@ -246,6 +251,7 @@ const RegisterForm: React.FC<RegisterFormProps> = ({ onSuccess, onLoginClick }) 
               name="confirmPassword"
               value={formData.confirmPassword}
               onChange={handleChange}
+              autoComplete="new-password"
               className={`w-full px-3 py-2 border rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent ${
                 validationErrors.confirmPassword ? 'border-red-500' : 'border-gray-300'
               }`}

@@ -107,6 +107,7 @@ const LoginForm: React.FC<LoginFormProps> = ({ onSuccess, onRegisterClick }) => 
               name="email"
               value={credentials.email}
               onChange={handleChange}
+              autoComplete="email"
               className={`w-full px-3 py-2 border rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent ${
                 validationErrors.email ? 'border-red-500' : 'border-gray-300'
               }`}
@@ -128,6 +129,7 @@ const LoginForm: React.FC<LoginFormProps> = ({ onSuccess, onRegisterClick }) => 
               name="password"
               value={credentials.password}
               onChange={handleChange}
+              autoComplete="current-password"
               className={`w-full px-3 py-2 border rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent ${
                 validationErrors.password ? 'border-red-500' : 'border-gray-300'
               }`}

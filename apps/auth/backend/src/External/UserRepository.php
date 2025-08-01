@@ -3,6 +3,7 @@
 namespace App\External;
 
 use App\Models\User;
+use Carbon\Carbon;
 
 class UserRepository
 {
@@ -51,7 +52,7 @@ class UserRepository
     public function updateLastLogin(int $userId): void
     {
         User::where('id', $userId)->update([
-            'last_login_at' => now()
+            'last_login_at' => Carbon::now()
         ]);
     }
 
