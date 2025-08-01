@@ -54,8 +54,13 @@ const ProfilePage: React.FC = () => {
             <h3 className="font-medium text-gray-900 mb-2">Account Information</h3>
             <div className="grid grid-cols-2 gap-4 text-sm">
               <div>
-                <span className="text-gray-500">Role:</span>
-                <span className="ml-2 capitalize">{user?.role}</span>
+                <span className="text-gray-500">Role{user?.roles && user.roles.length > 1 ? 's' : ''}:</span>
+                <span className="ml-2 capitalize">
+                  {user?.roles?.length 
+                    ? user.roles.join(', ') 
+                    : user?.role || 'user'
+                  }
+                </span>
               </div>
               <div>
                 <span className="text-gray-500">ID:</span>

@@ -5,6 +5,7 @@
 import React, { createContext, useContext, useState, useEffect, type ReactNode } from 'react';
 import authApi from '../services/authApi';
 import type { AuthUser, LoginRequest, RegisterRequest } from '../types/auth';
+import { parseApiError, shouldInvalidateSession, AuthenticationError, ValidationError } from '../types/errors';
 
 /**
  * Auth context state and methods
@@ -88,12 +89,24 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
       const loginEvent = new CustomEvent('auth:login-success');
       window.dispatchEvent(loginEvent);
     } catch (err) {
-      const errorMessage = err instanceof Error ? 
-        err.message : 
-        'Login failed. Please check your credentials.';
+      const authError = parseApiError(err);
+      setError(authError.message);
       
-      setError(errorMessage);
-      throw err;
+      // Handle specific error types
+      if (authError instanceof AuthenticationError) {
+        if (authError.code === 'ACCOUNT_LOCKED') {
+          // Handle account lockout
+          console.warn('Account is locked');
+        }
+        
+        if (shouldInvalidateSession(authError)) {
+          // Clear any existing session
+          localStorage.removeItem('token');
+          setUser(null);
+        }
+      }
+      
+      throw authError;
     } finally {
       setIsLoading(false);
     }
@@ -110,12 +123,16 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
       const newUser = await authApi.register(userData);
       setUser(newUser);
     } catch (err) {
-      const errorMessage = err instanceof Error ? 
-        err.message : 
-        'Registration failed. Please try again.';
+      const authError = parseApiError(err);
+      setError(authError.message);
       
-      setError(errorMessage);
-      throw err;
+      // Handle validation errors differently
+      if (authError instanceof ValidationError) {
+        // Could display field-specific errors here
+        console.warn('Validation errors:', authError.errors);
+      }
+      
+      throw authError;
     } finally {
       setIsLoading(false);
     }

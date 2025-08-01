@@ -5,13 +5,17 @@ namespace App\Actions;
 use App\External\UserRepository;
 use App\Exceptions\UnauthorizedException;
 use App\Exceptions\ResourceNotFoundException;
+use App\Constants\SecurityConstants;
+use App\Validators\UserValidator;
+use App\Models\User;
 use Firebase\JWT\JWT;
 use Firebase\JWT\Key;
 
 class AuthActions
 {
     public function __construct(
-        private UserRepository $userRepository
+        private UserRepository $userRepository,
+        private UserValidator $validator = new UserValidator()
     ) {}
 
     /**
@@ -19,25 +23,19 @@ class AuthActions
      */
     public function registerUser(array $userData): array
     {
-        // Validate required fields
-        $requiredFields = ['email', 'username', 'password', 'first_name', 'last_name'];
-        foreach ($requiredFields as $field) {
-            if (!isset($userData[$field]) || empty($userData[$field])) {
-                throw new \InvalidArgumentException("Missing required field: {$field}");
-            }
+        // Validate input data
+        $validationResult = $this->validator->validateRegistration($userData);
+        
+        if (!$validationResult->isValid()) {
+            $firstError = $validationResult->getFirstError() ?? 'Validation failed';
+            throw new \InvalidArgumentException($firstError);
         }
 
-        // Check if user already exists
-        if ($this->userRepository->findByEmail($userData['email'])) {
-            throw new \InvalidArgumentException('User with this email already exists');
-        }
+        // Use sanitized data
+        $sanitizedData = $validationResult->getSanitizedData();
 
-        if ($this->userRepository->findByUsername($userData['username'])) {
-            throw new \InvalidArgumentException('User with this username already exists');
-        }
-
-        // Create user
-        $user = $this->userRepository->createUser($userData);
+        // Check if user already exists (repository now handles this)
+        $user = $this->userRepository->createUser($sanitizedData);
 
         // Generate JWT token
         $token = $this->generateJwtToken($user);
@@ -60,13 +58,18 @@ class AuthActions
      */
     public function loginUser(array $credentials): array
     {
-        if (!isset($credentials['email']) || !isset($credentials['password'])) {
-            throw new \InvalidArgumentException('Email and password are required');
+        // Validate login credentials
+        $validationResult = $this->validator->validateLogin($credentials);
+        
+        if (!$validationResult->isValid()) {
+            $firstError = $validationResult->getFirstError() ?? 'Invalid credentials';
+            throw new UnauthorizedException($firstError);
         }
 
-        $user = $this->userRepository->findByEmail($credentials['email']);
+        $sanitizedCredentials = $validationResult->getSanitizedData();
+        $user = $this->userRepository->findByEmail($sanitizedCredentials['email']);
         
-        if (!$user || !password_verify($credentials['password'], $user->password)) {
+        if (!$user || !password_verify($sanitizedCredentials['password'], $user->password)) {
             throw new UnauthorizedException('Invalid credentials');
         }
 
@@ -118,40 +121,57 @@ class AuthActions
     }
 
     /**
-     * Generate JWT token
+     * Generate JWT token with enhanced security
      */
-    private function generateJwtToken($user): string
+    private function generateJwtToken(User $user): string
     {
-        $jwtSecret = $_ENV['JWT_SECRET'] ?? 'your_jwt_secret_key_here';
-        
-        // Get roles from the new role system
-        $roles = $user->getRoleNames();
-        $primaryRole = !empty($roles) ? $roles[0] : 'user'; // Default to 'user' if no roles assigned
+        $jwtSecret = $this->getJwtSecret();
+        $currentTime = time();
         
         $payload = [
-            'user_id' => $user->id,
+            'sub' => (string) $user->id,  // Standard 'subject' claim
             'email' => $user->email,
-            'role' => $primaryRole, // Primary role for backward compatibility
-            'roles' => $roles, // All roles for new system
-            'iat' => time(), // issued at
-            'exp' => time() + (24 * 60 * 60) // expires in 24 hours
+            'roles' => $user->getRoleNames(),
+            'iat' => $currentTime,
+            'exp' => $currentTime + SecurityConstants::JWT_EXPIRY_SECONDS,
+            'nbf' => $currentTime,  // Not before
+            'iss' => $_ENV['JWT_ISSUER'] ?? 'webhatchery',
+            'aud' => $_ENV['APP_URL'] ?? 'localhost',  // Audience
+            'jti' => bin2hex(random_bytes(16))  // Unique JWT ID for revocation
         ];
 
-        return JWT::encode($payload, $jwtSecret, 'HS256');
+        return JWT::encode($payload, $jwtSecret, SecurityConstants::JWT_ALGORITHM);
     }
 
     /**
-     * Validate JWT token
+     * Get and validate JWT secret
+     */
+    private function getJwtSecret(): string
+    {
+        $secret = $_ENV['JWT_SECRET'] ?? null;
+        if (!$secret || strlen($secret) < SecurityConstants::JWT_MIN_SECRET_LENGTH) {
+            throw new \RuntimeException('JWT_SECRET must be at least ' . SecurityConstants::JWT_MIN_SECRET_LENGTH . ' characters long');
+        }
+        return $secret;
+    }
+
+    /**
+     * Validate JWT token with enhanced security
      */
     public function validateToken(string $token): ?object
     {
         try {
-            $jwtSecret = $_ENV['JWT_SECRET'] ?? 'your_jwt_secret_key_here';
+            $jwtSecret = $this->getJwtSecret();
             
-            $decoded = JWT::decode($token, new Key($jwtSecret, 'HS256'));
+            $decoded = JWT::decode($token, new Key($jwtSecret, SecurityConstants::JWT_ALGORITHM));
             
-            // Verify user still exists and is active
-            $user = $this->userRepository->findById($decoded->user_id);
+            // Verify user still exists and is active using the 'sub' claim
+            $userId = $decoded->sub ?? $decoded->user_id ?? null; // Support both new and old token formats
+            if (!$userId) {
+                return null;
+            }
+            
+            $user = $this->userRepository->findById($userId);
             if (!$user) {
                 return null;
             }
@@ -160,8 +180,18 @@ class AuthActions
                 return null;
             }
             
+            // Verify audience if present
+            if (isset($decoded->aud)) {
+                $expectedAudience = $_ENV['APP_URL'] ?? 'localhost';
+                if ($decoded->aud !== $expectedAudience) {
+                    return null;
+                }
+            }
+            
             return $decoded;
         } catch (\Exception $e) {
+            // Log the error for debugging but don't expose details
+            error_log('JWT validation failed: ' . $e->getMessage());
             return null;
         }
     }
