@@ -41,9 +41,6 @@ class AuthActions
 
         // Generate JWT token
         $token = $this->generateJwtToken($user);
-        
-        // Log token generation for debugging
-        error_log('JWT Token generated for new user ' . $user->id . ': ' . substr($token, 0, 50) . '...');
 
         return [
             'user' => [
@@ -82,9 +79,6 @@ class AuthActions
 
         // Generate JWT token
         $token = $this->generateJwtToken($user);
-        
-        // Log token generation for debugging
-        error_log('JWT Token generated for login user ' . $user->id . ': ' . substr($token, 0, 50) . '...');
 
         return [
             'user' => [
@@ -153,29 +147,21 @@ class AuthActions
     {
         try {
             $jwtSecret = $_ENV['JWT_SECRET'] ?? 'your_jwt_secret_key_here';
-            error_log('Validating token with secret: ' . substr($jwtSecret, 0, 10) . '...');
             
             $decoded = JWT::decode($token, new Key($jwtSecret, 'HS256'));
-            error_log('Token decoded successfully. User ID: ' . $decoded->user_id);
             
             // Verify user still exists and is active
             $user = $this->userRepository->findById($decoded->user_id);
             if (!$user) {
-                error_log('User not found in database: ' . $decoded->user_id);
                 return null;
             }
             
             if (!$user->is_active) {
-                error_log('User is not active: ' . $decoded->user_id);
                 return null;
             }
             
-            error_log('Token validation successful for user: ' . $user->id);
             return $decoded;
         } catch (\Exception $e) {
-            error_log('Token validation error: ' . $e->getMessage());
-            error_log('Token validation error class: ' . get_class($e));
-            error_log('Token validation error trace: ' . $e->getTraceAsString());
             return null;
         }
     }

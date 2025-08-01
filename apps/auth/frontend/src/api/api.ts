@@ -14,17 +14,10 @@ const api = axios.create({
 
 // Add auth token to requests
 api.interceptors.request.use((config) => {
-  const token = localStorage.getItem('token'); // Changed from 'authToken' to 'token'
-  console.log('Request interceptor - Token found:', !!token);
-  console.log('Request interceptor - URL:', config.url);
-  
+  const token = localStorage.getItem('token');
   if (token) {
     config.headers.Authorization = `Bearer ${token}`;
-    console.log('Request interceptor - Added Authorization header');
-  } else {
-    console.log('Request interceptor - No token found in localStorage');
   }
-  
   return config;
 });
 
@@ -32,28 +25,16 @@ api.interceptors.request.use((config) => {
 api.interceptors.response.use(
   (response) => response,
   (error) => {
-    // Log all errors for debugging
-    console.log('API Error:', {
-      status: error.response?.status,
-      url: error.config?.url,
-      message: error.response?.data?.error?.message || error.message
-    });
-    
     // Only handle 401 errors for non-admin routes or if user is truly not authenticated
     if (error.response?.status === 401) {
       const isAdminRequest = error.config?.url?.includes('/admin/');
       
-      console.log('401 Error - Admin request:', isAdminRequest, 'URL:', error.config?.url);
-      
       // For admin requests, the user might be authenticated but not authorized (403 should be used but some APIs return 401)
       // Don't clear token and redirect for admin requests - let the component handle it
       if (!isAdminRequest) {
-        console.log('Clearing token and redirecting for non-admin 401');
-        localStorage.removeItem('token'); // Changed from 'authToken' to 'token'
+        localStorage.removeItem('token');
         const basePath = import.meta.env.VITE_BASE_PATH || '/auth/';
         window.location.href = `${basePath}login`;
-      } else {
-        console.log('Admin request failed with 401 - not redirecting');
       }
     }
     return Promise.reject(error);
