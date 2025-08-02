@@ -1,11 +1,13 @@
 import React from 'react';
-import { useGame } from '../../context/GameContext';
+import { useGameStore } from '../../stores/gameStore';
 import { MATERIALS } from '../../constants/gameData';
+import { MATERIAL_BUY_QUANTITIES } from '../../constants/gameConfig';
 
 interface MaterialsTabProps { active: boolean; }
 
 const MaterialsTab: React.FC<MaterialsTabProps> = ({ active }) => {
-  const { state, setState } = useGame();
+  const { state, setState } = useGameStore();
+  if (!state || !state.player || !state.materials) return null;
   const { player, materials } = state;
 
   const handleBuy = (materialName: string, quantity: number) => {
@@ -13,11 +15,11 @@ const MaterialsTab: React.FC<MaterialsTabProps> = ({ active }) => {
     if (!material) return;
     const totalCost = material.cost * quantity;
     if (player.gold < totalCost) return;
-    setState(prev => ({
-      ...prev,
-      player: { ...prev.player, gold: prev.player.gold - totalCost },
-      materials: { ...prev.materials, [materialName]: prev.materials[materialName] + quantity }
-    }));
+    setState({
+      ...state,
+      player: { ...player, gold: player.gold - totalCost },
+      materials: { ...materials, [materialName]: materials[materialName] + quantity }
+    });
   };
 
   if (!active) return null;
@@ -38,16 +40,14 @@ const MaterialsTab: React.FC<MaterialsTabProps> = ({ active }) => {
               <div style={{ marginTop: '12px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                 <span>Owned: {materials[material.name]}</span>
                 <div>
-                  <button
-                    className="btn btn--sm btn--secondary"
-                    onClick={() => handleBuy(material.name, 1)}
-                    disabled={player.gold < material.cost}
-                  >Buy 1</button>
-                  <button
-                    className="btn btn--sm btn--primary"
-                    onClick={() => handleBuy(material.name, 5)}
-                    disabled={player.gold < material.cost * 5}
-                  >Buy 5</button>
+                  {MATERIAL_BUY_QUANTITIES.map(qty => (
+                    <button
+                      key={qty}
+                      className={`btn btn--sm ${qty === 1 ? 'btn--secondary' : 'btn--primary'}`}
+                      onClick={() => handleBuy(material.name, qty)}
+                      disabled={player.gold < material.cost * qty}
+                    >Buy {qty}</button>
+                  ))}
                 </div>
               </div>
             </div>

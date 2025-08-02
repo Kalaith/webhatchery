@@ -1,20 +1,20 @@
 import React from 'react';
-import { useGame } from '../../context/GameContext';
+import { useGameStore } from '../../stores/gameStore';
 import { FORGE_UPGRADES } from '../../constants/gameData';
 
 interface UpgradesTabProps { active: boolean; }
 
 const UpgradesTab: React.FC<UpgradesTabProps> = ({ active }) => {
-  const { state, setState } = useGame();
+  const { state, setState } = useGameStore();
   const { player, forgeUpgrades } = state;
 
   const handleBuyUpgrade = (upgradeName: string, cost: number) => {
     if (player.gold < cost || forgeUpgrades.includes(upgradeName)) return;
-    setState(prev => ({
-      ...prev,
-      player: { ...prev.player, gold: prev.player.gold - cost },
-      forgeUpgrades: [...prev.forgeUpgrades, upgradeName]
-    }));
+    setState({
+      ...state,
+      player: { ...player, gold: player.gold - cost },
+      forgeUpgrades: [...forgeUpgrades, upgradeName]
+    });
   };
 
   if (!active) return null;

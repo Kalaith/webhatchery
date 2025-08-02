@@ -15,7 +15,7 @@ import RecipesTab from './components/features/RecipesTab';
 import MaterialsTab from './components/features/MaterialsTab';
 import CustomersTab from './components/features/CustomersTab';
 import UpgradesTab from './components/features/UpgradesTab';
-import { GameProvider } from './context/GameContext';
+// import { GameProvider } from './context/GameContext';
 
 
 const TAB_KEYS = ['forge', 'recipes', 'materials', 'customers', 'upgrades'] as const;
@@ -25,20 +25,18 @@ const App: React.FC = () => {
   const [activeTab, setActiveTab] = useState<TabKey>('forge');
 
   return (
-    <GameProvider>
-      <GameLayout>
-        <GameHeader />
-        <GameNav activeTab={activeTab} onTabChange={tab => setActiveTab(tab as TabKey)} />
-        <main className="game-content">
-          <ForgeTab active={activeTab === 'forge'} />
-          <RecipesTab active={activeTab === 'recipes'} />
-          <MaterialsTab active={activeTab === 'materials'} />
-          <CustomersTab active={activeTab === 'customers'} />
-          <UpgradesTab active={activeTab === 'upgrades'} />
-        </main>
-        {/* TODO: Add modal components here */}
-      </GameLayout>
-    </GameProvider>
+    <GameLayout>
+      <GameHeader />
+      <GameNav activeTab={activeTab} onTabChange={tab => setActiveTab(tab as TabKey)} />
+      <main className="game-content">
+        <ForgeTab active={activeTab === 'forge'} />
+        <RecipesTab active={activeTab === 'recipes'} />
+        <MaterialsTab active={activeTab === 'materials'} />
+        <CustomersTab active={activeTab === 'customers'} />
+        <UpgradesTab active={activeTab === 'upgrades'} />
+      </main>
+      {/* TODO: Add modal components here */}
+    </GameLayout>
   );
 };
 

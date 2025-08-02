@@ -1,8 +1,9 @@
 import React from 'react';
-import { useGame } from '../../context/GameContext';
+import { useGameStore } from '../../stores/gameStore';
 
 const GameHeader: React.FC = () => {
-  const { state } = useGame();
+  const { state } = useGameStore();
+  if (!state || !state.player) return null;
   const { player } = state;
 
   return (

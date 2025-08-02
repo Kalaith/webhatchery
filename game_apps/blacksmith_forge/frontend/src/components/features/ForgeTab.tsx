@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useGame } from '../../context/GameContext';
+import { useGameStore } from '../../stores/gameStore';
 import { RECIPES } from '../../constants/gameData';
 import CraftingInterface from './CraftingInterface';
 import InventoryPanel from './InventoryPanel';
@@ -7,12 +7,12 @@ import InventoryPanel from './InventoryPanel';
 interface ForgeTabProps { active: boolean; }
 
 const ForgeTab: React.FC<ForgeTabProps> = ({ active }) => {
-  const { state, setState } = useGame();
+  const { state, setState } = useGameStore();
   const { forgeLit, unlockedRecipes, materials } = state;
 
   // Handler to light the forge
   const handleLightForge = () => {
-    setState(prev => ({ ...prev, forgeLit: true }));
+    setState({ ...state, forgeLit: true });
   };
 
   // Track selected recipe in local state for crafting interface

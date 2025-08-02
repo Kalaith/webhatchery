@@ -2,8 +2,15 @@ import React, { createContext, useContext, useState, useCallback } from 'react';
 import { GameState, Player, Customer } from '../types/game';
 import { MATERIALS, RECIPES, CUSTOMERS, FORGE_UPGRADES } from '../constants/gameData';
 
+import { STARTING_GOLD, STARTING_LEVEL, STARTING_REPUTATION, STARTING_EXPERIENCE } from '../constants/gameConfig';
+
 const defaultState: GameState = {
-  player: { gold: 100, reputation: 0, level: 1, experience: 0 },
+  player: {
+    gold: STARTING_GOLD,
+    reputation: STARTING_REPUTATION,
+    level: STARTING_LEVEL,
+    experience: STARTING_EXPERIENCE
+  },
   inventory: [],
   unlockedRecipes: ['Iron Dagger', 'Iron Sword'],
   materials: {

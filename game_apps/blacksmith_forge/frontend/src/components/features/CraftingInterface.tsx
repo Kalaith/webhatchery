@@ -1,17 +1,17 @@
 import React, { useState } from 'react';
 import { RECIPES, MATERIALS } from '../../constants/gameData';
-import { useGame } from '../../context/GameContext';
+import { useGameStore } from '../../stores/gameStore';
+import { MAX_HAMMER_CLICKS, QUALITY_THRESHOLDS } from '../../constants/gameConfig';
 
 interface CraftingInterfaceProps {
   selectedRecipe: string | null;
   canCraft: boolean;
 }
 
-const MAX_HAMMER_CLICKS = 4;
-
 const CraftingInterface: React.FC<CraftingInterfaceProps> = ({ selectedRecipe, canCraft }) => {
-  const { state, setState } = useGame();
-  const { materials } = state;
+  const { state, setState } = useGameStore();
+  if (!state || !state.materials || !state.inventory) return null;
+  const { materials, inventory } = state;
   const recipe = RECIPES.find(r => r.name === selectedRecipe);
   const [hammerClicks, setHammerClicks] = useState(0);
   const [hammerAccuracy, setHammerAccuracy] = useState(0);
@@ -34,12 +34,12 @@ const CraftingInterface: React.FC<CraftingInterfaceProps> = ({ selectedRecipe, c
     setHammerAccuracy(0);
     setResult(null);
     // Consume materials
-    setState(prev => ({
-      ...prev,
+    setState({
+      ...state,
       materials: Object.fromEntries(
-        Object.entries(prev.materials).map(([mat, amt]) => [mat, amt - (recipe.materials[mat] || 0)])
+        Object.entries(materials).map(([mat, amt]) => [mat, amt - (recipe.materials[mat] || 0)])
       )
-    }));
+    });
   };
 
   // Hammer mini-game logic
@@ -49,19 +49,20 @@ const CraftingInterface: React.FC<CraftingInterfaceProps> = ({ selectedRecipe, c
     const hit = Math.random() > 0.25;
     setHammerAccuracy(acc => acc + (hit ? 25 : 0));
     setHammerClicks(clicks => clicks + 1);
+
     if (hammerClicks + 1 === MAX_HAMMER_CLICKS) {
       // Calculate result
       let quality = 'Poor';
-      if (hammerAccuracy >= 80) quality = 'Excellent';
-      else if (hammerAccuracy >= 60) quality = 'Good';
-      else if (hammerAccuracy >= 40) quality = 'Fair';
-      else quality = 'Poor';
+      if (hammerAccuracy >= QUALITY_THRESHOLDS.excellent) quality = 'Excellent';
+      else if (hammerAccuracy >= QUALITY_THRESHOLDS.good) quality = 'Good';
+      else if (hammerAccuracy >= QUALITY_THRESHOLDS.fair) quality = 'Fair';
       setResult(quality);
+
       // Add item to inventory
-      setState(prev => ({
-        ...prev,
+      setState({
+        ...state,
         inventory: [
-          ...prev.inventory,
+          ...inventory,
           {
             name: recipe.name,
             icon: recipe.icon,
@@ -70,10 +71,10 @@ const CraftingInterface: React.FC<CraftingInterfaceProps> = ({ selectedRecipe, c
             type: 'weapon'
           }
         ]
-      }));
+      });
     }
   };
-
+  
   return (
     <div className="crafting-interface">
       <div className="recipe-details">

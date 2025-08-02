@@ -1,11 +1,11 @@
 import React from 'react';
-import { useGame } from '../../context/GameContext';
+import { useGameStore } from '../../stores/gameStore';
 import { RECIPES } from '../../constants/gameData';
 
 interface RecipesTabProps { active: boolean; }
 
 const RecipesTab: React.FC<RecipesTabProps> = ({ active }) => {
-  const { state } = useGame();
+  const { state } = useGameStore();
   const { unlockedRecipes, materials } = state;
 
   if (!active) return null;
