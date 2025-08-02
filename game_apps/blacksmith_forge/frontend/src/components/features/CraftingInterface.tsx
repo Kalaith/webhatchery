@@ -1,7 +1,9 @@
-import React, { useState } from 'react';
-import { RECIPES, MATERIALS } from '../../constants/gameData';
-import { useGameStore } from '../../stores/gameStore';
-import { MAX_HAMMER_CLICKS, QUALITY_THRESHOLDS } from '../../constants/gameConfig';
+import React from 'react';
+import { useCrafting } from '../../hooks/useCrafting';
+import { useMaterials } from '../../hooks/useMaterials';
+import { MAX_HAMMER_CLICKS } from '../../constants/gameConfig';
+import HammerMiniGame from './HammerMiniGame';
+import { useCraftingResult } from '../../hooks/useCraftingResult';
 
 interface CraftingInterfaceProps {
   selectedRecipe: string | null;
@@ -9,82 +11,39 @@ interface CraftingInterfaceProps {
 }
 
 const CraftingInterface: React.FC<CraftingInterfaceProps> = ({ selectedRecipe, canCraft }) => {
-  const { state, setState } = useGameStore();
-  if (!state || !state.materials || !state.inventory) return null;
-  const { materials, inventory } = state;
-  const recipe = RECIPES.find(r => r.name === selectedRecipe);
-  const [hammerClicks, setHammerClicks] = useState(0);
-  const [hammerAccuracy, setHammerAccuracy] = useState(0);
-  const [craftingStarted, setCraftingStarted] = useState(false);
-  const [result, setResult] = useState<string | null>(null);
-
+  const {
+    recipe,
+    totalCost,
+    hammerClicks,
+    hammerAccuracy,
+    craftingStarted,
+    result,
+    handleStartCrafting,
+    handleHammer
+  } = useCrafting(selectedRecipe, canCraft);
+  const materials = useMaterials();
+  const safeHammerClicks = typeof hammerClicks === 'number' ? hammerClicks : 0;
+  const {
+    localResult,
+    showResult,
+    handleMiniGameComplete,
+    setShowResult,
+  } = useCraftingResult(recipe as any);
   if (!recipe) return null;
-
-  // Calculate total cost
-  const totalCost = Object.entries(recipe.materials).reduce((sum, [mat, qty]) => {
-    const matObj = MATERIALS.find(m => m.name === mat);
-    return sum + (matObj ? matObj.cost * qty : 0);
-  }, 0);
-
-  // Start crafting
-  const handleStartCrafting = () => {
-    if (!canCraft) return;
-    setCraftingStarted(true);
-    setHammerClicks(0);
-    setHammerAccuracy(0);
-    setResult(null);
-    // Consume materials
-    setState({
-      ...state,
-      materials: Object.fromEntries(
-        Object.entries(materials).map(([mat, amt]) => [mat, amt - (recipe.materials[mat] || 0)])
-      )
-    });
-  };
-
-  // Hammer mini-game logic
-  const handleHammer = () => {
-    if (!craftingStarted || hammerClicks >= MAX_HAMMER_CLICKS) return;
-    // Simulate accuracy: random success/fail
-    const hit = Math.random() > 0.25;
-    setHammerAccuracy(acc => acc + (hit ? 25 : 0));
-    setHammerClicks(clicks => clicks + 1);
-
-    if (hammerClicks + 1 === MAX_HAMMER_CLICKS) {
-      // Calculate result
-      let quality = 'Poor';
-      if (hammerAccuracy >= QUALITY_THRESHOLDS.excellent) quality = 'Excellent';
-      else if (hammerAccuracy >= QUALITY_THRESHOLDS.good) quality = 'Good';
-      else if (hammerAccuracy >= QUALITY_THRESHOLDS.fair) quality = 'Fair';
-      setResult(quality);
-
-      // Add item to inventory
-      setState({
-        ...state,
-        inventory: [
-          ...inventory,
-          {
-            name: recipe.name,
-            icon: recipe.icon,
-            quality,
-            value: Math.floor(recipe.sellPrice * (quality === 'Excellent' ? 1.2 : quality === 'Good' ? 1.1 : quality === 'Fair' ? 1 : 0.8)),
-            type: 'weapon'
-          }
-        ]
-      });
-    }
-  };
-  
   return (
     <div className="crafting-interface">
       <div className="recipe-details">
         <h4>{recipe.icon} {recipe.name}</h4>
         <div className="required-materials">
-          {Object.entries(recipe.materials).map(([mat, qty]) => (
-            <div key={mat} className={`material-requirement${(materials[mat] ?? 0) < qty ? ' insufficient' : ''}`}>
-              {mat}: {qty} (Owned: {materials[mat] ?? 0})
-            </div>
-          ))}
+          {Object.entries(recipe.materials).map(([mat, qty]) => {
+            const owned = materials[mat] ?? 0;
+            const lacking = owned < qty;
+            return (
+              <div key={mat} className={`material-requirement${lacking ? ' insufficient' : ''}`}>
+                {owned} / {qty} {mat} {lacking ? <span style={{ color: 'var(--color-error)' }}>(Lacking)</span> : null}
+              </div>
+            );
+          })}
         </div>
         <div className="crafting-cost">
           <span>Total Cost: </span>
@@ -98,22 +57,20 @@ const CraftingInterface: React.FC<CraftingInterfaceProps> = ({ selectedRecipe, c
           disabled={!canCraft}
         >Start Crafting</button>
       ) : (
-        <div className="crafting-mini-game">
-          <h4>Hammer Mini-game</h4>
-          <div>Hits: {hammerClicks} / {MAX_HAMMER_CLICKS}</div>
-          <div>Accuracy: {hammerAccuracy}%</div>
-          <button
-            className="btn btn--primary"
-            onClick={handleHammer}
-            disabled={hammerClicks >= MAX_HAMMER_CLICKS}
-          >⚒️ HAMMER!</button>
-          {result && (
+        <>
+          {!showResult ? (
+            <HammerMiniGame
+              maxClicks={MAX_HAMMER_CLICKS}
+              craftingStarted={craftingStarted}
+              onComplete={handleMiniGameComplete}
+            />
+          ) : (
             <div style={{ marginTop: '16px' }}>
-              <div className="status status--success">{result} Quality Crafted!</div>
+              <div className="status status--success">{localResult} Quality Crafted!</div>
               <div>Item added to inventory.</div>
             </div>
           )}
-        </div>
+        </>
       )}
     </div>
   );
