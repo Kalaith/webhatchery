@@ -1,9 +1,9 @@
 <?php
 
-use App\External\DatabaseService;
+use App\Database\Connection;
 use App\Utils\Logger;
-use App\Actions\ProjectActions;
-use App\Controllers\ProjectController;
+use App\Services\AuthPortalService;
+use App\Middleware\JwtAuthMiddleware;
 
 require __DIR__ . '/../vendor/autoload.php';
 
@@ -25,14 +25,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
 
 // Initialize services
 try {
-    $dbService = new DatabaseService();
-    if (!$dbService->testConnection()) {
-        throw new Exception('Could not connect to database.');
-    }
+    // Test database connection
+    $dbConnection = Connection::getInstance();
     
     $logger = new Logger();
-    $projectActions = new ProjectActions($logger);
-    $projectController = new ProjectController($projectActions, $logger);
+    
+    // Initialize auth services
+    $authPortalService = new AuthPortalService();
+    $jwtAuthMiddleware = new JwtAuthMiddleware($authPortalService);
     
 } catch (Exception $e) {
     http_response_code(500);
@@ -56,211 +56,75 @@ if (preg_match('#/api/(.*)#', $path, $matches)) {
 if ($route === 'status') {
     echo json_encode([
         'status' => 'OK',
-        'service' => 'Is It Done Yet API - Simple PHP',
+        'service' => 'Planet Trader API - Simple PHP',
         'version' => '1.0.0'
     ]);
-} elseif ($route === 'projects') {
-    // Handle projects endpoint using existing controller
-    if ($requestMethod === 'GET') {
-        try {
-            // Use the controller method that returns an array
-            $result = $projectController->getAllProjects();
-            echo json_encode($result);
-            
-        } catch (Exception $e) {
-            echo json_encode([
-                'success' => false,
-                'message' => 'Error: ' . $e->getMessage()
-            ]);
+} elseif ($route === 'me') {
+    // Auth endpoint - requires JWT token
+    // Check multiple sources for Authorization header
+    $authHeader = '';
+    if (isset($_SERVER['HTTP_AUTHORIZATION'])) {
+        $authHeader = $_SERVER['HTTP_AUTHORIZATION'];
+    } elseif (isset($_SERVER['REDIRECT_HTTP_AUTHORIZATION'])) {
+        $authHeader = $_SERVER['REDIRECT_HTTP_AUTHORIZATION'];
+    } elseif (function_exists('apache_request_headers')) {
+        $headers = apache_request_headers();
+        if (isset($headers['Authorization'])) {
+            $authHeader = $headers['Authorization'];
+        } elseif (isset($headers['authorization'])) {
+            $authHeader = $headers['authorization'];
         }
-    } elseif ($requestMethod === 'POST') {
-        try {
-            // Get JSON data from request body
-            $input = file_get_contents('php://input');
-            $data = json_decode($input, true);
-            
-            if (json_last_error() !== JSON_ERROR_NONE) {
-                http_response_code(400);
-                echo json_encode([
-                    'success' => false,
-                    'message' => 'Invalid JSON data'
-                ]);
-                exit;
-            }
-            
-            $result = $projectController->createProject($data);
-            
-            if ($result['success']) {
-                http_response_code(201);
-            } else {
-                http_response_code(400);
-            }
-            
-            echo json_encode($result);
-            
-        } catch (Exception $e) {
-            http_response_code(500);
-            echo json_encode([
-                'success' => false,
-                'message' => 'Error: ' . $e->getMessage()
-            ]);
-        }
-    } else {
-        http_response_code(405);
-        echo json_encode(['success' => false, 'message' => 'Method not allowed']);
     }
-} elseif (preg_match('#^projects/(\d+)$#', $route, $matches)) {
-    // Handle individual project endpoints (GET, PUT, DELETE)
-    $projectId = (int) $matches[1];
     
-    if ($requestMethod === 'GET') {
-        try {
-            $result = $projectController->getProjectById($projectId);
-            
-            if (!$result['success']) {
-                http_response_code(404);
-            }
-            
-            echo json_encode($result);
-            
-        } catch (Exception $e) {
-            http_response_code(500);
-            echo json_encode([
-                'success' => false,
-                'message' => 'Error: ' . $e->getMessage()
-            ]);
-        }
-    } elseif ($requestMethod === 'PUT') {
-        try {
-            // Get JSON data from request body
-            $input = file_get_contents('php://input');
-            $data = json_decode($input, true);
-            
-            if (json_last_error() !== JSON_ERROR_NONE) {
-                http_response_code(400);
-                echo json_encode([
-                    'success' => false,
-                    'message' => 'Invalid JSON data'
-                ]);
-                exit;
-            }
-            
-            $result = $projectController->updateProject($projectId, $data);
-            
-            if (!$result['success']) {
-                http_response_code(404);
-            }
-            
-            echo json_encode($result);
-            
-        } catch (Exception $e) {
-            http_response_code(500);
-            echo json_encode([
-                'success' => false,
-                'message' => 'Error: ' . $e->getMessage()
-            ]);
-        }
-    } elseif ($requestMethod === 'DELETE') {
-        try {
-            $result = $projectController->deleteProject($projectId);
-            
-            if (!$result['success']) {
-                http_response_code(404);
-            }
-            
-            echo json_encode($result);
-            
-        } catch (Exception $e) {
-            http_response_code(500);
-            echo json_encode([
-                'success' => false,
-                'message' => 'Error: ' . $e->getMessage()
-            ]);
-        }
-    } else {
-        http_response_code(405);
-        echo json_encode(['success' => false, 'message' => 'Method not allowed']);
+    if (empty($authHeader)) {
+        http_response_code(401);
+        echo json_encode(['success' => false, 'message' => 'Authorization header required']);
+        exit;
     }
-} elseif (preg_match('#^projects/(\d+)/complete$#', $route, $matches)) {
-    // Handle project completion endpoint (POST)
-    $projectId = (int) $matches[1];
     
-    if ($requestMethod === 'POST') {
-        try {
-            $result = $projectController->markProjectComplete($projectId);
-            echo json_encode($result);
-            
-        } catch (Exception $e) {
-            http_response_code(500);
-            echo json_encode([
-                'success' => false,
-                'message' => 'Error: ' . $e->getMessage()
-            ]);
-        }
-    } else {
-        http_response_code(405);
-        echo json_encode(['success' => false, 'message' => 'Method not allowed']);
+    if (!preg_match('/Bearer\s+(.*)$/i', $authHeader, $matches)) {
+        http_response_code(401);
+        echo json_encode(['success' => false, 'message' => 'Invalid Authorization header format']);
+        exit;
     }
-} elseif (preg_match('#^projects/(\d+)/subtasks$#', $route, $matches)) {
-    // Handle subtask creation endpoint (POST)
-    $projectId = (int) $matches[1];
     
-    if ($requestMethod === 'POST') {
-        try {
-            // Get JSON data from request body
-            $input = file_get_contents('php://input');
-            $data = json_decode($input, true);
-            
-            if (json_last_error() !== JSON_ERROR_NONE) {
-                http_response_code(400);
-                echo json_encode([
-                    'success' => false,
-                    'message' => 'Invalid JSON data'
-                ]);
-                exit;
-            }
-            
-            $result = $projectController->addSubtask($projectId, $data);
-            
-            if ($result['success']) {
-                http_response_code(201);
-            } else {
-                http_response_code(400);
-            }
-            
-            echo json_encode($result);
-            
-        } catch (Exception $e) {
-            http_response_code(500);
-            echo json_encode([
-                'success' => false,
-                'message' => 'Error: ' . $e->getMessage()
-            ]);
-        }
-    } else {
-        http_response_code(405);
-        echo json_encode(['success' => false, 'message' => 'Method not allowed']);
+    $token = $matches[1];
+    $authUser = $authPortalService->getUserFromToken($token);
+    
+    if (!$authUser || !is_int($authUser['user_id'])) {
+        http_response_code(401);
+        echo json_encode(['success' => false, 'message' => 'Invalid or expired token']);
+        exit;
     }
+    
+    // Return user info
+    echo json_encode([
+        'success' => true,
+        'data' => $authUser
+    ]);
 } elseif ($route === 'test-db') {
-    // Simple database test route
+    // Test database connection
     try {
-        $connection = $dbService::getConnection()->getConnection()->getPdo();
-        $stmt = $connection->query('SELECT COUNT(*) as project_count FROM projects');
-        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+        $pdo = $dbConnection->getPdo();
+        $stmt = $pdo->query('SELECT 1');
         
         echo json_encode([
             'success' => true,
-            'message' => 'Database connection working',
-            'project_count' => $result['project_count'],
+            'message' => 'Database connection successful',
             'timestamp' => date('Y-m-d H:i:s')
         ]);
     } catch (Exception $e) {
+        http_response_code(500);
         echo json_encode([
             'success' => false,
-            'message' => 'Database error: ' . $e->getMessage()
+            'message' => 'Database connection failed: ' . $e->getMessage()
         ]);
     }
 } else {
-    echo json_encode(['success' => false, 'message' => 'Route not found']);
+    // Route not found
+    http_response_code(404);
+    echo json_encode([
+        'success' => false,
+        'message' => 'Route not found'
+    ]);
 }
-?>

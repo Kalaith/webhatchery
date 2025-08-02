@@ -154,7 +154,7 @@ class Connection
     private function createPlanetTypesTable(): void
     {
         $sql = "CREATE TABLE IF NOT EXISTS planet_types (
-            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            id INT AUTO_INCREMENT PRIMARY KEY,
             name VARCHAR(255) NOT NULL,
             base_temp DECIMAL(5,2),
             base_atmo DECIMAL(3,2),
@@ -170,7 +170,7 @@ class Connection
     private function createSpeciesTable(): void
     {
         $sql = "CREATE TABLE IF NOT EXISTS species (
-            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            id INT AUTO_INCREMENT PRIMARY KEY,
             name VARCHAR(255) NOT NULL,
             description TEXT,
             temp_min DECIMAL(5,2),

@@ -49,6 +49,51 @@ A PHP backend for the "Is It Done Yet?" recursive project management application
    # Server runs on http://localhost:3001
    ```
 
+## Auth Portal Integration
+
+This backend uses the WebHatchery Auth Portal for centralized authentication.
+
+### Setup
+
+1. **Install JWT dependency** (already included):
+   ```bash
+   composer require firebase/php-jwt
+   ```
+
+2. **Environment Variables** (.env):
+   ```bash
+   AUTH_PORTAL_JWT_SECRET=your_super_secret_jwt_key_change_this_in_production_2024
+   AUTH_PORTAL_BASE_URL=http://127.0.0.1/auth
+   AUTH_PORTAL_API_URL=http://127.0.0.1/auth/api
+   AUTH_PORTAL_REDIRECT_URL=http://127.0.0.1/auth/callback
+   ```
+
+3. **Protected Endpoints**:
+   - `/api/me` - Get current user info (requires JWT token)
+   - All project endpoints can be protected by adding JWT middleware
+
+### JWT Token Format
+
+The Auth Portal provides JWT tokens with this structure:
+```json
+{
+  "sub": 123,                    // user_id (int)
+  "email": "user@example.com",   // string
+  "roles": ["admin"],            // string[]
+  "iat": 1754058063,             // int
+  "exp": 1754144463,             // int
+  "iss": "webhatchery",          // string
+  "aud": "http://127.0.0.1/auth_portal" // string
+}
+```
+
+### Usage
+
+Include the JWT token in the Authorization header:
+```bash
+Authorization: Bearer <jwt_token>
+```
+
 ## Project Structure
 
 ```
@@ -139,3 +184,23 @@ DEBUG=true
 # CORS Configuration
 CORS_ALLOWED_ORIGINS="http://localhost:3000,http://127.0.0.1:3000"
 ```
+
+## Centralized WebHatchery Auth Portal Integration
+
+This backend supports SSO via the WebHatchery Auth Portal. To enable:
+
+1. Add to `.env`:
+   ```
+   AUTH_PORTAL_JWT_SECRET=your_super_secret_jwt_key_change_this_in_production_2024
+   AUTH_PORTAL_BASE_URL=http://127.0.0.1/auth
+   AUTH_PORTAL_API_URL=http://127.0.0.1/auth/api
+   AUTH_PORTAL_REDIRECT_URL=http://127.0.0.1/auth/callback
+   ```
+2. Add `AuthPortalService.php` and `JwtAuthMiddleware.php` (see `src/Services` and `src/Middleware`).
+3. Protect routes with JWT middleware.
+4. On frontend, store JWT in `localStorage` as `token` and send as `Authorization: Bearer <token>`.
+5. Use React `AuthContext` and `ProtectedRoute` for login flow.
+6. On login, redirect to `/auth/login?redirect=<current_url>`.
+7. On logout, clear token and redirect to `/auth/logout`.
+
+See `auth_update.md` for full details and code samples.

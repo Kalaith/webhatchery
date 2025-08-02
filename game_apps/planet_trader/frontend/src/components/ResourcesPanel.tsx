@@ -1,5 +1,6 @@
 import React from 'react';
 import { useGameContext } from '../contexts/GameContext';
+import UserInfo from './UserInfo';
 
 const ResourcesPanel: React.FC = () => {
   const { credits, currentPlanet, showPlanetPurchaseModal } = useGameContext();
@@ -26,6 +27,8 @@ const ResourcesPanel: React.FC = () => {
             🛒 <span className="hidden sm:inline">Buy New Planet</span><span className="sm:hidden">Buy Planet</span>
           </button>
         </div>
+        {/* Show logged-in user info */}
+        <UserInfo />
       </div>
     </header>
   );
