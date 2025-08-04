@@ -3,6 +3,8 @@
 
 param(
     [string]$ProjectFilter = "*",
+    [string]$DeployPath = "",
+    [switch]$Production,
     [switch]$Force,
     [switch]$VerboseOutput,
     [switch]$DryRun,
@@ -20,7 +22,13 @@ param(
 
 # Configuration
 $SOURCE_PATH = "H:\WebHatchery"
-$DEPLOY_PATH = "H:\xampp\htdocs"
+$DEPLOY_PATH = if ($DeployPath) { 
+    $DeployPath 
+} elseif ($Production) { 
+    "F:\WebHatchery" 
+} else { 
+    "H:\xampp\htdocs" 
+}
 $LOG_FILE = "$SOURCE_PATH\build-deploy.log"
 
 # Clear the log file at the start of each run
@@ -142,6 +150,15 @@ function Main {
                 # --- DEPLOY ---
                 if ($buildSuccess) {
                     $deployPath = Join-Path $DEPLOY_PATH $config.deployment.deployAs
+                    
+                    # Clean deploy directory if it exists
+                    if (Test-Path $deployPath) {
+                        if (-not $DryRun) {
+                            Remove-Item -Path $deployPath -Recurse -Force
+                            Write-Log "Cleaned existing deployment directory: $deployPath"
+                        }
+                    }
+                    
                     # Deploy frontend
                     $frontendOutput = $frontend.outputDir
                     $frontendOutputPath = Join-Path $frontendPath $frontendOutput
@@ -153,15 +170,79 @@ function Main {
                     } else {
                         Write-Log "Frontend output path not found: $frontendOutputPath" "WARN"
                     }
-                    # Deploy backend
+                    # Deploy backend as 'api'
                     $deployBackendPath = Join-Path $deployPath "api"
                     if (Test-Path $backendPath) {
                         if (-not $DryRun) {
                             New-Item -ItemType Directory -Path $deployBackendPath -Force | Out-Null
-                            Copy-Item -Path "$backendPath\*" -Destination $deployBackendPath -Recurse -Force
+                            
+                            # Copy backend files excluding all .env files
+                            Get-ChildItem -Path $backendPath -Recurse | ForEach-Object {
+                                $relativePath = $_.FullName.Substring($backendPath.Length + 1)
+                                $destPath = Join-Path $deployBackendPath $relativePath
+                                
+                                # Skip all .env files during copy
+                                if (-not ($_.Name -like ".env*")) {
+                                    if ($_.PSIsContainer) {
+                                        # Create directory
+                                        if (-not (Test-Path $destPath)) {
+                                            New-Item -ItemType Directory -Path $destPath -Force | Out-Null
+                                        }
+                                    } else {
+                                        # Copy file
+                                        $destDir = Split-Path $destPath -Parent
+                                        if (-not (Test-Path $destDir)) {
+                                            New-Item -ItemType Directory -Path $destDir -Force | Out-Null
+                                        }
+                                        Copy-Item -Path $_.FullName -Destination $destPath -Force
+                                    }
+                                }
+                            }
                         }
                     } else {
                         Write-Log "Backend source path not found: $backendPath" "WARN"
+                    }
+                    
+                    # Handle environment files AFTER copying backend files (excluding .env files)
+                    if (Test-Path $deployBackendPath) {
+                        if (-not $DryRun) {
+                            # Remove any .env file that might have been created by build process
+                            $deployEnvFile = Join-Path $deployBackendPath ".env"
+                            if (Test-Path $deployEnvFile) {
+                                Remove-Item $deployEnvFile -Force
+                                Write-Log "Removed existing .env file from deployment"
+                            }
+                            
+                            # Handle environment files
+                            if ($Production) {
+                                $envFile = Join-Path $backendPath ".env.production"
+                                $envType = "production"
+                            } elseif ($DeployPath -and $DeployPath -ne "") {
+                                $envFile = Join-Path $backendPath ".env.production"
+                                $envType = "production"
+                            } else {
+                                # Preview deployment (default to xampp\htdocs)
+                                $envFile = Join-Path $backendPath ".env.preview"
+                                $envType = "preview"
+                            }
+                            
+                            if (Test-Path $envFile) {
+                                Copy-Item -Path $envFile -Destination $deployEnvFile -Force
+                                Write-Log "Copied .env.$envType to .env for $envType deployment"
+                                
+                                # Verify the copy worked
+                                $envContent = Get-Content $deployEnvFile -Raw
+                                if ($envType -eq "preview" -and $envContent -match "APP_ENV=preview") {
+                                    Write-Log "Verified: Preview environment configuration active"
+                                } elseif ($envType -eq "production" -and $envContent -match "APP_ENV=production") {
+                                    Write-Log "Verified: Production environment configuration active"
+                                } else {
+                                    Write-Log "Warning: .env file may not contain expected $envType settings" "WARN"
+                                }
+                            } else {
+                                Write-Log "No .env.$envType file found at: $envFile" "WARN"
+                            }
+                        }
                     }
                 }
             } else {
@@ -210,6 +291,15 @@ function Main {
                 if ($buildSuccess) {
                     $sourcePath = Join-Path $SOURCE_PATH $config.path
                     $deployPath = Join-Path $DEPLOY_PATH $config.deployment.deployAs
+                    
+                    # Clean deploy directory if it exists
+                    if (Test-Path $deployPath) {
+                        if (-not $DryRun) {
+                            Remove-Item -Path $deployPath -Recurse -Force
+                            Write-Log "Cleaned existing deployment directory: $deployPath"
+                        }
+                    }
+                    
                     if ($projectName -eq "rootFiles") {
                         # Only copy files listed in the files array, and exclude as needed
                         $rootFiles = $config.deployment.files
@@ -248,10 +338,74 @@ function Main {
                             if (Test-Path $backendSourcePath) {
                                 if (-not $DryRun) {
                                     New-Item -ItemType Directory -Path $deployBackendPath -Force | Out-Null
-                                    Copy-Item -Path "$backendSourcePath\*" -Destination $deployBackendPath -Recurse -Force
+                                    
+                                    # Copy backend files excluding all .env files
+                                    Get-ChildItem -Path $backendSourcePath -Recurse | ForEach-Object {
+                                        $relativePath = $_.FullName.Substring($backendSourcePath.Length + 1)
+                                        $destPath = Join-Path $deployBackendPath $relativePath
+                                        
+                                        # Skip all .env files during copy
+                                        if (-not ($_.Name -like ".env*")) {
+                                            if ($_.PSIsContainer) {
+                                                # Create directory
+                                                if (-not (Test-Path $destPath)) {
+                                                    New-Item -ItemType Directory -Path $destPath -Force | Out-Null
+                                                }
+                                            } else {
+                                                # Copy file
+                                                $destDir = Split-Path $destPath -Parent
+                                                if (-not (Test-Path $destDir)) {
+                                                    New-Item -ItemType Directory -Path $destDir -Force | Out-Null
+                                                }
+                                                Copy-Item -Path $_.FullName -Destination $destPath -Force
+                                            }
+                                        }
+                                    }
                                 }
                             } else {
                                 Write-Log "Backend source path not found: $backendSourcePath" "WARN"
+                            }
+                            
+                            # Handle environment files AFTER copying backend files (excluding .env files)
+                            if (Test-Path $deployBackendPath) {
+                                if (-not $DryRun) {
+                                    # Remove any .env file that might have been created by build process
+                                    $deployEnvFile = Join-Path $deployBackendPath ".env"
+                                    if (Test-Path $deployEnvFile) {
+                                        Remove-Item $deployEnvFile -Force
+                                        Write-Log "Removed existing .env file from deployment"
+                                    }
+                                    
+                                    # Handle environment files
+                                    if ($Production) {
+                                        $envFile = Join-Path $backendSourcePath ".env.production"
+                                        $envType = "production"
+                                    } elseif ($DeployPath -and $DeployPath -ne "") {
+                                        $envFile = Join-Path $backendSourcePath ".env.production"
+                                        $envType = "production"
+                                    } else {
+                                        # Preview deployment (default to xampp\htdocs)
+                                        $envFile = Join-Path $backendSourcePath ".env.preview"
+                                        $envType = "preview"
+                                    }
+                                    
+                                    if (Test-Path $envFile) {
+                                        Copy-Item -Path $envFile -Destination $deployEnvFile -Force
+                                        Write-Log "Copied .env.$envType to .env for $envType deployment"
+                                        
+                                        # Verify the copy worked
+                                        $envContent = Get-Content $deployEnvFile -Raw
+                                        if ($envType -eq "preview" -and $envContent -match "APP_ENV=preview") {
+                                            Write-Log "Verified: Preview environment configuration active"
+                                        } elseif ($envType -eq "production" -and $envContent -match "APP_ENV=production") {
+                                            Write-Log "Verified: Production environment configuration active"
+                                        } else {
+                                            Write-Log "Warning: .env file may not contain expected $envType settings" "WARN"
+                                        }
+                                    } else {
+                                        Write-Log "No .env.$envType file found at: $envFile" "WARN"
+                                    }
+                                }
                             }
                         }
                     }

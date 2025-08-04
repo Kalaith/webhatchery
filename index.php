@@ -75,6 +75,7 @@ function getGitHubLink($project) {
       <h2>Quick Access</h2>
       <div class="links">
         <?php foreach ($data['groups'] as $groupId => $group): ?>
+          <?php if (empty($group['hidden'])): ?>
           <div class="link-group">
             <h3><?php echo htmlspecialchars($group['name']); ?></h3>
             <div class="link-items">
@@ -86,12 +87,14 @@ function getGitHubLink($project) {
               <?php endforeach; ?>
             </div>
           </div>
+          <?php endif; ?>
         <?php endforeach; ?>
       </div>
     </nav>
       <main class="project-showcase">
       <h2>Project Portfolio</h2>
       <?php foreach ($data['groups'] as $groupId => $group): ?>
+        <?php if (empty($group['hidden'])): ?>
         <section class="group" id="<?php echo htmlspecialchars($groupId); ?>">
           <h3><?php echo htmlspecialchars($group['name']); ?></h3>
           <div class="project-grid">
@@ -140,6 +143,7 @@ function getGitHubLink($project) {
             <?php endforeach; ?>
           </div>
         </section>
+        <?php endif; ?>
       <?php endforeach; ?>
     </main>
       <footer class="site-footer">

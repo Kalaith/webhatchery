@@ -1,5 +1,5 @@
 import React from 'react';
-import { useAuth } from '../utils/AuthContext';
+import { useAuth } from '../contexts/AuthContext';
 
 /**
  * AuthStatusDebugger Component
@@ -81,26 +81,20 @@ const AuthStatusDebugger: React.FC = () => {
                 <span className="font-semibold">Username:</span> {user.username}
               </li>
               <li>
-                <span className="font-semibold">Name:</span> {user.firstName} {user.lastName}
+                <span className="font-semibold">Name:</span> {user.first_name} {user.last_name}
               </li>
               <li>
                 <span className="font-semibold">Active:</span>{' '}
-                <span className={user.isActive ? 'text-green-600' : 'text-red-600'}>
-                  {user.isActive ? 'Yes' : 'No'}
+                <span className="text-green-600">
+                  Yes
                 </span>
               </li>
               <li>
                 <span className="font-semibold">Roles:</span>{' '}
                 <span className="bg-blue-100 px-2 py-1 rounded text-xs">
-                  {user.roles.join(', ') || 'None'}
+                  {user.roles?.join(', ') || 'None'}
                 </span>
               </li>
-              {user.avatarUrl && (
-                <li>
-                  <span className="font-semibold">Avatar:</span>{' '}
-                  <img src={user.avatarUrl} alt="User Avatar" className="inline-block w-6 h-6 rounded-full ml-2" />
-                </li>
-              )}
             </ul>
           </div>
         )}

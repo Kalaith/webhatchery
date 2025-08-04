@@ -329,7 +329,7 @@ CREATE TABLE user_roles (
 ### Frontend Testing
 ```bash
 cd apps/auth/frontend
-npm test             # Run Jest tests
+npm test             # Run Vitest tests
 ```
 
 ### Backend Testing

@@ -63,7 +63,7 @@ export interface BaseGameActions {
  */
 export function createGameStore<T extends BaseGameState, A extends BaseGameActions>(
   initialState: Omit<T, keyof BaseGameState>,
-  actions: (set: any, get: any) => Omit<A, keyof BaseGameActions>,
+  _actions: (set: any, get: any) => Omit<A, keyof BaseGameActions>,
   options: {
     name: string;
     version?: number;

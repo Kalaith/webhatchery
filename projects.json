@@ -226,18 +226,22 @@
           "description": "Comprehensive name generation tool with multiple algorithms for creating people, place, event, and title names using Markov chains, phonetic patterns, and cultural linguistics.",
           "deployment": {
             "type": "FullStack",
-            "outputDir": "dist",
             "deployAs": "name_generator",
-            "requiresBuild": true,
-            "buildCommand": "npm run build -- --base=./",
-            "packageManager": "npm"
-          },
-          "backend": {
-            "type": "PHP",
-            "path": "apps/name_generator/backend/",
-            "requiresBuild": false,
-            "databaseInit": false,
-            "envFile": ".env"
+            "frontend": {
+              "type": "React",
+              "path": "apps/name_generator/frontend/",
+              "outputDir": "dist",
+              "requiresBuild": true,
+              "buildCommand": "npm run build -- --base=./",
+              "packageManager": "npm"
+            },
+            "backend": {
+              "type": "PHP",
+              "path": "apps/name_generator/backend/",
+              "requiresBuild": false,
+              "databaseInit": false,
+              "envFile": ".env"
+            }
           }
         },
         {
@@ -274,6 +278,34 @@
             "type": "React",
             "outputDir": "dist",
             "deployAs": "campaign_chronicle",
+            "requiresBuild": true,
+            "buildCommand": "npm run build -- --base=./",
+            "packageManager": "npm"
+          }
+        },
+        {
+          "title": "Quest Generator",
+          "path": "apps/quest_generator/",
+          "description": "Fantasy quest generator with comprehensive adventure creation tools for RPG campaigns, featuring multiple quest types and customizable difficulty levels.",
+          "deployment": {
+            "type": "Static",
+            "deployAs": "quest_generator",
+            "files": [
+              "index.html",
+              "app.js",
+              "style.css",
+              "quest_generator_reference.json"
+            ]
+          }
+        },
+        {
+          "title": "WH Tracker",
+          "path": "apps/wh_tracker/frontend/",
+          "description": "WebHatchery project tracking and monitoring application with real-time status updates and analytics dashboard.",
+          "deployment": {
+            "type": "React",
+            "outputDir": "dist",
+            "deployAs": "wh_tracker",
             "requiresBuild": true,
             "buildCommand": "npm run build -- --base=./",
             "packageManager": "npm"
@@ -438,6 +470,7 @@
             "deployAs": "mytherra",
             "frontend": {
               "type": "React",
+              "path": "game_apps/mytherra/frontend/",
               "outputDir": "dist",
               "requiresBuild": true,
               "buildCommand": "npm run build -- --base=./",
@@ -462,6 +495,7 @@
             "deployAs": "tb_realms",
             "frontend": {
               "type": "React",
+              "path": "game_apps/tb_realms/frontend/",
               "outputDir": "dist",
               "requiresBuild": true,
               "buildCommand": "npm run build -- --base=./",
@@ -478,16 +512,44 @@
           }
         },
         {
-          "title": "Stock Management",
-          "path": "game_apps/stock_management/frontend/",
-          "description": "Resource and inventory management simulation game with market dynamics and trading mechanics.",
+          "title": "Blacksmith Forge",
+          "path": "game_apps/blacksmith_forge/frontend/",
+          "description": "Fantasy blacksmithing simulation game with crafting mechanics, resource management, and equipment creation systems.",
           "deployment": {
             "type": "React",
             "outputDir": "dist",
-            "deployAs": "stock_management",
+            "deployAs": "blacksmith_forge",
             "requiresBuild": true,
             "buildCommand": "npm run build -- --base=./",
             "packageManager": "npm"
+          }
+        },
+        {
+          "title": "Dungeon Master",
+          "path": "game_apps/dungeon_master/frontend/",
+          "description": "Reverse RPG experience where players take on the role of a dungeon master, managing monsters, traps, and defending against adventuring parties.",
+          "deployment": {
+            "type": "React",
+            "outputDir": "dist",
+            "deployAs": "dungeon_master",
+            "requiresBuild": true,
+            "buildCommand": "npm run build -- --base=./",
+            "packageManager": "npm"
+          }
+        },
+        {
+          "title": "Robot Battler",
+          "path": "game_apps/robot_battler/",
+          "description": "Turn-based robot combat game featuring customizable mechs, strategic battles, and progression systems.",
+          "deployment": {
+            "type": "Static",
+            "deployAs": "robot_battler",
+            "files": [
+              "index.html",
+              "app.js",
+              "style.css",
+              "robot_battler.html"
+            ]
           }
         }
       ]
@@ -505,6 +567,7 @@
             "deployAs": "ses",
             "frontend": {
               "type": "React",
+              "path": "web/ses/frontend/",
               "outputDir": "dist",
               "requiresBuild": true,
               "buildCommand": "npm run build -- --base=./",
